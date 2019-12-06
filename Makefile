@@ -1,13 +1,13 @@
 # TO BE COMPLETED
-CFLAGS = -Wall -g -ggdb 
+CFLAGS = -Wall -g -ggdb -I
 
 
 main: main.o 
 	gcc main.o -o main
 
 
-main.o: main.c
-	gcc $(CFLAGS) -c main.c -o main.o
+main.o: ./include/main.h src/main.c
+	gcc $(CFLAGS) ./include/ -c src/main.c -o main.o
 
 
 clean:
