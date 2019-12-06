@@ -12,4 +12,5 @@ typedef struct nova_file nova_file;
 struct nova_file
 {
 	file_line* lines;
+	int linesCount;
 };

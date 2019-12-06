@@ -1,17 +1,8 @@
-
 void main()
 {
     Entier maVariable = 2;
     write(a);
     test();
-
     // maVariable = 7
-
     int[] tab = Nova.CreateArray(5,255);
-}
-
-
-void test()
-{
-    Nova.SetVar("maVariable",7);
 }

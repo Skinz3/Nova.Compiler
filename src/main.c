@@ -1,52 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <../include/main.h>
+#include <../src/parser.c>
 
-const int MAX_LINES_IN_FILE = 500;
 
-nova_file openFile(char* filename) 
+nova_file openFile(char * filename) 
 {
-    nova_file nova_file;
+  FILE * fp;
+  char * line = NULL;
+  size_t len = 0;
 
-    file_line * lines = malloc(sizeof(file_line) * MAX_LINES_IN_FILE);
-    
-    FILE * fp;
-    char * line = NULL;
-    size_t len = 0;
-    int read;
+  fp = fopen(filename, "r");
 
-    fp = fopen(filename, "r");
+  if (fp == NULL)
+    exit(EXIT_FAILURE);
 
-    if (fp == NULL)
-        exit(EXIT_FAILURE);
-
-    int i = 0;
-    while ((read = getline(&line, &len, fp)) != -1) 
+  int lines = 0;
+  while (!feof(fp)) 
+  {
+    char ch = fgetc(fp);
+    if (ch == '\n') 
     {
-        lines[i].value = line;
-        lines[i].size = read;
-        i++;
+      lines++;
     }
+  }
+  nova_file nova_file;
 
-    fclose(fp);
+  nova_file.lines = malloc(sizeof(file_line) * lines);
 
-    nova_file.lines = lines;
+  printf("Lines:%i\n", lines);
 
-    return nova_file;
+  int lineSize;
+  int i = 0;
+  while ((lineSize = getline( & line, & len, fp)) != -1) 
+  {
+    nova_file.lines[i].value = malloc(sizeof(char) * lineSize);
+    strcpy(nova_file.lines[i].value, line);
+    nova_file.lines[i].size = lineSize;
+    i++;
+  }
+
+  fclose(fp);
+
+  return nova_file;
 }
 
-int main(int argc, char **argv)
+int main(int argc, char ** argv) 
 {
-    char* fileName = "script.nv"; // argv[1];
-
-    nova_file file = openFile(fileName);
-    char * line =  file.lines[3].value;
-
-    printf("line: %s\n",line);
-  
-   
-    return 0;
+  char * fileName = "script.nv"; // argv[1];
+  nova_file file = openFile(fileName);
+  parseFile(file);
+  return 0;
 }
-
- 
-
