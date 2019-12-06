@@ -11,6 +11,7 @@ struct file_line
 typedef struct nova_file nova_file;
 struct nova_file
 {
+	char* fileName;
 	file_line* lines;
 	int linesCount;
 };
