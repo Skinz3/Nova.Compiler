@@ -6,8 +6,8 @@ compiler: compiler.o
 	gcc compiler.o -o compiler
 
 
-compiler.o: ./include/main.h src/parser.c  src/main.c
-	gcc $(CFLAGS) ./include/ -c src/main.c -o compiler.o
+compiler.o: ./include/main.h ./include/expressions.h src/output.cpp src/parser.cpp  src/main.cpp
+	gcc $(CFLAGS) ./include/  -c src/main.cpp -o compiler.o
 
 
 clean:

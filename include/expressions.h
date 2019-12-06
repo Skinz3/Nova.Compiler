@@ -1,9 +1,8 @@
 
-
-
-typedef struct conditional_expression 
+typedef struct assignation_expr 
 {
-	int value;
-	struct s_list* next;
-} list_elem_t;
+	assignation_expr* right;
+	assignation_expr* left;
+	
+} assignation_expr;
 

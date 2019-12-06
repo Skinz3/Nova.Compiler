@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <../include/main.h>
-#include <../src/parser.c>
+#include <../src/parser.cpp>
+#include <../src/output.cpp>
 
 int countLines(FILE* fp) 
 {
@@ -35,18 +36,21 @@ nova_file openFile(char * filename)
   fp = fopen(filename, "r");
 
   if (fp == NULL)
-    exit(EXIT_FAILURE); // Unable to read file.
+  {
+      file_open_err(filename);
+      exit(EXIT_FAILURE); // Unable to read file.
+  } 
 
  
   nova_file nova_file;
   nova_file.fileName = filename;
   nova_file.linesCount = countLines(fp);
  
-  nova_file.lines = malloc(sizeof(file_line) * nova_file.linesCount);
+  nova_file.lines = (file_line*)malloc(sizeof(file_line) * nova_file.linesCount);
 
   while ((lineSize = getline( & line, & len, fp)) != -1) 
   {
-    nova_file.lines[i].value = malloc(sizeof(char) * lineSize);
+    nova_file.lines[i].value = (char*)malloc(sizeof(char) * lineSize);
     strcpy(nova_file.lines[i].value, line);
   
     nova_file.lines[i].size = lineSize;
@@ -61,7 +65,7 @@ nova_file openFile(char * filename)
 
 int main(int argc, char ** argv) 
 {
-  char * fileName = "script.nv"; // argv[1];
+  char fileName[]  = "script.nv"; // argv[1];
   nova_file file = openFile(fileName);
   parseFile(file);
   return 0;
