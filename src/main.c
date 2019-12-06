@@ -17,7 +17,7 @@ int countLines(FILE* fp)
   }
   fseek(fp, 0, SEEK_SET); // we put reader position to 0 to read file lines.
   
-  return lines;
+  return lines+1;
 }
 
 /*
@@ -44,12 +44,10 @@ nova_file openFile(char * filename)
  
   nova_file.lines = malloc(sizeof(file_line) * nova_file.linesCount);
 
-  
-  
   while ((lineSize = getline( & line, & len, fp)) != -1) 
   {
-     nova_file.lines[i].value = malloc(sizeof(char) * lineSize);
-     strcpy(nova_file.lines[i].value, line);
+    nova_file.lines[i].value = malloc(sizeof(char) * lineSize);
+    strcpy(nova_file.lines[i].value, line);
   
     nova_file.lines[i].size = lineSize;
     i++;

@@ -1,8 +1,7 @@
+// This is a example script of NoVa language.
 void main()
 {
-    Entier maVariable = 2;
-    write(a);
-    test();
-    // maVariable = 7
-    int[] tab = Nova.CreateArray(5,255);
+    int exampleVariable = 2;
+    Nova.print("hello world");
+    Nova.print(exampleVariable);
 }

@@ -2,12 +2,12 @@
 CFLAGS = -Wall -g -ggdb -I
 
 
-main: main.o 
-	gcc main.o -o main
+compiler: compiler.o 
+	gcc compiler.o -o compiler
 
 
-main.o: ./include/main.h src/parser.c  src/main.c
-	gcc $(CFLAGS) ./include/ -c src/main.c -o main.o
+compiler.o: ./include/main.h src/parser.c  src/main.c
+	gcc $(CFLAGS) ./include/ -c src/main.c -o compiler.o
 
 
 clean:
