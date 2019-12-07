@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -7,7 +8,8 @@ class NovaFile
 public:
     NovaFile(string fileName);
     string fileName;
+    
 private:
-    string lines;
+    vector<string>* lines;
 
 };
