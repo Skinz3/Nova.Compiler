@@ -14,7 +14,8 @@ int main(int argc, char *argv[])
     cout << "Compiling " << fileName << "..." <<  endl;
 
     NovaFile *file = new NovaFile(fileName);
-
+    
     system("pause");
+
     return EXIT_SUCCESS;
 }

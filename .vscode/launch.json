@@ -8,7 +8,7 @@
             "name": "g++.exe build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\main.exe",
             "args": ["script.nv"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -23,6 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
+          
             "preLaunchTask": "g++.exe build active file"
         }
     ]

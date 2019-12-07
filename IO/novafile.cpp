@@ -1,12 +1,20 @@
 #include <string>
 #include "novafile.h"
+#include "regex_constants.cpp"
+#include <regex>
+#include <string>
 
 using namespace std;
 
 NovaFile::NovaFile(string fileName)
 {
     this->fileName = fileName;
-    this->ReadLines();
+    this->Read();
+}
+void NovaFile::Read()
+{
+    ReadLines();
+    ReadDefinition();
 }
 void NovaFile::ReadLines()
 {
@@ -26,4 +34,20 @@ void NovaFile::ReadLines()
     }
 
     fstream.close();
+}
+void NovaFile::ReadDefinition()
+{
+     for (int i = 0;i < this->lines->size();i++)
+    {
+        string line = this->lines->at(i);
+
+       // regex pattern = regex("(?<=\\bclass\\s)(\\w+)");
+       // smatch match; 
+        //regex_search(line,match,pattern);
+
+        
+    } 
+  
+
+   
 }

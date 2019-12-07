@@ -6,12 +6,16 @@
             "command": "C:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-g",
-                "${file}",
+                "${workspaceFolder}\\main.cpp",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}\\main.exe",
             ],
             "options": {
                 "cwd": "C:\\MinGW\\bin"
+            },
+            "presentation": 
+            {
+                "clear": true                      
             }
         }
     ],

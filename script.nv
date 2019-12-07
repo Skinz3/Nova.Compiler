@@ -1,7 +1,13 @@
-// This is a example script of NoVa language.
-void main()
+using trigonomery.nv
+using geomtry.nv
+
+class ExampleClass
 {
-    int exampleVariable = 2;
-    Nova.print("hello world");
-    Nova.print(exampleVariable);
+    // This is a example script of Nova language.
+    void main()
+    {
+       int exempleVariable = 2;
+       Nova.print("hello world");
+       Nova.print(exempleVariable);
+    }
 }
