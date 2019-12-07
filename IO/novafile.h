@@ -11,5 +11,5 @@ public:
     
 private:
     vector<string>* lines;
-
+    void ReadLines();
 };
