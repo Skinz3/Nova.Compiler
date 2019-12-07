@@ -15,18 +15,19 @@ int main(int argc, char *argv[])
     ifstream inFile(fileName);
 
     
-
+  
     int lineCount = count(std::istreambuf_iterator<char>(inFile), std::istreambuf_iterator<char>(), '\n');
 
     int* a = NULL;
-    a = new int[lineCount];
-    vector<string> vector;
+    a = new int[3];
+    
+
 
     std::string line;
     while (getline(inFile, line))
     {
         cout << line << endl;
-        vector
+        
     }
     system("pause");
 
