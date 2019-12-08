@@ -20,7 +20,7 @@ namespace MyProgram
 
 class MyClass
 {
-    // This is a example script of Nova language.
+    // This code is written in Nova!
     int main()
     {
        Nova.print("hello world");
