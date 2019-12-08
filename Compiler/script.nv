@@ -1,0 +1,14 @@
+using trigonomery.nv
+using geometry.nv
+
+class MyClass
+{
+    // This is a example script of Nova language.
+    void main()
+    {
+       boolean result = ((exp1 && exp2) && exp3 || (exp4 && exp5 || (exp4)))
+       int exempleVariable = 2;
+       Nova.print("hello world");
+       Nova.print(exempleVariable);
+    }
+}

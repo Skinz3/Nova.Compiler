@@ -1,0 +1,23 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "g++.exe build active file",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${workspaceFolder}\\main.cpp",
+                "-o",
+                "${workspaceFolder}\\main.exe",
+            ],
+            "options": {
+                "cwd": "C:\\MinGW\\bin"
+            },
+            "presentation": 
+            {
+                "clear": true                      
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
