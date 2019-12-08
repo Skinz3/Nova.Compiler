@@ -2,7 +2,8 @@
 # What is Nova
 
   Nova is a cross plateform language written in C++ using gcc 6.3
-  Language specificity (goals) : interpreted (for now), structured, imperative, object-oriented, functional.
+  ###### Language (goals) :
+  interpreted (for now), structured, imperative, object-oriented, functional.
 
   Example:
 
