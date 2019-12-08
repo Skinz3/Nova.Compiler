@@ -1,3 +1,5 @@
 language: c++
 rvm:
  - gcc
+
+ script: make
