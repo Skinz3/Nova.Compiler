@@ -1,14 +1,17 @@
-using trigonomery.nv
-using geometry.nv
+using nova
+
+namespace MyProgram
 
 class MyClass
 {
     // This is a example script of Nova language.
-    void main()
+    int main()
     {
-       boolean result = ((exp1 && exp2) && exp3 || (exp4 && exp5 || (exp4)))
-       int exempleVariable = 2;
        Nova.print("hello world");
-       Nova.print(exempleVariable);
+
+       int var1 = 2;
+       int var2 = 7;
+       
+       Nova.print(var1 * Nova.Math.);
     }
 }
