@@ -24,5 +24,5 @@ class NovaFile
     map<int, int> brackets;
     void Read();
     void ReadLines();
-    void ReadDefinition();
+    string Search(string pattern,int index);
 };

@@ -14,7 +14,13 @@ NovaFile::NovaFile(string fileName)
 void NovaFile::Read()
 {
     ReadLines();
-    ReadDefinition();
+    this->definition.className = Search(CLASS_PATTERN,1);
+
+    if (this->definition.className == string())
+    {
+        cout << "Invalid file no class name." << endl;
+    }
+    
 }
 void NovaFile::ReadLines()
 {
@@ -35,19 +41,21 @@ void NovaFile::ReadLines()
 
     fstream.close();
 }
-void NovaFile::ReadDefinition()
+string NovaFile::Search(string pattern, int index)
 {
-     for (int i = 0;i < this->lines->size();i++)
+    for (int i = 0; i < this->lines->size(); i++)
     {
         string line = this->lines->at(i);
 
-       // regex pattern = regex("(?<=\\bclass\\s)(\\w+)");
-       // smatch match; 
-        //regex_search(line,match,pattern);
+        regex r{pattern, regex_constants::ECMAScript};
+        smatch match;
 
-        
-    } 
-  
+        regex_search(line, match, r);
 
-   
+        if (match.size() > 0)
+        {
+            return match[index];
+        }
+    }
+    return string();
 }

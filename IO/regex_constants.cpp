@@ -1,2 +1,2 @@
 
-#define CLASS_PATTERN "class"
+#define CLASS_PATTERN "class (\\w+)"
