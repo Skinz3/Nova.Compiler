@@ -15,8 +15,9 @@
 
   ```
 using nova
+using nova.math
 
-namespace MyProgram
+namespace myProgram
 
 class MyClass
 {
@@ -26,9 +27,9 @@ class MyClass
        Nova.print("hello world");
 
        int var1 = 2;
-       int var2 = 7;
+       int var2 = -7;
        
-       Nova.print(var1 * Nova.Math.);
+       Nova.print(var1 * Math.Abs(var2));
     }
 }
  ```
