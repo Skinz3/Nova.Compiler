@@ -7,23 +7,22 @@ using namespace std;
 struct FileDefinition
 {
     string className;
-    vector<string> *imports;
+    string classNamespace;
+    vector<string> classImports;
 };
 
 class NovaFile
 {
-    public:
 
+public:
     NovaFile(string fileName);
     string fileName;
     void Print();
+    bool Read();
 
-    private:
-    
+private:
     FileDefinition definition;
     vector<string> *lines;
-    map<int, int> brackets;
-    void Read();
     void ReadLines();
-    string Search(string pattern,int index);
+    string Search(string pattern, int index);
 };

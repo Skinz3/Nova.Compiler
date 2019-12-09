@@ -1,34 +1,44 @@
 #include <string>
 #include "novafile.h"
-#include "regex_constants.cpp"
 #include <regex>
 #include <string>
 
 using namespace std;
 
+#define CLASS_PATTERN "class (\\w+)"
+#define NAMESPACE_PATTERN "namespace (\\w+)"
+
 NovaFile::NovaFile(string fileName)
 {
     this->fileName = fileName;
-    this->Read();
 }
-void NovaFile::Read()
+bool NovaFile::Read()
 {
     ReadLines();
+
     this->definition.className = Search(CLASS_PATTERN,1);
+    this->definition.classNamespace = Search(NAMESPACE_PATTERN,1);
 
     if (this->definition.className == string())
     {
         cout << "Invalid file no class name." << endl;
+        return false;
     }
 
-    string line = this->lines->at(8);
+    if (this->definition.classNamespace == string())
+    {
+        cout << "Invalid file no namespace." << endl;
+        return false;
+
+    }
 
     Print();
 
 }
 void NovaFile::Print()
 {
-     cout << "class name :" << this->definition.className << endl;
+     cout << "Class name: " << this->definition.className << endl;
+     cout << "Namespace: " << this->definition.classNamespace << endl;
 }
 void NovaFile::ReadLines()
 {
