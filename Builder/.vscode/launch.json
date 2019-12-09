@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\main.exe",
-            "args": ["script.nv","script1.nv","script2.nv","novaAssembly.nov"],
+            "args": ["script.nv","novaAssembly.nov"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
