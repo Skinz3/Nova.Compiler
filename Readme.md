@@ -1,8 +1,7 @@
 
 # What is Nova
 
-> Nova is a cross plateform language
-> written in C++
+> Nova is an high level abstraction interpreted language written in C++.
   
   ###### Paradigms:
   + Interpreted (for now)
