@@ -2,7 +2,7 @@
 # What is Nova
 
 > Nova is a cross plateform language
-> written in C++.
+> written in C++
   
   ###### Paradigms:
   + Interpreted (for now)
