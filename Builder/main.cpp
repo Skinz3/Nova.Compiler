@@ -29,7 +29,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-    if (argc == 0)
+    if (argc < 2)
     {
         cout << "You need to specify at least one nova file (.nv)." << endl;
         return EXIT_SUCCESS;
