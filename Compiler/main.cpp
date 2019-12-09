@@ -59,23 +59,25 @@ int main(int argc, char *argv[])
        assemblyName = DEFAULT_OUPUT_FILE;
     }
     
-    vector<NovaFile*> files = *new vector<NovaFile*>();
+    vector<NovaFile> files = *new vector<NovaFile>();
 
     for (int i = 1;i < argc - (assemblyNameSpecified ? 1 : 0);i++)
     {
         string arg = argv[i];
-        cout << "File: " << arg << endl;
+        
+        NovaFile file(arg); // instead of new NovaFile() for automatic storage duration
 
-        NovaFile *file = new NovaFile(arg);
-
-        if (!file->Read())
+        if (!file.Read())
         {
               system("pause"); // for tests only.
               return EXIT_FAILURE;
         }
+
+        cout << "File: " << arg << endl;
+
         files.push_back(file);
     } 
-  
+
     if (Builder::Build(files,assemblyName))
     {
          system("pause"); // for tests only.

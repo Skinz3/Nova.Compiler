@@ -23,6 +23,6 @@ public:
 private:
     FileDefinition definition;
     vector<string> *lines;
-    void ReadLines();
+    bool ReadLines();
     string Search(string pattern, int index);
 };

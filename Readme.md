@@ -21,7 +21,7 @@ namespace myProgram
 
 class MyClass
 {
-    // This code is written in Nova!
+    // This code is written in Nova !
     int main()
     {
        Nova.print("hello world");

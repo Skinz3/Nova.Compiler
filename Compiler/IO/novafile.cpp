@@ -14,7 +14,11 @@ NovaFile::NovaFile(string fileName)
 }
 bool NovaFile::Read()
 {
-    ReadLines();
+    if (!ReadLines())
+    {
+        cout << "Unable to read file (IO error): " << this->fileName << endl;
+        return false;
+    }
 
     this->definition.className = Search(CLASS_PATTERN,1);
     this->definition.classNamespace = Search(NAMESPACE_PATTERN,1);
@@ -32,7 +36,9 @@ bool NovaFile::Read()
 
     }
 
-    Print();
+   // Print();
+
+    return true;
 
 }
 void NovaFile::Print()
@@ -40,11 +46,14 @@ void NovaFile::Print()
      cout << "Class name: " << this->definition.className << endl;
      cout << "Namespace: " << this->definition.classNamespace << endl;
 }
-void NovaFile::ReadLines()
+bool NovaFile::ReadLines()
 {
     ifstream fstream(fileName);
 
-    fstream.seekg(0, ios::beg); // seek to begining
+    if (!fstream.good())
+    {
+        return false;
+    }
 
     this->lines = new vector<string>();
 
@@ -56,6 +65,7 @@ void NovaFile::ReadLines()
     }
 
     fstream.close();
+    return true;
 }
 string NovaFile::Search(string pattern, int index)
 {
