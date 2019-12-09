@@ -5,11 +5,11 @@
 
 using namespace std;
 
-bool Builder::Build(vector<NovaFile> files,string assemblyName)
+bool Builder::Build(vector<NovaFile*> * files,string assemblyName)
 {
       cout << "Building " << assemblyName  << "..."<<  endl;
 
-      // time to build ?
+      // time to build ?f
       // here foreach files, we build symbols.
       // here we create assembly with nova files.
       // here we are writting assembly to disk.

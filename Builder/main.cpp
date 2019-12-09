@@ -59,13 +59,13 @@ int main(int argc, char *argv[])
        assemblyName = DEFAULT_OUPUT_FILE;
     }
     
-    vector<NovaFile> files = *new vector<NovaFile>();
+    vector<NovaFile*>* files = new vector<NovaFile*>();
 
     for (int i = 1;i < argc - (assemblyNameSpecified ? 1 : 0);i++)
     {
         string arg = argv[i];
         
-        NovaFile file(arg); // instead of new NovaFile() for automatic storage duration
+        NovaFile  file(arg); // instead of new NovaFile() for automatic storage duration
 
         if (!file.Read())
         {
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
         cout << "File: " << arg << endl;
 
-        files.push_back(file);
+        files->push_back(&file);
     } 
 
     if (Builder::Build(files,assemblyName))
