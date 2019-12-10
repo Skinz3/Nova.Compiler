@@ -39,14 +39,7 @@ bool NovaFile::Read()
         return false;
     }
 
-    std::map<int, int>::iterator it = brackets.begin();
-
-    while(it != brackets.end())
-    {
-        std::cout<<it->first<<" :: "<<it->second<<std::endl;
-        it++;
-    }
-
+   
     return true;
 }
 
@@ -68,7 +61,9 @@ bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing d
 }
 bool NovaFile::ReadBrackets()
 {
-    int currentIdent = 0;
+    this->brackets;
+
+    int currentIndent = 0;
 
     for (int i = 0; i < this->lines->size(); i++)
     {
@@ -76,18 +71,17 @@ bool NovaFile::ReadBrackets()
 
         if (line.find(BRACKET_START_DELIMITER) != std::string::npos)
         {
-            currentIdent++;
-            this->brackets.insert(make_pair(i,currentIdent));
-          
+            currentIndent++;
+
+            brackets.insert(make_pair(i, currentIndent));
         }
         if (line.find(BRACKET_END_DELIMITER) != std::string::npos)
         {
-            currentIdent--;
-            this->brackets.insert(make_pair(i,currentIdent));
+            currentIndent--;
+            brackets.insert(make_pair(i, currentIndent));
         }
-      
     }
-
+    
     return true;
 }
 bool NovaFile::ReadLines()
@@ -110,6 +104,38 @@ bool NovaFile::ReadLines()
 
     fstream.close();
     return true;
+}
+vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int minIndent)
+{
+    for (int i = startLineIndex; i < this->lines->size(); i++)
+    {
+        string line = this->lines->at(i);
+    }
+}
+int NovaFile::GetIndentLevel(int lineIndex)
+{
+    if (lineIndex > (lines->size()-1))
+    {
+        return -1;
+    }
+
+    map<int, int>::iterator current = brackets.begin();
+
+    while (current != brackets.end())
+    {
+        int index1 = current->first;
+
+        current++;
+
+        int index2 = current->first;
+
+        if (lineIndex >= index1 && lineIndex < index2)
+        {
+            current--;
+            return current->second;
+        }
+    }
+    return 0;
 }
 string NovaFile::SearchFirst(string pattern, int index)
 {

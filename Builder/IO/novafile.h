@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 struct FileDefinition
 {
     string _namespace;
@@ -21,15 +22,17 @@ public:
     void Print();
     bool Read();
     bool ReadClasses();
-    
+
 private:
     FileDefinition definition;
     vector<string> *lines;
     bool ReadLines();
     bool ReadBrackets();
+    vector<string> FindLinesUnderIndent(int startLineIndex, int minIndent);
+    int GetIndentLevel(int lineIndex);
     string SearchFirst(string pattern, int index);
-    vector<string> Search(string pattern,int index);
+    vector<string> Search(string pattern, int index);
     map<int,int> brackets;
 
-    vector<Class>* classes;
+    vector<Class> *classes;
 };
