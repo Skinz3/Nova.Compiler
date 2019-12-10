@@ -33,7 +33,9 @@ class MyClass
 }
  ```
  ###### How to run
-
+  + git clone https://github.com/Skinz3/Nova.git
+  + make ./Builder
+  + make ./Interpreter
   + ``` ./builder myScript.nv myAssembly.nov ```  ---> myScript.nv must have a main point entry.
   + ``` ./interpreter myAssembly.nov ```
 
