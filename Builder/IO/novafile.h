@@ -27,20 +27,21 @@ public:
     void Print();
     bool Read();
     bool ReadClasses();
-
+    void Dispose();
+    
 private:
     FileDefinition definition;
     vector<string> *lines;
     bool ReadLines();
     bool ReadBrackets();
-    
-    vector<string> FindLinesUnderIndent(int startLineIndex, int minIndent);
+
+    vector<string> FindLinesUnderIndent(int startLineIndex, int endLineIndex);
     int GetIndentLevel(int lineIndex);
     int GetBracketCloseIndex(int bracketOpenIndex);
 
     SearchResult SearchFirst(string pattern, int index);
     vector<SearchResult> Search(string pattern, int index);
-    map<int,int> brackets;
+    map<int,int>* brackets;
 
     vector<Class> *classes;
 };

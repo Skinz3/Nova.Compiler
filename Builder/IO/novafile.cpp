@@ -42,7 +42,7 @@ bool NovaFile::Read()
         return false;
     }
 
-   cout << GetIndentLevel(6) << endl;
+   
 
     return true;
 }
@@ -71,7 +71,7 @@ bool NovaFile::ReadLines()
 }
 bool NovaFile::ReadBrackets()
 {
-    this->brackets;
+    this->brackets = new map<int,int>();
 
     int currentIndent = 0;
 
@@ -83,18 +83,18 @@ bool NovaFile::ReadBrackets()
         {
             currentIndent++;
 
-            brackets.insert(make_pair(i, currentIndent));
+            brackets->insert(make_pair(i, currentIndent));
         }
         if (line.find(BRACKET_END_DELIMITER) != std::string::npos)
         {
             currentIndent--;
-            brackets.insert(make_pair(i, currentIndent));
+            brackets->insert(make_pair(i, currentIndent));
         }
     }
 
-    if (!brackets.empty())
+    if (!brackets->empty())
     {
-        int lastIndentLevel = (--brackets.end())->second;
+        int lastIndentLevel = (--brackets->end())->second;
         if (lastIndentLevel != 0)
         {
 
@@ -106,11 +106,7 @@ bool NovaFile::ReadBrackets()
 }
 bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
 {   
-   for (int i = 0;i < brackets.size();i++)
-   {
-       cout << "bracket:" << i  << endl;
-   }
-    /*this->classes = new vector<Class>();
+    this->classes = new vector<Class>();
 
     vector<SearchResult> results = Search(CLASS_PATTERN, 1);
 
@@ -123,32 +119,36 @@ bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing d
     for (SearchResult result : results)
     {
         string className  = result.value;
-        int classStartLine = result.index + 1; // just behind declaration
+        int classStartLine = result.index; 
         int classEndLine = GetBracketCloseIndex(classStartLine);
-        cout << "class " << className << "(" << classStartLine<< ":" << classEndLine <<endl;
+        cout << "class " << className << "(" << classStartLine<< ":" << classEndLine <<")"<<endl;
+
+        vector<string> classLines = FindLinesUnderIndent(classStartLine,classEndLine);
+
+        
     }
 
-    // ici on créer les classes. On parse tout les statements
-*/
+  
+
     return true;
 }
-vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int minIndent)
+vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int endLineIndex)
 {
+    vector<string> result;
+
     for (int i = startLineIndex; i < this->lines->size(); i++)
     {
-        string line = this->lines->at(i);
+        result.push_back(this->lines->at(i));
     }
+    return result;
 }
 int NovaFile::GetBracketCloseIndex(int bracketOpenIndex)
 {
-  
     int openIndent = GetIndentLevel(bracketOpenIndex);
 
-    return openIndent;
+    map<int, int>::iterator current = brackets->begin();
 
-    map<int, int>::iterator current = brackets.begin();
-
-    while (current != brackets.end())
+    while (current != brackets->end())
     {
         if (current->first <= bracketOpenIndex)
         {
@@ -174,9 +174,9 @@ int NovaFile::GetIndentLevel(int lineIndex)
         return -1;
     }
 
-    map<int, int>::iterator current = brackets.begin();
+    map<int, int>::iterator current = brackets->begin();
 
-    while (current != brackets.end())
+    while (current != brackets->end())
     {
         int index1 = current->first;
 
@@ -236,4 +236,9 @@ vector<SearchResult> NovaFile::Search(string pattern, int index)
         }
     }
     return results;
+}
+void NovaFile::Dispose()
+{
+    delete brackets;
+    delete lines;
 }
