@@ -24,7 +24,7 @@ bool NovaFile::Read()
         return false;
     }
 
-    this->definition._namespace = SearchFirst(NAMESPACE_PATTERN, 1);
+    this->definition._namespace = SearchFirst(NAMESPACE_PATTERN, 1).value;
 
     if (this->definition._namespace == string())
     {
@@ -32,16 +32,43 @@ bool NovaFile::Read()
         return false;
     }
 
-    this->definition.usings = Search(USING_PATTERN, 1);
+    for (SearchResult result : Search(USING_PATTERN,1))
+    {
+        this->definition.usings.push_back(result.value);
+    }
 
     if (!ReadBrackets())
     {
         return false;
     }
 
+   cout << GetIndentLevel(6) << endl;
+
     return true;
 }
 
+
+bool NovaFile::ReadLines()
+{
+    ifstream fstream(fileName);
+
+    if (!fstream.good())
+    {
+        return false;
+    }
+
+    this->lines = new vector<string>();
+
+    string line;
+
+    while (getline(fstream, line))
+    {
+        lines->push_back(line);
+    }
+
+    fstream.close();
+    return true;
+}
 bool NovaFile::ReadBrackets()
 {
     this->brackets;
@@ -67,7 +94,7 @@ bool NovaFile::ReadBrackets()
 
     if (!brackets.empty())
     {
-        int lastIndentLevel= (--brackets.end())->second;
+        int lastIndentLevel = (--brackets.end())->second;
         if (lastIndentLevel != 0)
         {
 
@@ -77,41 +104,32 @@ bool NovaFile::ReadBrackets()
     }
     return true;
 }
-bool NovaFile::ReadLines()
-{
-    ifstream fstream(fileName);
-
-    if (!fstream.good())
-    {
-        return false;
-    }
-
-    this->lines = new vector<string>();
-
-    string line;
-
-    while (getline(fstream, line))
-    {
-        lines->push_back(line);
-    }
-
-    fstream.close();
-    return true;
-}
 bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
-{
-    this->classes = new vector<Class>();
+{   
+   for (int i = 0;i < brackets.size();i++)
+   {
+       cout << "bracket:" << i  << endl;
+   }
+    /*this->classes = new vector<Class>();
 
-    vector<string> matches = Search(CLASS_PATTERN, 1);
+    vector<SearchResult> results = Search(CLASS_PATTERN, 1);
 
-    if (matches.size() == 0)
+    if (results.size() == 0)
     {
         cout << "Invalid file, no classes." << endl;
         return false;
+    } 
+
+    for (SearchResult result : results)
+    {
+        string className  = result.value;
+        int classStartLine = result.index + 1; // just behind declaration
+        int classEndLine = GetBracketCloseIndex(classStartLine);
+        cout << "class " << className << "(" << classStartLine<< ":" << classEndLine <<endl;
     }
 
     // ici on créer les classes. On parse tout les statements
-
+*/
     return true;
 }
 vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int minIndent)
@@ -120,6 +138,34 @@ vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int minIndent)
     {
         string line = this->lines->at(i);
     }
+}
+int NovaFile::GetBracketCloseIndex(int bracketOpenIndex)
+{
+  
+    int openIndent = GetIndentLevel(bracketOpenIndex);
+
+    return openIndent;
+
+    map<int, int>::iterator current = brackets.begin();
+
+    while (current != brackets.end())
+    {
+        if (current->first <= bracketOpenIndex)
+        {
+            current++;
+        }
+        else
+        {
+            if (current->second <= openIndent)
+            {
+                return current->first;
+            }
+            current++;
+        }
+        
+    }
+    return -1;
+
 }
 int NovaFile::GetIndentLevel(int lineIndex)
 {
@@ -146,8 +192,10 @@ int NovaFile::GetIndentLevel(int lineIndex)
     }
     return 0;
 }
-string NovaFile::SearchFirst(string pattern, int index)
+SearchResult NovaFile::SearchFirst(string pattern, int index)
 {
+    SearchResult result;
+
     for (int i = 0; i < this->lines->size(); i++)
     {
         string line = this->lines->at(i);
@@ -159,14 +207,16 @@ string NovaFile::SearchFirst(string pattern, int index)
 
         if (match.size() > 0)
         {
-            return match[index];
+            result.index = i;
+            result.value = match[index];
+            return result;
         }
     }
-    return string();
+    return result;
 }
-vector<string> NovaFile::Search(string pattern, int index)
+vector<SearchResult> NovaFile::Search(string pattern, int index)
 {
-    vector<string> matches;
+    vector<SearchResult> results;
 
     for (int i = 0; i < this->lines->size(); i++)
     {
@@ -179,8 +229,11 @@ vector<string> NovaFile::Search(string pattern, int index)
 
         if (match.size() > 0)
         {
-            matches.push_back(match[index]);
+            SearchResult result;
+            result.index = i;
+            result.value = match[index];
+            results.push_back(result);
         }
     }
-    return matches;
+    return results;
 }

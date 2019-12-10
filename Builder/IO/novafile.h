@@ -6,6 +6,11 @@
 
 using namespace std;
 
+struct SearchResult
+{
+    int index;
+    string value;
+};
 
 struct FileDefinition
 {
@@ -28,10 +33,13 @@ private:
     vector<string> *lines;
     bool ReadLines();
     bool ReadBrackets();
+    
     vector<string> FindLinesUnderIndent(int startLineIndex, int minIndent);
     int GetIndentLevel(int lineIndex);
-    string SearchFirst(string pattern, int index);
-    vector<string> Search(string pattern, int index);
+    int GetBracketCloseIndex(int bracketOpenIndex);
+
+    SearchResult SearchFirst(string pattern, int index);
+    vector<SearchResult> Search(string pattern, int index);
     map<int,int> brackets;
 
     vector<Class> *classes;
