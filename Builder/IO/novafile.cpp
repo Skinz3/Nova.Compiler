@@ -5,8 +5,10 @@
 
 using namespace std;
 
-#define CLASS_PATTERN "class (\\w+)"
+#define USING_PATTERN "using (\\w.+)"
 #define NAMESPACE_PATTERN "namespace (\\w+)"
+#define CLASS_PATTERN "class (\\w+)"
+
 
 NovaFile::NovaFile(string fileName)
 {
@@ -27,6 +29,8 @@ bool NovaFile::Read()
         cout << "Invalid file no namespace." << endl;
         return false;
     }
+
+    this->definition.usings = Search(USING_PATTERN,1);
 
     return true;
 

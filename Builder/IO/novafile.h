@@ -9,7 +9,7 @@ using namespace std;
 struct FileDefinition
 {
     string _namespace;
-    vector<string> classImports;
+    vector<string> usings;
 };
 
 class NovaFile
