@@ -34,8 +34,8 @@ class MyClass
  ```
  ###### How to run
 
- ``` ./builder myScript.nv myAssembly.nov ```  ---> myScript.nv must have a main point entry.
- ``` ./interpreter myAssembly.nov ```
+  + ``` ./builder myScript.nv myAssembly.nov ```  ---> myScript.nv must have a main point entry.
+  + ``` ./interpreter myAssembly.nov ```
 
 ## Contacts
 
