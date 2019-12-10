@@ -32,7 +32,7 @@ bool NovaFile::Read()
 
 }
 
-bool NovaFile::ReadClasses()
+bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
 {
     this->classes = new vector<Class>();
     
@@ -44,10 +44,8 @@ bool NovaFile::ReadClasses()
         return false;
     } 
 
-    
-       
-    delete &matches; // ?
-    
+    // ici on créer les classes. On parse tout les statements
+
     return true;
 }
 
