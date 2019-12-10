@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../Members/class.h"
+#include "../Members/class.cpp"
 #include <regex>
 
 using namespace std;
@@ -41,7 +41,8 @@ private:
 
     SearchResult SearchFirst(string pattern, int index);
     vector<SearchResult> Search(string pattern, int index);
+
     map<int,int>* brackets;
 
-    vector<Class> *classes;
+    vector<Class*>* classes;
 };

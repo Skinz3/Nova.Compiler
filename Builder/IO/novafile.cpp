@@ -3,6 +3,7 @@
 #include <regex>
 #include <string>
 
+
 using namespace std;
 
 const string USING_PATTERN = "using (\\w.+)";
@@ -106,7 +107,7 @@ bool NovaFile::ReadBrackets()
 }
 bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
 {   
-    this->classes = new vector<Class>();
+    this->classes = new vector<Class*>();
 
     vector<SearchResult> results = Search(CLASS_PATTERN, 1);
 
@@ -125,10 +126,14 @@ bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing d
 
         vector<string> classLines = FindLinesUnderIndent(classStartLine,classEndLine);
 
-        
-    }
+        Class* novaClass  = new Class(classLines);
 
-  
+        if (!novaClass->Build())
+        {
+            return false;
+        }
+        this->classes->push_back(novaClass);
+    }
 
     return true;
 }
@@ -241,4 +246,6 @@ void NovaFile::Dispose()
 {
     delete brackets;
     delete lines;
+
+   
 }

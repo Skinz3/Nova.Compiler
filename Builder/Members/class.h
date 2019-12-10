@@ -1,6 +1,4 @@
 #include <vector>
-#include "method.h"
-
 
 using namespace std;
 
@@ -9,7 +7,10 @@ class Class
 
 public:
     Class(vector<string> lines);
+    bool Build();
 
 private:
-    vector<Method>* methods;
+    vector<string> lines;
+    bool BuildMethods();
+    bool BuildFields();
 };
