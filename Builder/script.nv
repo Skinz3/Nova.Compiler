@@ -7,7 +7,7 @@ class ExampleClass
 { 
     // This code is written in Nova !
     int main()
-    {
+    { 
        Nova.print("hello world");
 
        int var1 = 2;
@@ -20,6 +20,7 @@ class ExampleClass2
 {
     void test(int firstArg,int secondArg)
     {
-	Nova.print("this is a test method");
+	    Nova.print("this is a test method");
     }
 }
+

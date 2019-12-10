@@ -9,7 +9,7 @@ const string USING_PATTERN = "using (\\w.+)";
 const string NAMESPACE_PATTERN = "namespace (\\w+)";
 const string CLASS_PATTERN = "class (\\w+)";
 
-const string BRACKET_START_DELIMITER = "{";
+const string BRACKET_START_DELIMITER = "{"; // multiple brackets on line is yet not supported.
 const string BRACKET_END_DELIMITER = "}";
 
 NovaFile::NovaFile(string fileName)
@@ -39,26 +39,9 @@ bool NovaFile::Read()
         return false;
     }
 
-   
     return true;
 }
 
-bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
-{
-    this->classes = new vector<Class>();
-
-    vector<string> matches = Search(CLASS_PATTERN, 1);
-
-    if (matches.size() == 0)
-    {
-        cout << "Invalid file, no classes." << endl;
-        return false;
-    }
-
-    // ici on créer les classes. On parse tout les statements
-
-    return true;
-}
 bool NovaFile::ReadBrackets()
 {
     this->brackets;
@@ -81,7 +64,17 @@ bool NovaFile::ReadBrackets()
             brackets.insert(make_pair(i, currentIndent));
         }
     }
-    
+
+    if (!brackets.empty())
+    {
+        int lastIndentLevel= (--brackets.end())->second;
+        if (lastIndentLevel != 0)
+        {
+
+            cout << "Invalid file brackets. (Last bracket indent level: " << lastIndentLevel << ")" << endl;
+            return false;
+        }
+    }
     return true;
 }
 bool NovaFile::ReadLines()
@@ -105,6 +98,22 @@ bool NovaFile::ReadLines()
     fstream.close();
     return true;
 }
+bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
+{
+    this->classes = new vector<Class>();
+
+    vector<string> matches = Search(CLASS_PATTERN, 1);
+
+    if (matches.size() == 0)
+    {
+        cout << "Invalid file, no classes." << endl;
+        return false;
+    }
+
+    // ici on créer les classes. On parse tout les statements
+
+    return true;
+}
 vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int minIndent)
 {
     for (int i = startLineIndex; i < this->lines->size(); i++)
@@ -114,7 +123,7 @@ vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int minIndent)
 }
 int NovaFile::GetIndentLevel(int lineIndex)
 {
-    if (lineIndex > (lines->size()-1))
+    if (lineIndex > (lines->size() - 1))
     {
         return -1;
     }
