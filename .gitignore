@@ -1,3 +1,2 @@
 *.exe
-/Builder/main.bat
 /Builder/*.bat

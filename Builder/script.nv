@@ -3,7 +3,7 @@ using nova.math
 
 namespace myProgram
 
-class MyClass
+class ExampleClass
 {
     // This code is written in Nova !
     int main()
@@ -14,5 +14,12 @@ class MyClass
        int var2 = -7;
        
        Nova.print(var1 * Math.Abs(var2));
+    }
+}
+class ExampleClass2
+{
+    void test(int firstArg,int secondArg)
+    {
+	Nova.print("this is a test method");
     }
 }

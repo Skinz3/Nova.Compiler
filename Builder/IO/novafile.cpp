@@ -20,32 +20,37 @@ bool NovaFile::Read()
         return false;
     }
 
-    this->definition.className = Search(CLASS_PATTERN,1);
-    this->definition.classNamespace = Search(NAMESPACE_PATTERN,1);
+    this->definition._namespace = SearchFirst(NAMESPACE_PATTERN,1);
 
-    if (this->definition.className == string())
-    {
-        cout << "Invalid file no class name." << endl;
-        return false;
-    }
-
-    if (this->definition.classNamespace == string())
+    if (this->definition._namespace == string())
     {
         cout << "Invalid file no namespace." << endl;
         return false;
-
     }
-
-   // Print();
 
     return true;
 
 }
-void NovaFile::Print()
+
+bool NovaFile::ReadClasses()
 {
-     cout << "Class name: " << this->definition.className << endl;
-     cout << "Namespace: " << this->definition.classNamespace << endl;
+    this->classes = new vector<Class>();
+    
+    vector<string> matches = Search(CLASS_PATTERN,1);
+
+    if (matches.size() == 0)
+    {
+        cout << "Invalid file, no classes." << endl;
+        return false;
+    } 
+
+    
+       
+    delete &matches; // ?
+    
+    return true;
 }
+
 bool NovaFile::ReadLines()
 {
     ifstream fstream(fileName);
@@ -67,7 +72,7 @@ bool NovaFile::ReadLines()
     fstream.close();
     return true;
 }
-string NovaFile::Search(string pattern, int index)
+string NovaFile::SearchFirst(string pattern, int index)
 {
     for (int i = 0; i < this->lines->size(); i++)
     {
@@ -84,4 +89,24 @@ string NovaFile::Search(string pattern, int index)
         }
     }
     return string();
+}
+vector<string> NovaFile::Search(string pattern,int index)
+{
+    vector<string> matches;
+
+    for (int i = 0; i < this->lines->size(); i++)
+    {
+        string line = this->lines->at(i);
+
+        regex r{pattern, regex_constants::ECMAScript};
+        smatch match;
+
+        regex_search(line, match, r);
+
+        if (match.size() > 0)
+        {
+            matches.push_back(match[index]);
+        }
+    }
+    return matches;
 }
