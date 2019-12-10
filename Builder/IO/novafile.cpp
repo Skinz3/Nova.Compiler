@@ -43,10 +43,6 @@ bool NovaFile::Read()
         return false;
     }
 
-    for (auto i : *brackets)
-    {
-        cout << i.first << ":" << i.second << endl;
-    }
 
     return true;
 }
@@ -114,7 +110,7 @@ bool NovaFile::ReadBrackets()
     }
     return true;
 }
-bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing de classes.
+bool NovaFile::ReadClasses() 
 {   
     this->classes = new vector<Class*>();
 
@@ -130,13 +126,14 @@ bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing d
     {
  
         string className  = result.value;
-        int classStartLine = result.index;
+
+        int classStartLine = FindNextOpenBracket(result.index);
       
         int classEndLine = GetBracketCloseIndex(classStartLine); 
 
         cout << "class " << className << "(" << classStartLine<< ":" << classEndLine <<")"<<endl;
 
-        vector<string> classLines = FindLinesUnderIndent(classStartLine,classEndLine);
+        vector<string> classLines = FindLinesUnderIndex(classStartLine+1,classEndLine);
 
         Class* novaClass  = new Class(classLines);
 
@@ -149,7 +146,7 @@ bool NovaFile::ReadClasses() // Reflechir a un algorithme optimisé de parsing d
 
     return true;
 }
-vector<string> NovaFile::FindLinesUnderIndent(int startLineIndex, int endLineIndex)
+vector<string> NovaFile::FindLinesUnderIndex(int startLineIndex, int endLineIndex)
 {
     vector<string> result;
 
@@ -163,12 +160,11 @@ int NovaFile::GetBracketCloseIndex(int bracketOpenIndex)
 {
     int openIndent = GetIndentLevel(bracketOpenIndex);
   
-
     map<int, int>::iterator current = brackets->begin();
 
     while (current != brackets->end())
     {
-        if (current->first < bracketOpenIndex)
+        if (current->first <= bracketOpenIndex)
         {
             current++;
         }
@@ -184,6 +180,19 @@ int NovaFile::GetBracketCloseIndex(int bracketOpenIndex)
     }
     return -1;
 
+}
+int NovaFile::FindNextOpenBracket(int lineIndex)
+{
+    for (int i = lineIndex;i < lines->size();i++)
+    {
+        string line = lines->at(i);
+
+        if (line.find(BRACKET_START_DELIMITER) != string::npos)
+        {
+            return i;
+        }
+    }
+    return -1;
 }
 int NovaFile::GetIndentLevel(int lineIndex)
 {

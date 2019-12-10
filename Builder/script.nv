@@ -4,8 +4,7 @@ using nova.math
 namespace myProgram
 
 // This code is written in Nova !
-class ExampleClass 
-{ 
+class ExampleClass  {     
     private int globalVariable;
     
     private int main()

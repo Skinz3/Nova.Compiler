@@ -35,10 +35,11 @@ private:
     bool ReadLines();
     bool ReadBrackets();
 
-    vector<string> FindLinesUnderIndent(int startLineIndex, int endLineIndex);
+    vector<string> FindLinesUnderIndex(int startLineIndex, int endLineIndex);
     int GetIndentLevel(int lineIndex);
     int GetBracketCloseIndex(int bracketOpenIndex);
-
+    int FindNextOpenBracket(int lineIndex);
+    
     SearchResult SearchFirst(string pattern, int index);
     vector<SearchResult> Search(string pattern, int index);
 

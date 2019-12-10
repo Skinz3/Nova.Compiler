@@ -1,6 +1,8 @@
 #include "class.h"
 #include <string>
 #include <regex>
+#include "enums.cpp"
+#include "method.cpp"
 
 const string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
 
@@ -20,14 +22,22 @@ bool Class::BuildMethods()
 
         regex r{METHOD_PATTERN, regex_constants::ECMAScript};
 
-       
         smatch match;
 
         regex_search(line, match, r);
 
         if (match.size() > 0)
         {
-             cout << line << endl;
+            string modifier = match[1];
+            string returnType = match[2];
+            string methodName = match[3];
+            string parameters = match[4];
+
+            Method * method = new Method(methodName,Enums::ParseModifier(modifier),returnType,parameters);
+            cout << parameters << endl;
+           
+            
+          
         }
     }
     return true;
