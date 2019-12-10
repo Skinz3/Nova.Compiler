@@ -21,13 +21,15 @@ public:
     void Print();
     bool Read();
     bool ReadClasses();
-
+    
 private:
     FileDefinition definition;
     vector<string> *lines;
     bool ReadLines();
+    bool ReadBrackets();
     string SearchFirst(string pattern, int index);
     vector<string> Search(string pattern,int index);
-    
+    map<int,int> brackets;
+
     vector<Class>* classes;
 };
