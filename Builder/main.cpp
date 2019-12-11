@@ -7,9 +7,6 @@
 #include "Core/builder.h"
 
 
-
-using namespace std;
-
 /* 
     ./compiler myScript.nv ---> ouput myScript.nov
     ./compiler myScript.nv MyLibrary.nov ---> output myLibrary.nov

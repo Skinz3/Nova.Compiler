@@ -5,17 +5,17 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
+
 
 class Class
 {
 
 public:
-    Class(vector<string> lines);
+    Class(std::vector<std::string> lines);
     bool Build();
 
 private:
-    vector<string> lines;
+    std::vector<std::string> lines;
     bool BuildMethods();
     bool BuildFields();
 };

@@ -1,12 +1,11 @@
- #include "class.h"
+#include "class.h"
 #include <string>
 #include <regex>
 #include "method.h"
 
+const std::string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
 
-const string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
-
-Class::Class(vector<string> lines)
+Class::Class(std::vector<std::string> lines)
 {
     this->lines = lines;
 }
@@ -18,26 +17,23 @@ bool Class::BuildMethods()
 {
     for (int i = 0;i < lines.size();i++)
     {
-        string line  = lines[i];
+        std::string line  = lines[i];
 
-        regex r{METHOD_PATTERN, regex_constants::ECMAScript};
+        std::regex r{METHOD_PATTERN, std::regex_constants::ECMAScript};
 
-        smatch match;
+        std::smatch match;
 
         regex_search(line, match, r);
 
         if (match.size() > 0)
         {
-            string modifier = match[1];
-            string returnType = match[2];
-            string methodName = match[3];
-            string parameters = match[4];
+            std::string modifier = match[1];
+            std::string returnType = match[2];
+            std::string methodName = match[3];
+            std::string parameters = match[4];
 
             Method * method = new Method(methodName,modifier,returnType,parameters);
             std::cout <<"Method:"<< line << std::endl;
-           
-            
-          
         }
     }
     return true;

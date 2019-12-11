@@ -72,7 +72,12 @@
 			"sstream": "cpp",
 			"queue": "cpp",
 			"stack": "cpp",
-			"xhash": "cpp"
+			"xhash": "cpp",
+			"chrono": "cpp",
+			"ratio": "cpp",
+			"string_view": "cpp",
+			"iomanip": "cpp",
+			"filesystem": "cpp"
 		}
 	}
 }
