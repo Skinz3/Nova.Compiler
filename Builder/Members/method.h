@@ -1,7 +1,4 @@
-
 #include <string>
-
-
 
 class Method
 {

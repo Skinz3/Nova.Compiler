@@ -1,2 +1,4 @@
 *.exe
 /Builder/*.bat
+Build
+/Builder/.vscode/c_cpp_properties.json
