@@ -1,8 +1,8 @@
-#include "class.h"
+ #include "class.h"
 #include <string>
 #include <regex>
-#include "enums.cpp"
-#include "method.cpp"
+#include "method.h"
+
 
 const string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
 
@@ -33,8 +33,8 @@ bool Class::BuildMethods()
             string methodName = match[3];
             string parameters = match[4];
 
-            Method * method = new Method(methodName,Enums::ParseModifier(modifier),returnType,parameters);
-            cout << parameters << endl;
+            Method * method = new Method(methodName,modifier,returnType,parameters);
+            std::cout << line << std::endl;
            
             
           
@@ -44,5 +44,5 @@ bool Class::BuildMethods()
 }
 bool Class::BuildFields()
 {
-    
+    return true;
 }

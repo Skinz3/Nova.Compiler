@@ -1,4 +1,9 @@
+#ifndef CLASS
+#define CLASS
+
+#include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -14,3 +19,7 @@ private:
     bool BuildMethods();
     bool BuildFields();
 };
+
+#endif // CLASS
+
+

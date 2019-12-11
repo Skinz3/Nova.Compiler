@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "builder.h"
+#include "../IO/novafile.h"
 
 using namespace std;
 
@@ -23,3 +24,4 @@ bool Builder::Build(vector<NovaFile*> * files,string assemblyName)
       // here we are writting assembly to disk.
       // compilation is finished.
 }
+

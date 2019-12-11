@@ -1,9 +1,9 @@
 #include <string>
 #include "method.h"
 
-using namespace std;
 
-Method::Method(string methodName,Modifier modifier,string returnType,string parameters)
+
+Method::Method(std::string methodName,std::string modifier,std::string returnType,std::string parameters)
 {
     this->methodName= methodName;
     this->modifier = modifier;

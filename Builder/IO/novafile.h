@@ -1,8 +1,18 @@
+
+
+#ifndef NVFILE
+#define NVFILE
+
+
 #include <string>
 #include <vector>
 #include <map>
-#include "../Members/class.cpp"
+#include "../Members/class.h"
 #include <regex>
+#include <algorithm>
+#include <iostream>
+#include <fstream>
+
 
 using namespace std;
 
@@ -47,3 +57,6 @@ private:
 
     vector<Class*>* classes;
 };
+
+#endif // NVFILE
+

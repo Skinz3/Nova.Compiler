@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-//#include "../IO/novafile.h"
+#include "../IO/novafile.h"
 
 using namespace std;
 

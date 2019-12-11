@@ -3,8 +3,8 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "IO/novafile.cpp"
-#include "Core/builder.cpp"
+#include "IO/novafile.h"
+#include "Core/builder.h"
 
 using namespace std;
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     {
         string arg = argv[i];
         
-        NovaFile  file(arg); // instead of new NovaFile() for automatic storage duration
+        NovaFile file(arg); // instead of new NovaFile() for automatic storage duration
 
         if (!file.Read())
         {
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
         system("pause"); // for tests only.
         return EXIT_FAILURE;
     }
-    
+  
     
 
    

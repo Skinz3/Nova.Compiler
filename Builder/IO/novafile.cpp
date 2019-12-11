@@ -1,10 +1,6 @@
-#include <string>
-#include "novafile.h"
-#include <regex>
-#include <string>
-#include <algorithm>
 
-using namespace std;
+#include "novafile.h"
+
 
 const string USING_PATTERN = "using (\\w.+)";
 const string NAMESPACE_PATTERN = "namespace (\\w+)";
@@ -21,7 +17,7 @@ bool NovaFile::Read()
 {
     if (!ReadLines())
     {
-        cout << "Unable to read file (IO error): " << this->fileName << endl;
+        std::cout << "Unable to read file (IO error): " << this->fileName << std::endl;
         return false;
     }
 
@@ -29,7 +25,7 @@ bool NovaFile::Read()
 
     if (this->definition._namespace == string())
     {
-        cout << "Invalid file no namespace." << endl;
+        std::cout << "Invalid file no namespace." << std::endl;
         return false;
     }
 
@@ -50,7 +46,7 @@ bool NovaFile::Read()
 
 bool NovaFile::ReadLines()
 {
-    ifstream fstream(fileName);
+    std::ifstream fstream(fileName);
 
     if (!fstream.good())
     {
@@ -104,7 +100,7 @@ bool NovaFile::ReadBrackets()
         if (lastIndentLevel != 0)
         {
 
-            cout << "Invalid file brackets. (Last bracket indent level: " << lastIndentLevel << ")" << endl;
+            std::cout << "Invalid file brackets. (Last bracket indent level: " << lastIndentLevel << ")" << endl;
             return false;
         }
     }
@@ -118,7 +114,7 @@ bool NovaFile::ReadClasses()
 
     if (results.size() == 0)
     {
-        cout << "Invalid file, no classes." << endl;
+        std::cout << "Invalid file, no classes." << std::endl;
         return false;
     } 
   
@@ -131,7 +127,7 @@ bool NovaFile::ReadClasses()
       
         int classEndLine = GetBracketCloseIndex(classStartLine); 
 
-        cout << "class " << className << "(" << classStartLine<< ":" << classEndLine <<")"<<endl;
+        std::cout << "class " << className << "(" << classStartLine<< ":" << classEndLine <<")"<< std::endl;
 
         vector<string> classLines = FindLinesUnderIndex(classStartLine+1,classEndLine);
 

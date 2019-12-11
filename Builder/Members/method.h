@@ -1,17 +1,17 @@
 
 #include <string>
 
-using namespace std;
+
 
 class Method
 {
 
 public:
-    Method(string methodName,Modifier modifier,string returnType,string parameters);
+    Method(std::string methodName,std::string modifier,std::string returnType,std::string parameters);
 
 private:
-    string methodName;
-    Modifier modifier;
-    string returnType;
-    string parameters;
+    std::string methodName;
+    std::string modifier;
+    std::string returnType;
+    std::string parameters;
 };

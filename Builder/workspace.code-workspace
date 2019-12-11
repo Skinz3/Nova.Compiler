@@ -54,7 +54,25 @@
 			"xlocmes": "cpp",
 			"xlocmon": "cpp",
 			"xloctime": "cpp",
-			"xtree": "cpp"
+			"xtree": "cpp",
+			"array": "cpp",
+			"atomic": "cpp",
+			"*.tcc": "cpp",
+			"bitset": "cpp",
+			"clocale": "cpp",
+			"cstdarg": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"unordered_map": "cpp",
+			"functional": "cpp",
+			"memory_resource": "cpp",
+			"numeric": "cpp",
+			"random": "cpp",
+			"sstream": "cpp",
+			"queue": "cpp",
+			"stack": "cpp",
+			"xhash": "cpp"
 		}
 	}
 }
