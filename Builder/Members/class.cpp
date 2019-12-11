@@ -34,7 +34,7 @@ bool Class::BuildMethods()
             string parameters = match[4];
 
             Method * method = new Method(methodName,modifier,returnType,parameters);
-            std::cout << line << std::endl;
+            std::cout <<"Method:"<< line << std::endl;
            
             
           
