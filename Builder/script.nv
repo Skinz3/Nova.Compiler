@@ -4,10 +4,11 @@ using nova.math
 namespace myProgram
 
 // This code is written in Nova !
-class ExampleClass  {     
+class ExampleClass 
+{     
     private int globalVariable;
     
-    private int main()
+    private int main() 
     { 
        Nova.print("hello world");
 
@@ -17,11 +18,12 @@ class ExampleClass  {
        Nova.print(var1 * Math.Abs(var2));
     } 
 }
-class ExampleClass2
-{
+class ExampleClass2 
+{   
     public void test(int firstArg,int secondArg)
     {
 	    Nova.print("this is a test method");
     }
 }
+
 

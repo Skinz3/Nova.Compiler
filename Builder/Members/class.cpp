@@ -3,12 +3,17 @@
 #include <regex>
 #include "method.h"
 #include "enums.h"
+#include <map>
+#include "../IO/parsing_helper.h"
 
 const std::string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
 
-Class::Class(std::vector<std::string> lines)
+Class::Class(std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex)
 {
-    this->lines = lines;
+    this->fileLines = fileLines;
+    this->fileBrackets = fileBrackets;
+    this->startIndex = startIndex;
+    this->endIndex = endIndex;
 }
 bool Class::Build()
 {
@@ -16,9 +21,11 @@ bool Class::Build()
 }
 bool Class::BuildMethods()
 {
-    for (int i = 0;i < lines.size();i++)
+    this->methods = new vector<Method *>();
+
+    for (int i = this->startIndex; i < this->endIndex; i++)
     {
-        std::string line  = lines[i];
+        std::string line = fileLines->at(i);
 
         std::regex r{METHOD_PATTERN, std::regex_constants::ECMAScript};
 
@@ -32,14 +39,20 @@ bool Class::BuildMethods()
             std::string returnType = match[2];
             std::string methodName = match[3];
             std::string parameters = match[4];
+
+            int startIndex = ParsingHelper::FindNextOpenBracket(this->fileLines, i);
+            int endIndex = ParsingHelper::GetBracketCloseIndex(this->fileBrackets, startIndex);
+
+            Method *method = new Method(fileLines, fileBrackets, startIndex + 1, endIndex, methodName, modifier, returnType, parameters);
             
-            Method * method = new Method(methodName,modifier,returnType,parameters); 
-            /* we need to pass as parameter lines of method. (use brackets methods.) For this create a file
-               parsing_helper.cpp that take vector<string>, and map<int,int> as args.
-             */
-            std::cout <<"Method:"<< line << std::endl;
+            if (!method->Build())
+            {
+                return false;
+            }
+            this->methods->push_back(method);
         }
     }
+
     return true;
 }
 bool Class::BuildFields()
