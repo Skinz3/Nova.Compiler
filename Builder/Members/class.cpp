@@ -2,6 +2,7 @@
 #include <string>
 #include <regex>
 #include "method.h"
+#include "enums.h"
 
 const std::string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
 
@@ -27,11 +28,11 @@ bool Class::BuildMethods()
 
         if (match.size() > 0)
         {
-            std::string modifier = match[1];
+            ModifierEnum modifier = Enums::ParseModifier(match[1]);
             std::string returnType = match[2];
             std::string methodName = match[3];
             std::string parameters = match[4];
-
+            
             Method * method = new Method(methodName,modifier,returnType,parameters);
             std::cout <<"Method:"<< line << std::endl;
         }

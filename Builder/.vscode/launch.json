@@ -14,7 +14,7 @@
                   "moduleLoad": false,
                   "trace": true
                 },
-            "preLaunchTask": "build"
+          
         }
     ]
 }
