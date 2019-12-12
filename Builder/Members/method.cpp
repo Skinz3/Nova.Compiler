@@ -2,7 +2,6 @@
 #include "method.h"
 
 
-
 Method::Method(std::string methodName,ModifierEnum modifier,std::string returnType,std::string parameters)
 {
     this->methodName= methodName;

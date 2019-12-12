@@ -6,7 +6,6 @@
 #include <iostream>
 
 
-
 class Class
 {
 
@@ -15,6 +14,7 @@ public:
     bool Build();
 
 private:
+
     std::vector<std::string> lines;
     bool BuildMethods();
     bool BuildFields();

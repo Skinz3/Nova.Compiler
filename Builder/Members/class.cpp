@@ -33,7 +33,10 @@ bool Class::BuildMethods()
             std::string methodName = match[3];
             std::string parameters = match[4];
             
-            Method * method = new Method(methodName,modifier,returnType,parameters);
+            Method * method = new Method(methodName,modifier,returnType,parameters); 
+            /* we need to pass as parameter lines of method. (use brackets methods.) For this create a file
+               parsing_helper.cpp that take vector<string>, and map<int,int> as args.
+             */
             std::cout <<"Method:"<< line << std::endl;
         }
     }

@@ -1,6 +1,7 @@
 #include <string>
 #include "enums.h"
 
+
 class Method
 {
 
