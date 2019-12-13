@@ -2,7 +2,6 @@
 # What is Nova
 
 > Nova is a cross plateform and high level abstraction interpreted language written in C++. 
-> Default Compiler : **GCC 6.3** 
   
   ###### Paradigms:
   + **Interpreted** (for now)
@@ -47,5 +46,5 @@ class MyClass
 
 ## Contacts
 
-  > Discord -> **Skinz#1128**
+  > My discord is: **Skinz#1128**
   
