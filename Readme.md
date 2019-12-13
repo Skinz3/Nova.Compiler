@@ -1,6 +1,8 @@
 
 # What is Nova
 
+![Nova](https://puu.sh/EOPuX/baa7e75d84.jpg)
+
 > Nova is a cross plateform and high level abstraction interpreted language written in C++. 
   
   ###### Paradigms:
