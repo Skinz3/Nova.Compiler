@@ -5,11 +5,11 @@
 > Default Compiler : **GCC 6.3** 
   
   ###### Paradigms:
-  + Interpreted (for now)
-  + Structured
-  + Imperative
-  + Object-oriented
-  + Functional.
+  + **Interpreted** (for now)
+  + **Structured**
+  + **Imperative**
+  + **Object-oriented**
+  + **Functional.**
 
   ###### Example:
 
@@ -19,16 +19,16 @@ using nova.math
 
 namespace myProgram
 
-class **MyClass**
+class MyClass
 {
     // This code is written in Nova !
     int main()
     {
-       **Nova**.print("hello world")
+       Nova.print("hello world")
 
        int var1 = 2
        int var2 = -7
-       **Nova**.print(var1 * **Math**.Abs(var2))
+       Nova.print(var1 * Math.Abs(var2))
     }
 }
  ```
