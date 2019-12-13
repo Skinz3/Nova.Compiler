@@ -36,7 +36,7 @@ class MyClass
  + Once your nova file(s) source code is written. Just give it to the Builder
  + The builder will generate a .nov file (this is an assembly)
  + Give the .nov to the interpreter and it will run your assembly (from main() entry point)
- > all .nov files in the same folder than the .nov gives to the builder is linked as a referenced assembly to the current running code
+ > all .nov files in the executing directory are linked as referenced assemblies to the current assembly.
 
  ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
