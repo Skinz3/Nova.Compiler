@@ -10,19 +10,19 @@ class ExampleClass
     
     private int main() 
     { 
-       Nova.print("hello world");
+       Nova.print("hello world")
 
-       int var1 = 2;
-       int var2 = -7;
+       int var1 = 2
+       int var2 = -7
        
-       Nova.print(var1 * Math.Abs(var2));
+       Nova.print(var1 * Math.Abs(var2))
     } 
 }
 class ExampleClass2 
 {   
     public void test(int firstArg,int secondArg)
     {
-	    Nova.print("this is a test method");
+	    Nova.print("this is a test method")
     }
 }
 

@@ -5,6 +5,7 @@
 #include "enums.h"
 #include <vector>
 #include <map>
+#include "../Statements/statement.h"
 
 using namespace std;
 
@@ -17,6 +18,8 @@ public:
 private:
     vector<string> *fileLines;
     map<int, int> *fileBrackets;
+
+    vector<Statement*>* statements;
 
     int startIndex;
     int endIndex;
