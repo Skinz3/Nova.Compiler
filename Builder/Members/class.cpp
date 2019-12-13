@@ -6,7 +6,7 @@
 #include <map>
 #include "../IO/parsing_helper.h"
 
-const std::string METHOD_PATTERN = "(public|private) (\\w+) (\\w+)\\((.*?)\\)";
+const std::string METHOD_PATTERN = "(public|private)\\s+[a-zA-Z_$][a-zA-Z_$0-9]*\\s+[a-zA-Z_$][a-zA-Z_$0-9]*\\((.*?)\\)";
 
 Class::Class(std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex)
 {
