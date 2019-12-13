@@ -23,15 +23,21 @@ class MyClass
     // This code is written in Nova !
     int main()
     {
-       Nova.print("hello world");
+       Nova.print("hello world")
 
-       int var1 = 2;
-       int var2 = -7;
+       int var1 = 2
+       int var2 = -7
        
-       Nova.print(var1 * Math.Abs(var2));
+       Nova.print(var1 * Math.Abs(var2))
     }
 }
  ```
+ ###### How is the language working ?
+ + Once your nova file(s) source code is written. Just give it to the Builder
+ + The builder will generate a .nov file (this is an assembly)
+ + Give the .nov to the interpreter and it will run your assembly (from main() entry point)
+ > all .nov files in the same folder than the .nov gives to the builder is linked as a referenced assembly to the current running code
+
  ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
   + make ./Builder
