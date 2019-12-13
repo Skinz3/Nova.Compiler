@@ -6,11 +6,11 @@
 > Nova is a cross plateform and high level abstraction interpreted language written in C++. 
   
   ###### Paradigms:
-  + **Interpreted** (for now)
-  + **Structured**
-  + **Imperative**
-  + **Object-oriented**
-  + **Functional.**
+  + Interpreted (only for now)
+  + Structured
+  + Imperative
+  + Object-oriented
+  + Functional
 
   ###### Example:
 
