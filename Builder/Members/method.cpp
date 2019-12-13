@@ -29,8 +29,8 @@ bool Method::Build()
             string line = StringUtils::Trim(fileLines->at(i));
 
             Statement* statement = StatementParser::ParseStatement(line);
-            
-            cout << "we need to parse:" << line << endl;
+
+            this->statements->push_back(statement);
         }
     }
 
