@@ -7,7 +7,7 @@ DeclarationStatement::DeclarationStatement(string line) : Statement(line)
 {
 
 };
-bool DeclarationStatement::IsValid(string line)
+DeclarationStatement* DeclarationStatement::Build(string line)
 {
-    return false;
+    return NULL;
 }

@@ -6,7 +6,7 @@ AssignationStatement::AssignationStatement(string line) : Statement(line)
 {
 
 };
-bool AssignationStatement::IsValid(string line)
+AssignationStatement* AssignationStatement::Build(string line)
 {
-    return false;
+    return NULL;
 }

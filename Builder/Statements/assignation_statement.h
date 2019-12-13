@@ -5,5 +5,5 @@ class AssignationStatement : public Statement
 public:
     AssignationStatement(string line);
 
-    static bool IsValid(string line);
+    static AssignationStatement* Build(string line);
 };

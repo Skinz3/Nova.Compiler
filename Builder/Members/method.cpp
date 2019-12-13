@@ -31,8 +31,6 @@ bool Method::Build()
             Statement* statement = StatementParser::ParseStatement(line);
 
             this->statements->push_back(statement);
-
-            cout << line << endl;
         }
     }
 
