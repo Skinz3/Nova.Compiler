@@ -2,7 +2,7 @@
 # What is Nova
 
 > Nova is a cross plateform and high level abstraction interpreted language written in C++. 
-> Default Compiler : GCC 6.3
+> Default Compiler : **GCC 6.3** 
   
   ###### Paradigms:
   + Interpreted (for now)
@@ -19,17 +19,16 @@ using nova.math
 
 namespace myProgram
 
-class MyClass
+class **MyClass**
 {
     // This code is written in Nova !
     int main()
     {
-       Nova.print("hello world")
+       **Nova**.print("hello world")
 
        int var1 = 2
        int var2 = -7
-       
-       Nova.print(var1 * Math.Abs(var2))
+       **Nova**.print(var1 * **Math**.Abs(var2))
     }
 }
  ```
@@ -48,5 +47,5 @@ class MyClass
 
 ## Contacts
 
-  * You can contact me : Discord : Skinz#1128
+  > Discord -> **Skinz#1128**
   
