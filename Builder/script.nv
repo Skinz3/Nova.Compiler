@@ -12,7 +12,8 @@ class ExampleClass
     { 
        Nova.print("hello world")
 
-       int var1 = 2
+       int var1
+       var1 = 3
        int var2 = -7
        
        Nova.print(var1 * Math.Abs(var2))

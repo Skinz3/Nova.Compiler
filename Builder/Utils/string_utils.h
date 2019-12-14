@@ -1,4 +1,5 @@
 #include <string>
+#include <regex>
 
 using namespace std;
 
@@ -10,4 +11,5 @@ public:
     static string RightTrim(string str);
     static string Trim(string str);
     static bool IsEmptyOrWhiteSpace(string str);
+    static smatch Regex(string str,string pattern);
 };
