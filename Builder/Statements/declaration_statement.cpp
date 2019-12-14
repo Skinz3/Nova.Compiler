@@ -3,7 +3,7 @@
 #include "../Utils/string_utils.h"
 #include <iostream>
 
-const string DECLARARTION_PATTERN = "^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?";
+const string DECLARARTION_PATTERN = "^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?$";
 
 DeclarationStatement::DeclarationStatement(string line) : Statement(line)
 {
