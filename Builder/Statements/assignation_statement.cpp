@@ -6,9 +6,12 @@
 
 const string ASSIGNATION_PATTERN = "^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(\\+|-|\\*|\\/)?=\\s*(.+)$"; // operators are handled here (+= -= *= /=)
 
-AssignationStatement::AssignationStatement(string line,string variableName,Statement* value) : Statement(line)
+AssignationStatement::AssignationStatement(string line, string variableName,char op, Statement *value) : Statement(line)
 {
-   std::cout << "[Assignation Statement] " << line << std::endl;
+   this->variableName = variableName;
+   this->value = value;
+   this->op = op;
+
 };
 AssignationStatement *AssignationStatement::Build(string line)
 {
@@ -17,11 +20,14 @@ AssignationStatement *AssignationStatement::Build(string line)
    if (match.size() > 0)
    {
       string variableName = match[1];
-      string value = match[2];
+
+      char op = match[2].str()[0];
+
+      string value = match[3];
 
       Statement *st = StatementParser::ParseStatement(value);
 
-      return new AssignationStatement(line, variableName, st);
+      return new AssignationStatement(line, variableName, op, st);
    }
    else
    {
