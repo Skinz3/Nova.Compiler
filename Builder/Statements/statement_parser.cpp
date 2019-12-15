@@ -5,7 +5,10 @@
 #include "empty_statement.h"
 #include "unknown_statement.h"
 
-
+/*
+    Not very smart, but probably the fastest way
+    (instead of map<regex,type> or reflection)
+*/
 Statement *StatementParser::ParseStatement(string rawLine)
 {
     string line = StringUtils::Trim(rawLine);
@@ -14,7 +17,6 @@ Statement *StatementParser::ParseStatement(string rawLine)
     {
         return new EmptyStatement(line);
     }
-
 
     Statement *st;
 

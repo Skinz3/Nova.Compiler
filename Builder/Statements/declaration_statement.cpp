@@ -11,6 +11,7 @@ DeclarationStatement::DeclarationStatement(string line, string type, string vari
     this->type = type;
     this->variableName = variableName;
     this->value = value;
+    cout << "[Declaration Statement] " << line << endl;
 };
 
 DeclarationStatement *DeclarationStatement::Build(string line)

@@ -7,5 +7,5 @@ using namespace std;
  
 UnknownStatement::UnknownStatement(string line) : Statement(line)
 {
-    cout << "Unknown Statement: " << line << endl;
+    cout << "[Unknown Statement] " << line << endl;
 };
