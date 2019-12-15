@@ -2,12 +2,15 @@
 #include <regex>
 #include "../Utils/string_utils.h"
 #include <iostream>
+#include "statement_parser.h"
 
 const string DECLARARTION_PATTERN = "^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?$";
 
-DeclarationStatement::DeclarationStatement(string line) : Statement(line)
+DeclarationStatement::DeclarationStatement(string line, string type, string variableName, Statement *value) : Statement(line)
 {
- 
+    this->type = type;
+    this->variableName = variableName;
+    this->value = value;
 };
 
 DeclarationStatement *DeclarationStatement::Build(string line)
@@ -18,13 +21,14 @@ DeclarationStatement *DeclarationStatement::Build(string line)
     {
         string type = match[1];
         string variableName = match[2];
-        string expressionValue = match[4]; // if == "" , no expression, declaration only.
+        string statementValue = match[4]; 
 
-        return new DeclarationStatement(line); // pass arguments
+        Statement*  st = StatementParser::ParseStatement(statementValue);
+
+        return new DeclarationStatement(line, type, variableName, st); 
     }
     else
     {
         return NULL;
     }
-    
 }

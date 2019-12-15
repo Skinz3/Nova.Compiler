@@ -26,9 +26,9 @@ bool Method::Build()
     {
         if (!StringUtils::IsEmptyOrWhiteSpace(fileLines->at(i)))
         {
-            string line = StringUtils::Trim(fileLines->at(i));
+           
 
-            Statement* statement = StatementParser::ParseStatement(line);
+            Statement* statement = StatementParser::ParseStatement(fileLines->at(i));
 
             this->statements->push_back(statement);
         }
