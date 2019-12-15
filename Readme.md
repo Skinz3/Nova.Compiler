@@ -2,7 +2,7 @@
 # What is Nova
 
 > Nova is a cross plateform and high level abstraction interpreted language written in C++. 
-This project is using C++ standard library only.
++ This project is using C++ standard library only.
   
   ###### Paradigms:
   + Interpreted (only for now)
