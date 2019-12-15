@@ -4,14 +4,14 @@
 #include <iostream>
 #include "statement_parser.h"
 
-const string ASSIGNATION_PATTERN = "^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(\\+|-|\\*|\\/)?=\\s*(.+)$"; // operators are handled here (+= -= *= /=)
+const std::regex ASSIGNATION_PATTERN{"^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(\\+|-|\\*|\\/)?=\\s*(.+)$"};
 
 AssignationStatement::AssignationStatement(string line, string variableName,char op, Statement *value) : Statement(line)
 {
    this->variableName = variableName;
    this->value = value;
    this->op = op;
-
+   cout << "[Assignation Statement] " << line << endl;
 };
 AssignationStatement *AssignationStatement::Build(string line)
 {

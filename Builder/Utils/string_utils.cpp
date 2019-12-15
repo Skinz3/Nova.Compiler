@@ -25,9 +25,8 @@ bool StringUtils::IsEmptyOrWhiteSpace(string str)
 {
     return str == "" || str.find_first_not_of(' ') == std::string::npos;
 }
-smatch StringUtils::Regex(string str, string pattern)
+smatch StringUtils::Regex(string str, std::regex r)
 {
-    regex r{pattern, std::regex_constants::ECMAScript};
     smatch match;
     regex_search(str, match, r);
     return match;

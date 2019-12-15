@@ -4,13 +4,14 @@
 #include <iostream>
 #include "statement_parser.h"
 
-const string DECLARARTION_PATTERN = "^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?$";
+const std::regex DECLARARTION_PATTERN{"^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?$"};
 
 DeclarationStatement::DeclarationStatement(string line, string type, string variableName, Statement *value) : Statement(line)
 {
     this->type = type;
     this->variableName = variableName;
     this->value = value;
+    cout << "[Declaration Statement] " << line << endl;
 };
 
 DeclarationStatement *DeclarationStatement::Build(string line)
