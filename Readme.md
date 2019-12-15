@@ -9,7 +9,7 @@
   + Imperative
   + Object-oriented
   + Functional
-
+  + Nova grammar is regular
   ###### Example:
 
   ```
@@ -32,7 +32,7 @@ class MyClass
 }
  ```
  ###### How is the language working ?
- + Once your nova file(s) source code is written. Just give it to the Builder
+ + Once your nova file(s) source code is written. Just give it to the Builder 
  + The builder will generate a .nov file (this is an assembly)
  + Give the .nov to the interpreter and it will run your assembly (from main() entry point)
  > all .nov files in the executing directory are linked as referenced assemblies to the current assembly.
