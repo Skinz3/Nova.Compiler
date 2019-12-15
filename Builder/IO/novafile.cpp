@@ -123,7 +123,7 @@ bool NovaFile::ReadClasses()
      
         Class* novaClass  = new Class(this->lines,this->brackets,classStartLine+1,classEndLine);
 
-        if (!novaClass->Build())
+        if (!novaClass->BuildMembers())
         {
             return false;
         }

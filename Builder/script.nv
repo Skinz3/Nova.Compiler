@@ -6,7 +6,7 @@ namespace myProgram
 // This code is written in Nova !
 class ExampleClass 
 {     
-    private int globalVariable;
+    private int globalVariable
     
     private int main() 
     { 
