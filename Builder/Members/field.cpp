@@ -8,6 +8,4 @@ Field::Field(ModifierEnum modifier, string name, string type, Statement *value)
     this->name = name;
     this->type = type;
     this->value = value;
-    std::cout << "field: " << name << endl;
- 
 }
