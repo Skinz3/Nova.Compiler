@@ -9,7 +9,7 @@ const std::regex CONST_INT_PATTERN{"^([+-])?([0-9]+)$"};
 ConstIntStatement::ConstIntStatement(string line, long long value) : Statement(line)
 {
     this->value = value;
-    cout << "[ConstantInt] " << value << endl;
+    cout << "[ConstInt Statement] " << value << endl;
 };
 ConstIntStatement *ConstIntStatement::Build(string line)
 {

@@ -11,6 +11,7 @@ AssignationStatement::AssignationStatement(string line, string variableName,char
    this->variableName = variableName;
    this->value = value;
    this->op = op;
+   cout << "[Assignation Statement] " << line << endl;
 };
 AssignationStatement *AssignationStatement::Build(string line)
 {

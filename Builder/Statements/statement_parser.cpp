@@ -3,6 +3,7 @@
 #include "assignation_statement.h"
 #include "declaration_statement.h"
 #include "const_int_statement.h"
+#include "method_call_statement.h"
 #include "empty_statement.h"
 #include "unknown_statement.h"
 
@@ -35,6 +36,11 @@ Statement *StatementParser::ParseStatement(string rawLine)
 
     if (st != NULL)
         return st;
-        
+
+    st = MethodCallStatement::Build(line);
+
+    if (st != NULL)
+        return st;
+
     return new UnknownStatement(line);
 }
