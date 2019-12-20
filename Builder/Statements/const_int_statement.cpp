@@ -4,9 +4,9 @@
 #include <iostream>
 #include "statement_parser.h"
 
-const std::regex CONST_INT_PATTERN{"^([+-])?([0-9]{1,10})$"};
+const std::regex CONST_INT_PATTERN{"^([+-])?([0-9]+)$"};
 
-ConstIntStatement::ConstIntStatement(string line, int value) : Statement(line)
+ConstIntStatement::ConstIntStatement(string line, long long value) : Statement(line)
 {
     this->value = value;
     cout << "[ConstantInt] " << value << endl;
@@ -17,21 +17,16 @@ ConstIntStatement *ConstIntStatement::Build(string line)
 
     if (match.size() > 0)
     {
-        int value = std::stoi(match[2]);
-
-        string sign = match[1];
-
-        if (sign == "-")
+        try
         {
-            value = -value;
+            long long value = std::stoll(line);
+            return new ConstIntStatement(line, value);
         }
-
-        if (value > 2147483647 || value < -2147483647) // this is  not possible. value is a int. think about it and fix it. (if value is 10 characters and > 2147483647 compiler will crash.)
+        catch (out_of_range)
         {
+            cout << "Invalid Integer64 (out of range): " << line << endl;
             return NULL;
         }
-
-        return new ConstIntStatement(line, value);
     }
     else
     {
