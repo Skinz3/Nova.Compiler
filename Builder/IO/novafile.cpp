@@ -132,11 +132,12 @@ bool NovaFile::ReadClasses()
 
     return true;
 }
-
+vector<Class*>* NovaFile::GetClasses()
+{
+    return this->classes;
+}
 void NovaFile::Dispose()
 {
     delete brackets;
     delete lines;
-
-   
 }

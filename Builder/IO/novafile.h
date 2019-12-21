@@ -34,6 +34,7 @@ public:
     bool Read();
     bool ReadClasses();
     void Dispose();
+    vector<Class*>* GetClasses();
     
 private:
     FileDefinition definition;
