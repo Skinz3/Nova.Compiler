@@ -35,9 +35,9 @@ public:
     bool ReadClasses();
     void Dispose();
     vector<Class*>* GetClasses();
+    FileDefinition definition;
     
 private:
-    FileDefinition definition;
     vector<string> *lines;
     bool ReadLines();
     bool ReadBrackets();

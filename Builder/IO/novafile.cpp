@@ -113,7 +113,6 @@ bool NovaFile::ReadClasses()
   
     for (SearchResult result : results)
     {
- 
         string className  = result.value;
 
         int classStartLine = ParsingHelper::FindNextOpenBracket(lines,result.index);
