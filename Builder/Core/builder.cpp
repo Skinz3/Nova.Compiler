@@ -20,9 +20,33 @@ bool Builder::Build(vector<NovaFile *> *files, string assemblyName)
             return false;
         }
     }
-    // Assembly* result = new Assembly(assemblyName,);
-    map<string, vector<Class*>*>* classes = new map<string,vector<Class*>*>();
+    
+    map<string, vector<Class>> classes;
+    
+    for (NovaFile* file : *files) 
+    {
+         vector<Class*>* fileClasses = file->GetClasses();
 
+         for (Class* _class : *fileClasses)
+         {
+             if (classes.count(file->definition._namespace))
+             {
+                classes[file->definition._namespace].push_back(*_class);
+             }
+             else
+             {
+                 vector<Class> newVect;
+                 newVect.push_back(*_class);
+                 classes.insert(pair<string,vector<Class>>(file->definition._namespace,newVect));
+             }
+         }
+
+    }
+
+    Assembly* result = new Assembly(assemblyName,classes);
+    
+    
+    resul
     return true;
 
     // time to build ?f

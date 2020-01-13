@@ -1,15 +1,19 @@
 #include <string>
 #include <vector>
 #include "../Members/class.h"
+#include <map>
 
 using namespace std;
 
 class Assembly
 {
 public:
-    Assembly(string name, vector<Class *> *classes);
-
-private:
-    vector<Class*>* classes;
+    Assembly(string name,map<string, vector<Class>>  classes);
+    map<string, vector<Class>> classes; // private
     string name;
+
+    Serialize();
+private:
+    
+   
 };
