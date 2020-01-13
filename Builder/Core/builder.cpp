@@ -46,7 +46,8 @@ bool Builder::Build(vector<NovaFile *> *files, string assemblyName)
     Assembly* result = new Assembly(assemblyName,classes);
     
     
-    resul
+    result->Serialize();
+    
     return true;
 
     // time to build ?f

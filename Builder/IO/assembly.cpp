@@ -6,7 +6,7 @@ Assembly::Assembly(string name,map<string, vector<Class>>  classes)
     this->classes = classes;
 }
 
-Assembly::Serialize()
+void Assembly::Serialize()
 {
-    
+
 }

@@ -12,7 +12,8 @@ public:
     map<string, vector<Class>> classes; // private
     string name;
 
-    Serialize();
+    void Serialize();
+    
 private:
     
    
