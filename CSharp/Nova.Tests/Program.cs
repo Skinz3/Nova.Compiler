@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nova.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,9 @@ namespace Nova.Tests
     {
         static void Main(string[] args)
         {
-            NOVFile file = new NOVFile();
+            NOVFile file = new NOVFile(@"C:\Users\Skinz\Desktop\Nova\Builder\build.nov");
+
+            Console.Read();
         }
     }
 }
