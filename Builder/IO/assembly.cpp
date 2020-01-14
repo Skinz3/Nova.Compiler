@@ -11,14 +11,21 @@ Assembly::Assembly(string name, map<string, vector<Class>> classes)
 
 void Assembly::Serialize()
 {
+    /* remove("build.nov");
+    BinaryWriter writer("build.nov");
+
+    writer.WriteString("helloMyBro");
+
+    float val = 5.555;
+
+    writer.Write<float>(val);
+
+    writer.Close();  */
+
     BinaryReader reader("build.nov");
-    
 
     cout << reader.ReadString() << endl;
     cout << reader.Read<float>() << endl;
 
-
     reader.Close();
-
-    
 }

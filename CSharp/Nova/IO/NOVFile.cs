@@ -24,8 +24,9 @@ namespace Nova.IO
         {
             FileStream stream = new FileStream(Filepath, FileMode.Open);
             BinaryReader reader = new BinaryReader(stream);
-            var test = reader.ReadString();
-            
+
+
+            float test2 = reader.ReadSingle();
             stream.Close();
             reader.Close();
         }
