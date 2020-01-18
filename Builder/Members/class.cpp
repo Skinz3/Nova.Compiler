@@ -72,3 +72,7 @@ bool Class::BuildMembers()
 
     return true;
 }
+void Class::Serialize(BinaryWriter* writer)
+{
+    writer->WriteString("we serialize a class");
+}

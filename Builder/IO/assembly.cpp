@@ -1,7 +1,6 @@
 #include "assembly.h"
 #include <fstream>
-#include "./Binary/binary_writer.cpp"
-#include "./Binary/binary_reader.cpp"
+
 
 Assembly::Assembly(string name, map<string, vector<Class>> classes)
 {
@@ -9,23 +8,27 @@ Assembly::Assembly(string name, map<string, vector<Class>> classes)
     this->classes = classes;
 }
 
-void Assembly::Serialize()
+void Assembly::Serialize(BinaryWriter* writer)
 {
-    /* remove("build.nov");
-    BinaryWriter writer("build.nov");
+    int classesSize = classes.size();
+    writer->Write<int>(classesSize);
 
-    writer.WriteString("helloMyBro");
+    for (auto pair : this->classes)
+    {
+        writer->WriteString(pair.first);
+        
+        int csize = pair.second.size();
 
-    float val = 5.555;
+        writer->Write<int>(csize);
 
-    writer.Write<float>(val);
+        for (Class element : pair.second)
+        {
 
-    writer.Close();  */
+            element.Serialize(writer);
+        }
+    }
+}
+void Assembly::Deserialize(BinaryReader* reader)
+{
 
-    BinaryReader reader("build.nov");
-
-    cout << reader.ReadString() << endl;
-    cout << reader.Read<float>() << endl;
-
-    reader.Close();
 }

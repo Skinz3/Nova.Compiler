@@ -5,13 +5,14 @@
 #include "builder.h"
 #include "../IO/novafile.h"
 #include "../IO/assembly.h"
-
+#include "../IO/Binary/binary_writer.cpp"
+#include <stdio.h>
 
 using namespace std;
 
-bool Builder::Build(vector<NovaFile *> *files, string assemblyName)
+bool Builder::Build(vector<NovaFile *> *files, string assemblyPath)
 {
-    cout << "Building " << assemblyName << "..." << endl;
+    cout << "Building " << assemblyPath << "..." << endl;
 
     for (int i = 0; i < files->size(); i++)
     {
@@ -43,10 +44,17 @@ bool Builder::Build(vector<NovaFile *> *files, string assemblyName)
 
     }
 
-    Assembly* result = new Assembly(assemblyName,classes);
+    Assembly* result = new Assembly(assemblyPath,classes);
     
-    
-    result->Serialize();
+    remove(assemblyPath.c_str());
+
+    BinaryWriter* writer = new BinaryWriter(assemblyPath);
+
+    result->Serialize(writer);
+
+    writer->Close();
+
+    delete writer;
     
     return true;
 

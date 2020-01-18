@@ -7,6 +7,8 @@
 #include <map>
 #include "method.h"
 #include "field.h"
+#include "../IO/Binary/binary_writer.cpp"
+#include "../IO/Binary/binary_reader.cpp"
 
 class Class
 {
@@ -14,6 +16,8 @@ class Class
 public:
     Class(std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex);
     bool BuildMembers();
+
+    void Serialize(BinaryWriter* writer);
 
 private:
     int startIndex;

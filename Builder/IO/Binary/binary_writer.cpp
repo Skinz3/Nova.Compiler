@@ -1,3 +1,6 @@
+#ifndef BINWRITER
+#define BINWRITER
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -36,3 +39,6 @@ public:
         stream.close();
     }
 };
+
+
+#endif // BINWRITER

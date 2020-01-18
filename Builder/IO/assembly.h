@@ -2,6 +2,8 @@
 #include <vector>
 #include "../Members/class.h"
 #include <map>
+#include "./Binary/binary_writer.cpp"
+#include "./Binary/binary_reader.cpp"
 
 using namespace std;
 
@@ -12,7 +14,8 @@ public:
     map<string, vector<Class>> classes; // private
     string name;
 
-    void Serialize();
+    void Serialize(BinaryWriter* writer);
+    void Deserialize(BinaryReader* reader);
     
 private:
     

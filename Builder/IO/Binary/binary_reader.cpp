@@ -1,3 +1,6 @@
+#ifndef BINREADER
+#define BINREADER
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -42,3 +45,6 @@ public:
         stream.close();
     }
 };
+
+
+#endif // BINREADER
