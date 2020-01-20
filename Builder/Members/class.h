@@ -14,12 +14,13 @@ class Class
 {
 
 public:
-    Class(std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex);
+    Class(string className,std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex);
     bool BuildMembers();
 
     void Serialize(BinaryWriter* writer);
 
 private:
+    string className;
     int startIndex;
     int endIndex;
     std::vector<std::string> *fileLines;

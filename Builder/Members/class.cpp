@@ -12,8 +12,9 @@ const std::regex METHOD_PATTERN{"^(public|private)\\s+[a-zA-Z_$][a-zA-Z_$0-9]*\\
 
 const std::regex FIELD_PATTERN{"^(public|private)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?$"};
 
-Class::Class(std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex)
+Class::Class(string className, std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex)
 {
+    this->className = className;
     this->fileLines = fileLines;
     this->fileBrackets = fileBrackets;
     this->startIndex = startIndex;
@@ -57,7 +58,7 @@ bool Class::BuildMembers()
 
             if (fieldMatch.size() > 0)
             {
-               
+
                 ModifierEnum modifier = Enums::ParseModifier(fieldMatch[1]);
                 std::string fieldType = fieldMatch[2];
                 std::string fieldName = fieldMatch[3];
@@ -72,7 +73,10 @@ bool Class::BuildMembers()
 
     return true;
 }
-void Class::Serialize(BinaryWriter* writer)
+void Class::Serialize(BinaryWriter *writer)
 {
-    writer->WriteString("we serialize a class");
+    writer->WriteString(this->className);
+
+    int methodSize = this->methods->size();
+    writer->Write<int>(methodSize);
 }

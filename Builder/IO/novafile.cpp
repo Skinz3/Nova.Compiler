@@ -119,8 +119,7 @@ bool NovaFile::ReadClasses()
       
         int classEndLine = ParsingHelper::GetBracketCloseIndex(brackets,classStartLine); 
 
-     
-        Class* novaClass  = new Class(this->lines,this->brackets,classStartLine+1,classEndLine);
+        Class* novaClass  = new Class(className,this->lines,this->brackets,classStartLine+1,classEndLine);
 
         if (!novaClass->BuildMembers())
         {

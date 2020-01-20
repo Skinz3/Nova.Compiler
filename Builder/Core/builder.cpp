@@ -51,8 +51,10 @@ bool Builder::Build(vector<NovaFile *> *files, string assemblyPath)
     BinaryWriter* writer = new BinaryWriter(assemblyPath);
 
     result->Serialize(writer);
-
+    
     writer->Close();
+
+    cout << assemblyPath << " generated." << endl;
 
     delete writer;
     

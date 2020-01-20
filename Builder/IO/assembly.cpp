@@ -23,7 +23,6 @@ void Assembly::Serialize(BinaryWriter* writer)
 
         for (Class element : pair.second)
         {
-
             element.Serialize(writer);
         }
     }
