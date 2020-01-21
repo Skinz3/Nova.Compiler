@@ -8,5 +8,10 @@ using namespace std;
 class Builder
 {
 public:
-    static bool Build(vector<NovaFile*> * files, string assemblyName);
-}; 
+    Builder(vector<NovaFile *> *files, string assemblyName);
+    bool Build();
+
+private:
+    string assemblyPath;
+    vector<NovaFile *> *files;
+};

@@ -10,7 +10,12 @@
 
 using namespace std;
 
-bool Builder::Build(vector<NovaFile *> *files, string assemblyPath)
+Builder::Builder(vector<NovaFile *> *files, string assemblyPath)
+{
+    this->files = files;
+    this->assemblyPath = assemblyPath;
+}
+bool Builder::Build()
 {
     cout << "Building " << assemblyPath << "..." << endl;
 
@@ -21,7 +26,7 @@ bool Builder::Build(vector<NovaFile *> *files, string assemblyPath)
             return false;
         }
     }
-    
+
     map<string, vector<Class>> classes;
     
     for (NovaFile* file : *files) 

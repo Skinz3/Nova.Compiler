@@ -27,10 +27,16 @@ bool Method::Build()
         if (!StringUtils::IsEmptyOrWhiteSpace(fileLines->at(i)))
         {
             Statement *statement = StatementParser::ParseStatement(fileLines->at(i));
-
             this->statements->push_back(statement);
         }
     }
 
     return true;
+}
+void Method::Serialize(BinaryWriter* writer)
+{
+    writer->WriteString(this->methodName);
+    char modifier = (char)this->modifier;
+    writer->Write<char>(modifier);
+    writer->Write<string>(returnType);
 }

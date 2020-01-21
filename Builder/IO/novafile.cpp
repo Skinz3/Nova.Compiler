@@ -1,6 +1,7 @@
 
 #include "novafile.h"
 #include "parsing_helper.h"
+#include "../Core/builder_errors.h"
 
 const string USING_PATTERN = "using (\\w.+)";
 const string NAMESPACE_PATTERN = "namespace (\\w+)";
@@ -14,19 +15,19 @@ bool NovaFile::Read()
 {
     if (!ReadLines())
     {
-        std::cout << "Unable to read file (IO error): " << this->fileName << std::endl;
+        BuilderErrors::OnError(ErrorType::IO, this->fileName, "Cannot open file.");
         return false;
     }
 
-    this->definition._namespace = ParsingHelper::SearchFirst(lines,NAMESPACE_PATTERN, 1).value;
+    this->definition._namespace = ParsingHelper::SearchFirst(lines, NAMESPACE_PATTERN, 1).value;
 
     if (this->definition._namespace == string())
     {
-        std::cout << "Invalid file no namespace." << std::endl;
+        BuilderErrors::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file, no namespace.");
         return false;
     }
 
-    for (SearchResult result : ParsingHelper::Search(lines,USING_PATTERN,1))
+    for (SearchResult result : ParsingHelper::Search(lines, USING_PATTERN, 1))
     {
         this->definition.usings.push_back(result.value);
     }
@@ -38,7 +39,6 @@ bool NovaFile::Read()
 
     return true;
 }
-
 
 bool NovaFile::ReadLines()
 {
@@ -63,7 +63,7 @@ bool NovaFile::ReadLines()
 }
 bool NovaFile::ReadBrackets()
 {
-    this->brackets = new map<int,int>();
+    this->brackets = new map<int, int>();
 
     int currentIndent = 0;
 
@@ -71,19 +71,19 @@ bool NovaFile::ReadBrackets()
     {
         string line = this->lines->at(i);
 
-        int count = std::count(line.begin(), line.end(),BRACKET_START_DELIMITER); 
+        int count = std::count(line.begin(), line.end(), BRACKET_START_DELIMITER);
 
         if (count > 0)
         {
-            currentIndent+=count;
+            currentIndent += count;
             brackets->insert(make_pair(i, currentIndent));
         }
 
-        count = std::count(line.begin(), line.end(),BRACKET_END_DELIMITER); 
+        count = std::count(line.begin(), line.end(), BRACKET_END_DELIMITER);
 
         if (count > 0)
         {
-            currentIndent-=count;
+            currentIndent -= count;
             brackets->insert(make_pair(i, currentIndent));
         }
     }
@@ -93,33 +93,33 @@ bool NovaFile::ReadBrackets()
         int lastIndentLevel = (--brackets->end())->second;
         if (lastIndentLevel != 0)
         {
-            std::cout << "Invalid file brackets. (Last bracket indent level: " << lastIndentLevel << ")" << endl;
-            return true;
+            BuilderErrors::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file brackets. (Last bracket indent level: " + std::to_string(lastIndentLevel) + ")");
+            return false;
         }
     }
     return true;
 }
-bool NovaFile::ReadClasses() 
-{   
-    this->classes = new vector<Class*>();
+bool NovaFile::ReadClasses()
+{
+    this->classes = new vector<Class *>();
 
-    vector<SearchResult> results = ParsingHelper::Search(lines,CLASS_PATTERN, 1);
+    vector<SearchResult> results = ParsingHelper::Search(lines, CLASS_PATTERN, 1);
 
     if (results.size() == 0)
     {
-        std::cout << "Invalid file, no classes." << std::endl;
+        BuilderErrors::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file. No classe(s) found.");
         return false;
-    } 
-  
+    }
+
     for (SearchResult result : results)
     {
-        string className  = result.value;
+        string className = result.value;
 
-        int classStartLine = ParsingHelper::FindNextOpenBracket(lines,result.index);
-      
-        int classEndLine = ParsingHelper::GetBracketCloseIndex(brackets,classStartLine); 
+        int classStartLine = ParsingHelper::FindNextOpenBracket(lines, result.index);
 
-        Class* novaClass  = new Class(className,this->lines,this->brackets,classStartLine+1,classEndLine);
+        int classEndLine = ParsingHelper::GetBracketCloseIndex(brackets, classStartLine);
+
+        Class *novaClass = new Class(className, this->lines, this->brackets, classStartLine + 1, classEndLine);
 
         if (!novaClass->BuildMembers())
         {
@@ -130,7 +130,7 @@ bool NovaFile::ReadClasses()
 
     return true;
 }
-vector<Class*>* NovaFile::GetClasses()
+vector<Class *> *NovaFile::GetClasses()
 {
     return this->classes;
 }

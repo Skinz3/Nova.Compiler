@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "../../Core/builder_errors.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ public:
         stream.open(filePath.c_str(), ios::binary);
         if (!stream.is_open())
         {
-            cout << "Error, cannot open file " << endl;
+            BuilderErrors::OnError(ErrorType::IO,"Cannot open file : " + filePath);
         }
     }
 

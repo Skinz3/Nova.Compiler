@@ -1,15 +1,22 @@
+#ifndef BUILDER_ERRORS
+#define BUILDER_ERRORS
+
 #include <string>
+#include "error_type.h"
 
 using namespace std;
 
 class BuilderErrors
 {
 public:
-    static void OnError(string message);
+    static void OnError(ErrorType type, string message);
 
-public:
-    static void OnError(string fileName, string message);
+    static void OnError(ErrorType type, string fileName, string message);
 
-public:
-    static void OnError(string className, string line, string message);
+    static void OnError(ErrorType type, string className, string line,int index, string message);
+
+private:
+    static string GetErrorTypeStr(ErrorType errorType);
 };
+
+#endif

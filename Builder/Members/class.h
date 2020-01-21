@@ -16,9 +16,8 @@ class Class
 public:
     Class(string className,std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex);
     bool BuildMembers();
-
     void Serialize(BinaryWriter* writer);
-
+    bool ValidateSemantics();
 private:
     string className;
     int startIndex;

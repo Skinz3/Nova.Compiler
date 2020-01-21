@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
 
         if (!file.Read())
         {
-              system("pause"); // for tests only.
               return EXIT_FAILURE;
         }
 
@@ -76,8 +75,9 @@ int main(int argc, char *argv[])
 
         files->push_back(&file);
     } 
+    Builder builder(files,assemblyName);
 
-    if (Builder::Build(files,assemblyName))
+    if (builder.Build())
     {
          system("pause"); // for tests only.
          return EXIT_SUCCESS;
