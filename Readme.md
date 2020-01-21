@@ -39,7 +39,7 @@ class MyClass
 
 ###### Builder
 
- ![builder](https://puu.sh/F2hEj/67193bd504.png)
+ ![builder](https://puu.sh/F2hMD/34261fe695.png)
 
  ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
