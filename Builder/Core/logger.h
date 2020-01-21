@@ -15,6 +15,10 @@ public:
 
     static void OnError(ErrorType type, string className, string line,int index, string message);
 
+    static void Log(string message);
+
+    static void Debug(string message);
+
 private:
     static string GetErrorTypeStr(ErrorType errorType);
 };

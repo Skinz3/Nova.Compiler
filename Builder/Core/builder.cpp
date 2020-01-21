@@ -15,6 +15,10 @@ Builder::Builder(vector<NovaFile *> *files, string assemblyPath)
     this->files = files;
     this->assemblyPath = assemblyPath;
 }
+bool Builder::ValidateSemantic()
+{
+    return true;
+}
 bool Builder::Build()
 {
     cout << "Building " << assemblyPath << "..." << endl;

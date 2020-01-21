@@ -4,6 +4,8 @@
 
 using namespace std;
 
+const bool DEBUG = true;
+
 void Logger::OnError(ErrorType type, string message)
 {
     cout << GetErrorTypeStr(type) << " error : " << message << endl;
@@ -15,6 +17,15 @@ void Logger::OnError(ErrorType type, string filename, string message)
 void Logger::OnError(ErrorType type, string className, string line, int index, string message)
 {
     cout << GetErrorTypeStr(type) << " error in class " << className << " (" << line << "," << index << ")" << message << endl;
+}
+void Logger::Log(string message)
+{
+    cout << message << endl;
+}
+void Logger::Debug(string message)
+{
+    if (DEBUG)
+        cout << message << endl;
 }
 string Logger::GetErrorTypeStr(ErrorType type)
 {
