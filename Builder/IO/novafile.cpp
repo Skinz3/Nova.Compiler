@@ -1,7 +1,7 @@
 
 #include "novafile.h"
 #include "parsing_helper.h"
-#include "../Core/builder_errors.h"
+#include "../Core/logger.h"
 
 const string USING_PATTERN = "using (\\w.+)";
 const string NAMESPACE_PATTERN = "namespace (\\w+)";
@@ -15,7 +15,7 @@ bool NovaFile::Read()
 {
     if (!ReadLines())
     {
-        BuilderErrors::OnError(ErrorType::IO, this->fileName, "Cannot open file.");
+        Logger::OnError(ErrorType::IO, this->fileName, "Cannot open file.");
         return false;
     }
 
@@ -23,7 +23,7 @@ bool NovaFile::Read()
 
     if (this->definition._namespace == string())
     {
-        BuilderErrors::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file, no namespace.");
+        Logger::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file, no namespace.");
         return false;
     }
 
@@ -93,7 +93,7 @@ bool NovaFile::ReadBrackets()
         int lastIndentLevel = (--brackets->end())->second;
         if (lastIndentLevel != 0)
         {
-            BuilderErrors::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file brackets. (Last bracket indent level: " + std::to_string(lastIndentLevel) + ")");
+            Logger::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file brackets. (Last bracket indent level: " + std::to_string(lastIndentLevel) + ")");
             return false;
         }
     }
@@ -107,7 +107,7 @@ bool NovaFile::ReadClasses()
 
     if (results.size() == 0)
     {
-        BuilderErrors::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file. No classe(s) found.");
+        Logger::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file. No classe(s) found.");
         return false;
     }
 

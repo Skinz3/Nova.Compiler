@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class BuilderErrors
+class Logger
 {
 public:
     static void OnError(ErrorType type, string message);
