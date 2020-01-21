@@ -33,9 +33,9 @@ class MyClass
  ```
  ###### How is the language working ?
  + Once your nova file(s) source code is written. Just give it to the Builder 
- + The builder will generate a .nov file (this is an assembly)
- + Give the .nov to the interpreter and it will run your assembly (from main() entry point)
- > all .nov files in the executing directory are linked as referenced assemblies to the current assembly.
+ + The builder will generate a .nov file (this is a library or program if you write a main() method.)
+ + Give the .nov to the interpreter and it will run your program (from main() entry point ... what else?)
+ > all .nov files in the executing directory are linked as referenced library to the program.
 
 ###### Builder
 
