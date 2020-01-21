@@ -1,7 +1,7 @@
 
 # What is Nova
 
-> Nova is a cross plateform and high level of abstraction interpreted language written in C++. 
+> Nova is a cross plateform interpreted language written in C++ with a high level of abstraction.
   
   ###### Paradigms:
   + Interpreted (only for now)
@@ -43,7 +43,7 @@ class MyClass
 
 ###### NOV File
 
-![NOV Files](https://puu.sh/F2ibD/9b095a2142.png)
+![NOV Files](https://puu.sh/F2jDk/390c696ae5.png)
 
 ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
