@@ -33,11 +33,13 @@ class MyClass
  ```
  ###### How is the language working ?
  + Once your nova file(s) source code is written. Just give it to the Builder 
- + Here is how is working the builder : 
- ![builder](https://puu.sh/F2hEj/67193bd504.png)
  + The builder will generate a .nov file (this is an assembly)
  + Give the .nov to the interpreter and it will run your assembly (from main() entry point)
  > all .nov files in the executing directory are linked as referenced assemblies to the current assembly.
+
+###### Builder
+
+ ![builder](https://puu.sh/F2hEj/67193bd504.png)
 
  ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
