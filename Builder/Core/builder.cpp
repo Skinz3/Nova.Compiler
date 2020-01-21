@@ -21,7 +21,7 @@ bool Builder::ValidateSemantic()
 }
 bool Builder::Build()
 {
-    cout << "Building " << assemblyPath << "..." << endl;
+    Logger::Debug("Building " + assemblyPath + " ...");
 
     for (int i = 0; i < files->size(); i++)
     {
@@ -32,41 +32,40 @@ bool Builder::Build()
     }
 
     map<string, vector<Class>> classes;
-    
-    for (NvFile* file : *files) 
+
+    for (NvFile *file : *files) // verify class name is distincted by namespace
     {
-         vector<Class*>* fileClasses = file->GetClasses();
+        vector<Class *> *fileClasses = file->GetClasses();
 
-         for (Class* _class : *fileClasses)
-         {
-             if (classes.count(file->definition._namespace))
-             {
+        for (Class *_class : *fileClasses)
+        {
+            if (classes.count(file->definition._namespace))
+            {
                 classes[file->definition._namespace].push_back(*_class);
-             }
-             else
-             {
-                 vector<Class> newVect;
-                 newVect.push_back(*_class);
-                 classes.insert(pair<string,vector<Class>>(file->definition._namespace,newVect));
-             }
-         }
-
+            }
+            else
+            {
+                vector<Class> newVect;
+                newVect.push_back(*_class);
+                classes.insert(pair<string, vector<Class>>(file->definition._namespace, newVect));
+            }
+        }
     }
 
-    NovFile* result = new NovFile(assemblyPath,classes);
-    
+    NovFile *result = new NovFile(assemblyPath, classes);
+
     remove(assemblyPath.c_str());
 
-    BinaryWriter* writer = new BinaryWriter(assemblyPath);
+    BinaryWriter *writer = new BinaryWriter(assemblyPath);
 
     result->Serialize(writer);
-    
+
     writer->Close();
 
-    cout << assemblyPath << " generated." << endl;
+    Logger::Log(assemblyPath + " generated.");
 
     delete writer;
-    
+
     return true;
 
     // time to build ?f

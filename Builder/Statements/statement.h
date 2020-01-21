@@ -10,6 +10,11 @@ class Statement
 public:
     Statement(string line);
 
+    virtual bool ValidateSemantic() 
+    {
+        return true;
+    }
+
 private:
     string line;
 };

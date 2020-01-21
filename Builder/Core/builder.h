@@ -1,3 +1,6 @@
+#ifndef BUILDER
+#define BUILDER
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -15,3 +18,5 @@ private:
     string assemblyPath;
     vector<NvFile *> *files;
 };
+
+#endif
