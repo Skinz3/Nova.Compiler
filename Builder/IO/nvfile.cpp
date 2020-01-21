@@ -1,5 +1,5 @@
 
-#include "novafile.h"
+#include "nvfile.h"
 #include "parsing_helper.h"
 #include "../Core/logger.h"
 
@@ -7,11 +7,11 @@ const string USING_PATTERN = "using (\\w.+)";
 const string NAMESPACE_PATTERN = "namespace (\\w+)";
 const string CLASS_PATTERN = "class (\\w+)";
 
-NovaFile::NovaFile(string fileName)
+NvFile::NvFile(string fileName)
 {
     this->fileName = fileName;
 }
-bool NovaFile::Read()
+bool NvFile::Read()
 {
     if (!ReadLines())
     {
@@ -40,7 +40,7 @@ bool NovaFile::Read()
     return true;
 }
 
-bool NovaFile::ReadLines()
+bool NvFile::ReadLines()
 {
     std::ifstream fstream(fileName);
 
@@ -61,7 +61,7 @@ bool NovaFile::ReadLines()
     fstream.close();
     return true;
 }
-bool NovaFile::ReadBrackets()
+bool NvFile::ReadBrackets()
 {
     this->brackets = new map<int, int>();
 
@@ -99,7 +99,7 @@ bool NovaFile::ReadBrackets()
     }
     return true;
 }
-bool NovaFile::ReadClasses()
+bool NvFile::ReadClasses()
 {
     this->classes = new vector<Class *>();
 
@@ -130,11 +130,11 @@ bool NovaFile::ReadClasses()
 
     return true;
 }
-vector<Class *> *NovaFile::GetClasses()
+vector<Class *> *NvFile::GetClasses()
 {
     return this->classes;
 }
-void NovaFile::Dispose()
+void NvFile::Dispose()
 {
     delete brackets;
     delete lines;

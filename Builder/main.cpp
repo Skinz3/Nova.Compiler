@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "IO/novafile.h"
+#include "IO/nvfile.h"
 #include "Core/builder.h"
 
 /* 
@@ -56,13 +56,13 @@ int main(int argc, char *argv[])
         assemblyName = DEFAULT_OUPUT_FILE;
     }
 
-    vector<NovaFile *> *files = new vector<NovaFile *>();
+    vector<NvFile *> *files = new vector<NvFile *>();
 
     for (int i = 1; i < argc - (assemblyNameSpecified ? 1 : 0); i++)
     {
         string arg = argv[i];
 
-        NovaFile file(arg); // instead of new NovaFile() for automatic storage duration
+        NvFile file(arg); // instead of new NovaFile() for automatic storage duration
 
         if (!file.Read())
         {

@@ -1,17 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../IO/novafile.h"
+#include "../IO/nvfile.h"
 
 using namespace std;
 
 class Builder
 {
 public:
-    Builder(vector<NovaFile *> *files, string assemblyName);
+    Builder(vector<NvFile *> *files, string assemblyName);
     bool Build();
     bool ValidateSemantic();
 private:
     string assemblyPath;
-    vector<NovaFile *> *files;
+    vector<NvFile *> *files;
 };

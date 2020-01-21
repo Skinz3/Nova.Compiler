@@ -1,14 +1,14 @@
-#include "assembly.h"
+#include "novfile.h"
 #include <fstream>
 
 
-Assembly::Assembly(string name, map<string, vector<Class>> classes)
+NovFile::NovFile(string name, map<string, vector<Class>> classes)
 {
     this->name = name;
     this->classes = classes;
 }
 
-void Assembly::Serialize(BinaryWriter* writer)
+void NovFile::Serialize(BinaryWriter* writer)
 {
     int classesSize = classes.size();
     writer->Write<int>(classesSize);
@@ -27,7 +27,4 @@ void Assembly::Serialize(BinaryWriter* writer)
         }
     }
 }
-void Assembly::Deserialize(BinaryReader* reader)
-{
-
-}
+ 

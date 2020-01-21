@@ -7,15 +7,15 @@
 
 using namespace std;
 
-class Assembly
+class NovFile
 {
 public:
-    Assembly(string name,map<string, vector<Class>>  classes);
+    NovFile(string name,map<string, vector<Class>>  classes);
     map<string, vector<Class>> classes; // private
     string name;
 
     void Serialize(BinaryWriter* writer);
-    void Deserialize(BinaryReader* reader);
+
     
 private:
     

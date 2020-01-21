@@ -3,14 +3,14 @@
 #include <vector>
 #include <map>
 #include "builder.h"
-#include "../IO/novafile.h"
-#include "../IO/assembly.h"
+#include "../IO/nvfile.h"
+#include "../IO/novfile.h"
 #include "../IO/Binary/binary_writer.cpp"
 #include <stdio.h>
 
 using namespace std;
 
-Builder::Builder(vector<NovaFile *> *files, string assemblyPath)
+Builder::Builder(vector<NvFile *> *files, string assemblyPath)
 {
     this->files = files;
     this->assemblyPath = assemblyPath;
@@ -33,7 +33,7 @@ bool Builder::Build()
 
     map<string, vector<Class>> classes;
     
-    for (NovaFile* file : *files) 
+    for (NvFile* file : *files) 
     {
          vector<Class*>* fileClasses = file->GetClasses();
 
@@ -53,7 +53,7 @@ bool Builder::Build()
 
     }
 
-    Assembly* result = new Assembly(assemblyPath,classes);
+    NovFile* result = new NovFile(assemblyPath,classes);
     
     remove(assemblyPath.c_str());
 

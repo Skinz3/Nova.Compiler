@@ -24,11 +24,11 @@ struct FileDefinition
     vector<string> usings;
 };
 
-class NovaFile
+class NvFile
 {
 
 public:
-    NovaFile(string fileName);
+    NvFile(string fileName);
     string fileName;
     void Print();
     bool Read();
