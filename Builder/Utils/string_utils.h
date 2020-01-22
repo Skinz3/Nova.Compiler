@@ -11,5 +11,5 @@ public:
     static string RightTrim(string str);
     static string Trim(string str);
     static bool IsEmptyOrWhiteSpace(string str);
-    static smatch Regex(string str,std::regex pattern);
+    static vector<string> Split(const string& s, const char& c);
 };

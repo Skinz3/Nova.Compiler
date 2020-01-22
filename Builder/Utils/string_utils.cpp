@@ -20,14 +20,21 @@ string StringUtils::Trim(string str)
 {
     return StringUtils::LeftTrim(StringUtils::RightTrim(str));
 }
-
+vector<string> StringUtils::Split(const string& s, const char& c)
+{
+	string buff{""};
+	vector<string> v;
+	
+	for(auto n:s)
+	{
+		if(n != c) buff+=n; else
+		if(n == c && buff != "") { v.push_back(buff); buff = ""; }
+	}
+	if(buff != "") v.push_back(buff);
+	
+	return v;
+}
 bool StringUtils::IsEmptyOrWhiteSpace(string str)
 {
     return str == "" || str.find_first_not_of(' ') == std::string::npos;
-}
-smatch StringUtils::Regex(string str, std::regex r)
-{
-    smatch match;
-    regex_search(str, match, r);
-    return match;
 }

@@ -6,7 +6,7 @@
 
 const std::regex ASSIGNATION_PATTERN{"^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(\\+|-|\\*|\\/)?=\\s*(.+)$"};
 
-AssignationStatement::AssignationStatement(string line, string variableName,char op, Statement *value) : Statement(line)
+AssignationStatement::AssignationStatement(string line, string variableName, char op, Statement *value) : Statement(line)
 {
    this->variableName = variableName;
    this->value = value;
@@ -15,8 +15,9 @@ AssignationStatement::AssignationStatement(string line, string variableName,char
 };
 AssignationStatement *AssignationStatement::Build(string line)
 {
-   std::smatch match = StringUtils::Regex(line, ASSIGNATION_PATTERN);
-
+   smatch match;
+   regex_search(line, match, ASSIGNATION_PATTERN);
+   
    if (match.size() > 0)
    {
       string variableName = match[1];

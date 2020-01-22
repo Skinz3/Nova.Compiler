@@ -13,7 +13,8 @@ ConstIntStatement::ConstIntStatement(string line, long long value) : Statement(l
 };
 ConstIntStatement *ConstIntStatement::Build(string line)
 {
-    std::smatch match = StringUtils::Regex(line, CONST_INT_PATTERN);
+    smatch match;
+    regex_search(line, match, CONST_INT_PATTERN);
 
     if (match.size() > 0)
     {

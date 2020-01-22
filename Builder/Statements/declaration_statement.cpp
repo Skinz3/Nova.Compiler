@@ -16,17 +16,18 @@ DeclarationStatement::DeclarationStatement(string line, string type, string vari
 
 DeclarationStatement *DeclarationStatement::Build(string line)
 {
-    std::smatch match = StringUtils::Regex(line, DECLARARTION_PATTERN);
+    smatch match;
+    regex_search(line, match, DECLARARTION_PATTERN);
 
     if (match.size() > 0)
     {
         string type = match[1];
         string variableName = match[2];
-        string statementValue = match[4]; 
+        string statementValue = match[4];
 
-        Statement*  st = StatementParser::ParseStatement(statementValue);
+        Statement *st = StatementParser::ParseStatement(statementValue);
 
-        return new DeclarationStatement(line, type, variableName, st); 
+        return new DeclarationStatement(line, type, variableName, st);
     }
     else
     {
