@@ -19,9 +19,9 @@ bool NvFile::Read()
         return false;
     }
 
-    this->definition._namespace = ParsingHelper::SearchFirst(lines, NAMESPACE_PATTERN, 1).value;
+    this->definitions._namespace = ParsingHelper::SearchFirst(lines, NAMESPACE_PATTERN, 1).value;
 
-    if (this->definition._namespace == string())
+    if (this->definitions._namespace == string())
     {
         Logger::OnError(ErrorType::Syntaxic, this->fileName, "Invalid file, no namespace.");
         return false;
@@ -29,7 +29,7 @@ bool NvFile::Read()
 
     for (SearchResult result : ParsingHelper::Search(lines, USING_PATTERN, 1))
     {
-        this->definition.usings.push_back(result.value);
+        this->definitions.usings.push_back(result.value);
     }
 
     if (!ReadBrackets())
@@ -119,7 +119,7 @@ bool NvFile::ReadClasses()
 
         int classEndLine = ParsingHelper::GetBracketCloseIndex(brackets, classStartLine);
 
-        Class *novaClass = new Class(className, this->lines, this->brackets, classStartLine + 1, classEndLine);
+        Class *novaClass = new Class(&this->definitions, className, this->lines, this->brackets, classStartLine + 1, classEndLine);
 
         if (!novaClass->BuildMembers())
         {

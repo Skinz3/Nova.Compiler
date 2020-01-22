@@ -33,6 +33,18 @@ bool Method::Build()
 
     return true;
 }
+
+bool Method::ValidateSemantics()
+{
+    for (Statement* statement : *statements)
+    {
+        if (!statement->ValidateSemantic())
+        {
+            return false;
+        }
+    }
+}
+
 void Method::Serialize(BinaryWriter* writer)
 {
     writer->WriteString(this->methodName);

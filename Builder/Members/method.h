@@ -17,6 +17,7 @@ public:
     Method(vector<string> *fileLines, map<int, int> *fileBrackets, int startIndex, int endIndex, string methodName, ModifierEnum modifier, string returnType, string parameters);
     bool Build();
     void Serialize(BinaryWriter* writer);
+    bool ValidateSemantics();
 private:
     vector<string> *fileLines;
     map<int, int> *fileBrackets;

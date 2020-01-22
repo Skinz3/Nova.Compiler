@@ -1,3 +1,4 @@
+
 #include <string>
 #include <vector>
 #include "../Members/class.h"
@@ -10,12 +11,10 @@ using namespace std;
 class NovFile
 {
 public:
-    NovFile(string name,map<string, vector<Class>>  classes);
-    map<string, vector<Class>> classes; // private
+    NovFile(string name);
     string name;
 
     void Serialize(BinaryWriter* writer);
-
     
 private:
     

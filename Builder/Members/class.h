@@ -9,17 +9,22 @@
 #include "field.h"
 #include "../IO/Binary/binary_writer.cpp"
 #include "../IO/Binary/binary_reader.cpp"
+#include "class_definitions.h"
+
 
 class Class
 {
 
 public:
-    Class(string className,std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex);
+    Class(ClassDefinitions* classDefinitions, string className, std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex);
     bool BuildMembers();
-    void Serialize(BinaryWriter* writer);
+    void Serialize(BinaryWriter *writer);
     bool ValidateSemantics();
-private:
     string className;
+
+private:
+    ClassDefinitions* classDefinitions;
+
     int startIndex;
     int endIndex;
     std::vector<std::string> *fileLines;

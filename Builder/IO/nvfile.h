@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include "../Members/class.h"
+#include "../Members/class_definitions.h"
 #include <regex>
 #include <algorithm>
 #include <iostream>
@@ -17,12 +18,6 @@
 using namespace std;
 
 
-
-struct FileDefinition
-{
-    string _namespace;
-    vector<string> usings;
-};
 
 class NvFile
 {
@@ -35,7 +30,7 @@ public:
     bool ReadClasses();
     void Dispose();
     vector<Class*>* GetClasses();
-    FileDefinition definition;
+    ClassDefinitions definitions;
     
 private:
     vector<string> *lines;

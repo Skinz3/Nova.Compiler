@@ -7,13 +7,15 @@
 #include "../IO/parsing_helper.h"
 #include "../Statements/statement_parser.h"
 #include "../Utils/string_utils.h"
+#include "../Core/semantic_analyser.h"
 
 const std::regex METHOD_PATTERN{"^(public|private)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\((.*?)\\)"};
 
 const std::regex FIELD_PATTERN{"^(public|private)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(=\\s*(.*))?$"};
 
-Class::Class(string className, std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex)
+Class::Class(ClassDefinitions *classDefinitions, string className, std::vector<std::string> *fileLines, std::map<int, int> *fileBrackets, int startIndex, int endIndex)
 {
+    this->classDefinitions = classDefinitions;
     this->className = className;
     this->fileLines = fileLines;
     this->fileBrackets = fileBrackets;
@@ -39,7 +41,7 @@ bool Class::BuildMembers()
             std::string returnType = methodMatch[2];
             std::string methodName = methodMatch[3];
             std::string parameters = methodMatch[4];
-            
+
             int startIndex = ParsingHelper::FindNextOpenBracket(this->fileLines, i);
             int endIndex = ParsingHelper::GetBracketCloseIndex(this->fileBrackets, startIndex);
 
@@ -81,12 +83,26 @@ void Class::Serialize(BinaryWriter *writer)
 
     writer->Write<int>(methodSize);
 
-    for (Method* method : *this->methods)
+    for (Method *method : *this->methods)
     {
         method->Serialize(writer);
     }
 }
 bool Class::ValidateSemantics()
 {
+    for (Field *field : *this->fields)
+    {
+        if (!field->ValidateSemantics())
+        {
+            return false;
+        }
+    }
+    for (Method *method : *this->methods)
+    {
+        if (!method->ValidateSemantics())
+        {
+            return false;
+        }
+    }
     return true;
 }

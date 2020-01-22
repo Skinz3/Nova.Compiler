@@ -53,8 +53,6 @@ int ParsingHelper::FindNextOpenBracket(vector<string>* lines,int lineIndex)
 }
 int ParsingHelper::GetIndentLevel(map<int, int>* brackets,int lineIndex)
 {
-  
-
     map<int, int>::iterator current = brackets->begin();
 
     while (current != brackets->end())

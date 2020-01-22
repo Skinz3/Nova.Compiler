@@ -3,6 +3,7 @@
 #include "../Utils/string_utils.h"
 #include <iostream>
 #include "statement_parser.h"
+#include "../Core/semantic_analyser.h"
 
 const std::regex ASSIGNATION_PATTERN{"^([a-zA-Z_$][a-zA-Z_$0-9]*)\\s*(\\+|-|\\*|\\/)?=\\s*(.+)$"};
 
@@ -34,4 +35,9 @@ AssignationStatement *AssignationStatement::Build(string line)
    {
       return NULL;
    }
+}
+bool AssignationStatement::ValidateSemantic()
+{
+  // SemanticAnalyser::IsVariableAccessible()
+   return true;
 }

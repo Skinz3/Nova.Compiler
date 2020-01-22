@@ -7,20 +7,14 @@
 #include "../IO/novfile.h"
 #include "../IO/Binary/binary_writer.cpp"
 #include <stdio.h>
+#include "semantic_analyser.h"
 
 using namespace std;
 
-Builder::Builder(vector<NvFile *> *files, string assemblyPath)
+
+bool Builder::Build(vector<NvFile *> *files, string assemblyPath)
 {
-    this->files = files;
-    this->assemblyPath = assemblyPath;
-}
-bool Builder::ValidateSemantic()
-{
-    return true;
-}
-bool Builder::Build()
-{
+
     Logger::Debug("Building " + assemblyPath + " ...");
 
     for (int i = 0; i < files->size(); i++)
@@ -31,28 +25,14 @@ bool Builder::Build()
         }
     }
 
-    map<string, vector<Class>> classes;
+    SemanticAnalyser::Initialize(files);
 
-    for (NvFile *file : *files) // verify class name is distincted by namespace
+    if (!SemanticAnalyser::ValidateSemantics())
     {
-        vector<Class *> *fileClasses = file->GetClasses();
-
-        for (Class *_class : *fileClasses)
-        {
-            if (classes.count(file->definition._namespace))
-            {
-                classes[file->definition._namespace].push_back(*_class);
-            }
-            else
-            {
-                vector<Class> newVect;
-                newVect.push_back(*_class);
-                classes.insert(pair<string, vector<Class>>(file->definition._namespace, newVect));
-            }
-        }
+        return false;
     }
 
-    NovFile *result = new NovFile(assemblyPath, classes);
+    NovFile *result = new NovFile(assemblyPath);
 
     remove(assemblyPath.c_str());
 

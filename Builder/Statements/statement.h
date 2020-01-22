@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 using namespace std;
 
 class Statement
@@ -10,10 +11,7 @@ class Statement
 public:
     Statement(string line);
 
-    virtual bool ValidateSemantic() 
-    {
-        return true;
-    }
+    virtual bool ValidateSemantic();
 
 private:
     string line;

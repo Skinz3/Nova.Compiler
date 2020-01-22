@@ -9,3 +9,7 @@ Field::Field(ModifierEnum modifier, string name, string type, Statement *value)
     this->type = type;
     this->value = value;
 }
+bool Field::ValidateSemantics()
+{
+    return true;
+}

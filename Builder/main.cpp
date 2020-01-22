@@ -73,9 +73,8 @@ int main(int argc, char *argv[])
 
         files->push_back(&file);
     }
-    Builder builder(files, assemblyName);
 
-    if (builder.Build() && builder.ValidateSemantic())
+    if (Builder::Build(files, assemblyName))
     {
         system("pause"); // for tests only.
         return EXIT_SUCCESS;
