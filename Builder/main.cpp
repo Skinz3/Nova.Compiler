@@ -52,8 +52,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        Logger::Debug("No Assemby name specified. ");
-        assemblyName = DEFAULT_OUPUT_FILE;
+        
+        
     }
 
     vector<NvFile *> *files = new vector<NvFile *>();
@@ -85,3 +85,4 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 }
+    

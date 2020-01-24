@@ -10,7 +10,6 @@ MethodCallStatement::MethodCallStatement(string line, string name, vector<Statem
 {
     this->name = name;
     this->parameters = parameters;
-    cout << "[MethodCall Statement] " << line << endl;
 }
 MethodCallStatement *MethodCallStatement::Build(string line)
 {

@@ -8,8 +8,6 @@
   + Structured
   + Imperative
   + Object-oriented
-  + Functional
-  + Nova grammar is regular
   ###### Example:
 
   ```

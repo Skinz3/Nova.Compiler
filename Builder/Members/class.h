@@ -24,7 +24,6 @@ public:
 
 private:
     ClassDefinitions* classDefinitions;
-
     int startIndex;
     int endIndex;
     std::vector<std::string> *fileLines;

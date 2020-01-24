@@ -14,7 +14,6 @@ using namespace std;
 
 bool Builder::Build(vector<NvFile *> *files, string assemblyPath)
 {
-
     Logger::Debug("Building " + assemblyPath + " ...");
 
     for (int i = 0; i < files->size(); i++)
