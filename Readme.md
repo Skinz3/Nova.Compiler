@@ -1,4 +1,6 @@
 
+[Im writting a C# prototype before converting it to C++](https://www.github.com/Skinz3/NovaSharp)
+
 # What is Nova
 
 > Nova is a cross plateform interpreted language written in C++ with a high level of abstraction.
