@@ -1,5 +1,5 @@
 
-[Im writting a C# prototype before converting it to C++](https://www.github.com/Skinz3/NovaSharp)
+[Check out the C# prototype!](https://www.github.com/Skinz3/NovaSharp)
 
 # What is Nova
 
