@@ -1,7 +1,7 @@
 
 # What is Nova
 
-> Nova is a cross plateform programming language. Nova compiler is written in C# and virtual machine is written in C++.
+> Nova is a cross plateform programming language. Nova compiler is written in C# .NET and virtual machine is written in C++ (ISO 17).
 
   
   ###### Paradigms:
@@ -47,8 +47,8 @@ class MyClass
   + git clone https://github.com/Skinz3/Nova.git
   + make ./Builder
   + make ./Interpreter
-  + ``` ./builder myScript.nv myAssembly.nov ```  ---> myScript.nv must have a main point entry.
-  + ``` ./interpreter myAssembly.nov ```
+  + ``` ./Nova.Compiler mySourceFile.nv output.nov ```  ---> myScript.nv must have a main point entry. 
+  + ``` ./Nova.VM output.nov ``` ----> execute the program
 
 ## Contacts
 
