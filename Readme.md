@@ -3,39 +3,41 @@
 
 # What is Nova
 
-> Nova is a cross plateform interpreted language written in C++ with a high level of abstraction.
+> Nova is a cross plateform interpreted language written in C#/C++ with a high level of abstraction.
+
+> Compiler : C#
+> Virtual Machine : C++
   
   ###### Paradigms:
   + Interpreted (only for now)
   + Structured
   + Imperative
-  + Object-oriented
   ###### Example:
 
   ```
-using nova
-using nova.math
+using "nova.nov"
+using "nova_math.nov"
 
 namespace myProgram
 
 class MyClass
 {
     // This code is written in Nova !
-    int main()
+    public static int Main()
     {
-       Nova.print("hello world")
+       Nova.PrintLine("hello world")
 
        int var1 = 2
        int var2 = -7
-       Nova.print(var1 * Math.Abs(var2))
+
+       Nova.PrintLine(var1 * Math.Abs(var2))
     }
 }
  ```
  ###### How is the language working ?
- + Once your nova file(s) source code is written. Just give it to the Builder 
- + The builder will generate a .nov file (this is a library or program if you write a main() method.)
- + Give the .nov to the interpreter and it will run your program (from main() entry point ...)
- > all .nov files in the executing directory are linked as referenced library to the program.
+ + Once your nova file(s) source code is written. Just give it to the C# compiler.
+ + The compiler will generate a .nov file (bytecode of the program)
+ + Give the .nov to the virtual machine (written in C++) and it will run your program from Main() (entry point )
 
 ###### Builder
 
