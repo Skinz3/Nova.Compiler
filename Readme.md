@@ -45,8 +45,7 @@ class MyClass
 
 ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
-  + make ./Builder
-  + make ./Interpreter
+  + Build Nova.Compiler & Nova.VM
   + ``` ./Nova.Compiler mySourceFile.nv output.nov ```  ---> myScript.nv must have a main point entry. 
   + ``` ./Nova.VM output.nov ``` ----> execute the program
 
