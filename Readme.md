@@ -1,12 +1,8 @@
 
-[Check out the C# prototype!](https://www.github.com/Skinz3/NovaSharp)
-
 # What is Nova
 
-> Nova is a cross plateform interpreted language written in C#/C++ with a high level of abstraction.
+> Nova is a cross plateform programming language. Nova compiler is written in C# and virtual machine is written in C++.
 
-> Compiler : C#
-> Virtual Machine : C++
   
   ###### Paradigms:
   + Interpreted (only for now)
