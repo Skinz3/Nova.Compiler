@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Nova.ByteCode.Codes;
+using Nova.ByteCode.Generation;
+using Nova.Lexer;
+using Nova.IO;
+using Nova.Members;
+using Nova.Semantics;
+
+namespace Nova.Statements
+{
+    public class ConstStringStatement : Statement
+    {
+        public const string REGEX = "^\"(.+)\"$";
+
+        private string Value
+        {
+            get;
+            set;
+        }
+        public ConstStringStatement(IParentBlock parent, string value, int lineIndex) : base(parent, string.Format("\"{0}\"", value), lineIndex)
+        {
+            this.Value = value;
+        }
+        public ConstStringStatement(IParentBlock parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
+        {
+            this.Value = match.Groups[1].Value;
+        }
+        public ConstStringStatement(IParentBlock parent) : base(parent)
+        {
+
+        }
+
+        public override void GenerateBytecode(ByteBlockMetadata context)
+        {
+            context.Results.Add(new PushConstCode(Value));
+        }
+
+        public override void ValidateSemantics(SemanticsValidator validator)
+        {
+         
+        }
+    }
+}
