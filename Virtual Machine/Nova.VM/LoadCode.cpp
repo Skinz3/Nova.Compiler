@@ -5,8 +5,8 @@ LoadCode::LoadCode(int value)
 	this->variableId = value;
 }
 
-void LoadCode::Compute(RuntimeContext& context, int& index)
+void LoadCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
 {
-	context.PushStack(context.locales[variableId]);
+	context.PushStack(locals[variableId]);
 	index++;
 }

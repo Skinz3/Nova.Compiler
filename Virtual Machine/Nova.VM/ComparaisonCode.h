@@ -10,6 +10,6 @@ class ComparaisonCode :
 		int skip;
 public:
 	ComparaisonCode(ComparaisonEnum type,int skip);
-	void Compute(RuntimeContext& context, int& index);
+	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
 };
 

@@ -7,6 +7,6 @@ private:
 	RuntimeContext::StackElement value;
 public:
 	PushConstCode(RuntimeContext::StackElement value);
-	void Compute(RuntimeContext& context, int& index);
+	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
 };
 

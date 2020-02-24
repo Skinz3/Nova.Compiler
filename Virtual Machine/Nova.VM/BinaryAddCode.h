@@ -5,6 +5,6 @@ class BinaryAddCode : public  Code
 {
 public:
 	BinaryAddCode();
-	void Compute(RuntimeContext& context, int& index);
+	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
 };
 

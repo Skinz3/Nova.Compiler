@@ -5,9 +5,9 @@ StoreCode::StoreCode(int variableId)
 	this->variableId = variableId;
 }
 
-void StoreCode::Compute(RuntimeContext& context, int& index)
+void StoreCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
 {
 	RuntimeContext::StackElement value = context.PopStack();
-	context.locales[variableId] = value;
+	locals[variableId] = value;
 	index++;
 }

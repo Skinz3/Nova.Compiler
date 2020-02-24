@@ -8,7 +8,7 @@ ComparaisonCode::ComparaisonCode(ComparaisonEnum type, int skip)
 	this->skip = skip;
 }
 
-void ComparaisonCode::Compute(RuntimeContext& context, int& index)
+void ComparaisonCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
 {
 	RuntimeContext::StackElement val1 = context.PopStack();
 	RuntimeContext::StackElement val2 = context.PopStack();

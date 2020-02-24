@@ -7,6 +7,6 @@ private:
 	int variableId;
 public:
 	LoadCode(int value);
-	void Compute(RuntimeContext& context, int& index);
+	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
 };
 

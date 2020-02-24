@@ -19,6 +19,9 @@
     <Filter Include="Fichiers sources\IO">
       <UniqueIdentifier>{0c4e9172-0174-4be3-8ebe-7a6dd647e6ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Runtime">
+      <UniqueIdentifier>{5a1899ec-6743-4375-a46e-b7217afe820f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,11 +54,23 @@
     <ClCompile Include="PrintCode.cpp">
       <Filter>Fichiers sources\Codes</Filter>
     </ClCompile>
-    <ClCompile Include="BinaryWriter.cpp">
-      <Filter>Fichiers sources\Codes</Filter>
-    </ClCompile>
     <ClCompile Include="BinaryReader.cpp">
-      <Filter>Fichiers sources\Codes</Filter>
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryWriter.cpp">
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="NovFile.cpp">
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteClass.cpp">
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteMethod.cpp">
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Exec.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +108,18 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="BinaryReader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="NovFile.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteClass.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteMethod.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Exec.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

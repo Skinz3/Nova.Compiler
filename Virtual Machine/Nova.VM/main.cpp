@@ -10,32 +10,15 @@
 #include "ComparaisonEnum.h"
 #include "PrintCode.h"
 #include <ctime>
-#include "BinaryWriter.h"
+#include "BinaryReader.h"
+#include "Exec.h"
 
-void Run(std::vector<Code*>& codes, RuntimeContext& context)
-{
-	int index = 0;
 
-	while (index < codes.size())
-	{
-		Code* element = codes[index];
-		element->Compute(context, index);
-	}
-}
 
 int main(int argc, char* argv[])
 {
-	BinaryWriter writer("C:/Users/Skinz/Desktop/file.bin");
+	int indexVariable = 0;
 
-	writer.WriteString("hello");
-
-	writer.Close();
-
-	
-	RuntimeContext context;
-
-	int indexVariable = 4;
-	
 	/* int i = 0
 	   while (i < 1000000)
 	   {
@@ -57,12 +40,15 @@ int main(int argc, char* argv[])
 		 new JumpCode(2),
 	};
 
+	RuntimeContext context;
+
+	RuntimeContext::StackElement locales[1];
+
 	const clock_t begin_time = clock();
 
-	Run(codes, context);
+	Exec::Execute(context, locales, codes);
 
 	std::cout << "Program terminated in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
-
 
 
 

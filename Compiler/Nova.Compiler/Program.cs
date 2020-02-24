@@ -2,6 +2,7 @@
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Utils;
+using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

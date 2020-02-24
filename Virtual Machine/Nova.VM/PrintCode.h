@@ -9,6 +9,6 @@ private:
 	std::string value;
 public:
 	PrintCode(std::string value);
-	void Compute(RuntimeContext& context, int& index);
+	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
 };
 

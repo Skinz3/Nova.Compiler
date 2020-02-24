@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void BinaryAddCode::Compute(RuntimeContext& context, int& index)
+void BinaryAddCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
 {
 	RuntimeContext::StackElement val1 = context.PopStack();
 	RuntimeContext::StackElement val2 = context.PopStack();

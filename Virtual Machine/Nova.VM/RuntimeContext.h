@@ -1,20 +1,17 @@
 #include <vector>
 #include <variant>
+#include <string>
 
 #pragma once
 class RuntimeContext
 {
-	
 public:
-	using StackElement = std::variant<int, float>;
-
-
-	StackElement locales[255];
-	void PushStack(StackElement element);
-	StackElement PopStack();
+	using StackElement = std::variant<int, bool, char*>;
+	void PushStack(RuntimeContext::StackElement element);
+	RuntimeContext::StackElement PopStack();
 
 private:
-	std::vector<StackElement> stack;
+	std::vector<RuntimeContext::StackElement> stack;
 
 
 };

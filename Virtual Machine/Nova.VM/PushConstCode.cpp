@@ -5,7 +5,7 @@ PushConstCode::PushConstCode(RuntimeContext::StackElement value)
 	this->value = value;
 }
 
-void PushConstCode::Compute(RuntimeContext& context, int& index)
+void PushConstCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
 {
 	context.PushStack(value);
 	index++;
