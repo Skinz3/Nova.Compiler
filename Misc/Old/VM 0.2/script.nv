@@ -1,0 +1,30 @@
+using nova
+using nova.math
+
+namespace myProgram
+
+// This code is written in Nova !
+class ExampleClass 
+{     
+    private int globalVariable
+    
+    private int main() 
+    { 
+       Nova.print("hello world")
+
+       int var1
+       var1 = 4
+       int var2 = -7
+       
+       Nova.print(var1 * Math.Abs(var2))
+    } 
+}
+class ExampleClass2 
+{   
+    public void test(int firstArg,int secondArg)
+    {
+	    Nova.print("this is a test method")
+    }
+}
+
+
