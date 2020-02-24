@@ -23,7 +23,6 @@ namespace Nova.IO
                 container.AddRange(file.GetClasses());
             }
 
-
             List<SemanticalError> errors = new List<SemanticalError>();
 
             foreach (var @class in container.GetClasses())

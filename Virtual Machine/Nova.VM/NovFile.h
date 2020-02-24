@@ -4,6 +4,7 @@
 #include "ByteClass.h"
 #include "BinaryReader.h"
 
+
 class NovFile
 {
 private:

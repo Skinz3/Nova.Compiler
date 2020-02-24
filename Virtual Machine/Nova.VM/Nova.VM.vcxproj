@@ -131,6 +131,7 @@
     <ClCompile Include="BinaryAddCode.cpp" />
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BinaryWriter.cpp" />
+    <ClCompile Include="ByteBlockMeta.cpp" />
     <ClCompile Include="ByteClass.cpp" />
     <ClCompile Include="ByteMethod.cpp" />
     <ClCompile Include="Code.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="BinaryAddCode.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="BinaryWriter.h" />
+    <ClInclude Include="ByteBlockMeta.h" />
     <ClInclude Include="ByteClass.h" />
     <ClInclude Include="ByteMethod.h" />
     <ClInclude Include="Code.h" />

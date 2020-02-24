@@ -17,7 +17,15 @@ bool NovFile::Deserialize(BinaryReader& reader)
 		return false;
 	}
 
+	int classesCount = reader.Read<int>();
 
+	for (int i = 0; i < classesCount; i++)
+	{
+		std::string key = reader.ReadString();
+		ByteClass byteClass(key);
+		byteClass.Deserialize(reader);
+		ByteClasses.insert(std::make_pair(key, byteClass));
+	}
 
 	return true;
 }

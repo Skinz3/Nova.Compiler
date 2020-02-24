@@ -37,8 +37,6 @@ namespace Nova.ByteCode.IO
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(Name);
-
             writer.Write(Methods.Count);
 
             foreach (var method in Methods)

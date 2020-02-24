@@ -19,7 +19,12 @@ public:
 	void Close();
 
 	template<typename T>
-	T Read();
+	T Read()
+	{
+		T value;
+		stream.read((char*)& value, sizeof(value));
+		return value;
+	}
 
 };
 
