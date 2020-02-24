@@ -138,6 +138,7 @@
     <ClCompile Include="Exec.cpp" />
     <ClCompile Include="JumpCode.cpp" />
     <ClCompile Include="LoadCode.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NovFile.cpp" />
     <ClCompile Include="PrintCode.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Exec.h" />
     <ClInclude Include="JumpCode.h" />
     <ClInclude Include="LoadCode.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="NovFile.h" />
     <ClInclude Include="PrintCode.h" />
     <ClInclude Include="PushConstCode.h" />

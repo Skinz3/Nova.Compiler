@@ -13,7 +13,7 @@ public:
 	std::map <std::string, ByteClass> ByteClasses;
 	NovFile();
 
-	void Deserialize(BinaryReader &reader);
+	bool Deserialize(BinaryReader &reader);
 
 };
 

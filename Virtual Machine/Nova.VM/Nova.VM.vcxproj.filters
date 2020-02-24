@@ -72,6 +72,9 @@
     <ClCompile Include="Exec.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryAddCode.h">
@@ -120,6 +123,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Exec.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
