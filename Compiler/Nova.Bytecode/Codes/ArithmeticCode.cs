@@ -9,7 +9,7 @@ using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 
 namespace Nova.ByteCode.Codes
-{
+{ 
     public class ArithmeticCode : ICode
     {
         public int TypeId => 1;

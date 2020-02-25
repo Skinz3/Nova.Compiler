@@ -7,7 +7,7 @@ class JumpCode :
 private:
 	int value;
 public:
-	JumpCode(int value);
 	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
+	void Deserialize(BinaryReader& reader);
 };
 

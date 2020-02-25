@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StoreStaticCode : ICode
     {
-        public int TypeId => 14;
+        public int TypeId => 15;
 
         private string className;
 

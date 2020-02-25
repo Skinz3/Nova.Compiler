@@ -3,7 +3,7 @@
 
 void RuntimeContext::PushStack(RuntimeContext::StackElement element)
 {
-	 stack.push_back(element);
+	stack.push_back(element);
 }
 
 RuntimeContext::StackElement RuntimeContext::PopStack()
@@ -12,5 +12,8 @@ RuntimeContext::StackElement RuntimeContext::PopStack()
 	stack.erase(stack.begin() + stack.size() - 1);
 	return value;
 }
+
+
+
 
 

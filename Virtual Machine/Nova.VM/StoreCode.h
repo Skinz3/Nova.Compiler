@@ -6,7 +6,7 @@ class StoreCode :
 private:
 	int variableId;
 public:
-	StoreCode(int variableId);
 	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
+	void Deserialize(BinaryReader& reader);
 };
 

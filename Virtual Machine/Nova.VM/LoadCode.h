@@ -6,7 +6,7 @@ class LoadCode :
 private:
 	int variableId;
 public:
-	LoadCode(int value);
 	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
+	void Deserialize(BinaryReader& reader);
 };
 

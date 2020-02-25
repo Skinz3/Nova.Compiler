@@ -128,7 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BinaryAddCode.cpp" />
+    <ClCompile Include="ArithmeticCode.cpp" />
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BinaryWriter.cpp" />
     <ClCompile Include="ByteBlockMeta.cpp" />
@@ -138,17 +138,19 @@
     <ClCompile Include="ComparaisonCode.cpp" />
     <ClCompile Include="Exec.cpp" />
     <ClCompile Include="JumpCode.cpp" />
+    <ClCompile Include="JumpIfFalseCode.cpp" />
     <ClCompile Include="LoadCode.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NovFile.cpp" />
-    <ClCompile Include="PrintCode.cpp" />
+    <ClCompile Include="OpCodeDispatcher.cpp" />
+    <ClCompile Include="PrintlCode.cpp" />
     <ClCompile Include="PushConstCode.cpp" />
     <ClCompile Include="RuntimeContext.cpp" />
     <ClCompile Include="StoreCode.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinaryAddCode.h" />
+    <ClInclude Include="ArithmeticCode.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="BinaryWriter.h" />
     <ClInclude Include="ByteBlockMeta.h" />
@@ -156,13 +158,15 @@
     <ClInclude Include="ByteMethod.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="ComparaisonCode.h" />
-    <ClInclude Include="ComparaisonEnum.h" />
     <ClInclude Include="Exec.h" />
     <ClInclude Include="JumpCode.h" />
+    <ClInclude Include="JumpIfFalseCode.h" />
     <ClInclude Include="LoadCode.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="NovFile.h" />
-    <ClInclude Include="PrintCode.h" />
+    <ClInclude Include="OpCodeDispatcher.h" />
+    <ClInclude Include="OperatorEnum.h" />
+    <ClInclude Include="PrintlCode.h" />
     <ClInclude Include="PushConstCode.h" />
     <ClInclude Include="RuntimeContext.h" />
     <ClInclude Include="StoreCode.h" />

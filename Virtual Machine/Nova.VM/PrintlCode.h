@@ -2,13 +2,12 @@
 #include "Code.h"
 #include <string>
 
-class PrintCode :
+class PrintlCode :
 	public Code
 {
 private:
-	std::string value;
 public:
-	PrintCode(std::string value);
 	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
+	void Deserialize(BinaryReader& reader);
 };
 

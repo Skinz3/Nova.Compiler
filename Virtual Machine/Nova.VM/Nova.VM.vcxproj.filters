@@ -22,15 +22,21 @@
     <Filter Include="Fichiers sources\Runtime">
       <UniqueIdentifier>{5a1899ec-6743-4375-a46e-b7217afe820f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Enums">
+      <UniqueIdentifier>{cb1752c2-5195-4282-bd4b-251d56af1921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Codes">
+      <UniqueIdentifier>{06952739-8610-42a1-8243-5e39d28688ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\IO">
+      <UniqueIdentifier>{4732f4c6-0f94-4ba2-b830-2e0834d9ad6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Runtime">
+      <UniqueIdentifier>{8bf522ab-1bb1-4fe6-95c5-c2a991c4adc3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="BinaryAddCode.cpp">
-      <Filter>Fichiers sources\Codes</Filter>
-    </ClCompile>
-    <ClCompile Include="RuntimeContext.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Code.cpp">
@@ -49,9 +55,6 @@
       <Filter>Fichiers sources\Codes</Filter>
     </ClCompile>
     <ClCompile Include="StoreCode.cpp">
-      <Filter>Fichiers sources\Codes</Filter>
-    </ClCompile>
-    <ClCompile Include="PrintCode.cpp">
       <Filter>Fichiers sources\Codes</Filter>
     </ClCompile>
     <ClCompile Include="BinaryReader.cpp">
@@ -78,61 +81,82 @@
     <ClCompile Include="ByteBlockMeta.cpp">
       <Filter>Fichiers sources\IO</Filter>
     </ClCompile>
+    <ClCompile Include="ArithmeticCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintlCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpIfFalseCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="RuntimeContext.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="OpCodeDispatcher.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinaryAddCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="RuntimeContext.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Code.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="PushConstCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ComparaisonCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ComparaisonEnum.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="StoreCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="PrintCode.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryWriter.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryReader.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="NovFile.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ByteClass.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ByteMethod.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Exec.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="OperatorEnum.h">
+      <Filter>Fichiers d%27en-tête\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="ArithmeticCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparaisonCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpIfFalseCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintlCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="PushConstCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryReader.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryWriter.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
     <ClInclude Include="ByteBlockMeta.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteClass.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteMethod.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Code.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="NovFile.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Exec.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="OpCodeDispatcher.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeContext.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

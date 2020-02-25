@@ -1,15 +1,14 @@
 #pragma once
 #include "Code.h"
-#include "ComparaisonEnum.h"
+#include "OperatorEnum.h"
 
 class ComparaisonCode :
 	public Code
 {
 	private:
-		ComparaisonEnum type;
-		int skip;
+		OperatorEnum Op;
 public:
-	ComparaisonCode(ComparaisonEnum type,int skip);
 	void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index);
+	void Deserialize(BinaryReader& reader);
 };
 

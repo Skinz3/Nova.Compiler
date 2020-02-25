@@ -2,34 +2,38 @@
 #include "ComparaisonCode.h"
 #include <iostream>
 
-ComparaisonCode::ComparaisonCode(ComparaisonEnum type, int skip)
-{
-	this->type = type;
-	this->skip = skip;
-}
 
 void ComparaisonCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
 {
-	RuntimeContext::StackElement val1 = context.PopStack();
-	RuntimeContext::StackElement val2 = context.PopStack();
+	int val1 = std::get<int>(context.PopStack());
+	int val2 = std::get<int>(context.PopStack());
+
 
 	bool result = false;
 
-	switch (type)
+	switch (Op)
 	{
-		case ComparaisonEnum::Inferior:
-			result = std::get<int>(val1) < std::get<int>(val2);
+		case OperatorEnum::Inferior:
+			result = val1 < val2;
+			break;
+		case OperatorEnum::Different:
+			result = val1 != val2;
+			break;
+		case OperatorEnum::Superior:
+			result = val1 > val2;
+			break;
+		case OperatorEnum::Equals:
+			result = val1 == val2;
 			break;
 		default:
-			std::cout << "NOT HANDLED OPERATOR" << std::endl;
+			throw "Unhandled operator for ComparaisonCode.";
 	}
 
-	if (result == true)
-	{
-		index += (1 + skip);
-	}
-	else
-	{
-		index++;
-	}
+	context.PushStack(result == true ? 1 : 0);
+	index++;
+}
+
+void ComparaisonCode::Deserialize(BinaryReader& reader)
+{
+	this->Op = (OperatorEnum)reader.Read<byte>();
 }

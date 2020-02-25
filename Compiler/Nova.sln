@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova", "Nova\Nova.csproj", "{8EF17B2E-AF37-444C-B2C0-3B6099321BD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Tests", "Nova.Tests\Nova.Tests.csproj", "{7522304A-838E-4821-9C87-9058291B90A4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Bytecode", "Nova.Bytecode\Nova.Bytecode.csproj", "{938E11E6-2ACE-445A-BDF0-14715E209E6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Utils", "Nova.Utils\Nova.Utils.csproj", "{7350E0C1-89BA-49CA-A71F-635916446C35}"
@@ -23,10 +21,6 @@ Global
 		{8EF17B2E-AF37-444C-B2C0-3B6099321BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EF17B2E-AF37-444C-B2C0-3B6099321BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EF17B2E-AF37-444C-B2C0-3B6099321BD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7522304A-838E-4821-9C87-9058291B90A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7522304A-838E-4821-9C87-9058291B90A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7522304A-838E-4821-9C87-9058291B90A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7522304A-838E-4821-9C87-9058291B90A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{938E11E6-2ACE-445A-BDF0-14715E209E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{938E11E6-2ACE-445A-BDF0-14715E209E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{938E11E6-2ACE-445A-BDF0-14715E209E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
