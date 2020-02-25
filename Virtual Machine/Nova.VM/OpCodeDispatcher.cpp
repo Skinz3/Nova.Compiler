@@ -7,6 +7,14 @@
 #include "PrintlCode.h"
 #include "PushConstCode.h"
 #include "StoreCode.h"
+#include "LoadStaticCode.h"
+#include "LoadStaticMemberCode.h"
+#include "MethodCallCode.h"
+#include "MethodCallStaticCode.h"
+#include "ReadlCode.h"
+#include "ReturnCode.h"
+#include "StoreStaticCode.h"
+#include "StoreStaticMemberCode.h"
 
 Code* OpCodeDispatcher::CreateCode(int id)
 {

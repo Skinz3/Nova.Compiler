@@ -93,8 +93,32 @@
     <ClCompile Include="RuntimeContext.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="LoadStaticCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadStaticMemberCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="MethodCallCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="MethodCallStaticCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadlCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="ReturnCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="StoreStaticCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
+    <ClCompile Include="StoreStaticMemberCode.cpp">
+      <Filter>Fichiers sources\Codes</Filter>
+    </ClCompile>
     <ClCompile Include="OpCodeDispatcher.cpp">
-      <Filter>Fichiers sources\Runtime</Filter>
+      <Filter>Fichiers sources\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,11 +176,35 @@
     <ClInclude Include="Exec.h">
       <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="OpCodeDispatcher.h">
-      <Filter>Fichiers d%27en-tête\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="RuntimeContext.h">
       <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadStaticCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadStaticMemberCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="MethodCallCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="MethodCallStaticCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadlCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="ReturnCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreStaticCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreStaticMemberCode.h">
+      <Filter>Fichiers d%27en-tête\Codes</Filter>
+    </ClInclude>
+    <ClInclude Include="OpCodeDispatcher.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

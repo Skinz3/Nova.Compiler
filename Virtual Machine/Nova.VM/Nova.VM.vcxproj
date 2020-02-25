@@ -140,14 +140,22 @@
     <ClCompile Include="JumpCode.cpp" />
     <ClCompile Include="JumpIfFalseCode.cpp" />
     <ClCompile Include="LoadCode.cpp" />
+    <ClCompile Include="LoadStaticCode.cpp" />
+    <ClCompile Include="LoadStaticMemberCode.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MethodCallCode.cpp" />
+    <ClCompile Include="MethodCallStaticCode.cpp" />
     <ClCompile Include="NovFile.cpp" />
     <ClCompile Include="OpCodeDispatcher.cpp" />
     <ClCompile Include="PrintlCode.cpp" />
     <ClCompile Include="PushConstCode.cpp" />
+    <ClCompile Include="ReadlCode.cpp" />
+    <ClCompile Include="ReturnCode.cpp" />
     <ClCompile Include="RuntimeContext.cpp" />
     <ClCompile Include="StoreCode.cpp" />
+    <ClCompile Include="StoreStaticCode.cpp" />
+    <ClCompile Include="StoreStaticMemberCode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArithmeticCode.h" />
@@ -162,14 +170,22 @@
     <ClInclude Include="JumpCode.h" />
     <ClInclude Include="JumpIfFalseCode.h" />
     <ClInclude Include="LoadCode.h" />
+    <ClInclude Include="LoadStaticCode.h" />
+    <ClInclude Include="LoadStaticMemberCode.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="MethodCallCode.h" />
+    <ClInclude Include="MethodCallStaticCode.h" />
     <ClInclude Include="NovFile.h" />
     <ClInclude Include="OpCodeDispatcher.h" />
     <ClInclude Include="OperatorEnum.h" />
     <ClInclude Include="PrintlCode.h" />
     <ClInclude Include="PushConstCode.h" />
+    <ClInclude Include="ReadlCode.h" />
+    <ClInclude Include="ReturnCode.h" />
     <ClInclude Include="RuntimeContext.h" />
     <ClInclude Include="StoreCode.h" />
+    <ClInclude Include="StoreStaticCode.h" />
+    <ClInclude Include="StoreStaticMemberCode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
