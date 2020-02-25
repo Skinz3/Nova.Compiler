@@ -51,7 +51,7 @@ Code* OpCodeDispatcher::CreateCode(int id)
 		case 15:
 			return new StoreStaticCode();
 		case 16:
-			return new  StoreStaticMemberCode();
+			return new StoreStaticMemberCode();
 		default:
 			Logger::Error("Unable to create OpCode with typeId:" + std::to_string(id));
 			return nullptr;
