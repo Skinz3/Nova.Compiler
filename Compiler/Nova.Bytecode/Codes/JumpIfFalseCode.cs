@@ -33,7 +33,7 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "JumpIfFalse " + targetIndex;
+            return "(" + TypeId + ") " +  "JumpIfFalse " + targetIndex;
         }
 
         public void Serialize(CppBinaryWriter writer)

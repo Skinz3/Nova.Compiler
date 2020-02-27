@@ -34,7 +34,7 @@ namespace Nova.ByteCode.Codes
 
         public override string ToString()
         {
-            return "Store " + variableId;
+            return "(" + TypeId + ") " + "Store " + variableId;
         }
     }
 }

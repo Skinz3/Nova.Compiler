@@ -38,7 +38,7 @@ namespace Nova.IO
                 }
                 return false;
             }
-          
+
 
             NovFile novFile = BuildNovFile(container);
 
@@ -55,6 +55,7 @@ namespace Nova.IO
             stream.Close();
 
             /* tests */
+            //novFile.ByteClasses["ExampleClass"].Methods["Main"].Meta.Print();
             Exec.Run(novFile);
             /* end tests */
 

@@ -1,16 +1,35 @@
+#pragma once
+
 #include <vector>
 #include <variant>
 #include <string>
+#include <iostream>
+#include <string>
 
-#pragma once
+class NovFile;
+class ByteMethod;
+class ByteClass;
+
 class RuntimeContext
 {
 public:
-	using StackElement = std::variant<int, bool, char*>;
-	void PushStack(RuntimeContext::StackElement element);
-	RuntimeContext::StackElement PopStack();
+	NovFile* file;
+	ByteClass* ExecutingClass;
+
+	RuntimeContext(NovFile& file);
+	using RuntimeElement = std::variant<int, std::string>;
+	void PushStack(RuntimeContext::RuntimeElement& element);
+	RuntimeContext::RuntimeElement PopStack();
+
+	
+	void Call(std::string className, std::string methodName, int paramsCount);
+	void Call(std::string methodName, int paramsCount);
+
+	void Initialize();
+
 private:
-	std::vector<RuntimeContext::StackElement> stack;
+	void Call(ByteMethod* method, int parametersCount);
+	std::vector<RuntimeContext::RuntimeElement> stack;
 
 };
 

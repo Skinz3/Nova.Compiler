@@ -1,6 +1,6 @@
 #include "StoreStaticCode.h"
 
-void StoreStaticCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void StoreStaticCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	// todo 
 	index++;

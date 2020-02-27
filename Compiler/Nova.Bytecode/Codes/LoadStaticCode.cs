@@ -37,10 +37,5 @@ namespace Nova.Bytecode.Codes
             writer.Write(className);
             writer.Write(fieldName);
         }
-
-        public override string ToString()
-        {
-            return "LoadGlobal " + className + " " + fieldName;
-        }
     }
 }

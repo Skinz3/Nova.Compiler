@@ -1,6 +1,6 @@
 #include "LoadStaticMemberCode.h"
 
-void LoadStaticMemberCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void LoadStaticMemberCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	// todo
 }

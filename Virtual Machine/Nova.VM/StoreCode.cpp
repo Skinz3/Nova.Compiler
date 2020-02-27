@@ -1,10 +1,9 @@
 #include "StoreCode.h"
 
 
-void StoreCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
+void StoreCode::Compute(RuntimeContext &context,RuntimeContext::RuntimeElement* locales,int& index)
 {
-	RuntimeContext::StackElement value = context.PopStack();
-	locals[variableId] = value;
+	locales[variableId] = context.PopStack();
 	index++;
 }
 void StoreCode::Deserialize(BinaryReader& reader)

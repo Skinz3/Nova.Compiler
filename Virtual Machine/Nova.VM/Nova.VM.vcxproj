@@ -133,6 +133,7 @@
     <ClCompile Include="BinaryWriter.cpp" />
     <ClCompile Include="ByteBlockMeta.cpp" />
     <ClCompile Include="ByteClass.cpp" />
+    <ClCompile Include="ByteField.cpp" />
     <ClCompile Include="ByteMethod.cpp" />
     <ClCompile Include="Code.cpp" />
     <ClCompile Include="ComparaisonCode.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="BinaryWriter.h" />
     <ClInclude Include="ByteBlockMeta.h" />
     <ClInclude Include="ByteClass.h" />
+    <ClInclude Include="ByteField.h" />
     <ClInclude Include="ByteMethod.h" />
     <ClInclude Include="Code.h" />
     <ClInclude Include="ComparaisonCode.h" />

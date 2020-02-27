@@ -1,6 +1,6 @@
 #include "JumpCode.h"
 
-void JumpCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
+void JumpCode::Compute(RuntimeContext &context,RuntimeContext::RuntimeElement* locales,int& index)
 {
 	index = this->value;
 }

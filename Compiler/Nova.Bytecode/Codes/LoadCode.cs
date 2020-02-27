@@ -27,7 +27,7 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "Load " + variableId;
+            return "(" + TypeId + ") " + "Load " + variableId;
         }
 
         public void Serialize(CppBinaryWriter writer)

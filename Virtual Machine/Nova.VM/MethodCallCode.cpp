@@ -1,6 +1,6 @@
 #include "MethodCallCode.h"
 
-void MethodCallCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void MethodCallCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	// todo
 }

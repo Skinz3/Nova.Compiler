@@ -39,9 +39,5 @@ namespace Nova.Bytecode.Codes
             writer.Write(parametersCount);
         }
 
-        public override string ToString()
-        {
-            return "StaticMethodCall " + methodName + " " + parametersCount;
-        }
     }
 }

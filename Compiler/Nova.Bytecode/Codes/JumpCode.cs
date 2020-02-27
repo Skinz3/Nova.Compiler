@@ -32,7 +32,7 @@ namespace Nova.ByteCode.Codes
 
         public override string ToString()
         {
-            return "Jump " + targetIndex;
+            return "(" + TypeId + ") " + "Jump " + targetIndex;
         }
     }
 }

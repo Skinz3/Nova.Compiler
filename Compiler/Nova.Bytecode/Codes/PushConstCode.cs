@@ -11,6 +11,13 @@ namespace Nova.ByteCode.Codes
 {
     public class PushConstCode : ICode
     {
+        private static Dictionary<Type, byte> TypeLinks = new Dictionary<Type, byte>() // to complete
+        {
+            {typeof(bool),1 },
+            {typeof(int),2 },
+            {typeof(string),3 },
+        };
+
         public int TypeId => 11;
 
         private object value;
@@ -20,18 +27,21 @@ namespace Nova.ByteCode.Codes
             this.value = value;
         }
 
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
             context.PushStack(value);
             index++;
         }
         public override string ToString()
         {
-            return "PushConst " + value;
+            return "(" + TypeId + ") " + "PushConst " + value;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
+            byte indice = TypeLinks[value.GetType()];
+            writer.Write(indice);
+
             if (value is bool)
             {
                 writer.Write((bool)value);

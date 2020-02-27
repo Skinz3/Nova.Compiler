@@ -1,6 +1,6 @@
 #include "MethodCallStaticCode.h"
 
-void MethodCallStaticCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void MethodCallStaticCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	// todo
 }

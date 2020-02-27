@@ -33,9 +33,5 @@ namespace Nova.Bytecode.Codes
             writer.Write(fieldName);
         }
 
-        public override string ToString()
-        {
-            return "LoadStaticMember " + fieldName;
-        }
     }
 }

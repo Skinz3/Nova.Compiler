@@ -1,6 +1,6 @@
 #include "LoadStaticCode.h"
 
-void LoadStaticCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void LoadStaticCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	// todo
 }

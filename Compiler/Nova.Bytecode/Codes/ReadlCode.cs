@@ -24,7 +24,10 @@ namespace Nova.Bytecode.Codes
             context.PushStack(value);
             index++;
         }
-
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "Readl";
+        }
         public void Serialize(CppBinaryWriter writer)
         {
           

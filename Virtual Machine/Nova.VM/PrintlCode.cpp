@@ -1,10 +1,9 @@
 #include "PrintlCode.h"
 
-void PrintlCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void PrintlCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
-	RuntimeContext::StackElement element = context.PopStack();
-
-	std::cout << std::get<char*>(element) << std::endl;
+	RuntimeContext::RuntimeElement element = context.PopStack();
+	std::cout << std::get<std::string>(element) << std::endl;
 	index++;
 }
 

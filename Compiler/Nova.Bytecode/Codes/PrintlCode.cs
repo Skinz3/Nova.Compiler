@@ -25,12 +25,12 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "Print";
+            return "(" + TypeId + ") " + "Printl";
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            
+
         }
     }
 }

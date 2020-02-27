@@ -8,7 +8,7 @@
 class Code
 {
 public:
-	virtual void Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index) = 0;
+	virtual void Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index) = 0;
 	virtual void Deserialize(BinaryReader& reader) = 0;
 
 };

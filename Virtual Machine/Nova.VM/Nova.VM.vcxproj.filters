@@ -120,6 +120,9 @@
     <ClCompile Include="OpCodeDispatcher.cpp">
       <Filter>Fichiers sources\IO</Filter>
     </ClCompile>
+    <ClCompile Include="ByteField.cpp">
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logger.h">
@@ -204,6 +207,9 @@
       <Filter>Fichiers d%27en-tête\Codes</Filter>
     </ClInclude>
     <ClInclude Include="OpCodeDispatcher.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteField.h">
       <Filter>Fichiers d%27en-tête\IO</Filter>
     </ClInclude>
   </ItemGroup>

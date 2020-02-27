@@ -2,9 +2,9 @@
 
 
 
-void LoadCode::Compute(RuntimeContext &context,RuntimeContext::StackElement locals[], int& index)
+void LoadCode::Compute(RuntimeContext &context,RuntimeContext::RuntimeElement* locales,int& index)
 {
-	context.PushStack(locals[variableId]);
+	context.PushStack(locales[variableId]);
 	index++;
 }
 void LoadCode::Deserialize(BinaryReader& reader)

@@ -5,7 +5,7 @@
 class Exec
 {
 public :
-	static void Execute(RuntimeContext &context,RuntimeContext::StackElement locals[], std::vector<Code*> codes);
+	static void Execute(RuntimeContext &context,RuntimeContext::RuntimeElement* locales, std::vector<Code*> codes);
 	static void Run(NovFile &file);
 };
 

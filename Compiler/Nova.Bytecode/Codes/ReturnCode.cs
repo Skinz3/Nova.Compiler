@@ -21,11 +21,7 @@ namespace Nova.ByteCode.Codes
         {
             index++;
         }
-        public override string ToString()
-        {
-            return "Return";
-        }
-
+   
         public void Serialize(CppBinaryWriter writer)
         {
            

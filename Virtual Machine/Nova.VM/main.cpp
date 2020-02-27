@@ -5,6 +5,7 @@
 #include "BinaryReader.h"
 #include "Exec.h"
 #include "Logger.h"
+#include <any>
 
 
 
@@ -19,7 +20,7 @@ int main(int argc, char* argv[])
 	std::string filename = argv[1];
 
 	NovFile file;
-	
+
 	Logger::Log(filename);
 
 	BinaryReader reader(filename);
@@ -32,14 +33,14 @@ int main(int argc, char* argv[])
 
 	reader.Close();
 
-
-
-
 	const clock_t begin_time = clock();
 
-	
+	Exec::Run(file);
 
-	std::cout << "Program terminated in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
+	std::cout << "Code executed in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
+
+	return EXIT_SUCCESS; 
+
 
 
 }

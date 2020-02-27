@@ -7,11 +7,12 @@
 class ByteBlockMeta
 {
 private:
-	std::map<string, int> LocalsRelator;
+	std::map<string, int> localsRelator;
 
 public:
 	void Deserialize(BinaryReader& reader);
 	std::vector<Code*> Codes;
+	int localsCount;
 
 };
 

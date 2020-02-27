@@ -58,7 +58,7 @@ namespace Nova.ByteCode.Codes
 
         public override string ToString()
         {
-            return "ComparaisonOp " + type;
+            return "(" + TypeId + ") " + "Comparaison" + type;
         }
     }
 }

@@ -6,7 +6,7 @@ class JumpIfFalseCode :
 private:
 	int TargetIndex;
 public:
-	void Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index);
+	void Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index);
 	void Deserialize(BinaryReader& reader);
 };
 

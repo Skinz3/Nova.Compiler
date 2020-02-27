@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-void ArithmeticCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void ArithmeticCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	int val2 = std::get<int>(context.PopStack());
 	int val1 = std::get<int>(context.PopStack());
 
-	int result = 0;
+	RuntimeContext::RuntimeElement result = 0;
 
 	switch (Op)
 	{

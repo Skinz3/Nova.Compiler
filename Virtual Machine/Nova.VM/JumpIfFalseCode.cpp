@@ -1,8 +1,10 @@
 #include "JumpIfFalseCode.h"
 
-void JumpIfFalseCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void JumpIfFalseCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
-	if (std::get<int>(context.PopStack()) == 0)
+	int value = std::get<int>(context.PopStack()); // value must be char.
+
+	if (value == 0)
 	{
 		index = this->TargetIndex;
 	}

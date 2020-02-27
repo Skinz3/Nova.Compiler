@@ -1,6 +1,6 @@
 #include "StoreStaticMemberCode.h"
 
-void StoreStaticMemberCode::Compute(RuntimeContext& context, RuntimeContext::StackElement locals[], int& index)
+void StoreStaticMemberCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
 	// todo
 	index++;

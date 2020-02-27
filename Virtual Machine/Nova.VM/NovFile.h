@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <map>
 #include "ByteClass.h"
@@ -11,10 +12,9 @@ private:
 	const std::string HEADER = "NovaEX";
 
 public:
-	std::map <std::string, ByteClass> ByteClasses;
+	std::map <std::string, ByteClass*> ByteClasses;
 	NovFile();
 
 	bool Deserialize(BinaryReader &reader);
 
 };
-

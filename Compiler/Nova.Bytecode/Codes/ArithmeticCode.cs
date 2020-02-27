@@ -9,7 +9,7 @@ using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 
 namespace Nova.ByteCode.Codes
-{ 
+{
     public class ArithmeticCode : ICode
     {
         public int TypeId => 1;
@@ -22,7 +22,7 @@ namespace Nova.ByteCode.Codes
         }
 
 
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
             int val2 = (int)context.PopStack();
             int val1 = (int)context.PopStack();
@@ -56,7 +56,7 @@ namespace Nova.ByteCode.Codes
 
         public override string ToString()
         {
-            return "ArithmeticOp " + type;
+            return "(" + TypeId + ") " + "Arithmetic" + type;
         }
     }
 }

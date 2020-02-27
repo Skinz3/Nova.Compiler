@@ -28,10 +28,6 @@ namespace Nova.ByteCode.Codes
             context.Call(methodName, parametersCount);
             index++;
         }
-        public override string ToString()
-        {
-            return "MethodCall " + methodName + " " + parametersCount;
-        }
 
         public void Serialize(CppBinaryWriter writer)
         {
