@@ -1,8 +1,9 @@
 #include "MethodCallCode.h"
 
-void MethodCallCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
+void MethodCallCode::Compute(RuntimeContext& context, RuntimeContext::RuntimeElement* locales, int& index)
 {
-	// todo
+	context.Call(methodName, parametersCount);
+	index++;
 }
 
 void MethodCallCode::Deserialize(BinaryReader& reader)

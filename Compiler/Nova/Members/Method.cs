@@ -119,6 +119,11 @@ namespace Nova.Members
         {
             SemanticsValidator validator = new SemanticsValidator(container);
 
+            foreach (var param in Parameters)
+            {
+                validator.DeclareVariable(param.Name);
+            }
+
             foreach (var statement in this.Statements)
             {
                 statement.ValidateSemantics(validator);

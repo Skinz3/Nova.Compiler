@@ -55,7 +55,7 @@ namespace Nova.IO
             stream.Close();
 
             /* tests */
-            //novFile.ByteClasses["ExampleClass"].Methods["Main"].Meta.Print();
+            novFile.ByteClasses["ExampleClass"].Methods["Main"].Meta.Print();
             Exec.Run(novFile);
             /* end tests */
 

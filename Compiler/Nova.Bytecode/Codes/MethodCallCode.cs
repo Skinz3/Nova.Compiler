@@ -34,5 +34,9 @@ namespace Nova.ByteCode.Codes
             writer.Write(methodName);
             writer.Write(parametersCount);
         }
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "MethodCall " + methodName;
+        }
     }
 }

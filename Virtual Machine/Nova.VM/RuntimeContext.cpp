@@ -29,10 +29,9 @@ void RuntimeContext::Call(std::string className, std::string methodName, int par
 
 void RuntimeContext::Call(std::string methodName, int paramsCount)
 {
-	// todo
-	std::cout << "RuntimeContext::Call(methodName,paramsCount) not implemented." << endl;
+	ByteMethod* method = this->ExecutingClass->Methods[methodName];
+	this->Call(method, paramsCount);
 }
-
 
 void RuntimeContext::Call(ByteMethod* method, int parametersCount)
 {

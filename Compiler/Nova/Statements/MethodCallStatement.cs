@@ -63,8 +63,6 @@ namespace Nova.Statements
             this.MethodName = new MemberName(methodName);
             this.Parameters = parameters;
         }
-
-
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
             //    if (this.MethodName.Raw == "Nova.Print")

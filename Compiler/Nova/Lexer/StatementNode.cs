@@ -132,7 +132,7 @@ namespace Nova.Lexer
         {
             if (IsNull())
             {
-                context.Results.Add(new PushConstCode(null));
+              //  context.Results.Add(new PushConstCode(null));
             }
             else
             {

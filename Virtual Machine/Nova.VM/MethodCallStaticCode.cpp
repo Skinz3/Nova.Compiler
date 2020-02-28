@@ -2,7 +2,8 @@
 
 void MethodCallStaticCode::Compute(RuntimeContext& context,RuntimeContext::RuntimeElement* locales, int& index)
 {
-	// todo
+	context.Call(className, methodName, parametersCount);
+	index++;
 }
 
 void MethodCallStaticCode::Deserialize(BinaryReader& reader)
