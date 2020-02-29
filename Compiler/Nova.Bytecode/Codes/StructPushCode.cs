@@ -10,29 +10,26 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class ObjectCreateStoreCode : ICode
+    public class StructPushCode : ICode
     {
         public int TypeId => 17;
 
         private string className;
-        private int variableId;
 
-        public ObjectCreateStoreCode(string className, int variableId)
+        public StructPushCode(string className)
         {
             this.className = className;
-            this.variableId = variableId;
         }
-
 
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
             RuntimeStruct obj = context.CreateObject(className);
-            locals[variableId] = obj;
+            context.PushStack(obj);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "ObjectCreateStore " + className + " " + variableId;
+            return "(" + TypeId + ") " + "ObjectCreateStore " + className;
         }
         public void Serialize(CppBinaryWriter writer)
         {

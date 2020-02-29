@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Runtime;
+﻿using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Nova.ByteCode.Codes
         {
 
         }
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context,  ref object[] locals, ref int index)
         {
             index++;
         }

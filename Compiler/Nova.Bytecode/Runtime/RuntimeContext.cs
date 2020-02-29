@@ -26,11 +26,17 @@ namespace Nova.ByteCode.Runtime
             get;
             private set;
         }
+        public Stack<RuntimeStruct> StructsStack
+        {
+            get;
+            private set;
+        }
         private ByteClass ExecutingClass
         {
             get;
             set;
         }
+
         public int StackSize
         {
             get
@@ -45,6 +51,7 @@ namespace Nova.ByteCode.Runtime
             this.NovFile = file;
             this.Stack = new List<object>();
             this.CallStack = new Stack<ByteMethod>();
+            this.StructsStack = new Stack<RuntimeStruct>();
         }
 
         public RuntimeStruct CreateObject(string className)
@@ -56,8 +63,12 @@ namespace Nova.ByteCode.Runtime
         #region Function Call
         public void Call(RuntimeStruct obj, string methodName, int parametersCount)
         {
+            this.StructsStack.Push(obj);
+
             var method = obj.Class.Methods[methodName];
             Call(method, parametersCount);
+
+            this.StructsStack.Pop();
         }
         public void Call(ByteMethod method, int parametersCount)
         {

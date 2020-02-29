@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class ObjectCallCode : ICode
+    public class StructCallMethodCode : ICode
     {
         public int TypeId => 19;
 
@@ -20,7 +20,7 @@ namespace Nova.Bytecode.Codes
 
         private int parametersCount;
 
-        public ObjectCallCode(int variableId, string methodName, int parametersCount)
+        public StructCallMethodCode(int variableId,string methodName, int parametersCount)
         {
             this.variableId = variableId;
             this.methodName = methodName;

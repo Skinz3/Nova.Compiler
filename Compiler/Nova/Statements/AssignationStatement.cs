@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
+using Nova.Bytecode.Enums;
 
 namespace Nova.Statements
 {
@@ -65,11 +66,19 @@ namespace Nova.Statements
 
                 if (localVariableId != -1)
                 {
-                    context.Results.Add(new StoreCode(localVariableId)); // or load global is the target is not local (we lack informations)
+                    context.Results.Add(new StoreCode(localVariableId)); 
                 }
                 else
                 {
-                    context.Results.Add(new StoreMemberCode(Target.Raw));
+                    switch (this.Parent.ParentClass.Type)
+                    {
+                        case ContainerType.@class:
+                            context.Results.Add(new StoreMemberCode(Target.Raw)); 
+                            break;
+                        case ContainerType.@struct:
+                            context.Results.Add(new StructSetMemberCode(Target.Raw));
+                            break;
+                    }
                 }
             }
             else
@@ -82,7 +91,7 @@ namespace Nova.Statements
                 }
                 else
                 {
-                    context.Results.Add(new ObjectStoreCode(objId, Target.Elements[1]));
+                    context.Results.Add(new StructLocalSetCode(objId, Target.Elements[1]));
                 }
             }
         }

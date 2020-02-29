@@ -55,9 +55,8 @@ namespace Nova.Statements
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
             int variableId = context.BindVariable(Name);
-
-            context.Results.Add(new ObjectCreateStoreCode(Type, variableId));
-
+            context.Results.Add(new StructPushCode(Type));
+            context.Results.Add(new StoreCode(variableId));
            // call ctor
 
         }

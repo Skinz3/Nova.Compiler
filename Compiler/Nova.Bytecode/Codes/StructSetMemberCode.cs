@@ -1,41 +1,41 @@
 ﻿using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.ByteCode.Codes
+namespace Nova.Bytecode.Codes
 {
-    public class StoreCode : ICode
+    public class StructSetMemberCode : ICode
     {
-        public int TypeId => 14;
+        public int TypeId => 21;
 
-        private int variableId;
+        private string propertyName;
 
-        public StoreCode(int variableId)
+        public StructSetMemberCode(string property)
         {
-            this.variableId = variableId;
+            this.propertyName = property;
         }
 
         public void Compute(RuntimeContext context, ref object[] locales, ref int index)
         {
-            object value = context.PopStack();
-            locales[variableId] = value;
+            RuntimeStruct @struct = context.StructsStack.Peek();
+            @struct.Set(propertyName, context.PopStack());
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(variableId);
+            writer.Write(propertyName);
         }
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "Store " + variableId;
+            return "(" + TypeId + ") " + "StructSetMember " + propertyName;
         }
     }
 }

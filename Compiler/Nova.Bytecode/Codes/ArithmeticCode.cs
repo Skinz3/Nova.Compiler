@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nova.Bytecode.Runtime;
 using Nova.ByteCode.Enums;
 using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
@@ -22,7 +23,7 @@ namespace Nova.ByteCode.Codes
         }
 
 
-        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
         {
             int val2 = (int)context.PopStack();
             int val1 = (int)context.PopStack();

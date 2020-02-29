@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;

@@ -11,6 +11,7 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Nova.Bytecode.Enums;
 
 namespace Nova.Statements
 {
@@ -41,11 +42,19 @@ namespace Nova.Statements
 
                 if (localVariableId != -1)
                 {
-                    context.Results.Add(new LoadCode(localVariableId)); // or load global is the target is not local (we lack informations)
+                    context.Results.Add(new LoadCode(localVariableId)); // variable locale
                 }
                 else
                 {
-                    context.Results.Add(new LoadMemberCode(Name.Raw));
+                    switch (this.Parent.ParentClass.Type)
+                    {
+                        case ContainerType.@class:
+                            context.Results.Add(new LoadMemberCode(Name.Raw)); 
+                            break;
+                        case ContainerType.@struct:
+                            context.Results.Add(new StructGetMemberCode(Name.Raw));
+                            break;
+                    }
                 }
             }
             else
@@ -54,12 +63,11 @@ namespace Nova.Statements
 
                 if (objId == -1)
                 {
-                    context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1]));
-
+                    context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1])); // Static.Field
                 }
                 else
                 {
-                    context.Results.Add(new ObjectLoadCode(objId, Name.Elements[1]));
+                    context.Results.Add(new StructLocalGetCode(objId, Name.Elements[1])); // struct.Property
                 }
             }
         }

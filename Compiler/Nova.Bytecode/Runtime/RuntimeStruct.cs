@@ -39,6 +39,9 @@ namespace Nova.Bytecode.Runtime
         {
             return this.Properties[property];
         }
-
+        public override string ToString()
+        {
+            return "{" + Class.Name + "}";
+        }
     }
 }

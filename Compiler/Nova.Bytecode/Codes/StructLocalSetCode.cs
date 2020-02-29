@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class ObjectStoreCode : ICode
+    /*
+     * human.Name = "value"
+     */
+    public class StructLocalSetCode : ICode
     {
         public int TypeId => 20;
 
@@ -18,12 +21,12 @@ namespace Nova.Bytecode.Codes
 
         private string propertyName;
 
-        public ObjectStoreCode(int variableId,string propertyName)
+        public StructLocalSetCode(int variableId,string propertyName)
         {
             this.variableId = variableId;
             this.propertyName = propertyName;
         }
-        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
         {
             RuntimeStruct obj = (RuntimeStruct)locals[variableId];
             obj.Set(propertyName, context.PopStack());
@@ -34,6 +37,10 @@ namespace Nova.Bytecode.Codes
         {
             writer.Write(variableId);
             writer.Write(propertyName);
+        }
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "StructSetCode " + variableId + " " + propertyName;
         }
     }
 }

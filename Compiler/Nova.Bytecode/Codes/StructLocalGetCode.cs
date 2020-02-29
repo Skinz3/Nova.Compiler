@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class ObjectLoadCode : ICode
+    public class StructLocalGetCode : ICode
     {
         public int TypeId => 18;
 
@@ -18,7 +18,7 @@ namespace Nova.Bytecode.Codes
 
         public string propertyName;
 
-        public ObjectLoadCode(int variableId,string propertyName)
+        public StructLocalGetCode(int variableId,string propertyName)
         {
             this.variableId = variableId;
             this.propertyName = propertyName;

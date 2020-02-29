@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Enums;
+﻿using Nova.Bytecode.Enums;
+using Nova.ByteCode.Enums;
 using Nova.Members;
 using System;
 using System.Collections.Generic;
@@ -125,14 +126,14 @@ namespace Nova.IO
 
                 if (match.Success)
                 {
-                    ModifiersEnum modifiers = ModifiersEnum.@public;
+                    string className = match.Groups[2].Value;
 
-                    string className = match.Groups[1].Value;
+                    ContainerType type = (ContainerType)Enum.Parse(typeof(ContainerType), match.Groups[1].Value);
 
                     int classStartLine = Parser.FindNextOpenBracket(Lines, i);
                     int classEndLine = Parser.GetBracketCloseIndex(Brackets, classStartLine);
 
-                    Class novaClass = new Class(this, className, modifiers, classStartLine, classEndLine);
+                    Class novaClass = new Class(this, className, type, classStartLine, classEndLine);
 
                     if (!novaClass.BuildMembers())
                     {

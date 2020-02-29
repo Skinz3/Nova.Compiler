@@ -50,15 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Codes\ObjectCallCode.cs" />
-    <Compile Include="Codes\ObjectCreateStoreCode.cs" />
+    <Compile Include="Codes\StructGetMemberCode.cs" />
+    <Compile Include="Codes\StructSetMemberCode.cs" />
+    <Compile Include="Codes\StructCallMethodCode.cs" />
+    <Compile Include="Codes\StructPushCode.cs" />
     <Compile Include="Codes\LoadMemberCode.cs" />
     <Compile Include="Codes\MethodCallStaticCode.cs" />
-    <Compile Include="Codes\ObjectLoadCode.cs" />
-    <Compile Include="Codes\ObjectStoreCode.cs" />
+    <Compile Include="Codes\StructLocalGetCode.cs" />
+    <Compile Include="Codes\StructLocalSetCode.cs" />
     <Compile Include="Codes\ReadlCode.cs" />
     <Compile Include="Codes\StoreStaticCode.cs" />
     <Compile Include="Codes\StoreMemberCode.cs" />
+    <Compile Include="Enums\ContainerType.cs" />
     <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Runtime\Exec.cs" />
     <Compile Include="Codes\ArithmeticCode.cs" />

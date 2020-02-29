@@ -84,7 +84,7 @@ namespace Nova.Statements
                 }
                 else
                 {
-                    context.Results.Add(new ObjectCallCode(variableId, MethodName.Elements[1], Parameters.Length));
+                    context.Results.Add(new StructCallMethodCode(variableId, MethodName.Elements[1], Parameters.Length));
                 }
                 // or object
             }

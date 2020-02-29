@@ -55,9 +55,9 @@ namespace Nova.IO
             stream.Close();
 
             /* tests */
+            Logger.Write("-------Main method bytecode--------", LogType.Purple);
             novFile.ByteClasses["ExampleClass"].Methods["Main"].Meta.Print();
-            Console.WriteLine();
-            novFile.ByteClasses["Voiture"].Methods["Test"].Meta.Print();
+            Logger.Write("-------Main method bytecode--------", LogType.Purple);
             Console.WriteLine();
             Exec.Run(novFile);
             /* end tests */

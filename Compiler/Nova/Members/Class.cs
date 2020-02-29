@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Nova.ByteCode.IO;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
+using Nova.Bytecode.Enums;
 
 namespace Nova.Members
 {
@@ -43,10 +44,10 @@ namespace Nova.Members
             get;
             set;
         }
-        private ModifiersEnum Modifiers
+        public ContainerType Type
         {
             get;
-            set;
+            private set;
         }
         public Dictionary<string, Method> Methods
         {
@@ -59,7 +60,7 @@ namespace Nova.Members
             private set;
         }
 
-        public Class(NvFile file, string className, ModifiersEnum modifiers, int startIndex, int endIndex)
+        public Class(NvFile file, string className, ContainerType type, int startIndex, int endIndex)
         {
             this.File = file;
             this.ClassName = className;
@@ -68,7 +69,7 @@ namespace Nova.Members
             this.Methods = new Dictionary<string, Method>();
             this.Fields = new Dictionary<string, Field>();
             this.Usings = file.Usings;
-            this.Modifiers = modifiers;
+            this.Type = type;
         }
         public Class()
         {
