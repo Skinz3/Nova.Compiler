@@ -17,7 +17,7 @@ namespace Nova.Members
 {
     public class Field : IParentBlock, IByteData
     {
-        public const string FIELD_PATTERN = @"^(public|private)\s+(static)?\s*([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
+        public const string FIELD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
 
         public Class ParentClass
         {

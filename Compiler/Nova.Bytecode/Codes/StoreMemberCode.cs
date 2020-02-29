@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class StoreStaticMemberCode : ICode
+    public class StoreMemberCode : ICode
     {
         public int TypeId => 16;
 
         private string fieldName;
 
-        public StoreStaticMemberCode(string fieldName)
+        public StoreMemberCode(string fieldName)
         {
             this.fieldName = fieldName;
         }

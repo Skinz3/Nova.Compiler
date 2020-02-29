@@ -69,7 +69,7 @@ namespace Nova.Statements
                 }
                 else
                 {
-                    context.Results.Add(new StoreStaticMemberCode(Target.Raw));
+                    context.Results.Add(new StoreMemberCode(Target.Raw));
                 }
             }
             else

@@ -47,14 +47,14 @@ namespace Nova.ByteCode.Runtime
             this.CallStack = new Stack<ByteMethod>();
         }
 
-        public RuntimeObject CreateObject(string className)
+        public RuntimeStruct CreateObject(string className)
         {
-            RuntimeObject obj = new RuntimeObject(NovFile.ByteClasses[className]);
+            RuntimeStruct obj = new RuntimeStruct(NovFile.ByteClasses[className]);
             return obj;
         }
 
         #region Function Call
-        public void Call(RuntimeObject obj, string methodName, int parametersCount)
+        public void Call(RuntimeStruct obj, string methodName, int parametersCount)
         {
             var method = obj.Class.Methods[methodName];
             Call(method, parametersCount);

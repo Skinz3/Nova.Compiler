@@ -16,7 +16,7 @@ namespace Nova.Members
 {
     public class Class : IByteData
     {
-        public const string CLASS_PATTERN = @"^\s*class\s+(\w+)$";
+        public const string CLASS_PATTERN = @"^\s*(class|struct)\s+(\w+)$";
 
         public string ClassName
         {
@@ -77,8 +77,6 @@ namespace Nova.Members
             this.Usings = new List<string>();
         }
 
-
-
         public bool BuildMembers()
         {
             for (int i = StartIndex; i < EndIndex; i++)
@@ -91,14 +89,9 @@ namespace Nova.Members
                 {
                     ModifiersEnum modifiers = (ModifiersEnum)Enum.Parse(typeof(ModifiersEnum), methodMatch.Groups[1].Value);
 
-                    if (methodMatch.Groups[2].Value == "static")
-                    {
-                        modifiers |= ModifiersEnum.@static;
-                    }
-
-                    string returnType = methodMatch.Groups[3].Value;
-                    string methodName = methodMatch.Groups[4].Value;
-                    string parametersStr = methodMatch.Groups[5].Value;
+                    string returnType = methodMatch.Groups[2].Value;
+                    string methodName = methodMatch.Groups[3].Value;
+                    string parametersStr = methodMatch.Groups[4].Value;
 
                     if (Methods.ContainsKey(methodName))
                     {
@@ -125,14 +118,9 @@ namespace Nova.Members
                     {
                         ModifiersEnum modifiers = (ModifiersEnum)Enum.Parse(typeof(ModifiersEnum), fieldMatch.Groups[1].Value);
 
-                        if (fieldMatch.Groups[2].Value == "static")
-                        {
-                            modifiers |= ModifiersEnum.@static;
-                        }
-
-                        string fieldType = fieldMatch.Groups[3].Value;
-                        string fieldName = fieldMatch.Groups[4].Value;
-                        string valueStr = fieldMatch.Groups[6].Value;
+                        string fieldType = fieldMatch.Groups[2].Value;
+                        string fieldName = fieldMatch.Groups[3].Value;
+                        string valueStr = fieldMatch.Groups[5].Value;
 
                         if (Fields.ContainsKey(fieldName))
                         {
@@ -151,19 +139,6 @@ namespace Nova.Members
                 }
             }
             return true;
-        }
-
-        public bool HasMain()
-        {
-            if (!Methods.ContainsKey(Constants.MAIN_METHOD_NAME))
-            {
-                return false;
-            }
-            else
-            {
-                Method method = Methods[Constants.MAIN_METHOD_NAME];
-                return method.Modifiers == (ModifiersEnum.@public | ModifiersEnum.@static) && method.Parameters.Count == 0;
-            }
         }
 
         public override string ToString()

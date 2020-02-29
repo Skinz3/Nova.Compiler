@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Runtime
 {
-    public class RuntimeObject
+    public class RuntimeStruct
     {
         public ByteClass Class
         {
@@ -20,7 +20,7 @@ namespace Nova.Bytecode.Runtime
             set;
         }
 
-        public RuntimeObject(ByteClass @class)
+        public RuntimeStruct(ByteClass @class)
         {
             this.Class = @class;
             this.Properties = new Dictionary<string, object>();

@@ -56,6 +56,9 @@ namespace Nova.IO
 
             /* tests */
             novFile.ByteClasses["ExampleClass"].Methods["Main"].Meta.Print();
+            Console.WriteLine();
+            novFile.ByteClasses["Voiture"].Methods["Test"].Meta.Print();
+            Console.WriteLine();
             Exec.Run(novFile);
             /* end tests */
 

@@ -17,7 +17,7 @@ namespace Nova.Members
 {
     public class Method : IParentBlock, IByteData
     {
-        public const string METHOD_PATTERN = @"^(public|private)\s+(static)?\s*([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\((.*?)\)";
+        public const string METHOD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\((.*?)\)";
 
         public Class ParentClass
         {

@@ -26,7 +26,7 @@ namespace Nova.Bytecode.Codes
 
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
-            RuntimeObject obj = context.CreateObject(className);
+            RuntimeStruct obj = context.CreateObject(className);
             locals[variableId] = obj;
             index++;
         }

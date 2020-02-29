@@ -28,13 +28,13 @@ namespace Nova.Bytecode.Codes
         }
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
-            RuntimeObject obj = (RuntimeObject)locals[variableId]; // todo
+            RuntimeStruct obj = (RuntimeStruct)locals[variableId]; // todo
             context.Call(obj, methodName, parametersCount);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "ObjectCall " + variableId + " " + methodName;
+            return "(" + TypeId + ") " + "ObjectCall " + methodName + " " + variableId;
         }
         public void Serialize(CppBinaryWriter writer)
         {

@@ -16,7 +16,7 @@ namespace Nova.ByteCode.Codes
         {
             get;
         }
-        void Compute(RuntimeContext context, RuntimeObject obj, ref object[] locals, ref int index);
+        void Compute(RuntimeContext context, ref object[] locals, ref int index);
         void Serialize(CppBinaryWriter writer);
     }
 }

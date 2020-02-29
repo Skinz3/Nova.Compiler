@@ -12,21 +12,34 @@
 
   ```
 using "nova.nov"
-using "nova_math.nov"
 
 namespace myProgram
 
 class MyClass
 {
     // This code is written in Nova !
-    public static int Main()
+    public int Main()
     {
-       Nova.PrintLine("hello world")
+        Human human => ("Freddy",18)
 
-       int var1 = 2
-       int var2 = -7
+        human.PrintAge()
+    
+    }
+}
+struct Human
+{
+    public string Name
+    public int Age
+    
+    => Human(string name,int age)
+    {
+        Name = name
+        Age = age
+    }
 
-       Nova.PrintLine(var1 * Math.Abs(var2))
+    public void PrintAge()
+    {
+        Nova.PrintLine(Age)
     }
 }
  ```
