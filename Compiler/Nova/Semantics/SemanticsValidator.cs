@@ -88,6 +88,12 @@ namespace Nova.Semantics
             }
 
         }
+
+        public bool IsTypeDefined(string type)
+        {
+            return this.Container.ContainsClass(type);
+        }
+
         public void AddError(string message, int lineIndex)
         {
             this.Errors.Add(new SemanticalError(message, lineIndex));

@@ -23,11 +23,6 @@ namespace Nova.Bytecode.Runtime
         public RuntimeObject(ByteClass @class)
         {
             this.Class = @class;
-
-            foreach (var field in this.Class.Fields)
-            {
-
-            }
         }
 
     }

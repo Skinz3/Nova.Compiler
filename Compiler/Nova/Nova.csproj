@@ -87,6 +87,7 @@
     <Compile Include="Statements\IfStatement.cs" />
     <Compile Include="Statements\MethodCallStatement.cs" />
     <Compile Include="Statements\NativeStatement.cs" />
+    <Compile Include="Statements\ObjectDeclarationStatement.cs" />
     <Compile Include="Statements\OperatorStatement.cs" />
     <Compile Include="Statements\ReturnStatement.cs" />
     <Compile Include="Statements\Statement.cs" />

@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.IO;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Nova.ByteCode.Runtime
             set;
         }
 
-      
+
 
         public RuntimeContext(NovFile file)
         {
@@ -40,7 +41,13 @@ namespace Nova.ByteCode.Runtime
             this.CallStack = new Stack<ByteMethod>();
         }
 
-     
+        public RuntimeObject CreateObject(string className)
+        {
+            RuntimeObject obj = new RuntimeObject(NovFile.ByteClasses[className]);
+            return obj;
+        }
+
+
 
         #region Function Call
         public void Call(ByteMethod method, int parametersCount)

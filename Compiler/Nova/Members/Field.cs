@@ -85,7 +85,7 @@ namespace Nova.Members
         {
             ByteBlockMetadata meta = new ByteBlockMetadata();
             Value.GenerateBytecode(meta);
-            ByteStaticField field = new ByteStaticField((ByteClass)parent, Name, meta);
+            ByteField field = new ByteField((ByteClass)parent, Name, meta);
             return field;
         }
 

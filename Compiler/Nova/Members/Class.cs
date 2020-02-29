@@ -182,7 +182,7 @@ namespace Nova.Members
 
             foreach (var field in this.Fields)
             {
-                byteClass.Fields.Add(field.Key, (ByteStaticField)field.Value.GetByteElement(byteClass));
+                byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(byteClass));
             }
 
 

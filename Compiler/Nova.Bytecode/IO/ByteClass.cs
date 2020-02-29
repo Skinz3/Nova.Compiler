@@ -20,7 +20,7 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        public Dictionary<string, ByteStaticField> Fields
+        public Dictionary<string, ByteField> Fields
         {
             get;
             set;
@@ -30,7 +30,7 @@ namespace Nova.ByteCode.IO
         {
             this.Name = name;
             this.Methods = new Dictionary<string, ByteMethod>();
-            this.Fields = new Dictionary<string, ByteStaticField>();
+            this.Fields = new Dictionary<string, ByteField>();
         }
 
     

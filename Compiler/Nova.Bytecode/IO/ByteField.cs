@@ -14,7 +14,7 @@ namespace Nova.ByteCode.IO
     /// <summary>
     /// Field static
     /// </summary>
-    public class ByteStaticField : IByteElement
+    public class ByteField : IByteElement
     {
         public string Name
         {
@@ -36,7 +36,7 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        public ByteStaticField(ByteClass parentClass, string name, ByteBlockMetadata meta)
+        public ByteField(ByteClass parentClass, string name, ByteBlockMetadata meta)
         {
             this.ParentClass = parentClass;
             this.Name = name;

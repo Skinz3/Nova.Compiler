@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Codes\CreateStoreObjectCode.cs" />
     <Compile Include="Codes\LoadStaticMemberCode.cs" />
     <Compile Include="Codes\MethodCallStaticCode.cs" />
     <Compile Include="Codes\ReadlCode.cs" />
