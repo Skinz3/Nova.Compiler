@@ -9,7 +9,7 @@ namespace Nova.Bytecode.Runtime
 {
     public class RuntimeObject
     {
-        private ByteClass Class
+        public ByteClass Class
         {
             get;
             set;
@@ -23,6 +23,21 @@ namespace Nova.Bytecode.Runtime
         public RuntimeObject(ByteClass @class)
         {
             this.Class = @class;
+            this.Properties = new Dictionary<string, object>();
+
+            foreach (var field in Class.Fields.Values) // modifiers != static
+            {
+                Properties.Add(field.Name, field.Value);
+            }
+        }
+
+        public void Set(string property,object value)
+        {
+            this.Properties[property] = value;
+        }
+        public object Get(string property)
+        {
+            return this.Properties[property];
         }
 
     }

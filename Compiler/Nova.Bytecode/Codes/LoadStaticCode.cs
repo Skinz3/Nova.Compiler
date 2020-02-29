@@ -28,10 +28,13 @@ namespace Nova.Bytecode.Codes
 
         public void Compute(RuntimeContext context,ref object[] locals, ref int index)
         {
-            context.PushStack(context.GetStaticVariable(className, fieldName));
+            context.PushStack(context.Get(className, fieldName));
             index++;
         }
-
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "LoadStatic " + className+" "+fieldName;
+        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(className);

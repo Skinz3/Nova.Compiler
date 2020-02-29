@@ -1,4 +1,5 @@
 ﻿using Nova.ByteCode.Codes;
+using Nova.ByteCode.Enums;
 using Nova.ByteCode.Generation;
 using Nova.Utils.IO;
 using System;
@@ -27,13 +28,19 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        public ByteMethod(string name, ByteClass parentClass)
+        public ModifiersEnum Modifiers
+        {
+            get;
+            set;
+        }
+        public ByteMethod(string name, ModifiersEnum modifiers, ByteClass parentClass)
         {
             this.Name = name;
+            this.Modifiers = modifiers;
             this.Meta = new ByteBlockMetadata();
             this.ParentClass = parentClass;
         }
-     
+
         public void Serialize(CppBinaryWriter writer)
         {
             Meta.Serialize(writer);

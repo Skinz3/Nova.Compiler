@@ -79,7 +79,7 @@ namespace Nova.Semantics
 
                 if (IsVariableDeclared(parentClass, new MemberName(root)))
                 {
-                    throw new Exception("Runtime classes properties are not handled.");
+                    return true; // todo
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace Nova.Semantics
                 if (IsVariableDeclared(parentClass, new MemberName(methodName.Elements[0])))
                 {
                     // obj member
-                    return null;
+                    return new Method(null);
                 }
                 else
                 {

@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class CreateStoreObjectCode : ICode
+    public class ObjectCreateStoreCode : ICode
     {
         public int TypeId => 17;
 
         private string className;
         private int variableId;
 
-        public CreateStoreObjectCode(string className, int variableId)
+        public ObjectCreateStoreCode(string className, int variableId)
         {
             this.className = className;
             this.variableId = variableId;
@@ -30,7 +30,10 @@ namespace Nova.Bytecode.Codes
             locals[variableId] = obj;
             index++;
         }
-
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "ObjectCreateStore " + className + " " + variableId;
+        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(className);

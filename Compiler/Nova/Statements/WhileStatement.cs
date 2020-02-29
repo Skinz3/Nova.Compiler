@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
-using Nova.Enums;
 using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;

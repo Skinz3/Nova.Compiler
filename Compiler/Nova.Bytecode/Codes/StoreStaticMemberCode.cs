@@ -24,7 +24,7 @@ namespace Nova.Bytecode.Codes
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
             object value = context.PopStack();
-            context.SetStaticMemberVariable(fieldName, value);
+            context.Set(fieldName, value);
             index++;
         }
 

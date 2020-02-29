@@ -1,8 +1,6 @@
 ﻿using Nova.ByteCode.Codes;
 using Nova.ByteCode.Enums;
 using Nova.ByteCode.Generation;
-using Nova.Enums;
-using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;

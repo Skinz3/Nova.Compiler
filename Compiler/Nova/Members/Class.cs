@@ -1,5 +1,4 @@
 ﻿using Nova.IO;
-using Nova.Enums;
 using Nova.Lexer;
 using Nova.Lexer.Tokens;
 using System;
@@ -11,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.ByteCode.IO;
 using Nova.Semantics;
+using Nova.ByteCode.Enums;
 
 namespace Nova.Members
 {

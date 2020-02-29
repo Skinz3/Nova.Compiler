@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class LoadStaticMemberCode : ICode
+    public class LoadMemberCode : ICode
     {
         public int TypeId => 7;
 
         private string fieldName;
 
-        public LoadStaticMemberCode(string fieldName)
+        public LoadMemberCode(string fieldName)
         {
             this.fieldName = fieldName;
         }
@@ -24,10 +24,13 @@ namespace Nova.Bytecode.Codes
 
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
-            context.PushStack(context.GetStaticMemberVariable(fieldName));
+            context.PushStack(context.Get(fieldName));
             index++;
         }
-
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "LoadStaticMember " + fieldName;
+        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(fieldName);

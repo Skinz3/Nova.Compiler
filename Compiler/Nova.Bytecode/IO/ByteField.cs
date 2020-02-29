@@ -1,4 +1,6 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Codes;
+using Nova.ByteCode.Enums;
 using Nova.ByteCode.Generation;
 using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
@@ -36,23 +38,30 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        public ByteField(ByteClass parentClass, string name, ByteBlockMetadata meta)
+        public ModifiersEnum Modifiers
+        {
+            get;
+            private set;
+        }
+        public ByteField(ByteClass parentClass, ModifiersEnum modifiers, string name, ByteBlockMetadata meta)
         {
             this.ParentClass = parentClass;
             this.Name = name;
             this.Meta = meta;
+            this.Modifiers = modifiers;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
+            writer.Write((byte)Modifiers);
             Meta.Serialize(writer);
         }
-
-     
         public void Initializer(RuntimeContext context)
         {
             Exec.Execute(context, new object[0], Meta.Results);
-            this.Value = context.PopStack();
+
+            if (context.StackSize > 0)
+                this.Value = context.PopStack();
         }
     }
 }

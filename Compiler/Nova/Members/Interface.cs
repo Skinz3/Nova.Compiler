@@ -1,4 +1,4 @@
-﻿using Nova.Enums;
+﻿using Nova.ByteCode.Enums;
 using Nova.IO;
 using Nova.Semantics;
 using Nova.Statements;

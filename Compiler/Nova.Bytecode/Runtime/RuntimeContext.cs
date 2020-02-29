@@ -31,7 +31,13 @@ namespace Nova.ByteCode.Runtime
             get;
             set;
         }
-
+        public int StackSize
+        {
+            get
+            {
+                return Stack.Count;
+            }
+        }
 
 
         public RuntimeContext(NovFile file)
@@ -47,9 +53,12 @@ namespace Nova.ByteCode.Runtime
             return obj;
         }
 
-
-
         #region Function Call
+        public void Call(RuntimeObject obj, string methodName, int parametersCount)
+        {
+            var method = obj.Class.Methods[methodName];
+            Call(method, parametersCount);
+        }
         public void Call(ByteMethod method, int parametersCount)
         {
             this.ExecutingClass = method.ParentClass;
@@ -79,19 +88,19 @@ namespace Nova.ByteCode.Runtime
         #endregion
 
         #region Fields
-        public object GetStaticVariable(string className, string fieldName)
+        public object Get(string className, string fieldName)
         {
             return NovFile.ByteClasses[className].Fields[fieldName].Value;
         }
-        public object GetStaticMemberVariable(string fieldName)
+        public object Get(string fieldName)
         {
             return ExecutingClass.Fields[fieldName].Value;
         }
-        public void SetStaticVariable(string className, string fieldName, object value)
+        public void Set(string className, string fieldName, object value)
         {
             NovFile.ByteClasses[className].Fields[fieldName].Value = value;
         }
-        internal void SetStaticMemberVariable(string fieldName, object value)
+        public void Set(string fieldName, object value)
         {
             ExecutingClass.Fields[fieldName].Value = value;
         }

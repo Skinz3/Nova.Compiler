@@ -1,4 +1,4 @@
-﻿using Nova.Enums;
+﻿using Nova.ByteCode.Enums;
 using Nova.Members;
 using System;
 using System.Collections.Generic;

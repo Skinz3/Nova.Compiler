@@ -1,7 +1,6 @@
 ﻿using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.ByteCode.IO;
-using Nova.Enums;
 using Nova.Lexer;
 using Nova.IO;
 using Nova.Semantics;
@@ -12,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nova.ByteCode.Enums;
 
 namespace Nova.Members
 {
@@ -99,7 +99,7 @@ namespace Nova.Members
 
         public IByteElement GetByteElement(IByteElement parent)
         {
-            ByteMethod result = new ByteMethod(this.Name, (ByteClass)parent);
+            ByteMethod result = new ByteMethod(this.Name, Modifiers, (ByteClass)parent);
 
             foreach (var parameter in Parameters)
             {

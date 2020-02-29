@@ -74,7 +74,16 @@ namespace Nova.Statements
             }
             else
             {
-                context.Results.Add(new StoreStaticCode(Target.Elements[0], Target.Elements[1]));
+                int objId = context.GetLocalVariableId(Target.GetRoot());
+
+                if (objId == -1)
+                {
+                    context.Results.Add(new StoreStaticCode(Target.Elements[0], Target.Elements[1]));
+                }
+                else
+                {
+                    context.Results.Add(new ObjectStoreCode(objId, Target.Elements[1]));
+                }
             }
         }
 

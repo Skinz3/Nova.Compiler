@@ -45,12 +45,22 @@ namespace Nova.Statements
                 }
                 else
                 {
-                    context.Results.Add(new LoadStaticMemberCode(Name.Raw));
+                    context.Results.Add(new LoadMemberCode(Name.Raw));
                 }
             }
             else
             {
-                context.Results.Add(new LoadStaticCode(Name.Elements[0], Name.Elements[1]));
+                int objId = context.GetLocalVariableId(Name.GetRoot());
+
+                if (objId == -1)
+                {
+                    context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1]));
+
+                }
+                else
+                {
+                    context.Results.Add(new ObjectLoadCode(objId, Name.Elements[1]));
+                }
             }
         }
         public override void ValidateSemantics(SemanticsValidator validator)

@@ -9,7 +9,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.Members;
-using Nova.Enums;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.Semantics;
@@ -65,33 +64,35 @@ namespace Nova.Statements
         }
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
-            //    if (this.MethodName.Raw == "Nova.Print")
-            {
-                //  Parameters[0].GenerateBytecode(context);
-                // context.Results.Add(new PrintCode());
-            }
-            //    else
-            {
-                foreach (var parameter in Parameters)
-                {
-                    parameter.GenerateBytecode(context);
-                }
 
-                if (this.MethodName.IsMemberOfParent())
+            foreach (var parameter in Parameters)
+            {
+                parameter.GenerateBytecode(context);
+            }
+
+            if (this.MethodName.IsMemberOfParent())
+            {
+                context.Results.Add(new MethodCallCode(MethodName.Raw, Parameters.Length));//todo parameters cunt
+            }
+            else
+            {
+                var variableId = context.GetLocalVariableId(MethodName.GetRoot());
+
+                if (variableId == -1)
                 {
-                    context.Results.Add(new MethodCallCode(MethodName.Raw, Parameters.Length));//todo parameters cunt
+                    context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
                 }
                 else
                 {
-                    context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
-                    // or object
+                    context.Results.Add(new ObjectCallCode(variableId, MethodName.Elements[1], Parameters.Length));
                 }
+                // or object
             }
         }
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
-            var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
+        /*    var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
 
             if (target == null)
             {
@@ -107,7 +108,7 @@ namespace Nova.Statements
             foreach (var parameter in Parameters)
             {
                 parameter.ValidateSemantics(validator);
-            }
+            } */
         }
     }
 }

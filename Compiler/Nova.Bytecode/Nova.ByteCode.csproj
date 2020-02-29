@@ -50,12 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Codes\CreateStoreObjectCode.cs" />
-    <Compile Include="Codes\LoadStaticMemberCode.cs" />
+    <Compile Include="Codes\ObjectCallCode.cs" />
+    <Compile Include="Codes\ObjectCreateStoreCode.cs" />
+    <Compile Include="Codes\LoadMemberCode.cs" />
     <Compile Include="Codes\MethodCallStaticCode.cs" />
+    <Compile Include="Codes\ObjectLoadCode.cs" />
+    <Compile Include="Codes\ObjectStoreCode.cs" />
     <Compile Include="Codes\ReadlCode.cs" />
     <Compile Include="Codes\StoreStaticCode.cs" />
     <Compile Include="Codes\StoreStaticMemberCode.cs" />
+    <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Runtime\Exec.cs" />
     <Compile Include="Codes\ArithmeticCode.cs" />
     <Compile Include="Codes\ComparaisonCode.cs" />
@@ -73,7 +77,7 @@
     <Compile Include="Generation\ByteBlockMetadata.cs" />
     <Compile Include="IO\ByteClass.cs" />
     <Compile Include="IO\ByteMethod.cs" />
-    <Compile Include="IO\ByteStaticField.cs" />
+    <Compile Include="IO\ByteField.cs" />
     <Compile Include="IO\IByteElement.cs" />
     <Compile Include="IO\NovFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

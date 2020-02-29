@@ -1,6 +1,5 @@
 ﻿using Nova.ByteCode.Generation;
 using Nova.ByteCode.IO;
-using Nova.Enums;
 using Nova.Lexer;
 using Nova.Lexer.Tokens;
 using Nova.IO;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nova.Semantics;
+using Nova.ByteCode.Enums;
 
 namespace Nova.Members
 {
@@ -85,7 +85,7 @@ namespace Nova.Members
         {
             ByteBlockMetadata meta = new ByteBlockMetadata();
             Value.GenerateBytecode(meta);
-            ByteField field = new ByteField((ByteClass)parent, Name, meta);
+            ByteField field = new ByteField((ByteClass)parent, Modifiers, Name, meta);
             return field;
         }
 

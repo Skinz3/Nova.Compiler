@@ -145,6 +145,11 @@ namespace Nova.Lexer
 
         public bool ValidateSemantics(SemanticsValidator validator)
         {
+            if (IsNull())
+            {
+                return true;
+
+            }
             foreach (var statement in Postfix)
             {
                 statement.ValidateSemantics(validator);

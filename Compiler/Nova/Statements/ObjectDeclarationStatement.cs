@@ -56,12 +56,9 @@ namespace Nova.Statements
         {
             int variableId = context.BindVariable(Name);
 
-            context.Results.Add(new CreateStoreObjectCode(Type, variableId));
+            context.Results.Add(new ObjectCreateStoreCode(Type, variableId));
 
-            foreach (var param in CtorParameters)
-            {
-                param.GenerateBytecode(context);
-            }
+           // call ctor
 
         }
 

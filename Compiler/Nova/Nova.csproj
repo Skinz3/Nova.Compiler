@@ -54,7 +54,6 @@
     <Compile Include="Lexer\RegexConstants.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Lexer\MemberName.cs" />
     <Compile Include="IO\ClassesContainer.cs" />
     <Compile Include="IO\IByteData.cs" />
