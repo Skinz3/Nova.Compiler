@@ -33,9 +33,9 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            Value.GenerateBytecode(context);
+            Value.GenerateBytecode(container,context);
             context.Results.Add(new ReturnCode());
         }
 

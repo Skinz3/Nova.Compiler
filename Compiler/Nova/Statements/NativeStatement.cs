@@ -49,11 +49,11 @@ namespace Nova.Statements
             this.Parameters = parameters;
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             foreach (var parameter in Parameters)
             {
-                parameter.GenerateBytecode( context);
+                parameter.GenerateBytecode(container,context);
             }
 
             Type nativeType = Natives[NativeName];

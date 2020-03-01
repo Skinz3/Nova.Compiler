@@ -9,6 +9,6 @@ namespace Nova.IO
 {
     public interface IByteData
     {
-        IByteElement GetByteElement(IByteElement parent);
+        IByteElement GetByteElement(ClassesContainer container, IByteElement parent);
     }
 }

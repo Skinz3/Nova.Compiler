@@ -147,18 +147,18 @@ namespace Nova.Members
             return ClassName;
         }
 
-        public IByteElement GetByteElement(IByteElement parent)
+        public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
             ByteClass byteClass = new ByteClass(this.ClassName);
 
             foreach (var method in this.Methods)
             {
-                byteClass.Methods.Add(method.Key, (ByteMethod)method.Value.GetByteElement(byteClass));
+                byteClass.Methods.Add(method.Key, (ByteMethod)method.Value.GetByteElement(container,byteClass));
             }
 
             foreach (var field in this.Fields)
             {
-                byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(byteClass));
+                byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(container,byteClass));
             }
 
 

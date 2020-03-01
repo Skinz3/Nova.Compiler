@@ -24,6 +24,11 @@ namespace Nova.ByteCode.Codes
         public void Compute(RuntimeContext context, ref object[] locales, ref int index)
         {
             object value = context.PopStack();
+
+            if (value is RuntimeStruct)
+            {
+
+            }
             locales[variableId] = value;
             index++;
         }

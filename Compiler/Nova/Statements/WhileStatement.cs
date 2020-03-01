@@ -64,11 +64,11 @@ namespace Nova.Statements
             return LineSize;
         }
 
-        public override void GenerateBytecode( ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             int jumpIndex = context.ByteCodeLength + 1;
 
-            Condition.GenerateBytecode(context);
+            Condition.GenerateBytecode(container,context);
 
             JumpIfFalseCode jumpIfFalse = new JumpIfFalseCode(-1);
 
@@ -76,7 +76,7 @@ namespace Nova.Statements
 
             foreach (var statement in Statements)
             {
-                statement.GenerateBytecode(context);
+                statement.GenerateBytecode(container,context);
             }
 
             context.Results.Add(new JumpCode(jumpIndex));
@@ -99,6 +99,6 @@ namespace Nova.Statements
             validator.BlockEnd();
         }
 
-     
+
     }
 }

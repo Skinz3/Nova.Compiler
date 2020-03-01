@@ -66,7 +66,6 @@ namespace Nova.ByteCode.Runtime
         public void Call(RuntimeStruct obj, string methodName, int parametersCount)
         {
             this.StructsStack.Push(obj);
-
             var method = obj.Class.Methods[methodName];
             Call(method, parametersCount);
 

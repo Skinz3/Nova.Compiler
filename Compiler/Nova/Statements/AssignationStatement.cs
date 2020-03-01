@@ -56,45 +56,70 @@ namespace Nova.Statements
 
         }
 
-
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        private static void GenerateStructAssignation(MemberName target, ByteBlockMetadata context, int offset)
         {
-            Value.GenerateBytecode(context);
+            for (int i = offset; i < target.Elements.Length - 1; i++)
+            {
+                context.Results.Add(new StructLoadMemberCode(target.Elements[i]));
+            }
 
+            context.Results.Add(new StructStoreMemberCode(target.GetLeaf()));
+        }
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        {
+            Value.GenerateBytecode(container, context);
             var symInfo = this.DeduceSymbolCategory(context, Target, this.Parent.ParentClass);
-
+            GenerateAssignation(context, Target, symInfo); 
+        }
+        public static void GenerateAssignation(ByteBlockMetadata context, MemberName target,SymbolType symInfo)
+        {
             switch (symInfo)
             {
                 case SymbolType.Local:
-                    context.Results.Add(new StoreCode(context.SymbolTable.GetLocal(Target.Raw).Id)); // local variable
-                    break;
-                case SymbolType.ClassMember:
 
-                    if (Target.NoTree())
+                    int variableId = context.SymbolTable.GetLocal(target.GetRoot()).Id;
+
+                    if (target.NoTree())
                     {
-                        context.Results.Add(new StoreMemberCode(Target.Raw)); // field of a class.
+                        context.Results.Add(new StoreCode(variableId)); // field of a class.
                     }
                     else
                     {
-                        context.Results.Add(new LoadStaticMemberCode(Target.GetRoot()));
+                        context.Results.Add(new LoadCode(variableId));
+                        GenerateStructAssignation(target, context, 1);
 
-                        for (int i = 1; i < Target.Elements.Length - 1; i++)
-                        {
-                            context.Results.Add(new StructLoadMemberCode(Target.Elements[i]));
-                        }
+                    }
+                    break;
+                case SymbolType.ClassMember:
 
-                        context.Results.Add(new StructStoreMemberCode(Target.GetLeaf()));
+                    if (target.NoTree())
+                    {
+                        context.Results.Add(new StoreMemberCode(target.Raw)); // field of a class.
+                    }
+                    else
+                    {
+                        context.Results.Add(new LoadStaticMemberCode(target.GetRoot()));
+                        GenerateStructAssignation(target, context, 1);
                     }
                     break;
                 case SymbolType.StructMember:
                     context.Results.Add(new StructPushCurrent()); // field of a struct
+                    GenerateStructAssignation(target, context, 0);
                     break;
                 case SymbolType.StaticExternal:
-                    context.Results.Add(new StoreStaticCode(Target.Elements[0], Target.Elements[1]));
+
+                    if (target.Elements.Length == 2)
+                    {
+                        context.Results.Add(new StoreStaticCode(target.Elements[0], target.Elements[1]));
+                    }
+                    else
+                    {
+                        context.Results.Add(new LoadStaticCode(target.Elements[0], target.Elements[1]));
+                        GenerateStructAssignation(target, context, 2);
+                    }
                     break;
             }
         }
-
         public override void ValidateSemantics(SemanticsValidator validator)
         {
             if (!validator.IsVariableDeclared(this.Parent.ParentClass, Target))

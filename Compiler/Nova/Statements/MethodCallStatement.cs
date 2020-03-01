@@ -63,11 +63,11 @@ namespace Nova.Statements
             this.MethodName = new MemberName(methodName);
             this.Parameters = parameters;
         }
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             foreach (var parameter in Parameters)
             {
-                parameter.GenerateBytecode(context);
+                parameter.GenerateBytecode(container,context);
             }
             var symInfo = DeduceSymbolCategory(context, MethodName, this.Parent.ParentClass);
 
@@ -112,14 +112,28 @@ namespace Nova.Statements
                     break;
 
                 case SymbolType.StaticExternal:
-                   
-                    if (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))
+
+                    if (MethodName.Elements.Length == 2)
                     {
-                        context.Results.Add(new MethodCallCode(MethodName.GetRoot(), Parameters.Length));
+                        if (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))
+                        {
+                            context.Results.Add(new MethodCallCode(MethodName.GetRoot(), Parameters.Length));
+                        }
+                        else
+                        {
+                            context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
+                        }
                     }
                     else
                     {
-                        context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
+                        context.Results.Add(new LoadStaticCode(MethodName.Elements[0], MethodName.Elements[1]));
+
+                        for (int i = 2; i < MethodName.Elements.Length-1; i++)
+                        {
+                            context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                        }
+                        context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+
                     }
                     break;
             }
@@ -130,6 +144,7 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
+            return;
             var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
 
             if (target == null)

@@ -88,7 +88,7 @@ namespace Nova.Statements
             throw new Exception("Unknown symbol type.");
         }
 
-        public abstract void GenerateBytecode(ByteBlockMetadata context);
+        public abstract void GenerateBytecode(ClassesContainer container,ByteBlockMetadata context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
 

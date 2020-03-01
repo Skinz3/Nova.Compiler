@@ -49,7 +49,7 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             switch (OperatorEnum)
             {

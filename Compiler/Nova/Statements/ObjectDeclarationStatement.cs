@@ -52,7 +52,7 @@ namespace Nova.Statements
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             int variableId = context.SymbolTable.Bind(Name, Type);
             context.Results.Add(new StructCreateCode(Type));

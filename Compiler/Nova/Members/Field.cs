@@ -88,10 +88,10 @@ namespace Nova.Members
             return Variable.Type + " " + Variable.Name;
         }
 
-        public IByteElement GetByteElement(IByteElement parent)
+        public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
             ByteBlockMetadata meta = new ByteBlockMetadata();
-            Value.GenerateBytecode(meta);
+            Value.GenerateBytecode(container,meta);
             ByteField field = new ByteField((ByteClass)parent, Modifiers, Name, meta);
             return field;
         }

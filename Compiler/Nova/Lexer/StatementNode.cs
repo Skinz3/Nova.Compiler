@@ -128,7 +128,7 @@ namespace Nova.Lexer
             this.Parent = parent;
         }
 
-        public void GenerateBytecode( ByteBlockMetadata context)
+        public void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             if (IsNull())
             {
@@ -138,7 +138,7 @@ namespace Nova.Lexer
             {
                 foreach (var statement in Postfix)
                 {
-                    statement.GenerateBytecode(context);
+                    statement.GenerateBytecode(container,context);
                 }
             }
         }

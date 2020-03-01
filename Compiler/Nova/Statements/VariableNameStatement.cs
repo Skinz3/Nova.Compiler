@@ -35,27 +35,32 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             var symType = DeduceSymbolCategory(context, Name, this.Parent.ParentClass);
+
+            int loadStart = 1;
 
             switch (symType)
             {
                 case SymbolType.Local:
                     context.Results.Add(new LoadCode(context.SymbolTable.GetLocal(Name.GetRoot()).Id));
+                    
                     break;
                 case SymbolType.ClassMember:
                     context.Results.Add(new LoadStaticMemberCode(Name.GetRoot()));
                     break;
                 case SymbolType.StructMember:
                     context.Results.Add(new StructPushCurrent());
+                    loadStart = 0;
                     break;
                 case SymbolType.StaticExternal:
                     context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1]));
+                    loadStart = 2;
                     break;
             }
 
-            for (int i = 1; i < Name.Elements.Length; i++)
+            for (int i = loadStart; i < Name.Elements.Length; i++)
             {
                 context.Results.Add(new StructLoadMemberCode(Name.Elements[i]));
             }

@@ -18,7 +18,7 @@ namespace Nova.Statements
 {
     public class ObjectAssignationStatement : Statement
     {
-        public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s*=>\s*\((.*)\)$";
+        public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_._$0-9]*)\s*=>\s*\((.*)\)$";
 
         private MemberName Target
         {
@@ -39,40 +39,39 @@ namespace Nova.Statements
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             var symInfo = DeduceSymbolCategory(context, Target, this.Parent.ParentClass);
 
-            string type;
+            string type = string.Empty;
 
-            Symbol symbol = context.SymbolTable.GetLocal(this.Target.GetRoot());
+            string root = Target.GetRoot();
 
-            if (symbol == null)
-            {
-                type = this.Parent.ParentClass.Fields[Target.GetRoot()].Type;
-            }
-            else
+            Symbol symbol = context.SymbolTable.GetLocal(root);
+
+            if (symbol != null)
             {
                 type = symbol.Type;
             }
+            else if (this.Parent.ParentClass.Fields.ContainsKey(root))
+            {
+                Field field = this.Parent.ParentClass.Fields[root];
+
+                for (int i = 1; i < this.Target.Elements.Length; i++)
+                {
+                    field = field.ParentClass.Fields[Target.Elements[i]];
+                }
+
+                type = field.Type;
+            }
+            else
+            {
+                type = container[Target.Elements[0]].Fields[Target.Elements[1]].Type;
+            }
+
             context.Results.Add(new StructCreateCode(type));
 
-            switch (symInfo)
-            {
-                case SymbolType.Local:
-                    context.Results.Add(new StoreCode(symbol.Id));
-                    break;
-                case SymbolType.ClassMember:
-                    context.Results.Add(new StoreMemberCode(Target.Raw));
-                    break;
-                case SymbolType.StructMember:
-                    context.Results.Add(new StructPushCurrent());
-                    context.Results.Add(new StructStoreMemberCode(Target.GetRoot()));
-                    break;
-                case SymbolType.StaticExternal:
-                    context.Results.Add(new StoreStaticCode(Target.GetRoot(), Target.Elements[1]));
-                    break;
-            }
+            AssignationStatement.GenerateAssignation(context, Target, symInfo);
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
