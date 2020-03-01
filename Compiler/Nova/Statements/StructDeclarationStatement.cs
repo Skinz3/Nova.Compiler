@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
+using Nova.Bytecode.Enums;
 using Nova.Bytecode.Runtime;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
@@ -33,6 +34,11 @@ namespace Nova.Statements
         {
             get;
             set;
+        }
+        public Class StructType
+        {
+            get;
+            private set;
         }
         public StructDeclarationStatement(IParentBlock parent) : base(parent)
         {
@@ -80,33 +86,40 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            if (!validator.IsTypeDefined(this.Type))
-            {
-                validator.AddError("Unknown type : \"" + this.Type + "\"", LineIndex);
-            }
-
-            ValidateCtorSemantics(this.Type, CtorParameters, validator, LineIndex);
-
+            this.StructType = validator.Container.TryGetClass(Type);
+            ValidateStructSemantics(this.StructType, CtorParameters, validator, LineIndex);
             validator.DeclareVariable(this.Name, this.Type);
         }
-        public static void ValidateCtorSemantics(string structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
-        {
-            var ctor = validator.GetClass(structType).GetCtor();
 
-            if (ctor != null)
+
+        public static void ValidateStructSemantics(Class structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
+        {
+            if (structType == null)
             {
-                if (ctor.Parameters.Count != ctorParameters.Length)
-                {
-                    validator.AddError("Invalid numbers of parameters for type :\"" + structType + "\"", lineIndex);
-                }
+                validator.AddError("Unknown type : \"" + structType.ClassName + "\"", lineIndex);
+            }
+            else if (structType.Type != ContainerType.@struct)
+            {
+                validator.AddError("Type: \"" + structType.ClassName + "\" is not a struct class. Cannot be instantiated", lineIndex);
             }
             else
             {
-                if (ctorParameters.Length > 0)
+                Method ctor = structType.GetCtor();
+
+                if (ctor == null)
                 {
-                    validator.AddError("Invalid constructor call for type :\"" + structType + "\"", lineIndex);
+                    if (ctorParameters.Length > 0)
+                    {
+                        validator.AddError("Invalid constructor call for type :\"" + structType + "\"", lineIndex);
+                    }
                 }
+                else if (ctor.Parameters.Count != ctorParameters.Length)
+                {
+                    validator.AddError("Invalid numbers of parameters for type :\"" + structType + "\"", lineIndex);
+                }
+
             }
+
         }
     }
 }

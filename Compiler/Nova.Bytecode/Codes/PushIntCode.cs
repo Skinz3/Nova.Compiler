@@ -1,4 +1,4 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Runtime;
 using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
@@ -8,33 +8,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.Bytecode.Codes
+namespace Nova.ByteCode.Codes
 {
-    public class LoadStaticMemberCode : ICode
+    public class PushIntCode : ICode
     {
-        public int TypeId => 7; 
+        public int TypeId => 11;
 
-        private string fieldName; // fieldId (symbolTable)
+        private int value;
 
-        public LoadStaticMemberCode(string fieldName)
+        public PushIntCode(int value)
         {
-            this.fieldName = fieldName;
+            this.value = value;
         }
-
 
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
-            context.PushStack(context.Get(fieldName));
+            context.PushStack(value);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "LoadStaticMember " + fieldName;
-        }
-        public void Serialize(CppBinaryWriter writer)
-        {
-            writer.Write(fieldName);
+            return "(" + TypeId + ") " + "PushInt " + value;
         }
 
+        public void Serialize(CppBinaryWriter writer)
+        {
+            writer.Write(value);
+        }
     }
 }

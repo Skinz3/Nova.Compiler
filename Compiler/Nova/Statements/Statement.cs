@@ -63,7 +63,7 @@ namespace Nova.Statements
          */
         protected SymbolType DeduceSymbolCategory(ByteBlockMetadata context, MemberName name, Class parentClass)
         {
-            Symbol localSym = context.SymbolTable.GetLocal(name.GetRoot());
+            Symbol localSym = context.SymbolTable.GetSymbol(name.GetRoot());
 
             if (localSym != null)
             {

@@ -23,7 +23,7 @@ namespace Nova.Bytecode.Symbols
         {
             this.m_table = new Dictionary<string, Symbol>();
         }
-        public Symbol GetLocal(string name)
+        public Symbol GetSymbol(string name)
         {
             Symbol sym = null;
 

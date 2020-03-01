@@ -23,5 +23,9 @@ namespace Nova.Bytecode.Symbols
             writer.Write(Id);
             writer.Write(Type);
         }
+        public override string ToString()
+        {
+            return "{" + Id + ": " + Type + "}";
+        }
     }
 }

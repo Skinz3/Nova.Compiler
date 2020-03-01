@@ -11,6 +11,7 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Nova.Bytecode.Codes;
 
 namespace Nova.Statements
 {
@@ -38,7 +39,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            context.Results.Add(new CreateConstCode(Value));
+            context.Results.Add(new PushStringCode(Value));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

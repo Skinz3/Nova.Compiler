@@ -3,38 +3,36 @@ using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class LoadStaticMemberCode : ICode
+    public class PushBoolCode : ICode
     {
-        public int TypeId => 7; 
+        public int TypeId => 26;
 
-        private string fieldName; // fieldId (symbolTable)
+        private bool value;
 
-        public LoadStaticMemberCode(string fieldName)
+        public PushBoolCode(bool value)
         {
-            this.fieldName = fieldName;
+            this.value = value;
         }
-
 
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
-            context.PushStack(context.Get(fieldName));
+            context.PushStack(value);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "LoadStaticMember " + fieldName;
-        }
-        public void Serialize(CppBinaryWriter writer)
-        {
-            writer.Write(fieldName);
+            return "(" + TypeId + ") " + "PushBool " + value;
         }
 
+        public void Serialize(CppBinaryWriter writer)
+        {
+            writer.Write(value);
+        }
     }
 }

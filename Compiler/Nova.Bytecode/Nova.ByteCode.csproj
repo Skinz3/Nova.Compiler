@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Codes\CtorCallCode.cs" />
+    <Compile Include="Codes\PushBoolCode.cs" />
+    <Compile Include="Codes\PushNullCode.cs" />
+    <Compile Include="Codes\PushStringCode.cs" />
     <Compile Include="Codes\StructLoadMemberCode.cs" />
     <Compile Include="Codes\StructStoreMemberCode.cs" />
     <Compile Include="Codes\StructCallMethodCode.cs" />
@@ -73,7 +76,7 @@
     <Compile Include="Codes\LoadStaticCode.cs" />
     <Compile Include="Codes\MethodCallCode.cs" />
     <Compile Include="Codes\PrintlCode.cs" />
-    <Compile Include="Codes\CreateConstCode.cs" />
+    <Compile Include="Codes\PushIntCode.cs" />
     <Compile Include="Codes\ReturnCode.cs" />
     <Compile Include="Codes\StoreCode.cs" />
     <Compile Include="Enums\OperatorsEnum.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="IO\IByteElement.cs" />
     <Compile Include="IO\NovFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runtime\TypeDefs.cs" />
     <Compile Include="Runtime\RuntimeContext.cs" />
     <Compile Include="Runtime\RuntimeStruct.cs" />
     <Compile Include="Symbols\Symbol.cs" />

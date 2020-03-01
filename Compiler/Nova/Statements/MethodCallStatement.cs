@@ -75,7 +75,7 @@ namespace Nova.Statements
             {
                 case SymbolType.Local: // un struct local.
 
-                    context.Results.Add(new LoadCode(context.SymbolTable.GetLocal(this.MethodName.GetRoot()).Id));
+                    context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(this.MethodName.GetRoot()).Id));
 
                     for (int i = 1; i < MethodName.Elements.Length - 1; i++)
                     {

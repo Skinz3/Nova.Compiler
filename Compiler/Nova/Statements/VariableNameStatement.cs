@@ -44,8 +44,7 @@ namespace Nova.Statements
             switch (symType)
             {
                 case SymbolType.Local:
-                    context.Results.Add(new LoadCode(context.SymbolTable.GetLocal(Name.GetRoot()).Id));
-                    
+                    context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(Name.GetRoot()).Id));
                     break;
                 case SymbolType.ClassMember:
                     context.Results.Add(new LoadStaticMemberCode(Name.GetRoot()));

@@ -1,4 +1,6 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Codes;
+using Nova.Bytecode.Runtime;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Members;
@@ -132,7 +134,7 @@ namespace Nova.Lexer
         {
             if (IsNull())
             {
-                //  context.Results.Add(new PushConstCode(null));
+                context.Results.Add(new PushNullCode());
             }
             else
             {

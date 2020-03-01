@@ -54,7 +54,7 @@ namespace Nova.Statements
         } */
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            throw new InvalidOperationException();
+            //throw new InvalidOperationException();
             switch (OperatorEnum)
             {
                 case OperatorsEnum.Plus:
@@ -75,7 +75,8 @@ namespace Nova.Statements
                 case OperatorsEnum.Different:
                     context.Results.Add(new ComparaisonCode(OperatorsEnum.Different));
                     break;
-               
+                case OperatorsEnum.Equals:
+                    context.Results.Add(new ComparaisonCode(OperatorsEnum.Equals));
                     break;
                 default:
                     throw new Exception();

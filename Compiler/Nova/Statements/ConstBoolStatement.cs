@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Nova.Bytecode.Codes;
 
 namespace Nova.Statements
 {
@@ -38,7 +39,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            context.Results.Add(new CreateConstCode(Value));
+            context.Results.Add(new PushBoolCode(Value));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

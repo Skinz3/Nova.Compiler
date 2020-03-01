@@ -26,10 +26,10 @@ namespace Nova.Semantics
             get;
             set;
         }
-        private ClassesContainer Container
+        public ClassesContainer Container
         {
             get;
-            set;
+            private set;
         }
         public SemanticsValidator(ClassesContainer container)
         {
@@ -78,7 +78,7 @@ namespace Nova.Semantics
             {
                 string root = name.GetRoot();
 
-                var result = GetDeclaredVariable(parentClass, new MemberName(root));
+                var result = GetDeclaredVariable(parentClass, new MemberName(root)); // check forall members
 
                 if (result != null)
                 {
@@ -99,16 +99,6 @@ namespace Nova.Semantics
         {
             return GetDeclaredVariable(parentClass, name) != null;
         }
-
-        public Class GetClass(string name)
-        {
-            return Container[name];
-        }
-        public bool IsTypeDefined(string type)
-        {
-            return this.Container.ContainsClass(type);
-        }
-
         public void AddError(string message, int lineIndex)
         {
             this.Errors.Add(new SemanticalError(message, lineIndex));

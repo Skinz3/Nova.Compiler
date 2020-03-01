@@ -30,12 +30,15 @@ namespace Nova.Statements
             get;
             set;
         }
+        private Class StructType
+        {
+            get;
+            set;
+        }
         public StructAssignationStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
             this.Target = new MemberName(match.Groups[1].Value);
-
             string parametersStr = match.Groups[2].Value;
-
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
@@ -43,37 +46,9 @@ namespace Nova.Statements
         {
             var symInfo = DeduceSymbolCategory(context, Target, this.Parent.ParentClass);
 
-            string type = string.Empty;
+            context.Results.Add(new StructCreateCode(this.StructType.ClassName));
 
-            string root = Target.GetRoot();
-
-            Symbol symbol = context.SymbolTable.GetLocal(root);
-
-            if (symbol != null)
-            {
-                type = symbol.Type;
-            }
-            else if (this.Parent.ParentClass.Fields.ContainsKey(root))
-            {
-                Field field = this.Parent.ParentClass.Fields[root];
-
-                for (int i = 1; i < this.Target.Elements.Length; i++)
-                {
-                    Class fType = container[field.Type];
-
-                    field = fType.Fields[Target.Elements[i]];
-                }
-
-                type = field.Type;
-            }
-            else
-            {
-                type = container[Target.Elements[0]].Fields[Target.Elements[1]].Type;
-            }
-
-            context.Results.Add(new StructCreateCode(type));
-
-            if (container[type].GetCtor() != null)
+            if (this.StructType.GetCtor() != null)
             {
                 StructDeclarationStatement.GenerateCtorBytecode(container, context, CtorParameters);
             }
@@ -87,6 +62,43 @@ namespace Nova.Statements
             {
                 validator.AddError("Undefined reference to struct: " + Target.Raw, LineIndex);
             }
+
+            this.StructType = this.ComputeStructType(validator);
+
+            StructDeclarationStatement.ValidateStructSemantics(StructType, CtorParameters, validator, LineIndex);
+      
+        }
+        private Class ComputeStructType(SemanticsValidator validator)
+        {
+            string type = string.Empty;
+
+            string root = Target.GetRoot();
+
+            Variable symbol = validator.GetDeclaredVariable(this.Parent.ParentClass, new MemberName(root));
+
+            if (symbol != null)
+            {
+                type = symbol.Type;
+            }
+            else if (this.Parent.ParentClass.Fields.ContainsKey(root))
+            {
+                Field field = this.Parent.ParentClass.Fields[root];
+
+                for (int i = 1; i < this.Target.Elements.Length; i++)
+                {
+                    Class fType = validator.Container.TryGetClass(field.Type);
+
+                    field = fType.Fields[Target.Elements[i]];
+                }
+
+                type = field.Type;
+            }
+            else
+            {
+                type = validator.Container.TryGetClass(Target.Elements[0]).Fields[Target.Elements[1]].Type;
+            }
+
+            return validator.Container.TryGetClass(type);
         }
     }
 }

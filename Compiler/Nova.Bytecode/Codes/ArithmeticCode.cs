@@ -25,24 +25,38 @@ namespace Nova.ByteCode.Codes
 
         public void Compute(RuntimeContext context,ref object[] locals, ref int index)
         {
-            int val2 = (int)context.PopStack();
-            int val1 = (int)context.PopStack();
+            object val2 = context.PopStack();
+            object val1 = context.PopStack();
+            
+            object result = 0;
 
-            int result = 0;
-
-            switch (type)
+            if (val1 is String || val2 is String)
             {
-                case OperatorsEnum.Plus:
-                    result = val1 + val2;
-                    break;
-                case OperatorsEnum.Multiply:
-                    result = val1 * val2;
-                    break;
-                case OperatorsEnum.Minus:
-                    result = val1 - val2;
-                    break;
-                default:
-                    throw new Exception();
+                switch (type)
+                {
+                    case OperatorsEnum.Plus:
+                        result = val1.ToString() + val2;
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            }
+            else
+            {
+                switch (type)
+                {
+                    case OperatorsEnum.Plus:
+                        result = (int)val1 + (int)val2;
+                        break;
+                    case OperatorsEnum.Multiply:
+                        result = (int)val1 * (int)val2;
+                        break;
+                    case OperatorsEnum.Minus:
+                        result = (int)val1 - (int)val2;
+                        break;
+                    default:
+                        throw new Exception();
+                }
             }
 
             context.PushStack(result);

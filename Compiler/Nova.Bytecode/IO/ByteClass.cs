@@ -1,4 +1,5 @@
-﻿using Nova.Utils.IO;
+﻿using Nova.Bytecode.Symbols;
+using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,15 +26,18 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-
+        public SymbolTable SymbolTable
+        {
+            get;
+            private set;
+        }
         public ByteClass(string name)
         {
             this.Name = name;
             this.Methods = new Dictionary<string, ByteMethod>();
             this.Fields = new Dictionary<string, ByteField>();
+            this.SymbolTable = new SymbolTable();
         }
-
-    
 
         public void Serialize(CppBinaryWriter writer)
         {

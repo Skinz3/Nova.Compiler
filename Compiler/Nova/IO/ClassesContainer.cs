@@ -58,6 +58,12 @@ namespace Nova.IO
         {
             return Elements.Values;
         }
+        public Class TryGetClass(string key)
+        {
+            Class result = null;
+            Elements.TryGetValue(key, out result);
+            return result;
+        }
         public IEnumerator<KeyValuePair<string, Class>> GetEnumerator()
         {
             return Elements.GetEnumerator();
@@ -67,7 +73,7 @@ namespace Nova.IO
         {
             return Elements.GetEnumerator();
         }
-       
+
         public Class this[string className]
         {
             get

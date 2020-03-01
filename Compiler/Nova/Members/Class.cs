@@ -195,11 +195,15 @@ namespace Nova.Members
 
             foreach (var method in this.Methods)
             {
+                byteClass.SymbolTable.Bind(method.Key, method.Value.ReturnType);
+
                 byteClass.Methods.Add(method.Key, (ByteMethod)method.Value.GetByteElement(container, byteClass));
             }
 
+
             foreach (var field in this.Fields)
             {
+                byteClass.SymbolTable.Bind(field.Key, field.Value.Type);
                 byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(container, byteClass));
             }
 

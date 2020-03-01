@@ -97,7 +97,7 @@ namespace Nova.Statements
         {
             int jumpIndex = context.ByteCodeLength + 1;
 
-            IfCondition.GenerateBytecode(container,context);
+            IfCondition.GenerateBytecode(container, context);
 
             JumpIfFalseCode jumpIfFalse = new JumpIfFalseCode(-1);
 
@@ -105,7 +105,7 @@ namespace Nova.Statements
 
             foreach (var statement in IfStatements)
             {
-                statement.GenerateBytecode(container,context);
+                statement.GenerateBytecode(container, context);
             }
 
             JumpCode jumpElseIfTrue = new JumpCode(-1);
@@ -119,14 +119,14 @@ namespace Nova.Statements
             {
                 if (ElseCondition.IsNull() == false) // else (...)
                 {
-                    ElseCondition.GenerateBytecode(container,context);
+                    ElseCondition.GenerateBytecode(container, context);
 
                     context.Results.Add(jumpElseFalse);
 
                 }
                 foreach (var statement in ElseStatements)
                 {
-                    statement.GenerateBytecode(container,context);
+                    statement.GenerateBytecode(container, context);
                 }
             }
 
@@ -138,7 +138,23 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            
+            IfCondition.ValidateSemantics(validator);
+
+            foreach (var statement in IfStatements)
+            {
+                statement.ValidateSemantics(validator);
+            }
+
+            if (!ElseCondition.IsNull())
+            {
+                ElseCondition.ValidateSemantics(validator);
+            }
+
+            foreach (var st in ElseStatements)
+            {
+                st.ValidateSemantics(validator);
+            }
         }
     }
 }
+

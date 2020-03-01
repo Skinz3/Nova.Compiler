@@ -77,7 +77,7 @@ namespace Nova.Statements
             {
                 case SymbolType.Local:
 
-                    int variableId = context.SymbolTable.GetLocal(target.GetRoot()).Id;
+                    int variableId = context.SymbolTable.GetSymbol(target.GetRoot()).Id;
 
                     if (target.NoTree())
                     {

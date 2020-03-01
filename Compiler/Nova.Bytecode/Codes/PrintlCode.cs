@@ -20,7 +20,16 @@ namespace Nova.ByteCode.Codes
         }
         public void Compute(RuntimeContext context, ref object[] locals, ref int index)
         {
-            Console.WriteLine(context.PopStack());
+            object obj = context.PopStack();
+
+            if (obj == null) // custom type for null values.
+            {
+                Console.WriteLine("NULL");
+            }
+            else
+                Console.WriteLine(obj);
+
+
             index++;
         }
         public override string ToString()
