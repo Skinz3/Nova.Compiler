@@ -32,7 +32,7 @@ namespace Nova.Statements
 
 
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode( ByteBlockMetadata context)
         {
             throw new NotImplementedException();
         }

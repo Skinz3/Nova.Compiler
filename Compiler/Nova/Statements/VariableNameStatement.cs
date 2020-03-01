@@ -12,6 +12,7 @@ using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
 using Nova.Bytecode.Enums;
+using Nova.Bytecode.Symbols;
 
 namespace Nova.Statements
 {
@@ -36,40 +37,29 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
-            if (this.Name.IsMemberOfParent())
-            {
-                int localVariableId = context.GetLocalVariableId(Name.Raw);
+            var symType = DeduceSymbolCategory(context, Name, this.Parent.ParentClass);
 
-                if (localVariableId != -1)
-                {
-                    context.Results.Add(new LoadCode(localVariableId)); // variable locale
-                }
-                else
-                {
-                    switch (this.Parent.ParentClass.Type)
-                    {
-                        case ContainerType.@class:
-                            context.Results.Add(new LoadMemberCode(Name.Raw)); 
-                            break;
-                        case ContainerType.@struct:
-                            context.Results.Add(new StructGetMemberCode(Name.Raw));
-                            break;
-                    }
-                }
-            }
-            else
+            switch (symType)
             {
-                int objId = context.GetLocalVariableId(Name.GetRoot());
-
-                if (objId == -1)
-                {
-                    context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1])); // Static.Field
-                }
-                else
-                {
-                    context.Results.Add(new StructLocalGetCode(objId, Name.Elements[1])); // struct.Property
-                }
+                case SymbolType.Local:
+                    context.Results.Add(new LoadCode(context.SymbolTable.GetLocal(Name.GetRoot()).Id));
+                    break;
+                case SymbolType.ClassMember:
+                    context.Results.Add(new LoadStaticMemberCode(Name.GetRoot()));
+                    break;
+                case SymbolType.StructMember:
+                    context.Results.Add(new StructPushCurrent());
+                    break;
+                case SymbolType.StaticExternal:
+                    context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1]));
+                    break;
             }
+
+            for (int i = 1; i < Name.Elements.Length; i++)
+            {
+                context.Results.Add(new StructLoadMemberCode(Name.Elements[i]));
+            }
+
         }
         public override void ValidateSemantics(SemanticsValidator validator)
         {
@@ -78,5 +68,6 @@ namespace Nova.Statements
                 validator.AddError("Undefined reference to \"" + Name.Raw + "\"", LineIndex);
             }
         }
+
     }
 }

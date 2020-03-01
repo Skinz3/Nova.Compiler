@@ -33,5 +33,9 @@ namespace Nova.Bytecode.Codes
         {
             writer.Write(fieldName);
         }
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "StoreMember " + fieldName;
+        }
     }
 }

@@ -33,6 +33,11 @@ namespace Nova.ByteCode.Runtime
             context.Initialize();
             var start = DateTime.UtcNow.Ticks;
             context.Call("ExampleClass", "Main", 0);
+
+            if (context.StackSize > 0)
+            {
+                throw new Exception("Stack size is > 0.");
+            }
             var end = DateTime.UtcNow.Ticks;
             Logger.Write("Program terminated in " + ((end - start) / 10000) + "ms", LogType.Success);
         }

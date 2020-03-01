@@ -33,8 +33,10 @@ namespace Nova.ByteCode.Runtime
         }
         private ByteClass ExecutingClass
         {
-            get;
-            set;
+            get
+            {
+                return CallStack.Peek().ParentClass;
+            }
         }
 
         public int StackSize
@@ -72,8 +74,6 @@ namespace Nova.ByteCode.Runtime
         }
         public void Call(ByteMethod method, int parametersCount)
         {
-            this.ExecutingClass = method.ParentClass;
-
             CallStack.Push(method);
 
             object[] loc = new object[method.Meta.LocalsCount];
@@ -122,8 +122,6 @@ namespace Nova.ByteCode.Runtime
         {
             foreach (var @class in this.NovFile.ByteClasses.Values)
             {
-                this.ExecutingClass = @class;
-
                 foreach (var field in @class.Fields.Values)
                 {
                     field.Initializer(this);

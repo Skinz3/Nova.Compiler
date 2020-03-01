@@ -54,10 +54,10 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
-            int variableId = context.BindVariable(Name);
-            context.Results.Add(new StructPushCode(Type));
+            int variableId = context.SymbolTable.Bind(Name, Type);
+            context.Results.Add(new StructCreateCode(Type));
             context.Results.Add(new StoreCode(variableId));
-           // call ctor
+            // call ctor
 
         }
 
@@ -67,7 +67,7 @@ namespace Nova.Statements
             {
                 validator.AddError("Unknown type : \"" + this.Type + "\"", LineIndex);
             }
-            validator.DeclareVariable(this.Name);
+            validator.DeclareVariable(this.Name, this.Type);
         }
     }
 }

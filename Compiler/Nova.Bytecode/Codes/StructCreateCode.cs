@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class StructPushCode : ICode
+    public class StructCreateCode : ICode
     {
         public int TypeId => 17;
 
         private string className;
 
-        public StructPushCode(string className)
+        public StructCreateCode(string className)
         {
             this.className = className;
         }
@@ -29,7 +29,7 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "ObjectCreateStore " + className;
+            return "(" + TypeId + ") " + "StructCreate " + className;
         }
         public void Serialize(CppBinaryWriter writer)
         {

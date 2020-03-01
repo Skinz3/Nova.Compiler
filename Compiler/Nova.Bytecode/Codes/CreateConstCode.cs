@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Codes
 {
-    public class PushConstCode : ICode
+    public class CreateConstCode : ICode
     {
         private static Dictionary<Type, byte> TypeLinks = new Dictionary<Type, byte>() // to complete
         {
@@ -23,7 +23,7 @@ namespace Nova.ByteCode.Codes
 
         private object value;
 
-        public PushConstCode(object value)
+        public CreateConstCode(object value)
         {
             this.value = value;
         }
@@ -35,7 +35,7 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "PushConst " + value;
+            return "(" + TypeId + ") " + "CreateConst " + value;
         }
 
         public void Serialize(CppBinaryWriter writer)

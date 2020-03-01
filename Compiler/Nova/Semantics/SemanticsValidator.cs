@@ -11,7 +11,7 @@ namespace Nova.Semantics
 {
     public class SemanticsValidator
     {
-        private Dictionary<int, List<string>> DeclaredVariables
+        private Dictionary<int, Dictionary<string, string>> DeclaredVariables // <name,type>
         {
             get;
             set;
@@ -34,58 +34,70 @@ namespace Nova.Semantics
         public SemanticsValidator(ClassesContainer container)
         {
             this.Deepness = 0;
-            this.DeclaredVariables = new Dictionary<int, List<string>>();
-            this.DeclaredVariables.Add(0, new List<string>());
+            this.DeclaredVariables = new Dictionary<int, Dictionary<string, string>>();
+            this.DeclaredVariables.Add(0, new Dictionary<string, string>());
             this.Errors = new List<SemanticalError>();
             this.Container = container;
         }
 
-        public void DeclareVariable(string name)
+        public void DeclareVariable(string name, string type)
         {
-            DeclaredVariables[Deepness].Add(name);
+            DeclaredVariables[Deepness].Add(name, type);
         }
         public void BlockStart()
         {
             Deepness++;
-            DeclaredVariables.Add(Deepness, new List<string>());
+            DeclaredVariables.Add(Deepness, new Dictionary<string, string>());
         }
         public void BlockEnd()
         {
             DeclaredVariables.Remove(Deepness);
             Deepness--;
         }
-        public bool IsVariableDeclared(Class parentClass, MemberName name)
+        public Variable GetDeclaredVariable(Class parentClass, MemberName name)
         {
-            if (name.IsMemberOfParent())
+            if (name.NoTree())
             {
                 if (parentClass.Fields.ContainsKey(name.Raw))
                 {
-                    return true;
+                    return new Variable(name.Raw, parentClass.Fields[name.Raw].Type);
                 }
 
                 for (int i = 0; i <= Deepness; i++)
                 {
-                    if (DeclaredVariables[i].Contains(name.Raw))
+                    if (DeclaredVariables[i].ContainsKey(name.Raw))
                     {
-                        return true;
+                        return new Variable(name.Raw, DeclaredVariables[i][name.Raw]);
                     }
                 }
-                return false;
+
+                return null;
 
             }
             else
             {
                 string root = name.GetRoot();
 
-                if (IsVariableDeclared(parentClass, new MemberName(root)))
+                var result = GetDeclaredVariable(parentClass, new MemberName(root));
+
+                if (result != null)
                 {
-                    return true; // todo
+                    return result;
                 }
                 else
                 {
-                    return this.Container[name.Elements[0]].Fields.ContainsKey(name.Elements[1]);
+                    if (!this.Container.ContainsClass(name.Elements[0]))
+                    {
+                        return null;
+                    }
+
+                    return new Variable(name.Raw, this.Container[name.Elements[0]].Fields[name.Elements[1]].Type);
                 }
             }
+        }
+        public bool IsVariableDeclared(Class parentClass, MemberName name)
+        {
+            return GetDeclaredVariable(parentClass, name) != null;
 
         }
 
@@ -105,19 +117,33 @@ namespace Nova.Semantics
 
         public Method GetMethod(Class parentClass, MemberName methodName)
         {
-            if (methodName.IsMemberOfParent())
+            if (methodName.NoTree())
             {
                 return parentClass.Methods[methodName.Raw];
             }
             else
             {
-                if (IsVariableDeclared(parentClass, new MemberName(methodName.Elements[0])))
+                var variable = GetDeclaredVariable(parentClass, new MemberName(methodName.Elements[0]));
+
+                if (variable != null)
                 {
-                    // obj member
-                    return new Method(null);
+                    if (!Container.ContainsClass(variable.Type))
+                    {
+                        return null;
+                    }
+                    if (!Container[variable.Type].Methods.ContainsKey(methodName.Elements[1]))
+                    {
+                        return null;
+                    }
+                    return Container[variable.Type].Methods[methodName.Elements[1]];
                 }
                 else
                 {
+                    if (!Container.ContainsClass(methodName.Elements[0]))
+                    {
+                        return null;
+                    }
+
                     var @class = Container[methodName.Elements[0]];
 
                     Method method = null;

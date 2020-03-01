@@ -39,11 +39,11 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode( ByteBlockMetadata context)
         {
             List<ICode> results = new List<ICode>();
 
-            int variableId = context.BindVariable(Variable.Name);
+            int variableId = context.SymbolTable.Bind(Variable.Name, Variable.Type);
 
             if (!Value.IsNull())
             {
@@ -54,7 +54,7 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            validator.DeclareVariable(Variable.Name);
+            validator.DeclareVariable(Variable.Name,Variable.Type);
 
             Value.ValidateSemantics(validator);
         }

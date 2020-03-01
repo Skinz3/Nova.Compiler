@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class LoadMemberCode : ICode
+    public class LoadStaticMemberCode : ICode
     {
         public int TypeId => 7;
 
         private string fieldName;
 
-        public LoadMemberCode(string fieldName)
+        public LoadStaticMemberCode(string fieldName)
         {
             this.fieldName = fieldName;
         }

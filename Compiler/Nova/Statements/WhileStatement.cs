@@ -64,7 +64,7 @@ namespace Nova.Statements
             return LineSize;
         }
 
-        public override void GenerateBytecode(ByteBlockMetadata context)
+        public override void GenerateBytecode( ByteBlockMetadata context)
         {
             int jumpIndex = context.ByteCodeLength + 1;
 

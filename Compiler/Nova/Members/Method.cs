@@ -97,13 +97,13 @@ namespace Nova.Members
         }
 
 
-        public IByteElement GetByteElement(IByteElement parent)
+        public IByteElement GetByteElement( IByteElement parent)
         {
             ByteMethod result = new ByteMethod(this.Name, Modifiers, (ByteClass)parent);
 
             foreach (var parameter in Parameters)
             {
-                result.Meta.BindVariable(parameter.Name);
+                result.Meta.SymbolTable.Bind(parameter.Name, parameter.Type);
             }
             foreach (var statement in Statements)
             {
@@ -121,7 +121,7 @@ namespace Nova.Members
 
             foreach (var param in Parameters)
             {
-                validator.DeclareVariable(param.Name);
+                validator.DeclareVariable(param.Name,param.Type);
             }
 
             foreach (var statement in this.Statements)

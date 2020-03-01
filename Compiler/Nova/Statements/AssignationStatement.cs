@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Enums;
+using Nova.Bytecode.Symbols;
 
 namespace Nova.Statements
 {
@@ -60,39 +61,37 @@ namespace Nova.Statements
         {
             Value.GenerateBytecode(context);
 
-            if (this.Target.IsMemberOfParent())
-            {
-                int localVariableId = context.GetLocalVariableId(Target.Raw);
+            var symInfo = this.DeduceSymbolCategory(context, Target, this.Parent.ParentClass);
 
-                if (localVariableId != -1)
-                {
-                    context.Results.Add(new StoreCode(localVariableId)); 
-                }
-                else
-                {
-                    switch (this.Parent.ParentClass.Type)
+            switch (symInfo)
+            {
+                case SymbolType.Local:
+                    context.Results.Add(new StoreCode(context.SymbolTable.GetLocal(Target.Raw).Id)); // local variable
+                    break;
+                case SymbolType.ClassMember:
+
+                    if (Target.NoTree())
                     {
-                        case ContainerType.@class:
-                            context.Results.Add(new StoreMemberCode(Target.Raw)); 
-                            break;
-                        case ContainerType.@struct:
-                            context.Results.Add(new StructSetMemberCode(Target.Raw));
-                            break;
+                        context.Results.Add(new StoreMemberCode(Target.Raw)); // field of a class.
                     }
-                }
-            }
-            else
-            {
-                int objId = context.GetLocalVariableId(Target.GetRoot());
+                    else
+                    {
+                        context.Results.Add(new LoadStaticMemberCode(Target.GetRoot()));
 
-                if (objId == -1)
-                {
+                        for (int i = 1; i < Target.Elements.Length - 1; i++)
+                        {
+                            context.Results.Add(new StructLoadMemberCode(Target.Elements[i]));
+                        }
+
+                        context.Results.Add(new StructStoreMemberCode(Target.GetLeaf()));
+                    }
+                    break;
+                case SymbolType.StructMember:
+                    context.Results.Add(new StructPushCurrent()); // field of a struct
+                    break;
+                case SymbolType.StaticExternal:
                     context.Results.Add(new StoreStaticCode(Target.Elements[0], Target.Elements[1]));
-                }
-                else
-                {
-                    context.Results.Add(new StructLocalSetCode(objId, Target.Elements[1]));
-                }
+                    break;
             }
         }
 

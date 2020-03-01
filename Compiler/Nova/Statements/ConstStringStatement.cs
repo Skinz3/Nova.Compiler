@@ -38,7 +38,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
-            context.Results.Add(new PushConstCode(Value));
+            context.Results.Add(new CreateConstCode(Value));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

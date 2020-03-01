@@ -1,0 +1,116 @@
+﻿
+---Variable Name Statement---
+
+Cas 1
+
+class MaClasse
+{
+	public void Main()
+	{
+		int a = 3
+
+		Nova.PrintLine(a); // LoadCode . Variable locale.
+	}
+}
+
+
+Cas 2
+
+class MaClasse
+{
+	public void Main()
+	{
+		MaClasse a => ()
+		Nova.PrintLine(a.A); // LoadCode  & StructLoadMemberCode(A)
+	}
+}
+
+Cas 2
+
+class MaClasse
+{
+	public int a = 3
+
+	public void Main()
+	{
+		Nova.PrintLine(a); // LoadClassMemberCode . Variable statique de classe.
+	}
+}
+
+
+Cas 3
+
+class MaClass
+{
+	public MaClass2 element
+
+	public void Main()
+	{
+		Nova.PrintLine(element.A); // LoadMemberCode(element) & StructLoadMemberCode(A)
+	}
+}
+
+Cas 4
+
+struct MaClasse
+{
+	public int a = 3
+
+	public void Test()
+	{
+		Nova.PrintLine(a); // StructPushCurrent & StructLoadMemberCode('a')
+	}
+}
+
+Cas
+
+struct MaClass
+{
+	public void Test()
+	{
+		MaClass class => ()
+		class.Value 
+	}
+}
+
+Load var
+
+Cas
+
+struct MaClass
+{
+	public MaClass2 b
+
+	public void Test()
+	{
+		Nova.PrintLine(b.Classe2.Classe3) // StructPushCurrent & StructLoadMemberCode Class2 & StructLoadMemberCode3
+	}
+}
+
+Cas 5 (overkill)
+
+MaVoiture voiture 
+
+void Main()
+{
+	voiture => ()
+
+	voiture.Freins.Super = 3
+}
+
+StructCreateCode Voiture
+LoadCode 0 (id 'voiture') // Voiture se trouve en haut de pile
+LoadStructMemberCode ('Freins') // Freins se trouve en haut de pile
+LoadStructMemberCode ('Super') // Super se trouve en haut de pile.
+
+
+case 6 
+
+void Main()
+{
+	Voiture.Freins.Super  // tous champs statiques.
+}
+
+LoadStaticCode // Voiture se trouve en haut de la pile
+LoadStructMember 'Freins' // Freins se trouve en haut de la pile
+LoadStructMember 'Super' // Super se trouve en haut de la pile.

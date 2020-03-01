@@ -31,15 +31,22 @@ namespace Nova.Members
                 return Variable.Name;
             }
         }
+        public string Type
+        {
+            get
+            {
+                return Variable.Type;
+            }
+        }
         public ModifiersEnum Modifiers
         {
             get;
             private set;
         }
-        private Variable Variable
+        public Variable Variable
         {
             get;
-            set;
+            private set;
         }
         private StatementNode Value
         {

@@ -53,7 +53,7 @@ namespace Nova.Statements
         {
             foreach (var parameter in Parameters)
             {
-                parameter.GenerateBytecode(context);
+                parameter.GenerateBytecode( context);
             }
 
             Type nativeType = Natives[NativeName];
@@ -69,6 +69,6 @@ namespace Nova.Statements
                 validator.AddError("Unknown native function :" + NativeName, LineIndex);
             }
         }
-        
+
     }
 }

@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class StructSetMemberCode : ICode
+    public class StructLoadMemberCode : ICode
     {
-        public int TypeId => 21;
+        public int TypeId => 22;
 
         private string propertyName;
 
-        public StructSetMemberCode(string property)
+        public StructLoadMemberCode(string property)
         {
             this.propertyName = property;
         }
 
         public void Compute(RuntimeContext context, ref object[] locales, ref int index)
         {
-            RuntimeStruct @struct = context.StructsStack.Peek();
-            @struct.Set(propertyName, context.PopStack());
+            RuntimeStruct @struct = (RuntimeStruct)context.PopStack();
+            context.PushStack(@struct.Get(propertyName));
             index++;
         }
 
@@ -35,7 +35,7 @@ namespace Nova.Bytecode.Codes
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructSetMember " + propertyName;
+            return "(" + TypeId + ") " + "StructGetMemberCode " + propertyName;
         }
     }
 }

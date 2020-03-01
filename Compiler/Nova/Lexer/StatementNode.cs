@@ -128,7 +128,7 @@ namespace Nova.Lexer
             this.Parent = parent;
         }
 
-        public void GenerateBytecode(ByteBlockMetadata context)
+        public void GenerateBytecode( ByteBlockMetadata context)
         {
             if (IsNull())
             {

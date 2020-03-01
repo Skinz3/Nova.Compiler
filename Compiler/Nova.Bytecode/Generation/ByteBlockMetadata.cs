@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Symbols;
+using Nova.ByteCode.Codes;
 using Nova.Utils;
 using Nova.Utils.IO;
 using System;
@@ -12,10 +13,10 @@ namespace Nova.ByteCode.Generation
 {
     public class ByteBlockMetadata
     {
-        private Dictionary<string, int> LocalsRelator
+        public SymbolTable SymbolTable
         {
             get;
-            set;
+            private set;
         }
         public List<ICode> Results
         {
@@ -33,33 +34,14 @@ namespace Nova.ByteCode.Generation
         {
             get
             {
-                return LocalsRelator.Count;
+                return SymbolTable.Count;
             }
         }
+
         public ByteBlockMetadata()
         {
-            this.LocalsRelator = new Dictionary<string, int>();
+            this.SymbolTable = new SymbolTable();
             this.Results = new List<ICode>();
-        }
-
-        public int BindVariable(string name)
-        {
-            int id = (LocalsRelator.Count - 1) + 1;
-            LocalsRelator.Add(name, id);
-            return id;
-        }
-        public int GetLocalVariableId(string name)
-        {
-            int id = 0;
-
-            if (LocalsRelator.TryGetValue(name, out id))
-            {
-                return id;
-            }
-            else
-            {
-                return -1;
-            }
         }
         public void Print()
         {
@@ -71,13 +53,8 @@ namespace Nova.ByteCode.Generation
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(LocalsRelator.Count);
-
-            foreach (var relator in LocalsRelator)
-            {
-                writer.Write(relator.Key);
-                writer.Write(relator.Value);
-            }
+            SymbolTable.Serialize(writer);
+          
 
             writer.Write(Results.Count);
 

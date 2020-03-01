@@ -11,10 +11,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nova.Bytecode.Symbols;
+using Nova.Bytecode.Enums;
 
 namespace Nova.Statements
 {
-    public abstract class Statement 
+    public abstract class Statement
     {
         public string Input
         {
@@ -55,6 +57,35 @@ namespace Nova.Statements
         public virtual int GetLineSkip()
         {
             return 1;
+        }
+        /*
+         * Cette classe n'a rien a faire ici ! 
+         */
+        protected SymbolType DeduceSymbolCategory(ByteBlockMetadata context, MemberName name, Class parentClass)
+        {
+            Symbol localSym = context.SymbolTable.GetLocal(name.GetRoot());
+
+            if (localSym != null)
+            {
+                return SymbolType.Local;
+            }
+            else if (parentClass.Fields.ContainsKey(name.GetRoot()))
+            {
+                switch (parentClass.Type)
+                {
+                    case ContainerType.@class:
+                        return SymbolType.ClassMember;
+                    case ContainerType.@struct:
+                        return SymbolType.StructMember;
+                }
+
+            }
+            else
+            {
+                return SymbolType.StaticExternal;
+            }
+
+            throw new Exception("Unknown symbol type.");
         }
 
         public abstract void GenerateBytecode(ByteBlockMetadata context);

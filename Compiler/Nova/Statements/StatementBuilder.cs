@@ -23,6 +23,11 @@ namespace Nova.Statements
 
             Match match = null;
 
+            match = Regex.Match(line, ObjectAssignationStatement.REGEX);
+
+            if (match.Success)
+                return new ObjectAssignationStatement(parent, line, lineIndex, match);
+
             match = Regex.Match(line, AssignationStatement.REGEX);
 
             if (match.Success)

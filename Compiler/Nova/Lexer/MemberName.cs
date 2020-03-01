@@ -21,7 +21,7 @@ namespace Nova.Lexer
             private set;
         }
 
-        public bool IsMemberOfParent()
+        public bool NoTree()
         {
             return Elements.Length == 1;
         }
@@ -34,9 +34,14 @@ namespace Nova.Lexer
         {
             return Elements[0];
         }
+        public string GetLeaf()
+        {
+            return Elements[Elements.Length - 1];
+        }
         public override string ToString()
         {
             return Raw;
         }
+
     }
 }

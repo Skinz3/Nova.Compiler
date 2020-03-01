@@ -13,6 +13,7 @@ using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.Semantics;
 using Nova.Bytecode.Codes;
+using Nova.Bytecode.Symbols;
 
 namespace Nova.Statements
 {
@@ -64,35 +65,72 @@ namespace Nova.Statements
         }
         public override void GenerateBytecode(ByteBlockMetadata context)
         {
-
             foreach (var parameter in Parameters)
             {
                 parameter.GenerateBytecode(context);
             }
+            var symInfo = DeduceSymbolCategory(context, MethodName, this.Parent.ParentClass);
 
-            if (this.MethodName.IsMemberOfParent())
+            switch (symInfo)
             {
-                context.Results.Add(new MethodCallCode(MethodName.Raw, Parameters.Length));//todo parameters cunt
-            }
-            else
-            {
-                var variableId = context.GetLocalVariableId(MethodName.GetRoot());
+                case SymbolType.Local: // un struct local.
 
-                if (variableId == -1)
-                {
-                    context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
-                }
-                else
-                {
-                    context.Results.Add(new StructCallMethodCode(variableId, MethodName.Elements[1], Parameters.Length));
-                }
-                // or object
+                    context.Results.Add(new LoadCode(context.SymbolTable.GetLocal(this.MethodName.GetRoot()).Id));
+
+                    for (int i = 1; i < MethodName.Elements.Length - 1; i++)
+                    {
+                        context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                    }
+
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+
+
+                    break;
+                case SymbolType.ClassMember: // un struct de classe
+
+                    context.Results.Add(new LoadStaticMemberCode(MethodName.GetRoot()));
+
+                    for (int i = 1; i < MethodName.Elements.Length - 1; i++)
+                    {
+                        context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                    }
+
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+
+                    break;
+
+                case SymbolType.StructMember:
+
+                    context.Results.Add(new StructPushCurrent());
+
+                    for (int i = 0; i < MethodName.Elements.Length - 1; i++)
+                    {
+                        context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                    }
+
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+                    break;
+
+                case SymbolType.StaticExternal:
+                   
+                    if (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))
+                    {
+                        context.Results.Add(new MethodCallCode(MethodName.GetRoot(), Parameters.Length));
+                    }
+                    else
+                    {
+                        context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
+                    }
+                    break;
             }
+
+        
+          
         }
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
-        /*    var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
+            var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
 
             if (target == null)
             {
@@ -108,7 +146,7 @@ namespace Nova.Statements
             foreach (var parameter in Parameters)
             {
                 parameter.ValidateSemantics(validator);
-            } */
+            }
         }
     }
 }
