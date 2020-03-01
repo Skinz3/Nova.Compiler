@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Statements
 {
-    public class ObjectAssignationStatement : Statement
+    public class StructAssignationStatement : Statement
     {
         public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_._$0-9]*)\s*=>\s*\((.*)\)$";
 
@@ -30,7 +30,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        public ObjectAssignationStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public StructAssignationStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
             this.Target = new MemberName(match.Groups[1].Value);
 
@@ -59,7 +59,9 @@ namespace Nova.Statements
 
                 for (int i = 1; i < this.Target.Elements.Length; i++)
                 {
-                    field = field.ParentClass.Fields[Target.Elements[i]];
+                    Class fType = container[field.Type];
+
+                    field = fType.Fields[Target.Elements[i]];
                 }
 
                 type = field.Type;
@@ -70,6 +72,11 @@ namespace Nova.Statements
             }
 
             context.Results.Add(new StructCreateCode(type));
+
+            if (container[type].GetCtor() != null)
+            {
+                StructDeclarationStatement.GenerateCtorBytecode(container, context, CtorParameters);
+            }
 
             AssignationStatement.GenerateAssignation(context, Target, symInfo);
         }

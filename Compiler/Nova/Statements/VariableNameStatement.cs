@@ -73,6 +73,7 @@ namespace Nova.Statements
                 validator.AddError("Undefined reference to \"" + Name.Raw + "\"", LineIndex);
             }
         }
+        
 
     }
 }

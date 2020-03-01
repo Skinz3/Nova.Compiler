@@ -31,6 +31,9 @@ namespace Nova.ByteCode.Runtime
             get;
             private set;
         }
+
+       
+
         private ByteClass ExecutingClass
         {
             get
@@ -140,9 +143,19 @@ namespace Nova.ByteCode.Runtime
             this.Stack.RemoveAt(Stack.Count - 1);
             return value;
         }
+
+        public object PeekStack()
+        {
+            return Stack[Stack.Count - 1];
+        }
+
         public void PushStack(object value)
         {
             this.Stack.Add(value);
+        }
+        public object StackMinus(int minus)
+        {
+            return this.Stack[Stack.Count - 1 - minus];
         }
         #endregion
     }

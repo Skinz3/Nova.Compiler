@@ -98,9 +98,12 @@ namespace Nova.Semantics
         public bool IsVariableDeclared(Class parentClass, MemberName name)
         {
             return GetDeclaredVariable(parentClass, name) != null;
-
         }
 
+        public Class GetClass(string name)
+        {
+            return Container[name];
+        }
         public bool IsTypeDefined(string type)
         {
             return this.Container.ContainsClass(type);

@@ -23,10 +23,10 @@ namespace Nova.Statements
 
             Match match = null;
 
-            match = Regex.Match(line, ObjectAssignationStatement.REGEX);
+            match = Regex.Match(line, StructAssignationStatement.REGEX);
 
             if (match.Success)
-                return new ObjectAssignationStatement(parent, line, lineIndex, match);
+                return new StructAssignationStatement(parent, line, lineIndex, match);
 
             match = Regex.Match(line, AssignationStatement.REGEX);
 
@@ -53,10 +53,10 @@ namespace Nova.Statements
             if (match.Success)
                 return new ReturnStatement(parent, line, lineIndex, match);
 
-            match = Regex.Match(line, ObjectDeclarationStatement.REGEX);
+            match = Regex.Match(line, StructDeclarationStatement.REGEX);
 
             if (match.Success)
-                return new ObjectDeclarationStatement(parent, line, lineIndex, match);
+                return new StructDeclarationStatement(parent, line, lineIndex, match);
 
             match = Regex.Match(line, DeclarationStatement.REGEX);
 

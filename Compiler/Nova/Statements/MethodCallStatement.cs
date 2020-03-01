@@ -144,7 +144,6 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
-            return;
             var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
 
             if (target == null)

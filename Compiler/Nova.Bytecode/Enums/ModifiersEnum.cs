@@ -11,5 +11,6 @@ namespace Nova.ByteCode.Enums
     {
         @public = 0x1,
         @private = 0x2,
+        @ctor = 0x4,
     }
 }

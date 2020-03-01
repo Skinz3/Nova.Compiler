@@ -132,14 +132,29 @@ namespace Nova.Lexer
         {
             if (IsNull())
             {
-              //  context.Results.Add(new PushConstCode(null));
+                //  context.Results.Add(new PushConstCode(null));
             }
             else
             {
-                foreach (var statement in Postfix)
+                int i = 0;
+
+                while (i < Postfix.Length)
                 {
-                    statement.GenerateBytecode(container,context);
+                    /* var operatorStatement = Postfix[i] as OperatorStatement;
+
+                     if (operatorStatement != null)
+                     {
+                         OperatorStatement.GenerateBytecode(operatorStatement, Postfix[i - 1], Postfix[i - 2], context);
+                     }
+                     else
+                     { 
+                    Postfix[i].GenerateBytecode(container, context);
+                     }*/
+
+                    Postfix[i].GenerateBytecode(container, context);
+                    i++;
                 }
+
             }
         }
 

@@ -78,6 +78,28 @@ namespace Nova.Members
             this.Usings = new List<string>();
         }
 
+
+        private bool AddMethod(string name, ModifiersEnum modifiers, string returnType, string parametersStr, int i)
+        {
+            if (Methods.ContainsKey(name))
+            {
+                Logger.Write("Duplicate method \"" + name + "\" line " + i, LogType.Error);
+                return false;
+            }
+            List<Variable> parameters = Parser.ParseMethodDeclarationParameters(parametersStr);
+            int startIndex = Parser.FindNextOpenBracket(this.File.Lines, i);
+            int endIndex = Parser.GetBracketCloseIndex(this.File.Brackets, startIndex);
+
+            Method method = new Method(this, name, modifiers, returnType, parameters, startIndex + 1, endIndex);
+
+            if (!method.BuildStatements())
+            {
+                return false;
+            }
+
+            Methods.Add(name, method);
+            return true;
+        }
         public bool BuildMembers()
         {
             for (int i = StartIndex; i < EndIndex; i++)
@@ -94,22 +116,11 @@ namespace Nova.Members
                     string methodName = methodMatch.Groups[3].Value;
                     string parametersStr = methodMatch.Groups[4].Value;
 
-                    if (Methods.ContainsKey(methodName))
-                    {
-                        Logger.Write("Duplicate method \"" + methodName + "\" line " + i, LogType.Error);
-                    }
-                    List<Variable> parameters = Parser.ParseMethodDeclarationParameters(parametersStr);
-                    int startIndex = Parser.FindNextOpenBracket(this.File.Lines, i);
-                    int endIndex = Parser.GetBracketCloseIndex(this.File.Brackets, startIndex);
-
-                    Method method = new Method(this, methodName, modifiers, returnType, parameters, startIndex + 1, endIndex);
-
-                    if (!method.BuildStatements())
+                    if (!AddMethod(methodName, modifiers, returnType, parametersStr, i))
                     {
                         return false;
                     }
 
-                    Methods.Add(methodName, method);
                 }
                 else
                 {
@@ -137,6 +148,33 @@ namespace Nova.Members
 
                         Fields.Add(field.Name, field);
                     }
+                    else
+                    {
+                        Match ctorMatch = Regex.Match(line, Method.CTOR_PATTERN);
+
+                        if (ctorMatch.Success)
+                        {
+                            if (this.Type == ContainerType.@class)
+                            {
+                                Logger.Write("Classe \"" + this.ClassName + "\" cant have constructor.", LogType.Error);
+                                return false;
+                            }
+                            ModifiersEnum modifiers = ModifiersEnum.ctor;
+                            string returnType = string.Empty;
+                            string methodName = ctorMatch.Groups[1].Value;
+                            string parametersStr = ctorMatch.Groups[2].Value;
+
+                            if (methodName != this.ClassName)
+                            {
+                                Logger.Write("Invalid constructor \"" + methodName + "\" in \"" + this.ClassName + "\". A constructor must have the same name as its class", LogType.Error);
+                                return false;
+                            }
+                            if (!AddMethod(methodName, modifiers, returnType, parametersStr, i))
+                            {
+                                return false;
+                            }
+                        }
+                    }
                 }
             }
             return true;
@@ -146,6 +184,10 @@ namespace Nova.Members
         {
             return ClassName;
         }
+        public Method GetCtor()
+        {
+            return Methods.Values.FirstOrDefault(x => x.Modifiers == ModifiersEnum.ctor);
+        }
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
@@ -153,14 +195,13 @@ namespace Nova.Members
 
             foreach (var method in this.Methods)
             {
-                byteClass.Methods.Add(method.Key, (ByteMethod)method.Value.GetByteElement(container,byteClass));
+                byteClass.Methods.Add(method.Key, (ByteMethod)method.Value.GetByteElement(container, byteClass));
             }
 
             foreach (var field in this.Fields)
             {
-                byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(container,byteClass));
+                byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(container, byteClass));
             }
-
 
             return byteClass;
 

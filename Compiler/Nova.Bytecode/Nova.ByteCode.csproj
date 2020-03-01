@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Codes\CtorCallCode.cs" />
     <Compile Include="Codes\StructLoadMemberCode.cs" />
     <Compile Include="Codes\StructStoreMemberCode.cs" />
     <Compile Include="Codes\StructCallMethodCode.cs" />

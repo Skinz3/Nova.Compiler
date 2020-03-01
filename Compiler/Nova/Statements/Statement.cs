@@ -91,6 +91,5 @@ namespace Nova.Statements
         public abstract void GenerateBytecode(ClassesContainer container,ByteBlockMetadata context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
-
     }
 }
