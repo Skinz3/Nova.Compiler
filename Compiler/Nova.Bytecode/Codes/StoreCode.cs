@@ -21,7 +21,7 @@ namespace Nova.ByteCode.Codes
             this.variableId = variableId;
         }
 
-        public void Compute(RuntimeContext context, ref object[] locales, ref int index)
+        public void Compute(RuntimeContext context, object[] locales, ref int index)
         {
             object value = context.PopStack();
 

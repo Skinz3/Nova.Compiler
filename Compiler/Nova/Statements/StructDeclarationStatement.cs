@@ -20,11 +20,7 @@ namespace Nova.Statements
     {
         public static string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*=>\s*\((.*)\)$";
 
-        private string Type
-        {
-            get;
-            set;
-        }
+       
         private string Name
         {
             get;
@@ -40,6 +36,11 @@ namespace Nova.Statements
             get;
             private set;
         }
+        private string StructTypeStr
+        {
+            get;
+            set;
+        }
         public StructDeclarationStatement(IParentBlock parent) : base(parent)
         {
 
@@ -50,7 +51,7 @@ namespace Nova.Statements
         }
         public StructDeclarationStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
-            this.Type = match.Groups[1].Value;
+            this.StructTypeStr = match.Groups[1].Value;
             this.Name = match.Groups[2].Value;
 
             string parametersStr = match.Groups[3].Value;
@@ -60,11 +61,11 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            int variableId = context.SymbolTable.Bind(Name, Type);
+            int variableId = context.SymbolTable.Bind(Name, StructTypeStr);
 
-            context.Results.Add(new StructCreateCode(Type));
+            context.Results.Add(new StructCreateCode(StructTypeStr));
 
-            if (container[Type].GetCtor() != null)
+            if (container[StructTypeStr].GetCtor() != null)
             {
                 GenerateCtorBytecode(container, context, CtorParameters);
             }
@@ -86,17 +87,17 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            this.StructType = validator.Container.TryGetClass(Type);
-            ValidateStructSemantics(this.StructType, CtorParameters, validator, LineIndex);
-            validator.DeclareVariable(this.Name, this.Type);
+            this.StructType = validator.Container.TryGetClass(StructTypeStr);
+            ValidateStructSemantics(this.StructTypeStr,this.StructType, CtorParameters, validator, LineIndex);
+            validator.DeclareVariable(this.Name, this.StructTypeStr);
         }
 
 
-        public static void ValidateStructSemantics(Class structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
+        public static void ValidateStructSemantics(string type, Class structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
         {
             if (structType == null)
             {
-                validator.AddError("Unknown type : \"" + structType.ClassName + "\"", lineIndex);
+                validator.AddError("Unknown type : \"" + type + "\"", lineIndex);
             }
             else if (structType.Type != ContainerType.@struct)
             {

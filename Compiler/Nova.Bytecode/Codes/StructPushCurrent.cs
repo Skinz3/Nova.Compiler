@@ -20,7 +20,7 @@ namespace Nova.Bytecode.Codes
         public StructPushCurrent()
         {
         }
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             context.PushStack(context.StructsStack.Peek());
             index++;

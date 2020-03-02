@@ -22,7 +22,7 @@ namespace Nova.ByteCode.Codes
         }
 
 
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context,object[] locals, ref int index)
         {
             int val2 = (int)context.PopStack();
             int val1 = (int)context.PopStack();

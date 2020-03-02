@@ -20,7 +20,7 @@ namespace Nova.ByteCode.Codes
             this.targetIndex = index;
         }
 
-        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context,  object[] locals, ref int index)
         {
             if ((int)context.PopStack() == 0)
             {

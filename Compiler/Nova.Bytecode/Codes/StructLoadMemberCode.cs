@@ -14,14 +14,14 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 22;
 
-        private string propertyName;
+        private string propertyName; // propertyId (symbolTable)
 
         public StructLoadMemberCode(string property)
         {
             this.propertyName = property;
         }
 
-        public void Compute(RuntimeContext context, ref object[] locales, ref int index)
+        public void Compute(RuntimeContext context, object[] locales, ref int index)
         {
             RuntimeStruct @struct = (RuntimeStruct)context.PopStack();
             context.PushStack(@struct.Get(propertyName));

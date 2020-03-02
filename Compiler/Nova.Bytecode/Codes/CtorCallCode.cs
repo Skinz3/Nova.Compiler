@@ -20,7 +20,7 @@ namespace Nova.Bytecode.Codes
         {
             this.parametersCount = parametersCount;
         }
-        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context,  object[] locals, ref int index)
         {
             RuntimeStruct obj = (RuntimeStruct)context.StackMinus(parametersCount);
             context.Call(obj, obj.Class.Name, parametersCount);

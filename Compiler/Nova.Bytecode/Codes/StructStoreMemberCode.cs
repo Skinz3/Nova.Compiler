@@ -24,7 +24,7 @@ namespace Nova.Bytecode.Codes
             this.propertyName = property;
         }
 
-        public void Compute(RuntimeContext context, ref object[] locales, ref int index)
+        public void Compute(RuntimeContext context,object[] locales, ref int index)
         {
             RuntimeStruct @struct = (RuntimeStruct)context.PopStack();
             @struct.Set(propertyName, context.PopStack());

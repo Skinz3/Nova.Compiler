@@ -1,0 +1,13 @@
+class IO
+{
+   public static string ReadLine()
+   {
+	return ~Readl()
+   }
+   public static void PrintLine(string s)
+   {
+	~Printl(s)
+   }
+}
+
+

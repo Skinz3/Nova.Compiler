@@ -20,7 +20,7 @@ namespace Nova.ByteCode.Codes
             this.variableId = variableId;
         }
 
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             context.PushStack(locals[variableId]);
             index++;

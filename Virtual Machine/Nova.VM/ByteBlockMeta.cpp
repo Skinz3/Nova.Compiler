@@ -9,6 +9,8 @@ void ByteBlockMeta::Deserialize(BinaryReader& reader)
 	{
 		std::string key = reader.ReadString();
 		int id = reader.Read<int>();
+		string type = reader.ReadString();
+
 		this->localsRelator.insert(std::make_pair(key, id));
 	}
 

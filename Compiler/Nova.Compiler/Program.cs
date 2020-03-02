@@ -16,12 +16,21 @@ using System.Threading.Tasks;
 
 namespace Nova.Compiler
 {
+    class Humain
+    {
+        public string Name;
+        public int Age;
+
+        public Humain(string name,int age)
+        {
+            Name = name;
+            Age = age;
+        }
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            Stopwatch ss = Stopwatch.StartNew();
-
             if (args.Length == 0)
             {
                 Logger.Write("You need to specify at least one nova file (.nv).", LogType.Warning);

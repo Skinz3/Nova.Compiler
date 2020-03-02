@@ -22,7 +22,7 @@ namespace Nova.Bytecode.Codes
             this.fieldName = fieldName;
         }
 
-        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             object value = context.PopStack();
             context.Set(fieldName, value);

@@ -21,7 +21,7 @@ namespace Nova.Bytecode.Codes
             this.className = className;
         }
 
-        public void Compute(RuntimeContext context, ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             RuntimeStruct obj = context.CreateObject(className);
             context.PushStack(obj);

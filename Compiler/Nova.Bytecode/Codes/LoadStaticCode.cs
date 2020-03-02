@@ -26,7 +26,7 @@ namespace Nova.Bytecode.Codes
         }
 
 
-        public void Compute(RuntimeContext context,ref object[] locals, ref int index)
+        public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             context.PushStack(context.Get(className, fieldName));
             index++;

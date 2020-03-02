@@ -1,4 +1,5 @@
 ﻿using Nova.Members;
+using Nova.Semantics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace Nova.Lexer
             get;
             private set;
         }
-
         public string[] Elements
         {
             get;

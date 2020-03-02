@@ -16,14 +16,14 @@ namespace Nova.ByteCode.Runtime
         public static void Execute(RuntimeContext context, object[] locales, List<ICode> bytecode)
         {
             int index = 0;
-            Execute(context, ref locales, bytecode, ref index);
+            Execute(context, locales, bytecode, ref index);
         }
-        public static void Execute(RuntimeContext context, ref object[] locales, List<ICode> bytecode, ref int index)
+        public static void Execute(RuntimeContext context, object[] locales, List<ICode> bytecode, ref int index)
         {
             while (index < bytecode.Count)
             {
                 ICode element = bytecode[index];
-                element.Compute(context, ref locales, ref index);
+                element.Compute(context, locales, ref index);
             }
         }
 
@@ -31,15 +31,16 @@ namespace Nova.ByteCode.Runtime
         {
             RuntimeContext context = new RuntimeContext(novFile);
             context.Initialize();
-            var start = DateTime.UtcNow.Ticks;
+            var st = Stopwatch.StartNew();
+
             context.Call("ExampleClass", "Main", 0);
+
+            Logger.Write("Program terminated in " + st.ElapsedMilliseconds + "ms", LogType.Success);
 
             if (context.StackSize > 0)
             {
                 throw new Exception("Stack size is > 0.");
             }
-            var end = DateTime.UtcNow.Ticks;
-            Logger.Write("Program terminated in " + ((end - start) / 10000) + "ms", LogType.Success);
         }
     }
 }

@@ -35,6 +35,11 @@ namespace Nova.Statements
             get;
             set;
         }
+        private string StructTypeStr
+        {
+            get;
+            set;
+        }
         public StructAssignationStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
             this.Target = new MemberName(match.Groups[1].Value);
@@ -63,12 +68,12 @@ namespace Nova.Statements
                 validator.AddError("Undefined reference to struct: " + Target.Raw, LineIndex);
             }
 
-            this.StructType = this.ComputeStructType(validator);
+            this.ComputeStructType(validator);
 
-            StructDeclarationStatement.ValidateStructSemantics(StructType, CtorParameters, validator, LineIndex);
-      
+            StructDeclarationStatement.ValidateStructSemantics(StructTypeStr,StructType, CtorParameters, validator, LineIndex);
+
         }
-        private Class ComputeStructType(SemanticsValidator validator)
+        private void ComputeStructType(SemanticsValidator validator)
         {
             string type = string.Empty;
 
@@ -98,7 +103,8 @@ namespace Nova.Statements
                 type = validator.Container.TryGetClass(Target.Elements[0]).Fields[Target.Elements[1]].Type;
             }
 
-            return validator.Container.TryGetClass(type);
+            this.StructTypeStr = type;
+            this.StructType = validator.Container.TryGetClass(type);
         }
     }
 }
