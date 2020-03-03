@@ -31,6 +31,7 @@ namespace Nova.Compiler
     {
         static void Main(string[] args)
         {
+       
             if (args.Length == 0)
             {
                 Logger.Write("You need to specify at least one nova file (.nv).", LogType.Warning);

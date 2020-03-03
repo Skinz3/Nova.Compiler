@@ -15,6 +15,7 @@ using Nova.Semantics;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Symbols;
 
+
 namespace Nova.Statements
 {
     public class MethodCallStatement : Statement
@@ -67,7 +68,7 @@ namespace Nova.Statements
         {
             foreach (var parameter in Parameters)
             {
-                parameter.GenerateBytecode(container,context);
+                parameter.GenerateBytecode(container, context);
             }
             var symInfo = DeduceSymbolCategory(context, MethodName, this.Parent.ParentClass);
 
@@ -75,75 +76,73 @@ namespace Nova.Statements
             {
                 case SymbolType.Local: // un struct local.
 
-                    context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(this.MethodName.GetRoot()).Id));
+                    /*  context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(this.MethodName.GetRoot()).Id));
 
-                    for (int i = 1; i < MethodName.Elements.Length - 1; i++)
-                    {
-                        context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                    }
+                      for (int i = 1; i < MethodName.Elements.Length - 1; i++)
+                      {
+                          context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                      }
 
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+                      context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length)); */
 
 
                     break;
                 case SymbolType.ClassMember: // un struct de classe
 
-                    context.Results.Add(new LoadStaticMemberCode(MethodName.GetRoot()));
+                    /*   context.Results.Add(new LoadStaticMemberCode(MethodName.GetRoot()));
 
-                    for (int i = 1; i < MethodName.Elements.Length - 1; i++)
-                    {
-                        context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                    }
+                      for (int i = 1; i < MethodName.Elements.Length - 1; i++)
+                      {
+                          context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                      }
 
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
-
+                      context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+                       */
                     break;
 
                 case SymbolType.StructMember:
+                    /*
+                   context.Results.Add(new StructPushCurrent());
 
-                    context.Results.Add(new StructPushCurrent());
-
-                    for (int i = 0; i < MethodName.Elements.Length - 1; i++)
-                    {
-                        context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                    }
-
+                   for (int i = 0; i < MethodName.Elements.Length - 1; i++)
+                   {
+                       context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                   }
+                   
                     context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+                     */
                     break;
 
                 case SymbolType.StaticExternal:
 
-                    if (MethodName.Elements.Length == 2)
+                    if (MethodName.ElementsStr.Length == 2)
                     {
-                        if (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))
-                        {
-                            context.Results.Add(new MethodCallCode(MethodName.GetRoot(), Parameters.Length));
-                        }
-                        else
-                        {
-                            context.Results.Add(new MethodCallStaticCode(MethodName.Elements[0], MethodName.Elements[1], Parameters.Length));
-                        }
+                        // (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))
+                        //  Method method = MethodName.Elements[1];
+                        context.Results.Add(new MethodCallStaticCode(MethodName.ElementsStr[0], 0, Parameters.Length));
                     }
                     else
                     {
-                        context.Results.Add(new LoadStaticCode(MethodName.Elements[0], MethodName.Elements[1]));
+                        /*    context.Results.Add(new LoadStaticCode(MethodName.Elements[0], MethodName.Elements[1]));
 
-                        for (int i = 2; i < MethodName.Elements.Length-1; i++)
-                        {
-                            context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                        }
-                        context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
+                            for (int i = 2; i < MethodName.Elements.Length-1; i++)
+                            {
+                                context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
+                            }
+                            context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length)); */
 
                     }
                     break;
             }
 
-        
-          
+
+
         }
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
+       
+
             var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
 
             if (target == null)

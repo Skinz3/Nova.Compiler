@@ -31,6 +31,11 @@ namespace Nova.Members
                 return Variable.Name;
             }
         }
+        public int Id
+        {
+            get;
+            set;
+        }
         public string Type
         {
             get
@@ -66,8 +71,9 @@ namespace Nova.Members
 
         public IParentBlock Parent => null;
 
-        public Field(Class parentClass, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex)
+        public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex)
         {
+            this.Id = fieldId;
             this.ParentClass = parentClass;
             this.Modifiers = modifiers;
             this.Variable = variable;
@@ -90,8 +96,8 @@ namespace Nova.Members
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
-            ByteBlockMetadata meta = new ByteBlockMetadata();
-            Value.GenerateBytecode(container,meta);
+            ByteBlockMetadata meta = new ByteBlockMetadata((ByteClass)parent);
+            Value.GenerateBytecode(container, meta);
             ByteField field = new ByteField((ByteClass)parent, Modifiers, Name, meta);
             return field;
         }

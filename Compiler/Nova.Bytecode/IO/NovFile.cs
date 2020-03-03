@@ -12,6 +12,12 @@ namespace Nova.ByteCode.IO
     {
         public const string HEADER = "NovaEX";
 
+        public List<string> Usings
+        {
+            get;
+            set;
+        }
+
         public Dictionary<string, ByteClass> ByteClasses
         {
             get;
@@ -23,11 +29,19 @@ namespace Nova.ByteCode.IO
         public NovFile()
         {
             this.ByteClasses = new Dictionary<string, ByteClass>();
+            this.Usings = new List<string>();
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(HEADER);
+
+            writer.Write(Usings.Count);
+
+            foreach (var @using in Usings)
+            {
+                writer.Write(@using);
+            }
 
             writer.Write(ByteClasses.Count);
 

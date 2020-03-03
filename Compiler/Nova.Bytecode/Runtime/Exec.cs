@@ -33,7 +33,8 @@ namespace Nova.ByteCode.Runtime
             context.Initialize();
             var st = Stopwatch.StartNew();
 
-            context.Call("ExampleClass", "Main", 0);
+
+            context.Call("ExampleClass", 0, 0);
 
             Logger.Write("Program terminated in " + st.ElapsedMilliseconds + "ms", LogType.Success);
 

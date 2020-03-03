@@ -9,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class PushStringCode : ICode
+    public class PushConstCode : ICode
     {
         public int TypeId => 24;
 
-        private string value;
+        private int constantId;
 
-        public PushStringCode(string value)
+        public PushConstCode(int constantId)
         {
-            this.value = value;
+            this.constantId = constantId;
         }
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            context.PushStack(value);
+            context.PushStack(context.GetConstant(constantId));
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "PushString " + value;
+            return "(" + TypeId + ") " + "PushConst " + constantId;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(value);
+            writer.Write(constantId);
         }
     }
 }

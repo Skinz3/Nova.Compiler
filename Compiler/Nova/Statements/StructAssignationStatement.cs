@@ -5,6 +5,7 @@ using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Lexer;
+ 
 using Nova.Members;
 using Nova.Semantics;
 using System;
@@ -53,10 +54,7 @@ namespace Nova.Statements
 
             context.Results.Add(new StructCreateCode(this.StructType.ClassName));
 
-            if (this.StructType.GetCtor() != null)
-            {
-                StructDeclarationStatement.GenerateCtorBytecode(container, context, CtorParameters);
-            }
+            StructDeclarationStatement.GenerateCtorBytecode(this.StructType.GetCtor(), container, context, CtorParameters);
 
             AssignationStatement.GenerateAssignation(context, Target, symInfo);
         }
@@ -70,7 +68,7 @@ namespace Nova.Statements
 
             this.ComputeStructType(validator);
 
-            StructDeclarationStatement.ValidateStructSemantics(StructTypeStr,StructType, CtorParameters, validator, LineIndex);
+            StructDeclarationStatement.ValidateStructSemantics(StructTypeStr, StructType, CtorParameters, validator, LineIndex);
 
         }
         private void ComputeStructType(SemanticsValidator validator)
@@ -89,18 +87,18 @@ namespace Nova.Statements
             {
                 Field field = this.Parent.ParentClass.Fields[root];
 
-                for (int i = 1; i < this.Target.Elements.Length; i++)
+                for (int i = 1; i < this.Target.ElementsStr.Length; i++)
                 {
                     Class fType = validator.Container.TryGetClass(field.Type);
 
-                    field = fType.Fields[Target.Elements[i]];
+                    field = fType.Fields[Target.ElementsStr[i]];
                 }
 
                 type = field.Type;
             }
             else
             {
-                type = validator.Container.TryGetClass(Target.Elements[0]).Fields[Target.Elements[1]].Type;
+                type = validator.Container.TryGetClass(Target.ElementsStr[0]).Fields[Target.ElementsStr[1]].Type;
             }
 
             this.StructTypeStr = type;

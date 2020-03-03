@@ -20,7 +20,7 @@ namespace Nova.Statements
     {
         public static string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*=>\s*\((.*)\)$";
 
-       
+
         private string Name
         {
             get;
@@ -53,9 +53,7 @@ namespace Nova.Statements
         {
             this.StructTypeStr = match.Groups[1].Value;
             this.Name = match.Groups[2].Value;
-
             string parametersStr = match.Groups[3].Value;
-
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
@@ -65,30 +63,31 @@ namespace Nova.Statements
 
             context.Results.Add(new StructCreateCode(StructTypeStr));
 
-            if (container[StructTypeStr].GetCtor() != null)
-            {
-                GenerateCtorBytecode(container, context, CtorParameters);
-            }
+            GenerateCtorBytecode(container[StructTypeStr].GetCtor(), container, context, CtorParameters);
 
 
             context.Results.Add(new StoreCode(variableId));
 
         }
 
-        public static void GenerateCtorBytecode(ClassesContainer container, ByteBlockMetadata context, StatementNode[] ctorParams)
+        public static void GenerateCtorBytecode(Method ctorMethod, ClassesContainer container, ByteBlockMetadata context, StatementNode[] ctorParams)
         {
+            if (ctorMethod == null)
+            {
+                return;
+            }
             foreach (var parameter in ctorParams)
             {
                 parameter.GenerateBytecode(container, context);
             }
 
-            context.Results.Add(new CtorCallCode(ctorParams.Length));
+            context.Results.Add(new CtorCallCode(ctorMethod.Id, ctorParams.Length));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
             this.StructType = validator.Container.TryGetClass(StructTypeStr);
-            ValidateStructSemantics(this.StructTypeStr,this.StructType, CtorParameters, validator, LineIndex);
+            ValidateStructSemantics(this.StructTypeStr, this.StructType, CtorParameters, validator, LineIndex);
             validator.DeclareVariable(this.Name, this.StructTypeStr);
         }
 

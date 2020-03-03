@@ -1,4 +1,5 @@
-﻿using Nova.Members;
+﻿using Nova.Bytecode.Symbols;
+using Nova.Members;
 using Nova.Semantics;
 using System;
 using System.Collections.Generic;
@@ -15,28 +16,30 @@ namespace Nova.Lexer
             get;
             private set;
         }
-        public string[] Elements
+        public string[] ElementsStr
         {
             get;
             private set;
         }
 
+
         public bool NoTree()
         {
-            return Elements.Length == 1;
+            return ElementsStr.Length == 1;
         }
         public MemberName(string raw)
         {
             this.Raw = raw;
-            this.Elements = Raw.Split('.');
+            this.ElementsStr = Raw.Split('.');
         }
+
         public string GetRoot()
         {
-            return Elements[0];
+            return ElementsStr[0];
         }
         public string GetLeaf()
         {
-            return Elements[Elements.Length - 1];
+            return ElementsStr[ElementsStr.Length - 1];
         }
         public override string ToString()
         {

@@ -79,7 +79,7 @@ namespace Nova.Members
         }
 
 
-        private bool AddMethod(string name, ModifiersEnum modifiers, string returnType, string parametersStr, int i)
+        private bool AddMethod(string name, int methodId, ModifiersEnum modifiers, string returnType, string parametersStr, int i)
         {
             if (Methods.ContainsKey(name))
             {
@@ -90,7 +90,7 @@ namespace Nova.Members
             int startIndex = Parser.FindNextOpenBracket(this.File.Lines, i);
             int endIndex = Parser.GetBracketCloseIndex(this.File.Brackets, startIndex);
 
-            Method method = new Method(this, name, modifiers, returnType, parameters, startIndex + 1, endIndex);
+            Method method = new Method(this, methodId, name, modifiers, returnType, parameters, startIndex + 1, endIndex);
 
             if (!method.BuildStatements())
             {
@@ -102,6 +102,10 @@ namespace Nova.Members
         }
         public bool BuildMembers()
         {
+            int methodId = 0;
+
+            int fieldId = 0;
+
             for (int i = StartIndex; i < EndIndex; i++)
             {
                 string line = File.Lines[i].Trim();
@@ -116,10 +120,12 @@ namespace Nova.Members
                     string methodName = methodMatch.Groups[3].Value;
                     string parametersStr = methodMatch.Groups[4].Value;
 
-                    if (!AddMethod(methodName, modifiers, returnType, parametersStr, i))
+                    if (!AddMethod(methodName, methodId, modifiers, returnType, parametersStr, i))
                     {
                         return false;
                     }
+
+                    methodId++;
 
                 }
                 else
@@ -139,7 +145,7 @@ namespace Nova.Members
                             Logger.Write("Duplicate field \"" + fieldName + "\" line " + i, LogType.Error);
                             return false;
                         }
-                        Field field = new Field(this, modifiers, new Variable(fieldName, fieldType), valueStr, i);
+                        Field field = new Field(this, fieldId, modifiers, new Variable(fieldName, fieldType), valueStr, i);
 
                         if (!field.Build())
                         {
@@ -147,6 +153,7 @@ namespace Nova.Members
                         }
 
                         Fields.Add(field.Name, field);
+                        fieldId++;
                     }
                     else
                     {
@@ -169,10 +176,11 @@ namespace Nova.Members
                                 Logger.Write("Invalid constructor \"" + methodName + "\" in \"" + this.ClassName + "\". A constructor must have the same name as its class", LogType.Error);
                                 return false;
                             }
-                            if (!AddMethod(methodName, modifiers, returnType, parametersStr, i))
+                            if (!AddMethod(methodName, methodId, modifiers, returnType, parametersStr, i))
                             {
                                 return false;
                             }
+                            methodId++;
                         }
                     }
                 }
@@ -195,16 +203,13 @@ namespace Nova.Members
 
             foreach (var method in this.Methods)
             {
-                byteClass.SymbolTable.Bind(method.Key, method.Value.ReturnType);
-
-                byteClass.Methods.Add(method.Key, (ByteMethod)method.Value.GetByteElement(container, byteClass));
+                byteClass.Methods.Add((ByteMethod)method.Value.GetByteElement(container, byteClass));
             }
 
 
             foreach (var field in this.Fields)
             {
-                byteClass.SymbolTable.Bind(field.Key, field.Value.Type);
-                byteClass.Fields.Add(field.Key, (ByteField)field.Value.GetByteElement(container, byteClass));
+                byteClass.Fields.Add((ByteField)field.Value.GetByteElement(container, byteClass));
             }
 
             return byteClass;

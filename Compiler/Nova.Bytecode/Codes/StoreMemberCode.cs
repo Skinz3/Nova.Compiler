@@ -15,27 +15,27 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 16;
 
-        private string fieldName;
+        private int fieldId;
 
-        public StoreMemberCode(string fieldName)
+        public StoreMemberCode(int fieldId)
         {
-            this.fieldName = fieldName;
+            this.fieldId = fieldId;
         }
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             object value = context.PopStack();
-            context.Set(fieldName, value);
+            context.Set(fieldId, value);
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(fieldName);
+            writer.Write(fieldId);
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StoreMember " + fieldName;
+            return "(" + TypeId + ") " + "StoreMember " + fieldId;
         }
     }
 }

@@ -58,9 +58,9 @@ namespace Nova.Statements
 
         private static void GenerateStructAssignation(MemberName target, ByteBlockMetadata context, int offset)
         {
-            for (int i = offset; i < target.Elements.Length - 1; i++)
+            for (int i = offset; i < target.ElementsStr.Length - 1; i++)
             {
-                context.Results.Add(new StructLoadMemberCode(target.Elements[i]));
+                context.Results.Add(new StructLoadMemberCode(target.ElementsStr[i]));
             }
 
             context.Results.Add(new StructStoreMemberCode(target.GetLeaf()));
@@ -73,7 +73,7 @@ namespace Nova.Statements
         }
         public static void GenerateAssignation(ByteBlockMetadata context, MemberName target,SymbolType symInfo)
         {
-            switch (symInfo)
+           /* switch (symInfo)
             {
                 case SymbolType.Local:
 
@@ -118,7 +118,7 @@ namespace Nova.Statements
                         GenerateStructAssignation(target, context, 2);
                     }
                     break;
-            }
+            } */
         }
         public override void ValidateSemantics(SemanticsValidator validator)
         {

@@ -10,6 +10,11 @@ void RuntimeContext::PushStack(RuntimeContext::RuntimeElement & value)
 	stack.emplace_back(value);
 }
 
+void RuntimeContext::PushString(std::string* value)
+{
+	stack.emplace_back(value);
+}
+
 int RuntimeContext::PopStackInt()
 {
 	return std::get<int>(this->PopStack());

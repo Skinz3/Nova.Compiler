@@ -39,12 +39,13 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            context.Results.Add(new PushBoolCode(Value));
+            int variableId = context.ParentClass.BindConstant(Value);
+            context.Results.Add(new PushConstCode(variableId)); 
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            throw new NotImplementedException();
+        
         }
     }
 }

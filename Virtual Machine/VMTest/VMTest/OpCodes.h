@@ -9,4 +9,6 @@ enum OpCodes : int
 	JUMP_IF_FALSE = 5,
 	JUMP  = 6,
 	BINARY_ADD = 7,
+	PUSH_STRING = 8,
+	PRINT_TOS = 9,
 };

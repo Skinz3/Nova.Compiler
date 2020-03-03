@@ -17,26 +17,26 @@ namespace Nova.Bytecode.Codes
 
         private string className;
 
-        private string fieldName; // replace by id
+        private int fieldId; 
 
-        public StoreStaticCode(string className,string fieldName)
+        public StoreStaticCode(string className,int fieldId)
         {
             this.className = className;
-            this.fieldName = fieldName;
+            this.fieldId = fieldId;
         }
 
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             object value = context.PopStack();
-            context.Set(className, fieldName, value); 
+            context.Set(className, fieldId, value); 
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(className);
-            writer.Write(fieldName);
+            writer.Write(fieldId);
         }
     }
 }

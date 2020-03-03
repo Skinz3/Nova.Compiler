@@ -25,7 +25,7 @@ namespace Nova.Bytecode.Runtime
             this.Class = @class;
             this.Properties = new Dictionary<string, object>();
 
-            foreach (var field in Class.Fields.Values) // modifiers != static
+            foreach (var field in Class.Fields) // modifiers != static
             {
                 Properties.Add(field.Name, field.Value);
             }

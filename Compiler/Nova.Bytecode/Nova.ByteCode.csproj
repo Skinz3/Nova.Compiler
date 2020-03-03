@@ -51,9 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Codes\CtorCallCode.cs" />
-    <Compile Include="Codes\PushBoolCode.cs" />
     <Compile Include="Codes\PushNullCode.cs" />
-    <Compile Include="Codes\PushStringCode.cs" />
+    <Compile Include="Codes\PushConstCode.cs" />
     <Compile Include="Codes\StructLoadMemberCode.cs" />
     <Compile Include="Codes\StructStoreMemberCode.cs" />
     <Compile Include="Codes\StructCallMethodCode.cs" />

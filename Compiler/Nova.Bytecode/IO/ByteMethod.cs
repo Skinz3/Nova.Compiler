@@ -37,12 +37,13 @@ namespace Nova.ByteCode.IO
         {
             this.Name = name;
             this.Modifiers = modifiers;
-            this.Meta = new ByteBlockMetadata();
+            this.Meta = new ByteBlockMetadata(parentClass);
             this.ParentClass = parentClass;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
+            writer.Write(Name);
             Meta.Serialize(writer);
         }
     }

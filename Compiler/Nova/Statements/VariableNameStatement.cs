@@ -13,6 +13,7 @@ using Nova.Members;
 using Nova.Semantics;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
+ 
 
 namespace Nova.Statements
 {
@@ -37,7 +38,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            var symType = DeduceSymbolCategory(context, Name, this.Parent.ParentClass);
+           /* var symType = DeduceSymbolCategory(context, Name, this.Parent.ParentClass);
 
             int loadStart = 1;
 
@@ -63,6 +64,8 @@ namespace Nova.Statements
             {
                 context.Results.Add(new StructLoadMemberCode(Name.Elements[i]));
             }
+
+    */
 
         }
         public override void ValidateSemantics(SemanticsValidator validator)

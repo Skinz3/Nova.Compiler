@@ -41,6 +41,11 @@ namespace Nova.Members
             get;
             set;
         }
+        public int Id
+        {
+            get;
+            set;
+        }
         public ModifiersEnum Modifiers
         {
             get;
@@ -64,8 +69,9 @@ namespace Nova.Members
 
         public IParentBlock Parent => null;
 
-        public Method(Class parentClass, string methodName, ModifiersEnum modifiers, string returnType, List<Variable> parameters, int startIndex, int endIndex)
+        public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType, List<Variable> parameters, int startIndex, int endIndex)
         {
+            this.Id = methodId;
             this.ParentClass = parentClass;
             this.Name = methodName;
             this.Modifiers = modifiers;
@@ -109,7 +115,7 @@ namespace Nova.Members
             }
             foreach (var statement in Statements)
             {
-                statement.GenerateBytecode(container,result.Meta);
+                statement.GenerateBytecode(container, result.Meta);
             }
 
 
@@ -123,7 +129,7 @@ namespace Nova.Members
 
             foreach (var param in Parameters)
             {
-                validator.DeclareVariable(param.Name,param.Type);
+                validator.DeclareVariable(param.Name, param.Type);
             }
 
             foreach (var statement in this.Statements)

@@ -12,7 +12,11 @@ int main()
 {
 	vector<int> instructions;
 
-	instructions.push_back(OpCodes::PUSH_INT);
+	instructions.push_back(OpCodes::PUSH_STRING);
+
+	instructions.push_back(OpCodes::PRINT_TOS);
+
+	/*instructions.push_back(OpCodes::PUSH_INT);
 	instructions.push_back(0);
 
 	instructions.push_back(OpCodes::STORE);
@@ -41,7 +45,7 @@ int main()
 	instructions.push_back(0);
 
 	instructions.push_back(OpCodes::JUMP);
-	instructions.push_back(4);
+	instructions.push_back(4); */
 
 
 	cout << "Exec instructions." << endl;
@@ -53,65 +57,24 @@ int main()
 
 	int ip = 0;
 
-	while (ip < instructions.size())
+	while (ip < instructions.size()) // intructions contiens pushstring, printtos
 	{
 		switch (instructions[ip])
 		{
-		case OpCodes::BINARY_ADD:
+		
+		case OpCodes::PUSH_STRING:
 		{
-			int val1 = context.PopStackInt();
-			int val2 = context.PopStackInt();
-
-			context.PushInt(val1 + val2);
+			string* value = new string();
+			*value = "hello";
+			context.PushString(value);
 			ip++;
 			break;
 		}
-		case OpCodes::CMP_INF:
+		case OpCodes::PRINT_TOS:
 		{
-			int val1 = context.PopStackInt();
-			int val2 =  context.PopStackInt();
-			context.PushInt(val2 < val1 ? 1 : 0);
+			std::string* ele = std::get<string*>(context.PopStack());// Ne fonctionne pas. 
+			cout << *ele << endl;
 			ip++;
-			break;
-		}
-		case OpCodes::JUMP:
-		{
-			ip = instructions[++ip];
-			break;
-		}
-		case OpCodes::LOAD:
-		{
-			context.PushStack(locales[instructions[++ip]]); // remove get, and get ms !
-			ip++;
-			break;
-		}
-		case OpCodes::JUMP_IF_FALSE:
-		{
-			int val1 = std::get<int>(context.PopStack());
-
-			int target = instructions[++ip];
-
-			if (val1 == 0)
-			{
-				ip = target;
-			}
-			else
-			{
-				ip++;
-			}
-			break;
-		}
-		case OpCodes::PUSH_INT: // this should be replaced by PushConst (and loaded from symbol table)
-		{
-			context.PushInt(instructions[++ip]);
-			ip++;
-			break;
-		}
-		case OpCodes::STORE:
-		{
-			locales[instructions[++ip]] = context.PopStack(); // remove get, and get ms !
-			ip++;
-			break;
 		}
 
 		}

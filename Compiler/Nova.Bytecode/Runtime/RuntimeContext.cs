@@ -32,7 +32,10 @@ namespace Nova.ByteCode.Runtime
             private set;
         }
 
-       
+        public object GetConstant(int constantId)
+        {
+            return ExecutingClass.GetConstant(constantId);
+        }
 
         private ByteClass ExecutingClass
         {
@@ -66,10 +69,10 @@ namespace Nova.ByteCode.Runtime
         }
 
         #region Function Call
-        public void Call(RuntimeStruct obj, string methodName, int parametersCount)
+        public void Call(RuntimeStruct obj, int methodId, int parametersCount)
         {
             this.StructsStack.Push(obj);
-            var method = obj.Class.Methods[methodName];
+            var method = obj.Class.Methods[methodId];
             Call(method, parametersCount);
 
             this.StructsStack.Pop();
@@ -88,34 +91,34 @@ namespace Nova.ByteCode.Runtime
             Exec.Execute(this, loc, method.Meta.Results);
             CallStack.Pop();
         }
-        public void Call(string className, string methodName, int paramsCount)
+        public void Call(string className, int methodId, int paramsCount)
         {
-            var method = NovFile.ByteClasses[className].Methods[methodName];
+            var method = NovFile.ByteClasses[className].Methods[methodId];
             Call(method, paramsCount);
         }
-        public void Call(string methodName, int paramsCount)
+        public void Call(int methodId, int paramsCount)
         {
-            var method = CallStack.Peek().ParentClass.Methods[methodName];
+            var method = CallStack.Peek().ParentClass.Methods[methodId];
             Call(method, paramsCount);
         }
         #endregion
 
         #region Fields
-        public object Get(string className, string fieldName)
+        public object Get(string className, int fieldId)
         {
-            return NovFile.ByteClasses[className].Fields[fieldName].Value;
+            return NovFile.ByteClasses[className].Fields[fieldId].Value;
         }
-        public object Get(string fieldName)
+        public object Get(int fieldName)
         {
             return ExecutingClass.Fields[fieldName].Value;
         }
-        public void Set(string className, string fieldName, object value)
+        public void Set(string className, int fieldId, object value)
         {
-            NovFile.ByteClasses[className].Fields[fieldName].Value = value;
+            NovFile.ByteClasses[className].Fields[fieldId].Value = value;
         }
-        public void Set(string fieldName, object value)
+        public void Set(int fieldId, object value)
         {
-            ExecutingClass.Fields[fieldName].Value = value;
+            ExecutingClass.Fields[fieldId].Value = value;
         }
         #endregion
 
@@ -124,7 +127,7 @@ namespace Nova.ByteCode.Runtime
         {
             foreach (var @class in this.NovFile.ByteClasses.Values)
             {
-                foreach (var field in @class.Fields.Values)
+                foreach (var field in @class.Fields)
                 {
                     field.Initializer(this);
                 }

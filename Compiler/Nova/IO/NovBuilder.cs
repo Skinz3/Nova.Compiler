@@ -57,7 +57,7 @@ namespace Nova.IO
             /* tests */
             Console.WriteLine();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            novFile.ByteClasses["ExampleClass"].Methods["Main"].Meta.Print();
+            novFile.ByteClasses["ExampleClass"].Methods[0].Meta.Print();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
             Console.WriteLine();
             Exec.Run(novFile);
@@ -72,6 +72,15 @@ namespace Nova.IO
 
             foreach (var @class in container)
             {
+                foreach (var @using in @class.Value.Usings)
+                {
+                    if (!novFile.Usings.Contains(@using))
+                    {
+                        novFile.Usings.Add(@using);
+                    }
+                }
+
+
                 ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(container,null);
                 novFile.ByteClasses.Add(byteClass.Name, byteClass);
             }

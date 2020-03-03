@@ -17,28 +17,28 @@ namespace Nova.Bytecode.Codes
 
         private string className;
 
-        private string fieldName;
+        private int fieldId;
 
-        public LoadStaticCode(string className,string fieldName)
+        public LoadStaticCode(string className, int fieldId)
         {
             this.className = className;
-            this.fieldName = fieldName;
+            this.fieldId = fieldId;
         }
 
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            context.PushStack(context.Get(className, fieldName));
+            context.PushStack(context.Get(className, fieldId));
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "LoadStatic " + className+" "+fieldName;
+            return "(" + TypeId + ") " + "LoadStatic " + className+" "+ fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(className);
-            writer.Write(fieldName);
+            writer.Write(fieldId);
         }
     }
 }

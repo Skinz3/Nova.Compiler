@@ -1,5 +1,6 @@
 ﻿using Nova.Bytecode.Symbols;
 using Nova.ByteCode.Codes;
+using Nova.ByteCode.IO;
 using Nova.Utils;
 using Nova.Utils.IO;
 using System;
@@ -37,12 +38,18 @@ namespace Nova.ByteCode.Generation
                 return SymbolTable.Count;
             }
         }
-
-        public ByteBlockMetadata()
+        public ByteClass ParentClass
+        {
+            get;
+            private set;
+        }
+        public ByteBlockMetadata(ByteClass parentClass)
         {
             this.SymbolTable = new SymbolTable();
             this.Results = new List<ICode>();
+            this.ParentClass = parentClass;
         }
+
         public void Print()
         {
             foreach (var byteCode in Results)
@@ -54,7 +61,7 @@ namespace Nova.ByteCode.Generation
         public void Serialize(CppBinaryWriter writer)
         {
             SymbolTable.Serialize(writer);
-          
+
 
             writer.Write(Results.Count);
 

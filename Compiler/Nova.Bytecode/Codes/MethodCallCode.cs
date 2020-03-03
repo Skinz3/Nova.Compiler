@@ -13,30 +13,30 @@ namespace Nova.ByteCode.Codes
     {
         public int TypeId => 8;
 
-        private string methodName;
+        private int methodId;
 
         private int parametersCount;
 
-        public MethodCallCode(string methodName, int parametersCount)
+        public MethodCallCode(int methodId, int parametersCount)
         {
-            this.methodName = methodName;
+            this.methodId = methodId;
             this.parametersCount = parametersCount;
         }
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            context.Call(methodName, parametersCount);
+            context.Call(methodId, parametersCount);
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(methodName);
+            writer.Write(methodId);
             writer.Write(parametersCount);
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "MethodCall " + methodName;
+            return "(" + TypeId + ") " + "MethodCall " + methodId;
         }
     }
 }

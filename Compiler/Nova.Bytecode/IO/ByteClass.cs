@@ -16,45 +16,59 @@ namespace Nova.ByteCode.IO
             get;
             private set;
         }
-        public Dictionary<string, ByteMethod> Methods
+
+        public List<ByteMethod> Methods
         {
             get;
             set;
         }
-        public Dictionary<string, ByteField> Fields
+
+        public List<ByteField> Fields
         {
             get;
             set;
         }
-        public SymbolTable SymbolTable
+        /*
+         * Toutes les constantes de chaque blocs de toutes les methodes de la classe.
+         */
+        private List<object> ConstantsTable
         {
             get;
-            private set;
+            set;
         }
+
         public ByteClass(string name)
         {
             this.Name = name;
-            this.Methods = new Dictionary<string, ByteMethod>();
-            this.Fields = new Dictionary<string, ByteField>();
-            this.SymbolTable = new SymbolTable();
+            this.Methods = new List<ByteMethod>();
+            this.Fields = new List<ByteField>();
+            this.ConstantsTable = new List<object>();
         }
 
+        public object GetConstant(int constantId)
+        {
+            return ConstantsTable[constantId];
+        }
+  
+        public int BindConstant(object constant)
+        {
+            ConstantsTable.Add(constant);
+            return ConstantsTable.Count - 1;
+        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(Methods.Count);
 
             foreach (var method in Methods)
             {
-                writer.Write(method.Key);
-                method.Value.Serialize(writer);
+                method.Serialize(writer);
             }
 
             writer.Write(Fields.Count);
 
             foreach (var field in Fields)
             {
-                writer.Write(field.Key);
-                field.Value.Serialize(writer);
+                field.Serialize(writer);
             }
         }
     }

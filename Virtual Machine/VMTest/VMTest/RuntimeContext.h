@@ -6,10 +6,12 @@
 class RuntimeContext
 {
 public:
-	using RuntimeElement = std::variant<int, std::string>;
+	using RuntimeElement = std::variant<int, std::string*>;
 
 	void PushInt(int value);
 	void PushStack(RuntimeContext::RuntimeElement & value);
+
+	void PushString(std::string * value);
 
 	int PopStackInt();
 

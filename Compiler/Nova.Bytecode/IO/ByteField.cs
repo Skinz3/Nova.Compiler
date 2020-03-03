@@ -53,6 +53,7 @@ namespace Nova.ByteCode.IO
 
         public void Serialize(CppBinaryWriter writer)
         {
+            writer.Write(Name);
             writer.Write((byte)Modifiers);
             Meta.Serialize(writer);
         }

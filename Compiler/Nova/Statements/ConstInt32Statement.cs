@@ -14,7 +14,7 @@ using Nova.Semantics;
 
 namespace Nova.Statements
 {
-    public class ConstInt32Statement : Statement
+    public class ConstInt32Statement : Statement // its const Number statement.
     {
         public const string REGEX = @"^([+-])?([0-9]+)$";
 
@@ -34,19 +34,6 @@ namespace Nova.Statements
         public ConstInt32Statement(IParentBlock parent) : base(parent)
         {
 
-        }
-        public override bool ValidateSyntax()
-        {
-            int val = 0;
-
-            bool success = int.TryParse(base.Input, out val);
-
-            if (success)
-            {
-                Value = val;
-            }
-
-            return success;
         }
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {

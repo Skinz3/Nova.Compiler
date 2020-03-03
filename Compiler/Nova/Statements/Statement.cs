@@ -44,10 +44,7 @@ namespace Nova.Statements
         {
             this.Parent = parent;
         }
-        public virtual bool ValidateSyntax()
-        {
-            return true;
-        }
+  
 
         public override string ToString()
         {

@@ -14,28 +14,28 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 19;
 
-        private string methodName;
+        private int methodId;
 
         private int parametersCount;
 
-        public StructCallMethodCode(string methodName, int parametersCount)
+        public StructCallMethodCode(int methodId, int parametersCount)
         {
-            this.methodName = methodName;
+            this.methodId = methodId;
             this.parametersCount = parametersCount;
         }
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             RuntimeStruct obj = (RuntimeStruct)context.PopStack();
-            context.Call(obj, methodName, parametersCount);
+            context.Call(obj, methodId, parametersCount);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructCallMethod " + methodName;
+            return "(" + TypeId + ") " + "StructCallMethod " + methodId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(methodName);
+            writer.Write(methodId);
             writer.Write(parametersCount);
         }
     }

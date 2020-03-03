@@ -14,26 +14,26 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 7; 
 
-        private string fieldName; // fieldId (symbolTable)
+        private int fieldId; // fieldId (symbolTable)
 
-        public LoadStaticMemberCode(string fieldName)
+        public LoadStaticMemberCode(int fieldId)
         {
-            this.fieldName = fieldName;
+            this.fieldId = fieldId;
         }
 
 
         public void Compute(RuntimeContext context,object[] locals, ref int index)
         {
-            context.PushStack(context.Get(fieldName));
+            context.PushStack(context.Get(fieldId));
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "LoadStaticMember " + fieldName;
+            return "(" + TypeId + ") " + "LoadStaticMember " + fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(fieldName);
+            writer.Write(fieldId);
         }
 
     }

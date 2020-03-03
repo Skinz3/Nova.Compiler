@@ -1,5 +1,6 @@
 ﻿using Nova.IO;
 using Nova.Lexer;
+ 
 using Nova.Members;
 using System;
 using System.Collections.Generic;
@@ -86,12 +87,12 @@ namespace Nova.Semantics
                 }
                 else
                 {
-                    if (!this.Container.ContainsClass(name.Elements[0]))
+                    if (!this.Container.ContainsClass(name.ElementsStr[0]))
                     {
                         return null;
                     }
 
-                    return new Variable(name.Raw, this.Container[name.Elements[0]].Fields[name.Elements[1]].Type);
+                    return new Variable(name.Raw, this.Container[name.ElementsStr[0]].Fields[name.ElementsStr[1]].Type);
                 }
             }
         }
@@ -116,7 +117,7 @@ namespace Nova.Semantics
             }
             else
             {
-                var variable = GetDeclaredVariable(parentClass, new MemberName(methodName.Elements[0]));
+                var variable = GetDeclaredVariable(parentClass, new MemberName(methodName.ElementsStr[0]));
 
                 if (variable != null)
                 {
@@ -124,24 +125,24 @@ namespace Nova.Semantics
                     {
                         return null;
                     }
-                    if (!Container[variable.Type].Methods.ContainsKey(methodName.Elements[1]))
+                    if (!Container[variable.Type].Methods.ContainsKey(methodName.ElementsStr[1]))
                     {
                         return null;
                     }
-                    return Container[variable.Type].Methods[methodName.Elements[1]];
+                    return Container[variable.Type].Methods[methodName.ElementsStr[1]];
                 }
                 else
                 {
-                    if (!Container.ContainsClass(methodName.Elements[0]))
+                    if (!Container.ContainsClass(methodName.ElementsStr[0]))
                     {
                         return null;
                     }
 
-                    var @class = Container[methodName.Elements[0]];
+                    var @class = Container[methodName.ElementsStr[0]];
 
                     Method method = null;
 
-                    if (@class.Methods.TryGetValue(methodName.Elements[1], out method))
+                    if (@class.Methods.TryGetValue(methodName.ElementsStr[1], out method))
                     {
                         return method;
                     }
