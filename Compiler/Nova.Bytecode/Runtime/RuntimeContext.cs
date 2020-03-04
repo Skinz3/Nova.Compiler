@@ -93,7 +93,7 @@ namespace Nova.ByteCode.Runtime
         }
         public void MainEntryPoint()
         {
-            var method = NovFile.GetMainEntryPoint();
+            var method = NovFile.GetMainMethod();
             Call(method);
         }
         public void Call(int classId, int methodId)

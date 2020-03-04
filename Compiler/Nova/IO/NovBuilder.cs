@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.IO;
+﻿using Nova.Bytecode.IO;
+using Nova.ByteCode.IO;
 using Nova.ByteCode.Runtime;
 using Nova.Semantics;
 using Nova.Utils.IO;
@@ -115,7 +116,32 @@ namespace Nova.IO
             }
             return result;
         }
+        public bool ComputeEntryPoint() // rien a faire ici?
+        {
+            int i = 0;
+            foreach (var @class in Result.ByteClasses)
+            {
+                int j = 0;
+                foreach (var @method in @class.Methods)
+                {
+                    if (method.IsMainPointEntry())
+                    {
+                        if (Result.MainPointEntry == null)
+                        {
+                            Result.MainPointEntry = new MainPointEntry(i, j);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    j++;
+                }
+                i++;
+            }
 
+            return true;
+        }
         private bool CreateContainer()
         {
             this.Container = new ClassesContainer();
@@ -193,7 +219,7 @@ namespace Nova.IO
                 Result.ByteClasses.Add(byteClass);
             }
 
-            if (!Result.ComputeEntryPoint())
+            if (!ComputeEntryPoint())
             {
                 Result = null;
             }

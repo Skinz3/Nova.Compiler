@@ -19,7 +19,7 @@ namespace Nova.ByteCode.IO
             get;
             private set;
         }
-        private MainPointEntry MainMetadata
+        public MainPointEntry MainPointEntry
         {
             get;
             set;
@@ -43,35 +43,10 @@ namespace Nova.ByteCode.IO
                 pair.Serialize(writer);
             }
         }
-        public ByteMethod GetMainEntryPoint()
+        public ByteMethod GetMainMethod()
         {
-            return ByteClasses[MainMetadata.ClassIndex].Methods[MainMetadata.MethodsIndex];
+            return ByteClasses[MainPointEntry.ClassIndex].Methods[MainPointEntry.MethodsIndex];
         }
-        public bool ComputeEntryPoint() // rien a faire ici?
-        {
-            int i = 0;
-            foreach (var @class in ByteClasses)
-            {
-                int j = 0;
-                foreach (var @method in @class.Methods)
-                {
-                    if (method.IsMainPointEntry())
-                    {
-                        if (MainMetadata == null)
-                        {
-                            this.MainMetadata = new MainPointEntry(i, j);
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    j++;
-                }
-                i++;
-            }
-
-            return true;
-        }
+       
     }
 }
