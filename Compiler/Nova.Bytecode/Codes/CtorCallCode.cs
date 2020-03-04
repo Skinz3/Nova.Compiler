@@ -18,7 +18,7 @@ namespace Nova.Bytecode.Codes
 
         private int methodId;
 
-        public CtorCallCode(int methodId, int parameterCount)
+        public CtorCallCode(int methodId, int parametersCount)
         {
             this.methodId = methodId;
             this.parametersCount = parametersCount;
