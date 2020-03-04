@@ -13,7 +13,9 @@ namespace Nova.IO
 {
     public class NvFile
     {
-        const string USING_PATTERN = "^using (\\w.+)$";
+        const string USING_PATTERN = "^using \"([a-zA-Z_$][a-zA-Z_$0-9_.\\/]*)\"$";
+
+        const string COMMENT = "//";
 
         public string Filepath
         {
@@ -56,10 +58,7 @@ namespace Nova.IO
                 return false;
             }
 
-            foreach (SearchResult res in Parser.Search(Lines, USING_PATTERN, 1))
-            {
-                this.Usings.Add(res.Value);
-            }
+            this.RemoveComments();
 
 
             if (!ReadBrackets())
@@ -68,6 +67,22 @@ namespace Nova.IO
             }
 
             return true;
+        }
+        private void RemoveComments()
+        {
+            for (int i = 0; i < Lines.Length; i++)
+            {
+                int index = Lines[i].IndexOf(COMMENT);
+
+                if (index != -1)
+                {
+                    string line = Lines[i];
+
+                    Lines[i] = line.Substring(0, index);
+
+                    Console.WriteLine(Lines[i]);
+                }
+            }
         }
         private bool ReadBrackets()
         {
@@ -110,7 +125,7 @@ namespace Nova.IO
         {
             try
             {
-                this.Lines = File.ReadAllLines(this.Filepath);
+                this.Lines = File.ReadAllLines(this.Filepath, Encoding.UTF8).Where(x => !string.IsNullOrEmpty(x)).ToArray();
                 return true;
             }
             catch
@@ -133,6 +148,8 @@ namespace Nova.IO
                     int classStartLine = Parser.FindNextOpenBracket(Lines, i);
                     int classEndLine = Parser.GetBracketCloseIndex(Brackets, classStartLine);
 
+                    i = classEndLine;
+
                     Class novaClass = new Class(this, className, type, classStartLine, classEndLine);
 
                     if (!novaClass.BuildMembers())
@@ -142,6 +159,20 @@ namespace Nova.IO
 
                     this.Classes.Add(novaClass);
                 }
+                else
+                {
+                    match = Regex.Match(Lines[i].Trim(), USING_PATTERN);
+
+                    if (match.Success)
+                    {
+                        Usings.Add(match.Groups[1].Value);
+                    }
+                    else
+                    {
+                        Logger.Write("line ignored :" + Lines[i], LogType.Warning);
+                    }
+                }
+
             }
 
             if (Classes.Count == 0)

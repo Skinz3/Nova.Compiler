@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Runtime
 {
+    /*
+     * This class is experimental. Its only to test and debug compiler.
+     * If you want to run some nova code please use the C++ virtual machine
+     */
     public class Exec
     {
         public static void Execute(RuntimeContext context, object[] locales, List<ICode> bytecode)

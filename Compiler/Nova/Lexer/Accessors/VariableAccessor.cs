@@ -19,14 +19,15 @@ namespace Nova.Lexer.Accessors
         public override bool Validate(SemanticsValidator validator, Class parentClass, int lineIndex)
         {
             this.Category = DeduceSymbolCategory(validator, parentClass);
-
+           
             string currentType = null;
             int loadStart = 0;
 
             switch (Category)
             {
                 case SymbolType.NoSymbol:
-                    break;
+                    validator.AddError("Undefined reference to locale \"" + this.Raw + "\"", lineIndex);
+                    return false;
                 case SymbolType.Local:
 
                     var variable = validator.GetLocal(GetRoot());

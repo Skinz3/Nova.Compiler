@@ -19,7 +19,6 @@ namespace Nova.Lexer.Accessors
         public override bool Validate(SemanticsValidator validator, Class parentClass, int lineIndex)
         {
             this.Category = DeduceSymbolCategory(validator, parentClass);
-
             string currentType = null;
             int loadStart = 0;
 

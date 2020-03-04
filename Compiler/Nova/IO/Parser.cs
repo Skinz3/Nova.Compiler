@@ -11,60 +11,8 @@ using Nova.Statements;
 
 namespace Nova.IO
 {
-    public class SearchResult
-    {
-        public int Index
-        {
-            get;
-            set;
-        }
-        public string Value
-        {
-            get;
-            set;
-        }
-    }
     class Parser
     {
-        public static SearchResult SearchFirst(string[] lines, string pattern, int index)
-        {
-            for (int i = 0; i < lines.Length; i++)
-            {
-                Match match = Regex.Match(lines[i], pattern);
-
-                if (match.Length > 0)
-                {
-                    SearchResult result = new SearchResult();
-                    result.Index = i;
-                    result.Value = match.Groups[index].Value;
-                    return result;
-                }
-            }
-
-            return null;
-        }
-
-        public static SearchResult[] Search(string[] lines, string pattern, int index)
-        {
-            List<SearchResult> results = new List<SearchResult>();
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i];
-
-                Match match = Regex.Match(line, pattern);
-
-                if (match.Length > 0)
-                {
-                    SearchResult result = new SearchResult();
-                    result.Index = i;
-                    result.Value = match.Groups[index].Value;
-                    results.Add(result);
-                }
-            }
-            return results.ToArray();
-        }
-
         public static int FindNextInstructionIndex(string[] lines, int startIndex)
         {
             for (int i = startIndex + 1; i < lines.Length; i++)
