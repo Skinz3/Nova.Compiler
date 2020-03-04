@@ -15,7 +15,7 @@ namespace Nova.Bytecode.Codes
      */
     public class StructStoreMemberCode : ICode
     {
-        public int TypeId => 24;
+        public int OpId => 24;
 
         private int propertyId;
 
@@ -38,7 +38,11 @@ namespace Nova.Bytecode.Codes
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructSetMember " + propertyId;
+            return "(" + OpId + ") " + "StructSetMember " + propertyId;
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

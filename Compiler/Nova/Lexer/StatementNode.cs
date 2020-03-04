@@ -130,11 +130,11 @@ namespace Nova.Lexer
             this.Parent = parent;
         }
 
-        public void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             if (IsNull())
             {
-                context.Results.Add(new PushNullCode());
+                context.Instructions.Add(new PushNullCode());
             }
             else
             {

@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class JumpCode : ICode
     {
-        public int TypeId => 4;
+        public int OpId => 4;
 
         public int targetIndex;
 
@@ -32,7 +32,11 @@ namespace Nova.ByteCode.Codes
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "Jump " + targetIndex;
+            return "(" + OpId + ") " + "Jump " + targetIndex;
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

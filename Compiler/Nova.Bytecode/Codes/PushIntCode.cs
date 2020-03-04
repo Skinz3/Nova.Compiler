@@ -12,7 +12,7 @@ namespace Nova.ByteCode.Codes
 {
     public class PushIntCode : ICode
     {
-        public int TypeId => 13;
+        public int OpId => 13;
 
         private int value;
 
@@ -28,12 +28,16 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "PushInt " + value;
+            return "(" + OpId + ") " + "PushInt " + value;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(value);
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

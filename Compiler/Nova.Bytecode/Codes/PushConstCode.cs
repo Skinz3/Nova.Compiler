@@ -11,7 +11,7 @@ namespace Nova.Bytecode.Codes
 {
     public class PushConstCode : ICode
     {
-        public int TypeId => 12;
+        public int OpId => 12;
 
         private int constantId;
 
@@ -27,12 +27,16 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "PushConst " + constantId;
+            return "(" + OpId + ") " + "PushConst " + constantId;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(constantId);
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

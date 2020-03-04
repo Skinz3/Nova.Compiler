@@ -63,6 +63,15 @@
     <ClCompile Include="Exec.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="NovFile.cpp">
+      <Filter>Fichiers sources\Members</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Fichiers sources\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="MainPointEntry.cpp">
+      <Filter>Fichiers sources\Members</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryReader.h">
@@ -94,6 +103,18 @@
     </ClInclude>
     <ClInclude Include="Exec.h">
       <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="NovFile.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Fichiers d%27en-tête\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="MainPointEntry.h">
+      <Filter>Fichiers d%27en-tête\Members</Filter>
+    </ClInclude>
+    <ClInclude Include="Modifiers.h">
+      <Filter>Fichiers d%27en-tête\Members</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

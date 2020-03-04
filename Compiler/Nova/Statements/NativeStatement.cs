@@ -49,7 +49,7 @@ namespace Nova.Statements
             this.Parameters = parameters;
         }
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             foreach (var parameter in Parameters)
             {
@@ -58,7 +58,7 @@ namespace Nova.Statements
 
             Type nativeType = Natives[NativeName];
             ICode code = (ICode)Activator.CreateInstance(nativeType);
-            context.Results.Add(code);
+            context.Instructions.Add(code);
 
         }
 

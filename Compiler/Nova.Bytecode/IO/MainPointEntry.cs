@@ -15,7 +15,7 @@ namespace Nova.Bytecode.IO
             get;
             set;
         }
-        public int MethodsIndex
+        public int MethodIndex
         {
             get;
             set;
@@ -23,12 +23,12 @@ namespace Nova.Bytecode.IO
         public MainPointEntry(int classIndex,int methodIndex)
         {
             this.ClassIndex = classIndex;
-            this.MethodsIndex = methodIndex;
+            this.MethodIndex = methodIndex;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(ClassIndex);
-            writer.Write(MethodsIndex);
+            writer.Write(MethodIndex);
         }
     }
 }

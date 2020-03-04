@@ -58,7 +58,7 @@ namespace Nova.Statements
         /*
          * Cette classe n'a rien a faire ici ! 
          */
-        public abstract void GenerateBytecode(ClassesContainer container,ByteBlockMetadata context);
+        public abstract void GenerateBytecode(ClassesContainer container,ByteBlock context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
     }

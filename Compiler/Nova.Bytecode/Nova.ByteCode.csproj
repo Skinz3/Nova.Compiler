@@ -74,13 +74,13 @@
     <Compile Include="Codes\JumpIfFalseCode.cs" />
     <Compile Include="Codes\LoadCode.cs" />
     <Compile Include="Codes\LoadStaticCode.cs" />
-    <Compile Include="Codes\MethodCallCode.cs" />
+    <Compile Include="Codes\MethodCallMember.cs" />
     <Compile Include="Codes\PrintlCode.cs" />
     <Compile Include="Codes\PushIntCode.cs" />
     <Compile Include="Codes\ReturnCode.cs" />
     <Compile Include="Codes\StoreCode.cs" />
     <Compile Include="Enums\OperatorsEnum.cs" />
-    <Compile Include="Generation\ByteBlockMetadata.cs" />
+    <Compile Include="Generation\ByteBlock.cs" />
     <Compile Include="IO\ByteClass.cs" />
     <Compile Include="IO\ByteMethod.cs" />
     <Compile Include="IO\ByteField.cs" />

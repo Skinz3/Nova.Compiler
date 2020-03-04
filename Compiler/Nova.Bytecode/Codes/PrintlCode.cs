@@ -12,7 +12,7 @@ namespace Nova.ByteCode.Codes
 {
     public class PrintlCode : ICode
     {
-        public int TypeId => 11;
+        public int OpId => 11;
 
         public PrintlCode()
         {
@@ -34,12 +34,17 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "Printl";
+            return "(" + OpId + ") " + "Printl";
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
 
+        }
+
+        public int GetSize()
+        {
+            return 0;
         }
     }
 }

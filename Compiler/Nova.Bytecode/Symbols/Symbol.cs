@@ -20,10 +20,6 @@ namespace Nova.Bytecode.Symbols
             this.Type = type;
         }
 
-        public void Deserialize(CppBinaryReader reader)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Serialize(CppBinaryWriter writer)
         {

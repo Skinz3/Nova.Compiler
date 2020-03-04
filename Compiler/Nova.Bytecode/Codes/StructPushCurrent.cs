@@ -15,7 +15,7 @@ namespace Nova.Bytecode.Codes
      */
     public class StructPushCurrent : ICode
     {
-        public int TypeId => 23;
+        public int OpId => 23;
 
         public StructPushCurrent()
         {
@@ -31,7 +31,11 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructPushCurrent";
+            return "(" + OpId + ") " + "StructPushCurrent";
+        }
+        public int GetSize()
+        {
+            return 0;
         }
     }
 }

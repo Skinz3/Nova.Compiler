@@ -39,7 +39,7 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             List<ICode> results = new List<ICode>();
 
@@ -48,7 +48,7 @@ namespace Nova.Statements
             if (!Value.IsNull())
             {
                 Value.GenerateBytecode(container,context);
-                context.Results.Add(new StoreCode(variableId));
+                context.Instructions.Add(new StoreCode(variableId));
             }
         }
 

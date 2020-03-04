@@ -37,7 +37,7 @@ namespace Nova.Statements
         }
 
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             int loadStart = 0;
 
@@ -49,26 +49,26 @@ namespace Nova.Statements
 
                     Variable variable = Name.GetRoot<Variable>();
                     Symbol symbol = context.SymbolTable.GetSymbol(variable.Name);
-                    context.Results.Add(new LoadCode(symbol.Id));
+                    context.Instructions.Add(new LoadCode(symbol.Id));
                     loadStart = 1;
 
                     break;
                 case SymbolType.ClassMember:
 
                     Field target = Name.GetRoot<Field>();
-                    context.Results.Add(new LoadStaticMemberCode(target.Id));
+                    context.Instructions.Add(new LoadStaticMemberCode(target.Id));
                     loadStart = 1;
 
                     break;
                 case SymbolType.StructMember:
 
-                    context.Results.Add(new StructPushCurrent());
+                    context.Instructions.Add(new StructPushCurrent());
                     loadStart = 0;
 
                     break;
                 case SymbolType.StaticExternal:
                     target = this.Name.GetElement<Field>(1);
-                    context.Results.Add(new LoadStaticCode(container.GetClassId(Name.GetRoot<Class>().ClassName), target.Id));
+                    context.Instructions.Add(new LoadStaticCode(container.GetClassId(Name.GetRoot<Class>().ClassName), target.Id));
                     loadStart = 2;
                     break;
             }
@@ -78,7 +78,7 @@ namespace Nova.Statements
             for (int i = loadStart; i < Name.Elements.Count; i++)
             {
                 field = this.Name.GetElement<Field>(i);
-                context.Results.Add(new StructLoadMemberCode(field.Id));
+                context.Instructions.Add(new StructLoadMemberCode(field.Id));
             }
 
 

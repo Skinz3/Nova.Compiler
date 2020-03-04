@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class MethodCallMemberCode : ICode
     {
-        public int TypeId => 9;
+        public int OpId => 9;
 
         private int methodId;
 
@@ -32,7 +32,11 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "MethodCall " + methodId;
+            return "(" + OpId + ") " + "MethodCall " + methodId;
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

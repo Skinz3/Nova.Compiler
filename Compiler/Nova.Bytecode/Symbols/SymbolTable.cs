@@ -53,9 +53,5 @@ namespace Nova.Bytecode.Symbols
             }
         }
 
-        public void Deserialize(CppBinaryReader reader)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

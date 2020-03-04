@@ -1,14 +1,16 @@
-#include "ByteMethod.h"
 #include "ByteClass.h"
-
+#include "ByteMethod.h"
 
 
 void ByteMethod::Deserialize(BinaryReader& reader)
 {
-	//this->Meta.Deserialize(reader);
+	this->name = reader.ReadString();
+	this->modifiers = (Modifiers)reader.Read<char>();
+	this->parametersCount = reader.Read<int>();
+	this->block.Deserialize(reader);
 }
 
 ByteMethod::ByteMethod(ByteClass * parent)
 {
-	this->Parent = parent;
+	this->parent = parent;
 }

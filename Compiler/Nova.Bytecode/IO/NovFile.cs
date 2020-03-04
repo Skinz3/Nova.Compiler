@@ -36,6 +36,8 @@ namespace Nova.ByteCode.IO
         {
             writer.Write(HEADER);
 
+            MainPointEntry.Serialize(writer);
+
             writer.Write(ByteClasses.Count);
 
             foreach (var pair in ByteClasses)
@@ -45,7 +47,7 @@ namespace Nova.ByteCode.IO
         }
         public ByteMethod GetMainMethod()
         {
-            return ByteClasses[MainPointEntry.ClassIndex].Methods[MainPointEntry.MethodsIndex];
+            return ByteClasses[MainPointEntry.ClassIndex].Methods[MainPointEntry.MethodIndex];
         }
        
     }

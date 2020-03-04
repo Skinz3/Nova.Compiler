@@ -32,8 +32,6 @@ namespace Nova.ByteCode.Runtime
             private set;
         }
 
-
-
         private ByteClass ExecutingClass
         {
             get
@@ -85,7 +83,7 @@ namespace Nova.ByteCode.Runtime
                 loc[i] = PopStack();
             }
 
-            Exec.Execute(this, loc, method.Meta.Results);
+            Exec.Execute(this, loc, method.Meta.Instructions);
             CallStack.Pop();
         }
         public object GetConstant(int constantId)

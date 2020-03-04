@@ -72,15 +72,25 @@ namespace Nova.ByteCode.IO
             {
                 field.Serialize(writer);
             }
-        }
 
-        public void Deserialize(CppBinaryReader reader)
-        {
-            int methodsCount = reader.ReadInt32();
+            writer.Write(ConstantsTable.Count);
 
-            for (int i = 0; i < Methods.Count; i++)
+            foreach (var value in ConstantsTable)
             {
-
+                if (value is string)
+                {
+                    writer.Write(1);
+                    writer.Write(value.ToString());
+                }
+                else if (value is bool)
+                {
+                    writer.Write(2);
+                    writer.Write((bool)value);
+                }
+                else
+                {
+                    throw new Exception("Unhandled constant serialization.");
+                }
             }
         }
     }

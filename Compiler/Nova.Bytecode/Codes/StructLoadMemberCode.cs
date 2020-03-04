@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StructLoadMemberCode : ICode
     {
-        public int TypeId => 22;
+        public int OpId => 22;
 
         private int propertyId; // propertyId (symbolTable)
 
@@ -35,7 +35,11 @@ namespace Nova.Bytecode.Codes
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructGetMemberCode " + propertyId;
+            return "(" + OpId + ") " + "StructGetMemberCode " + propertyId;
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

@@ -3,13 +3,16 @@
 #include "ByteMethod.h"
 #include "ByteField.h"
 #include <vector>
+#include "RuntimeContext.h"
 
 class ByteClass
 {
 public:
-	std::string Name;
-	std::vector<ByteMethod> Methods;
-	std::vector<ByteField> Fields;
+	std::string name;
+	std::vector<ByteMethod> methods;
+	std::vector<ByteField> fields;
+	std::vector<RuntimeContext::RuntimeElement> constants;
 	void Deserialize(BinaryReader& reader);
-	ByteClass(std::string name);
+
+	void Dispose();
 };

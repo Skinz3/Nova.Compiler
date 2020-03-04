@@ -43,9 +43,9 @@ namespace Nova.Statements
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            context.Results.Add(new StructCreateCode(container.GetClassId(this.StructType.ClassName)));
+            context.Instructions.Add(new StructCreateCode(container.GetClassId(this.StructType.ClassName)));
 
             StructDeclarationStatement.GenerateCtorBytecode(this.StructType.GetCtor(), container, context, CtorParameters);
 

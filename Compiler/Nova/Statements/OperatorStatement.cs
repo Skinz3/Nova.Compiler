@@ -52,31 +52,31 @@ namespace Nova.Statements
         {
           
         } */
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             //throw new InvalidOperationException();
             switch (OperatorEnum)
             {
                 case OperatorsEnum.Plus:
-                    context.Results.Add(new ArithmeticCode(OperatorsEnum.Plus));
+                    context.Instructions.Add(new ArithmeticCode(OperatorsEnum.Plus));
                     break;
                 case OperatorsEnum.Minus:
-                    context.Results.Add(new ArithmeticCode(OperatorsEnum.Minus));
+                    context.Instructions.Add(new ArithmeticCode(OperatorsEnum.Minus));
                     break;
                 case OperatorsEnum.Multiply:
-                    context.Results.Add(new ArithmeticCode(OperatorsEnum.Multiply));
+                    context.Instructions.Add(new ArithmeticCode(OperatorsEnum.Multiply));
                     break;
                 case OperatorsEnum.Inferior:
-                    context.Results.Add(new ComparaisonCode(OperatorsEnum.Inferior));
+                    context.Instructions.Add(new ComparaisonCode(OperatorsEnum.Inferior));
                     break;
                 case OperatorsEnum.Superior:
-                    context.Results.Add(new ComparaisonCode(OperatorsEnum.Superior));
+                    context.Instructions.Add(new ComparaisonCode(OperatorsEnum.Superior));
                     break;
                 case OperatorsEnum.Different:
-                    context.Results.Add(new ComparaisonCode(OperatorsEnum.Different));
+                    context.Instructions.Add(new ComparaisonCode(OperatorsEnum.Different));
                     break;
                 case OperatorsEnum.Equals:
-                    context.Results.Add(new ComparaisonCode(OperatorsEnum.Equals));
+                    context.Instructions.Add(new ComparaisonCode(OperatorsEnum.Equals));
                     break;
                 default:
                     throw new Exception();

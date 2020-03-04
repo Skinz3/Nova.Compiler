@@ -23,7 +23,7 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        private ByteBlockMetadata Meta
+        private ByteBlock Meta
         {
             get;
             set;
@@ -43,7 +43,7 @@ namespace Nova.ByteCode.IO
             get;
             private set;
         }
-        public ByteField(ByteClass parentClass, ModifiersEnum modifiers, string name, ByteBlockMetadata meta)
+        public ByteField(ByteClass parentClass, ModifiersEnum modifiers, string name, ByteBlock meta)
         {
             this.ParentClass = parentClass;
             this.Name = name;
@@ -59,15 +59,12 @@ namespace Nova.ByteCode.IO
         }
         public void Initializer(RuntimeContext context)
         {
-            Exec.Execute(context, new object[0], Meta.Results);
+            Exec.Execute(context, new object[0], Meta.Instructions);
 
             if (context.StackSize > 0)
                 this.Value = context.PopStack();
         }
 
-        public void Deserialize(CppBinaryReader reader)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

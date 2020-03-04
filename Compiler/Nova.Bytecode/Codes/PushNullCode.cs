@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class PushNullCode : ICode
     {
-        public int TypeId => 14;
+        public int OpId => 14;
 
         public PushNullCode()
         {
@@ -26,12 +26,16 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "PushNull";
+            return "(" + OpId + ") " + "PushNull";
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
           
+        }
+        public int GetSize()
+        {
+            return 0;
         }
     }
 }

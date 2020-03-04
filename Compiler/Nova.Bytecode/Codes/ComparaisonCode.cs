@@ -14,7 +14,7 @@ namespace Nova.ByteCode.Codes
     {
         private OperatorsEnum type;
 
-        public int TypeId => 2;
+        public int OpId => 2;
 
         public ComparaisonCode(OperatorsEnum type)
         {
@@ -53,12 +53,17 @@ namespace Nova.ByteCode.Codes
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write((byte)type);
+            writer.Write((int)type);
         }
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "Comparaison" + type;
+            return "(" + OpId + ") " + "Comparaison" + type;
+        }
+
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

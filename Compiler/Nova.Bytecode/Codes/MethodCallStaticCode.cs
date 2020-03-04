@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class MethodCallStaticCode : ICode
     {
-        public int TypeId => 10;
+        public int OpId => 10;
 
         private int classId;
         private int methodId;
@@ -31,13 +31,16 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "MethodCallStatic " + classId + " " + methodId;
+            return "(" + OpId + ") " + "MethodCallStatic " + classId + " " + methodId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(classId);
             writer.Write(methodId);
         }
-
+        public int GetSize()
+        {
+            return 2;
+        }
     }
 }

@@ -57,19 +57,19 @@ namespace Nova.Statements
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             int variableId = context.SymbolTable.Bind(Name, StructTypeStr);
 
-            context.Results.Add(new StructCreateCode(container.GetClassId(StructTypeStr)));
+            context.Instructions.Add(new StructCreateCode(container.GetClassId(StructTypeStr)));
 
             GenerateCtorBytecode(container[StructTypeStr].GetCtor(), container, context, CtorParameters);
 
-            context.Results.Add(new StoreCode(variableId));
+            context.Instructions.Add(new StoreCode(variableId));
 
         }
 
-        public static void GenerateCtorBytecode(Method ctorMethod, ClassesContainer container, ByteBlockMetadata context, StatementNode[] ctorParams)
+        public static void GenerateCtorBytecode(Method ctorMethod, ClassesContainer container, ByteBlock context, StatementNode[] ctorParams)
         {
             if (ctorMethod == null)
             {
@@ -80,7 +80,7 @@ namespace Nova.Statements
                 parameter.GenerateBytecode(container, context);
             }
 
-            context.Results.Add(new CtorCallCode(ctorMethod.Id, ctorParams.Length));
+            context.Instructions.Add(new CtorCallCode(ctorMethod.Id, ctorParams.Length));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

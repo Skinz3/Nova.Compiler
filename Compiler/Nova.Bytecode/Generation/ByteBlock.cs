@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Generation
 {
-    public class ByteBlockMetadata : IByteElement
+    public class ByteBlock : IByteElement
     {
         public SymbolTable SymbolTable
         {
             get;
             private set;
         }
-        public List<ICode> Results
+        public List<ICode> Instructions
         {
             get;
             set;
@@ -28,7 +28,7 @@ namespace Nova.ByteCode.Generation
         {
             get
             {
-                return Results.Count - 1;
+                return Instructions.Count - 1;
             }
         }
         public int LocalsCount
@@ -43,16 +43,16 @@ namespace Nova.ByteCode.Generation
             get;
             private set;
         }
-        public ByteBlockMetadata(ByteClass parentClass)
+        public ByteBlock(ByteClass parentClass)
         {
             this.SymbolTable = new SymbolTable();
-            this.Results = new List<ICode>();
+            this.Instructions = new List<ICode>();
             this.ParentClass = parentClass;
         }
 
         public void Print()
         {
-            foreach (var byteCode in Results)
+            foreach (var byteCode in Instructions)
             {
                 Logger.Write(byteCode);
             }
@@ -60,21 +60,18 @@ namespace Nova.ByteCode.Generation
 
         public void Serialize(CppBinaryWriter writer)
         {
-            SymbolTable.Serialize(writer);
+            //SymbolTable.Serialize(writer);
 
+            int size = Instructions.Sum(x => x.GetSize() + 1);
 
-            writer.Write(Results.Count);
+            writer.Write(size);
 
-            foreach (var code in Results)
+            foreach (var code in Instructions)
             {
-                writer.Write(code.TypeId);
+                writer.Write(code.OpId);
                 code.Serialize(writer);
             }
         }
 
-        public void Deserialize(CppBinaryReader reader)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

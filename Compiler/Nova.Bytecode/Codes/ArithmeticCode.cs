@@ -13,7 +13,7 @@ namespace Nova.ByteCode.Codes
 {
     public class ArithmeticCode : ICode
     {
-        public int TypeId => 1;
+        public int OpId => 1;
 
         private OperatorsEnum type;
 
@@ -66,12 +66,17 @@ namespace Nova.ByteCode.Codes
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write((byte)type);
+            writer.Write((int)type);
         }
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "Arithmetic" + type;
+            return "(" + OpId + ") " + "Arithmetic" + type;
+        }
+
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Enums
 {
-    [Flags]
     public enum ModifiersEnum
     {
         @public = 0x1,

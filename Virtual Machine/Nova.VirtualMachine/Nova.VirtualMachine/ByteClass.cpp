@@ -2,13 +2,15 @@
 
 void ByteClass::Deserialize(BinaryReader& reader)
 {
+	this->name = reader.ReadString();
+
 	int methodCount = reader.Read<int>();
 
 	for (int i = 0; i < methodCount; i++)
 	{
 		ByteMethod method(this);
 		method.Deserialize(reader);
-		this->Methods.push_back(method);
+		this->methods.push_back(method);
 	}
 
 	int fieldsCount = reader.Read<int>();
@@ -16,12 +18,33 @@ void ByteClass::Deserialize(BinaryReader& reader)
 	for (int i = 0; i < fieldsCount; i++)
 	{
 		ByteField field;
-	//	field.Deserialize(reader);
-		this->Fields.push_back(field);
+		field.Deserialize(reader);
+		this->fields.push_back(field);
+	}
+
+	int constantsCount = reader.Read<int>();
+
+	for (int i = 0; i < constantsCount; i++)
+	{
+		int type = reader.Read<int>();
+
+		if (type == 1)
+		{
+			string* value = new string(); // allocates a string.
+			*value = reader.ReadString();
+			constants.push_back(value);
+		}
+		else if (type == 2)
+		{
+			constants.push_back((bool)reader.Read<bool>());
+		}
 	}
 }
 
-ByteClass::ByteClass(std::string name)
+void ByteClass::Dispose()
 {
-	this->Name = name;
+	for (RuntimeContext::RuntimeElement element : this->constants)
+	{
+		delete& element;
+	}
 }

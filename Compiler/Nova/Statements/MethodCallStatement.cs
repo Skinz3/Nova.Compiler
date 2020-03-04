@@ -64,14 +64,14 @@ namespace Nova.Statements
             this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;
         }
-        private void GenerateStructAccessorBytecode(ByteBlockMetadata context, int loadStart)
+        private void GenerateStructAccessorBytecode(ByteBlock context, int loadStart)
         {
             for (int i = loadStart; i < MethodName.Elements.Count - 1; i++)
             {
-                context.Results.Add(new StructLoadMemberCode(MethodName.GetElement<Field>(i).Id));
+                context.Instructions.Add(new StructLoadMemberCode(MethodName.GetElement<Field>(i).Id));
             }
         }
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             foreach (var parameter in Parameters)
             {
@@ -82,39 +82,39 @@ namespace Nova.Statements
             {
                 case SymbolType.NoSymbol: // should be member function.
                     var target = this.MethodName.GetRoot<Method>();
-                    context.Results.Add(new MethodCallMemberCode(target.Id));
+                    context.Instructions.Add(new MethodCallMemberCode(target.Id));
                     break;
                 case SymbolType.Local: // un struct local.
 
                     Variable variable = this.MethodName.GetRoot<Variable>();
 
-                    context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(variable.Name).Id));
+                    context.Instructions.Add(new LoadCode(context.SymbolTable.GetSymbol(variable.Name).Id));
 
                     GenerateStructAccessorBytecode(context, 1);
 
                     Method targetMethod = MethodName.GetLeaf<Method>();
-                    context.Results.Add(new StructCallMethodCode(targetMethod.Id));
+                    context.Instructions.Add(new StructCallMethodCode(targetMethod.Id));
                     break;
 
                 case SymbolType.ClassMember: // un struct de classe
 
                     Field field = this.MethodName.GetRoot<Field>();
 
-                    context.Results.Add(new LoadStaticMemberCode(field.Id));
+                    context.Instructions.Add(new LoadStaticMemberCode(field.Id));
 
                     GenerateStructAccessorBytecode(context, 1);
 
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id));
+                    context.Instructions.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id));
 
                     break;
 
                 case SymbolType.StructMember:
 
-                    context.Results.Add(new StructPushCurrent());
+                    context.Instructions.Add(new StructPushCurrent());
 
                     GenerateStructAccessorBytecode(context, 0);
 
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id));
+                    context.Instructions.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id));
 
                     break;
 
@@ -127,19 +127,19 @@ namespace Nova.Statements
                         target = MethodName.GetLeaf<Method>();
                         Class owner = MethodName.GetRoot<Class>();
 
-                        context.Results.Add(new MethodCallStaticCode(container.GetClassId(owner.ClassName), target.Id));
+                        context.Instructions.Add(new MethodCallStaticCode(container.GetClassId(owner.ClassName), target.Id));
                     }
                     else // Nova.humain.method(); where Nova is a static external class
                     {
                         field = this.MethodName.GetElement<Field>(1);
 
                         Class owner = MethodName.GetElement<Class>(0);
-                        context.Results.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), field.Id));
+                        context.Instructions.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), field.Id));
 
                         GenerateStructAccessorBytecode(context, 2);
 
                         target = this.MethodName.GetLeaf<Method>();
-                        context.Results.Add(new StructCallMethodCode(target.Id));
+                        context.Instructions.Add(new StructCallMethodCode(target.Id));
 
                     }
                     break;

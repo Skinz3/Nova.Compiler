@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class JumpIfFalseCode : ICode
     {
-        public int TypeId => 5;
+        public int OpId => 5;
 
         public int targetIndex;
 
@@ -33,12 +33,16 @@ namespace Nova.ByteCode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " +  "JumpIfFalse " + targetIndex;
+            return "(" + OpId + ") " +  "JumpIfFalse " + targetIndex;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(targetIndex);
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

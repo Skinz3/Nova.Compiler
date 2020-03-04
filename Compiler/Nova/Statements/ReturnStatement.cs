@@ -33,10 +33,10 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             Value.GenerateBytecode(container,context);
-            context.Results.Add(new ReturnCode());
+            context.Instructions.Add(new ReturnCode());
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

@@ -58,12 +58,12 @@ namespace Nova.Statements
         }
 
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             Value.GenerateBytecode(container, context);
             GenerateAssignation(container, context, Target);
         }
-        public static void GenerateAssignation(ClassesContainer container, ByteBlockMetadata context, VariableAccessor target)
+        public static void GenerateAssignation(ClassesContainer container, ByteBlock context, VariableAccessor target)
         {
 
             int offset = 0;
@@ -79,12 +79,12 @@ namespace Nova.Statements
 
                     if (target.NoTree())
                     {
-                        context.Results.Add(new StoreCode(variableId));
+                        context.Instructions.Add(new StoreCode(variableId));
                         return;
                     }
                     else
                     {
-                        context.Results.Add(new LoadCode(variableId));
+                        context.Instructions.Add(new LoadCode(variableId));
                         offset = 2;
 
                     }
@@ -95,17 +95,17 @@ namespace Nova.Statements
 
                     if (target.NoTree())
                     {
-                        context.Results.Add(new StoreMemberCode(targetField.Id)); // field of a class.
+                        context.Instructions.Add(new StoreMemberCode(targetField.Id)); // field of a class.
                         return;
                     }
                     else
                     {
-                        context.Results.Add(new LoadStaticMemberCode(targetField.Id));
+                        context.Instructions.Add(new LoadStaticMemberCode(targetField.Id));
                         offset = 1;
                     }
                     break;
                 case SymbolType.StructMember:
-                    context.Results.Add(new StructPushCurrent());
+                    context.Instructions.Add(new StructPushCurrent());
                     offset = 0;
 
                     break;
@@ -116,12 +116,12 @@ namespace Nova.Statements
 
                     if (target.Elements.Count == 2)
                     {
-                        context.Results.Add(new StoreStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
+                        context.Instructions.Add(new StoreStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
                         return;
                     }
                     else
                     {
-                        context.Results.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
+                        context.Instructions.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
                         offset = 2;
                     }
                     break;
@@ -131,12 +131,12 @@ namespace Nova.Statements
             for (int i = offset; i < target.Elements.Count - 1; i++)
             {
                 field = target.GetElement<Field>(i);
-                context.Results.Add(new StructLoadMemberCode(field.Id));
+                context.Instructions.Add(new StructLoadMemberCode(field.Id));
             }
 
             field = target.GetLeaf<Field>();
 
-            context.Results.Add(new StructStoreMemberCode(field.Id));
+            context.Instructions.Add(new StructStoreMemberCode(field.Id));
         }
         public override void ValidateSemantics(SemanticsValidator validator)
         {

@@ -19,7 +19,7 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        public ByteBlockMetadata Meta
+        public ByteBlock Meta
         {
             get;
             set;
@@ -43,7 +43,7 @@ namespace Nova.ByteCode.IO
         {
             this.Name = name;
             this.Modifiers = modifiers;
-            this.Meta = new ByteBlockMetadata(parentClass);
+            this.Meta = new ByteBlock(parentClass);
             this.ParentClass = parentClass;
             this.ParametersCount = parametersCount;
         }
@@ -51,6 +51,8 @@ namespace Nova.ByteCode.IO
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(Name);
+            writer.Write((byte)Modifiers);
+            writer.Write(ParametersCount);
             Meta.Serialize(writer);
         }
 
@@ -59,9 +61,6 @@ namespace Nova.ByteCode.IO
             return Modifiers == ModifiersEnum.@public && Name == Constants.MAIN_METHOD_NAME && ParametersCount == 0;
         }
 
-        public void Deserialize(CppBinaryReader reader)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

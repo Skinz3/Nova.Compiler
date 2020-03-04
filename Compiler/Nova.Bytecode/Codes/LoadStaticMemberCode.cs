@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class LoadStaticMemberCode : ICode
     {
-        public int TypeId =>8; 
+        public int OpId => 8;
 
         private int fieldId; // fieldId (symbolTable)
 
@@ -22,19 +22,22 @@ namespace Nova.Bytecode.Codes
         }
 
 
-        public void Compute(RuntimeContext context,object[] locals, ref int index)
+        public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             context.PushStack(context.Get(fieldId));
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "LoadStaticMember " + fieldId;
+            return "(" + OpId + ") " + "LoadStaticMember " + fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(fieldId);
         }
-
+        public int GetSize()
+        {
+            return 1;
+        }
     }
 }

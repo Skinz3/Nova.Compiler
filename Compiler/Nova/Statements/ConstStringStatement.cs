@@ -37,10 +37,10 @@ namespace Nova.Statements
 
         }
 
-        public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
+        public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             int constantId = context.ParentClass.BindConstant(Value);
-            context.Results.Add(new PushConstCode(constantId));
+            context.Instructions.Add(new PushConstCode(constantId));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

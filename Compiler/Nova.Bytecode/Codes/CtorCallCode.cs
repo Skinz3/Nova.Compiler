@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class CtorCallCode : ICode
     {
-        public int TypeId => 3;
+        public int OpId => 3;
 
         private int parametersCount;
 
@@ -31,11 +31,16 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "CtorCall " + parametersCount;
+            return "(" + OpId + ") " + "CtorCall " + parametersCount;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(parametersCount);
+            writer.Write(methodId);
+        }
+        public int GetSize()
+        {
+            return 2;
         }
     }
 }

@@ -1,12 +1,11 @@
 #pragma once
 #include "BinaryReader.h"
-#include <vector>
-class ByteBlock
+#include "BinaryReader.h"
+class MainPointEntry
 {
 public:
+	int classIndex;
+	int methodIndex;
 	void Deserialize(BinaryReader& reader);
-
-private:
-	std::vector<int> instructions;
 };
 

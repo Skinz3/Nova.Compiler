@@ -13,7 +13,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StoreMemberCode : ICode
     {
-        public int TypeId => 18;
+        public int OpId => 18;
 
         private int fieldId;
 
@@ -35,7 +35,11 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StoreMember " + fieldId;
+            return "(" + OpId + ") " + "StoreMember " + fieldId;
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

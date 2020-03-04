@@ -97,7 +97,7 @@ namespace Nova.Members
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
-            ByteBlockMetadata meta = new ByteBlockMetadata((ByteClass)parent);
+            ByteBlock meta = new ByteBlock((ByteClass)parent);
             Value.GenerateBytecode(container, meta);
             ByteField field = new ByteField((ByteClass)parent, Modifiers, Name, meta);
             return field;

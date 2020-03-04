@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StructCreateCode : ICode
     {
-        public int TypeId => 21;
+        public int OpId => 21;
 
         private int classId;
 
@@ -29,11 +29,15 @@ namespace Nova.Bytecode.Codes
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructCreate " + classId;
+            return "(" + OpId + ") " + "StructCreate " + classId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(classId);
+        }
+        public int GetSize()
+        {
+            return 1;
         }
     }
 }

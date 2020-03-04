@@ -12,11 +12,13 @@ namespace Nova.ByteCode.Codes
 {
     public interface ICode
     {
-        int TypeId
+        int OpId
         {
             get;
         }
         void Compute(RuntimeContext context,object[] locals, ref int index);
         void Serialize(CppBinaryWriter writer);
+
+        int GetSize();
     }
 }
