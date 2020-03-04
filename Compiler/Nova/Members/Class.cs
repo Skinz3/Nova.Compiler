@@ -30,11 +30,6 @@ namespace Nova.Members
             get;
             private set;
         }
-        public List<string> Usings
-        {
-            get;
-            private set;
-        }
         private int StartIndex
         {
             get;
@@ -69,14 +64,12 @@ namespace Nova.Members
             this.EndIndex = endIndex;
             this.Methods = new Dictionary<string, Method>();
             this.Fields = new Dictionary<string, Field>();
-            this.Usings = file.Usings;
             this.Type = type;
         }
         public Class()
         {
             this.Methods = new Dictionary<string, Method>();
             this.Fields = new Dictionary<string, Field>();
-            this.Usings = new List<string>();
         }
 
 
@@ -148,7 +141,7 @@ namespace Nova.Members
                         return false;
                     }
 
-                    i = method.EndIndex + 1;
+                    i = method.EndIndex;
 
                     methodId++;
 
@@ -208,7 +201,7 @@ namespace Nova.Members
                                 return false;
                             }
 
-                            i = method.EndIndex + 1;
+                            i = method.EndIndex;
                             methodId++;
                         }
                         else

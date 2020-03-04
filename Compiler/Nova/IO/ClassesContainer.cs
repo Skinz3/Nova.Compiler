@@ -17,33 +17,50 @@ namespace Nova.IO
                 return Elements.Count;
             }
         }
+
         private Dictionary<string, Class> Elements
         {
             get;
             set;
         }
-
+        private Dictionary<string, int> Relator
+        {
+            get;
+            set;
+        }
+        private int RelatorId
+        {
+            get;
+            set;
+        }
         public ClassesContainer()
         {
             this.Elements = new Dictionary<string, Class>();
+            this.Relator = new Dictionary<string, int>();
+            this.RelatorId = 0;
+        }
+        public int GetClassId(string className)
+        {
+            return Relator[className];
         }
 
         public void Add(Class element)
         {
             Elements.Add(element.ClassName, element);
+            Relator.Add(element.ClassName, RelatorId++);
         }
         public void AddRange(Dictionary<string, Class> elements)
         {
             foreach (var element in elements)
             {
-                Elements.Add(element.Key, element.Value);
+                Add(element.Value);
             }
         }
         public void AddRange(IEnumerable<Class> elements)
         {
             foreach (var element in elements)
             {
-                Elements.Add(element.ClassName, element);
+                Add(element);
             }
         }
         public bool ContainsClass(string @class)

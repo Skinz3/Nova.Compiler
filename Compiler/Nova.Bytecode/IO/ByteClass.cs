@@ -49,7 +49,7 @@ namespace Nova.ByteCode.IO
         {
             return ConstantsTable[constantId];
         }
-  
+
         public int BindConstant(object constant)
         {
             ConstantsTable.Add(constant);
@@ -57,6 +57,8 @@ namespace Nova.ByteCode.IO
         }
         public void Serialize(CppBinaryWriter writer)
         {
+            writer.Write(Name);
+
             writer.Write(Methods.Count);
 
             foreach (var method in Methods)
@@ -74,7 +76,12 @@ namespace Nova.ByteCode.IO
 
         public void Deserialize(CppBinaryReader reader)
         {
-            throw new NotImplementedException();
+            int methodsCount = reader.ReadInt32();
+
+            for (int i = 0; i < Methods.Count; i++)
+            {
+
+            }
         }
     }
 }

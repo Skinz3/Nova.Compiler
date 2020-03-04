@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IO\NovBuilder.cs" />
+    <Compile Include="IO\NovLinker.cs" />
+    <Compile Include="IO\Using.cs" />
     <Compile Include="Lexer\Accessors\IAccessible.cs" />
     <Compile Include="Lexer\Accessors\MethodAccessor.cs" />
     <Compile Include="Lexer\Accessors\VariableAccessor.cs" />

@@ -15,24 +15,20 @@ namespace Nova.ByteCode.Codes
 
         private int methodId;
 
-        private int parametersCount;
-
-        public MethodCallCode(int methodId, int parametersCount)
+        public MethodCallCode(int methodId)
         {
             this.methodId = methodId;
-            this.parametersCount = parametersCount;
         }
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            context.Call(methodId, parametersCount);
+            context.Call(methodId);
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(methodId);
-            writer.Write(parametersCount);
         }
         public override string ToString()
         {

@@ -15,13 +15,13 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 19;
 
-        private string className;
+        private int classId;
 
         private int fieldId; 
 
-        public StoreStaticCode(string className,int fieldId)
+        public StoreStaticCode(int classId,int fieldId)
         {
-            this.className = className;
+            this.classId = classId;
             this.fieldId = fieldId;
         }
 
@@ -29,16 +29,16 @@ namespace Nova.Bytecode.Codes
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             object value = context.PopStack();
-            context.Set(className, fieldId, value); 
+            context.Set(classId, fieldId, value); 
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StoreStaticCode " + className +" " + fieldId;
+            return "(" + TypeId + ") " + "StoreStaticCode " + classId + " " + fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(className);
+            writer.Write(classId);
             writer.Write(fieldId);
         }
     }

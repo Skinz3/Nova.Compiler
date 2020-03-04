@@ -14,32 +14,29 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 10;
 
-        private string className;
+        private int classId;
         private int methodId;
-        private int parametersCount;
 
-        public MethodCallStaticCode(string className, int methodId, int parametersCount)
+        public MethodCallStaticCode(int classId, int methodId)
         {
-            this.className = className;
+            this.classId = classId;
             this.methodId = methodId;
-            this.parametersCount = parametersCount;
         }
 
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            context.Call(className, methodId, parametersCount);
+            context.Call(classId, methodId);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "MethodCallStatic " + className + " " + methodId + " " + parametersCount;
+            return "(" + TypeId + ") " + "MethodCallStatic " + classId + " " + methodId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(className);
+            writer.Write(classId);
             writer.Write(methodId);
-            writer.Write(parametersCount);
         }
 
     }

@@ -18,15 +18,15 @@ namespace Nova.Bytecode.Codes
 
         private int methodId;
 
-        public CtorCallCode(int methodId, int parametersCount)
+        public CtorCallCode(int methodId, int parameterCount)
         {
-            this.parametersCount = parametersCount;
             this.methodId = methodId;
+            this.parametersCount = parametersCount;
         }
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             RuntimeStruct obj = (RuntimeStruct)context.StackMinus(parametersCount);
-            context.Call(obj, methodId, parametersCount);
+            context.Call(obj, methodId);
             index++;
         }
         public override string ToString()

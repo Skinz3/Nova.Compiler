@@ -82,7 +82,7 @@ namespace Nova.Statements
             {
                 case SymbolType.NoSymbol: // should be member function.
                     var target = this.MethodName.GetRoot<Method>();
-                    context.Results.Add(new MethodCallCode(target.Id, Parameters.Length));
+                    context.Results.Add(new MethodCallCode(target.Id));
                     break;
                 case SymbolType.Local: // un struct local.
 
@@ -93,7 +93,7 @@ namespace Nova.Statements
                     GenerateStructAccessorBytecode(context, 1);
 
                     Method targetMethod = MethodName.GetLeaf<Method>();
-                    context.Results.Add(new StructCallMethodCode(targetMethod.Id, Parameters.Length));
+                    context.Results.Add(new StructCallMethodCode(targetMethod.Id));
                     break;
 
                 case SymbolType.ClassMember: // un struct de classe
@@ -104,7 +104,7 @@ namespace Nova.Statements
 
                     GenerateStructAccessorBytecode(context, 1);
 
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id, Parameters.Length));
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id));
 
                     break;
 
@@ -114,7 +114,7 @@ namespace Nova.Statements
 
                     GenerateStructAccessorBytecode(context, 0);
 
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id, Parameters.Length));
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id));
 
                     break;
 
@@ -127,19 +127,19 @@ namespace Nova.Statements
                         target = MethodName.GetLeaf<Method>();
                         Class owner = MethodName.GetRoot<Class>();
 
-                        context.Results.Add(new MethodCallStaticCode(owner.ClassName, target.Id, Parameters.Length));
+                        context.Results.Add(new MethodCallStaticCode(container.GetClassId(owner.ClassName), target.Id));
                     }
                     else // Nova.humain.method(); where Nova is a static external class
                     {
                         field = this.MethodName.GetElement<Field>(1);
 
                         Class owner = MethodName.GetElement<Class>(0);
-                        context.Results.Add(new LoadStaticCode(owner.ClassName, field.Id));
+                        context.Results.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), field.Id));
 
                         GenerateStructAccessorBytecode(context, 2);
 
                         target = this.MethodName.GetLeaf<Method>();
-                        context.Results.Add(new StructCallMethodCode(target.Id, Parameters.Length));
+                        context.Results.Add(new StructCallMethodCode(target.Id));
 
                     }
                     break;

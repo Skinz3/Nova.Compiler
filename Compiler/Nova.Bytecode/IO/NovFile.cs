@@ -1,4 +1,6 @@
-﻿using Nova.Utils.IO;
+﻿using Nova.Bytecode.IO;
+using Nova.Utils;
+using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,49 +14,64 @@ namespace Nova.ByteCode.IO
     {
         public const string HEADER = "NovaEX";
 
-        public List<string> Usings
-        {
-            get;
-            set;
-        }
-
-        public Dictionary<string, ByteClass> ByteClasses
+        public List<ByteClass> ByteClasses
         {
             get;
             private set;
+        }
+        private MainPointEntry MainMetadata
+        {
+            get;
+            set;
         }
         /// <summary>
         /// todo : referenced file (recursively)
         /// </summary>
         public NovFile()
         {
-            this.ByteClasses = new Dictionary<string, ByteClass>();
-            this.Usings = new List<string>();
+            this.ByteClasses = new List<ByteClass>();
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(HEADER);
 
-            writer.Write(Usings.Count);
-
-            foreach (var @using in Usings)
-            {
-                writer.Write(@using);
-            }
-
             writer.Write(ByteClasses.Count);
 
             foreach (var pair in ByteClasses)
             {
-                writer.Write(pair.Key);
-                pair.Value.Serialize(writer);
+                pair.Serialize(writer);
             }
         }
-
-        public void Deserialize(CppBinaryReader reader)
+        public ByteMethod GetMainEntryPoint()
         {
-            throw new NotImplementedException();
+            return ByteClasses[MainMetadata.ClassIndex].Methods[MainMetadata.MethodsIndex];
+        }
+        public bool ComputeEntryPoint() // rien a faire ici?
+        {
+            int i = 0;
+            foreach (var @class in ByteClasses)
+            {
+                int j = 0;
+                foreach (var @method in @class.Methods)
+                {
+                    if (method.IsMainPointEntry())
+                    {
+                        if (MainMetadata == null)
+                        {
+                            this.MainMetadata = new MainPointEntry(i, j);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    j++;
+                }
+                i++;
+            }
+
+            return true;
         }
     }
 }

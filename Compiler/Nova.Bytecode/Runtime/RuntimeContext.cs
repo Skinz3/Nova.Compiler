@@ -62,28 +62,28 @@ namespace Nova.ByteCode.Runtime
             this.StructsStack = new Stack<RuntimeStruct>();
         }
 
-        public RuntimeStruct CreateObject(string className)
+        public RuntimeStruct CreateObject(int classId)
         {
-            RuntimeStruct obj = new RuntimeStruct(NovFile.ByteClasses[className]);
+            RuntimeStruct obj = new RuntimeStruct(NovFile.ByteClasses[classId]);
             return obj;
         }
 
         #region Function Call
-        public void Call(RuntimeStruct obj, int methodId, int parametersCount)
+        public void Call(RuntimeStruct obj, int methodId)
         {
             this.StructsStack.Push(obj);
             var method = obj.Class.Methods[methodId];
-            Call(method, parametersCount);
+            Call(method);
 
             this.StructsStack.Pop();
         }
-        public void Call(ByteMethod method, int parametersCount)
+        public void Call(ByteMethod method)
         {
             CallStack.Push(method);
 
             object[] loc = new object[method.Meta.LocalsCount];
 
-            for (int i = parametersCount - 1; i >= 0; i--)
+            for (int i = method.ParametersCount - 1; i >= 0; i--)
             {
                 loc[i] = PopStack();
             }
@@ -91,30 +91,35 @@ namespace Nova.ByteCode.Runtime
             Exec.Execute(this, loc, method.Meta.Results);
             CallStack.Pop();
         }
-        public void Call(string className, int methodId, int paramsCount)
+        public void MainEntryPoint()
         {
-            var method = NovFile.ByteClasses[className].Methods[methodId];
-            Call(method, paramsCount);
+            var method = NovFile.GetMainEntryPoint();
+            Call(method);
         }
-        public void Call(int methodId, int paramsCount)
+        public void Call(int classId, int methodId)
+        {
+            var method = NovFile.ByteClasses[classId].Methods[methodId];
+            Call(method);
+        }
+        public void Call(int methodId)
         {
             var method = CallStack.Peek().ParentClass.Methods[methodId];
-            Call(method, paramsCount);
+            Call(method);
         }
         #endregion
 
         #region Fields
-        public object Get(string className, int fieldId)
+        public object Get(int classId, int fieldId)
         {
-            return NovFile.ByteClasses[className].Fields[fieldId].Value;
+            return NovFile.ByteClasses[classId].Fields[fieldId].Value;
         }
         public object Get(int fieldName)
         {
             return ExecutingClass.Fields[fieldName].Value;
         }
-        public void Set(string className, int fieldId, object value)
+        public void Set(int classId, int fieldId, object value)
         {
-            NovFile.ByteClasses[className].Fields[fieldId].Value = value;
+            NovFile.ByteClasses[classId].Fields[fieldId].Value = value;
         }
         public void Set(int fieldId, object value)
         {
@@ -125,7 +130,7 @@ namespace Nova.ByteCode.Runtime
         #region Initializers
         public void Initialize()
         {
-            foreach (var @class in this.NovFile.ByteClasses.Values)
+            foreach (var @class in this.NovFile.ByteClasses)
             {
                 foreach (var field in @class.Fields)
                 {

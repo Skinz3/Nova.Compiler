@@ -13,7 +13,7 @@ namespace Nova.IO
 {
     public class NvFile
     {
-        const string USING_PATTERN = "^using \"([a-zA-Z_$][a-zA-Z_$0-9_.\\/]*)\"$";
+        const string USING_PATTERN = "^using (\"(?<ref>[a-zA-Z_$][a-zA-Z_$0-9_.]*" + Constants.SOURCE_CODE_FILE_EXTENSION + ")\"|<(?<std>[a-zA-Z_$][a-zA-Z_$0-9_.]*)>)$";
 
         public string Filepath
         {
@@ -25,7 +25,7 @@ namespace Nova.IO
             get;
             private set;
         }
-        public List<string> Usings
+        public List<Using> Usings
         {
             get;
             private set;
@@ -43,7 +43,7 @@ namespace Nova.IO
         public NvFile(string filePath)
         {
             this.Filepath = filePath;
-            this.Usings = new List<string>();
+            this.Usings = new List<Using>();
             this.Brackets = new Dictionary<int, int>();
             this.Classes = new List<Class>();
         }
@@ -169,7 +169,16 @@ namespace Nova.IO
 
                     if (match.Success)
                     {
-                        Usings.Add(match.Groups[1].Value);
+                        Group refGroup = match.Groups["ref"];
+
+                        if (refGroup.Success)
+                        {
+                            Usings.Add(new Using(UsingType.Ref, refGroup.Value));
+                        }
+                        else
+                        {
+                            Usings.Add(new Using(UsingType.Std, match.Groups["std"].Value));
+                        }
                     }
                     else if (!string.IsNullOrWhiteSpace(Lines[i]))
                     {

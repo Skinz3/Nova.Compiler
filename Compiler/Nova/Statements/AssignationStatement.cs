@@ -61,11 +61,11 @@ namespace Nova.Statements
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
             Value.GenerateBytecode(container, context);
-            GenerateAssignation(context, Target);
+            GenerateAssignation(container, context, Target);
         }
-        public static void GenerateAssignation(ByteBlockMetadata context, VariableAccessor target)
+        public static void GenerateAssignation(ClassesContainer container, ByteBlockMetadata context, VariableAccessor target)
         {
-            
+
             int offset = 0;
 
             switch (target.Category)
@@ -116,12 +116,12 @@ namespace Nova.Statements
 
                     if (target.Elements.Count == 2)
                     {
-                        context.Results.Add(new StoreStaticCode(owner.ClassName, targetField.Id));
+                        context.Results.Add(new StoreStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
                         return;
                     }
                     else
                     {
-                        context.Results.Add(new LoadStaticCode(owner.ClassName, targetField.Id));
+                        context.Results.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
                         offset = 2;
                     }
                     break;

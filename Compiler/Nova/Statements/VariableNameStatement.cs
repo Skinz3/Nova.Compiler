@@ -68,7 +68,7 @@ namespace Nova.Statements
                     break;
                 case SymbolType.StaticExternal:
                     target = this.Name.GetElement<Field>(1);
-                    context.Results.Add(new LoadStaticCode(Name.GetRoot<Class>().ClassName, target.Id));
+                    context.Results.Add(new LoadStaticCode(container.GetClassId(Name.GetRoot<Class>().ClassName), target.Id));
                     loadStart = 2;
                     break;
             }

@@ -29,7 +29,8 @@ namespace Nova.Utils.IO
 
             while (read != '\0')
             {
-                result += this.ReadChar();
+                result += read;
+                read = this.ReadChar();
             }
             return result;
         }

@@ -14,26 +14,26 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 21;
 
-        private string className;
+        private int classId;
 
-        public StructCreateCode(string className)
+        public StructCreateCode(int classId)
         {
-            this.className = className;
+            this.classId = classId;
         }
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            RuntimeStruct obj = context.CreateObject(className);
+            RuntimeStruct obj = context.CreateObject(classId);
             context.PushStack(obj);
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructCreate " + className;
+            return "(" + TypeId + ") " + "StructCreate " + classId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(className);
+            writer.Write(classId);
         }
     }
 }

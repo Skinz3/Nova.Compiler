@@ -16,45 +16,32 @@ using System.Threading.Tasks;
 
 namespace Nova.Compiler
 {
-    class Humain
-    {
-        public string Name;
-        public int Age;
-
-        public Humain(string name,int age)
-        {
-            Name = name;
-            Age = age;
-        }
-    }
     class Program
     {
         static void Main(string[] args)
         {
-       
             if (args.Length == 0)
             {
-                Logger.Write("You need to specify at least one nova file (.nv).", LogType.Warning);
+                Logger.Write("You need to specify a nova file (.nv).", LogType.Warning);
+                Console.Read();
+                return;
+            }
+            if (args.Length > 2)
+            {
+                Logger.Write("Args are [scriptPath] [outputPath]?");
                 Console.Read();
                 return;
             }
 
-            bool outputPathSpecified = Path.GetExtension(args.Last()) == Constants.BYTECODE_FILE_EXTENSION;
+            bool outputPathSpecified = args.Length == 2;
 
             string outputPath;
 
             if (outputPathSpecified)
             {
-                outputPath = args.Last();
+                outputPath = args[1];
+                Logger.Write("Output path specified : " + outputPath, LogType.Debug);
 
-                Logger.Write("Ouput path specified : " + outputPath, LogType.Debug);
-
-                if (args.Length == 1)
-                {
-                    Console.Read(); // debug only, le programme ne doit pas être bloquant.
-                    Logger.Write("You need to specify at least one nova file (.nv).", LogType.Warning);
-                    return;
-                }
             }
             else
             {
@@ -64,29 +51,22 @@ namespace Nova.Compiler
 
             Stopwatch st = Stopwatch.StartNew();
 
-            List<NvFile> files = new List<NvFile>();
+            NovBuilder builder = new NovBuilder(args[0], outputPath);
 
-            for (int i = 0; i < args.Length - (outputPathSpecified ? 1 : 0); i++)
-            {
-                NvFile file = new NvFile(args[i]);
-                if (!file.Read() || !file.ReadClasses())
-                {
-                    Console.Read();
-                    Environment.Exit(1);
-                }
-                files.Add(file);
-                Logger.Write("File : " + args[i], LogType.Debug);
-            }
-
-            if (NovBuilder.Build(outputPath, files))
-            {
-                Logger.Write(outputPath + " generated in " + st.ElapsedMilliseconds + "ms");
-                Console.Read();
-            }
-            else
+            if (!builder.Build())
             {
                 Console.Read();
+                return;
             }
+
+            builder.Save();
+
+            Logger.Write(outputPath + " generated in " + st.ElapsedMilliseconds + "ms");
+
+            builder.Run();
+
+            Console.Read();
+
         }
     }
 }

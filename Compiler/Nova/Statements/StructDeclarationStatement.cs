@@ -61,7 +61,7 @@ namespace Nova.Statements
         {
             int variableId = context.SymbolTable.Bind(Name, StructTypeStr);
 
-            context.Results.Add(new StructCreateCode(StructTypeStr));
+            context.Results.Add(new StructCreateCode(container.GetClassId(StructTypeStr)));
 
             GenerateCtorBytecode(container[StructTypeStr].GetCtor(), container, context, CtorParameters);
 

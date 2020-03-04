@@ -15,29 +15,29 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 7;
 
-        private string className;
+        private int classId;
 
         private int fieldId;
 
-        public LoadStaticCode(string className, int fieldId)
+        public LoadStaticCode(int classId, int fieldId)
         {
-            this.className = className;
+            this.classId = classId;
             this.fieldId = fieldId;
         }
 
 
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
-            context.PushStack(context.Get(className, fieldId));
+            context.PushStack(context.Get(classId, fieldId));
             index++;
         }
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "LoadStatic " + className+" "+ fieldId;
+            return "(" + TypeId + ") " + "LoadStatic " + classId + " " + fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(className);
+            writer.Write(classId);
             writer.Write(fieldId);
         }
     }

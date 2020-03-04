@@ -108,7 +108,7 @@ namespace Nova.Members
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
-            ByteMethod result = new ByteMethod(this.Name, Modifiers, (ByteClass)parent);
+            ByteMethod result = new ByteMethod(this.Name, Modifiers, Parameters.Count, (ByteClass)parent);
 
             foreach (var parameter in Parameters)
             {

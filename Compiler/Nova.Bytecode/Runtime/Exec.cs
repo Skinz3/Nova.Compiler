@@ -37,8 +37,7 @@ namespace Nova.ByteCode.Runtime
             context.Initialize();
             var st = Stopwatch.StartNew();
 
-
-            context.Call("Nova", 0, 0);
+            context.MainEntryPoint();
 
             Logger.Write("Program terminated in " + st.ElapsedMilliseconds + "ms", LogType.Success);
             Logger.Write("Stack size is :" + context.StackSize, LogType.Debug);

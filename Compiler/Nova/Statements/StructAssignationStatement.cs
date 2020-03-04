@@ -45,11 +45,11 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            context.Results.Add(new StructCreateCode(this.StructType.ClassName));
+            context.Results.Add(new StructCreateCode(container.GetClassId(this.StructType.ClassName)));
 
             StructDeclarationStatement.GenerateCtorBytecode(this.StructType.GetCtor(), container, context, CtorParameters);
 
-            AssignationStatement.GenerateAssignation(context, Target);
+            AssignationStatement.GenerateAssignation(container,context, Target);
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

@@ -16,17 +16,14 @@ namespace Nova.Bytecode.Codes
 
         private int methodId;
 
-        private int parametersCount;
-
-        public StructCallMethodCode(int methodId, int parametersCount)
+        public StructCallMethodCode(int methodId)
         {
             this.methodId = methodId;
-            this.parametersCount = parametersCount;
         }
         public void Compute(RuntimeContext context, object[] locals, ref int index)
         {
             RuntimeStruct obj = (RuntimeStruct)context.PopStack();
-            context.Call(obj, methodId, parametersCount);
+            context.Call(obj, methodId);
             index++;
         }
         public override string ToString()
@@ -36,7 +33,6 @@ namespace Nova.Bytecode.Codes
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(methodId);
-            writer.Write(parametersCount);
         }
     }
 }

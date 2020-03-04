@@ -1,5 +1,4 @@
-﻿using Nova.ByteCode;
-using Nova.ByteCode.IO;
+﻿using Nova.ByteCode.IO;
 using Nova.ByteCode.Runtime;
 using Nova.Semantics;
 using Nova.Utils.IO;
@@ -14,20 +13,53 @@ namespace Nova.IO
 {
     public class NovBuilder
     {
-        public static bool Build(string ouputPath, IEnumerable<NvFile> files)
-        {
-            ClassesContainer container = new ClassesContainer();
+        public static string STANDARD_LIBRARY_PATH = Path.Combine(Environment.CurrentDirectory, "STD/");
 
-            foreach (var file in files) // foreach fall usings, import recursively
+        private ClassesContainer Container
+        {
+            get;
+            set;
+        }
+        private string OutputPath
+        {
+            get;
+            set;
+        }
+        private string InputFilePath
+        {
+            get;
+            set;
+        }
+        private NovFile Result
+        {
+            get;
+            set;
+        }
+        public NovBuilder(string inputPath, string outputPath)
+        {
+            this.InputFilePath = inputPath;
+            this.OutputPath = outputPath;
+        }
+
+        public bool Build()
+        {
+            NvFile file = OpenNvFile(InputFilePath);
+
+            if (file == null)
             {
-                container.AddRange(file.GetClasses());
+                return false;
+            }
+
+            if (!CreateContainer())
+            {
+                return false;
             }
 
             List<SemanticalError> errors = new List<SemanticalError>();
 
-            foreach (var @class in container.GetClasses())
+            foreach (var @class in Container.GetClasses())
             {
-                errors.AddRange(@class.ValidateSemantics(container));
+                errors.AddRange(@class.ValidateSemantics(Container));
             }
 
             if (errors.Count > 0)
@@ -39,54 +71,134 @@ namespace Nova.IO
                 return false;
             }
 
+            BuildNovFile();
 
-            NovFile novFile = BuildNovFile(container);
-
-
-            if (File.Exists(ouputPath))
+            if (Result == null)
             {
-                File.Delete(ouputPath);
+                return false;
             }
-
-            FileStream stream = new FileStream(ouputPath, FileMode.Append);
-            CppBinaryWriter writer = new CppBinaryWriter(stream);
-            novFile.Serialize(writer);
-            writer.Close();
-            stream.Close();
-
-            /* tests */
-            Console.WriteLine();
-            Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            novFile.ByteClasses["Nova"].Methods[0].Meta.Print();
-            Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            Console.WriteLine();
-            Exec.Run(novFile);
-            /* end tests */
 
             return true;
         }
 
-        private static NovFile BuildNovFile(ClassesContainer container)
+
+        public void Run()
         {
-            NovFile novFile = new NovFile();
-
-            foreach (var @class in container)
-            {
-                foreach (var @using in @class.Value.Usings)
-                {
-                    if (!novFile.Usings.Contains(@using))
-                    {
-                        novFile.Usings.Add(@using);
-                    }
-                }
+            /* tests */
+            Console.WriteLine();
 
 
-                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(container, null);
-                novFile.ByteClasses.Add(byteClass.Name, byteClass);
-            }
-            return novFile;
+
+            Logger.Write("-------Main method bytecode--------", LogType.Purple);
+            Result.ByteClasses[0].Methods[0].Meta.Print();
+            Logger.Write("-------Main method bytecode--------", LogType.Purple);
+
+
+            Console.WriteLine();
+            Exec.Run(Result);
+            /* end tests */
         }
 
+
+
+        private static NvFile OpenNvFile(string path)
+        {
+            NvFile result = new NvFile(path);
+
+            if (!result.Read())
+            {
+                return null;
+            }
+            if (!result.ReadClasses())
+            {
+                return null;
+            }
+            return result;
+        }
+
+        private bool CreateContainer()
+        {
+            this.Container = new ClassesContainer();
+            NvFile file = OpenNvFile(InputFilePath);
+            return CreateContainerRecursively(file, new List<string>());
+
+        }
+        private bool CreateContainerRecursively(NvFile file, List<string> usings)
+        {
+            foreach (var @class in file.GetClasses())
+            {
+                if (Container.ContainsClass(@class.ClassName))
+                {
+                    Logger.Write("Redefinition of class: \"" + @class.ClassName + "\"", LogType.Error);
+                    return false;
+                }
+                this.Container.Add(@class);
+            }
+
+            foreach (var @using in file.Usings)
+            {
+                if (!usings.Contains(@using.Value))
+                {
+                    string path = string.Empty;
+
+                    if (@using.Type == UsingType.Ref)
+                    {
+                        path = Path.Combine(Path.GetDirectoryName(InputFilePath), @using.Value);
+                    }
+                    else if (@using.Type == UsingType.Std)
+                    {
+                        path = Path.Combine(STANDARD_LIBRARY_PATH, @using.Value + Constants.SOURCE_CODE_FILE_EXTENSION);
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+
+                    NvFile nvFile = OpenNvFile(path);
+
+                    if (nvFile == null)
+                    {
+                        return false;
+                    }
+
+                    usings.Add(@using.Value);
+
+                    return CreateContainerRecursively(nvFile, usings);
+                }
+            }
+            return true;
+        }
+        public void Save()
+        {
+            if (File.Exists(OutputPath))
+            {
+                File.Delete(OutputPath);
+            }
+
+            FileStream stream = new FileStream(OutputPath, FileMode.Append);
+            CppBinaryWriter writer = new CppBinaryWriter(stream);
+            this.Result.Serialize(writer);
+            writer.Close();
+            stream.Close();
+
+        }
+
+        private void BuildNovFile()
+        {
+            this.Result = new NovFile();
+
+            foreach (var @class in Container)
+            {
+                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(Container, null);
+                Result.ByteClasses.Add(byteClass);
+            }
+
+            if (!Result.ComputeEntryPoint())
+            {
+                Result = null;
+            }
+
+        }
 
     }
 }
