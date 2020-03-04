@@ -5,25 +5,23 @@
 
   
   ###### Paradigms:
-  + Interpreted (only for now)
+  + Compiled (into bytecode, no JIT for now)
   + Structured
   + Imperative
+  + Functional
+  + Strong typing
   ###### Example:
 
   ```
-using "nova.nov"
+using "nova.nov" // this is a nova library
 
-namespace myProgram
-
+// This code is written in Nova !
 class MyClass
 {
-    // This code is written in Nova !
     public int Main()
     {
         Human human => ("Freddy",18)
-
         human.PrintAge()
-    
     }
 }
 struct Human
@@ -31,7 +29,7 @@ struct Human
     public string Name
     public int Age
     
-    => Human(string name,int age)
+    => Human(string name,int age) // Human constructor
     {
         Name = name
         Age = age
@@ -39,14 +37,14 @@ struct Human
 
     public void PrintAge()
     {
-        Nova.PrintLine(Age)
+        Nova.PrintLine(Name + " is " + Age + " years old")
     }
 }
  ```
  ###### How is the language working ?
  + Once your nova file(s) source code is written. Just give it to the C# compiler.
- + The compiler will generate a .nov file (bytecode of the program)
- + Give the .nov to the virtual machine (written in C++) and it will run your program from Main() (entry point )
+ + The compiler will generate a .nov file (sources to bytecode)
+ + Give the .nov to the C++ virtual machine and it will run your program from Main() function.
 
 ###### Builder
 
