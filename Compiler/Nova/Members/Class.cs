@@ -12,10 +12,11 @@ using Nova.ByteCode.IO;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
 using Nova.Bytecode.Enums;
+using Nova.Lexer.Accessors;
 
 namespace Nova.Members
 {
-    public class Class : IByteData
+    public class Class : IByteData , IAccessible
     {
         public const string CLASS_PATTERN = @"^\s*(class|struct)\s+(\w+)$";
 

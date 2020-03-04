@@ -12,10 +12,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nova.ByteCode.Enums;
+using Nova.Lexer.Accessors;
 
 namespace Nova.Members
 {
-    public class Method : IParentBlock, IByteData
+    public class Method : IParentBlock, IByteData, IAccessible
     {
         public const string METHOD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\((.*?)\)";
 

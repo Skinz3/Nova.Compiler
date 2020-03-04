@@ -12,5 +12,6 @@ namespace Nova.Bytecode.Symbols
         ClassMember, // human where human is a class field.
         StructMember, // human where human is a struct field
         StaticExternal, // Class.Field (public static)
+        NoSymbol,
     }
 }

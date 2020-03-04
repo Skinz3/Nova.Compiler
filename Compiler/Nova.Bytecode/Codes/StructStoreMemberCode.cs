@@ -15,30 +15,30 @@ namespace Nova.Bytecode.Codes
      */
     public class StructStoreMemberCode : ICode
     {
-        public int TypeId => 21;
+        public int TypeId => 24;
 
-        private string propertyName;
+        private int propertyId;
 
-        public StructStoreMemberCode(string property)
+        public StructStoreMemberCode(int propertyId)
         {
-            this.propertyName = property;
+            this.propertyId = propertyId;
         }
 
         public void Compute(RuntimeContext context,object[] locales, ref int index)
         {
             RuntimeStruct @struct = (RuntimeStruct)context.PopStack();
-            @struct.Set(propertyName, context.PopStack());
+            @struct.Set(propertyId, context.PopStack());
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(propertyName);
+            writer.Write(propertyId);
         }
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructSetMember " + propertyName;
+            return "(" + TypeId + ") " + "StructSetMember " + propertyId;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Nova.ByteCode.Codes
 {
     public class ReturnCode : ICode
     {
-        public int TypeId => 13;
+        public int TypeId =>16;
 
         public ReturnCode()
         {

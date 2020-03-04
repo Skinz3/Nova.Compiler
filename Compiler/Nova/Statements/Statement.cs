@@ -58,33 +58,6 @@ namespace Nova.Statements
         /*
          * Cette classe n'a rien a faire ici ! 
          */
-        protected SymbolType DeduceSymbolCategory(ByteBlockMetadata context, MemberName name, Class parentClass)
-        {
-            Symbol localSym = context.SymbolTable.GetSymbol(name.GetRoot());
-
-            if (localSym != null)
-            {
-                return SymbolType.Local;
-            }
-            else if (parentClass.Fields.ContainsKey(name.GetRoot()))
-            {
-                switch (parentClass.Type)
-                {
-                    case ContainerType.@class:
-                        return SymbolType.ClassMember;
-                    case ContainerType.@struct:
-                        return SymbolType.StructMember;
-                }
-
-            }
-            else
-            {
-                return SymbolType.StaticExternal;
-            }
-
-            throw new Exception("Unknown symbol type.");
-        }
-
         public abstract void GenerateBytecode(ClassesContainer container,ByteBlockMetadata context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);

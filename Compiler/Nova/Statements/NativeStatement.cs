@@ -68,6 +68,10 @@ namespace Nova.Statements
             {
                 validator.AddError("Unknown native function :" + NativeName, LineIndex);
             }
+            foreach (var parameter in Parameters)
+            {
+                parameter.ValidateSemantics(validator);
+            }
         }
 
     }

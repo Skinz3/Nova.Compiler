@@ -14,28 +14,28 @@ namespace Nova.Bytecode.Codes
     {
         public int TypeId => 22;
 
-        private string propertyName; // propertyId (symbolTable)
+        private int propertyId; // propertyId (symbolTable)
 
-        public StructLoadMemberCode(string property)
+        public StructLoadMemberCode(int propertyId)
         {
-            this.propertyName = property;
+            this.propertyId = propertyId;
         }
 
         public void Compute(RuntimeContext context, object[] locales, ref int index)
         {
             RuntimeStruct @struct = (RuntimeStruct)context.PopStack();
-            context.PushStack(@struct.Get(propertyName));
+            context.PushStack(@struct.Get(propertyId));
             index++;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-            writer.Write(propertyName);
+            writer.Write(propertyId);
         }
 
         public override string ToString()
         {
-            return "(" + TypeId + ") " + "StructGetMemberCode " + propertyName;
+            return "(" + TypeId + ") " + "StructGetMemberCode " + propertyId;
         }
     }
 }

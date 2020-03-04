@@ -41,7 +41,7 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            
+            Value.ValidateSemantics(validator);
         }
     }
 }

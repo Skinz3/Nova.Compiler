@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class MethodCallCode : ICode
     {
-        public int TypeId => 8;
+        public int TypeId => 9;
 
         private int methodId;
 

@@ -11,7 +11,7 @@ namespace Nova.Bytecode.Codes
 {
     public class PushConstCode : ICode
     {
-        public int TypeId => 24;
+        public int TypeId => 12;
 
         private int constantId;
 

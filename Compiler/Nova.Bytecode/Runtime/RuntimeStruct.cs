@@ -14,7 +14,7 @@ namespace Nova.Bytecode.Runtime
             get;
             set;
         }
-        private Dictionary<string, object> Properties
+        private List<object> Properties
         {
             get;
             set;
@@ -23,19 +23,19 @@ namespace Nova.Bytecode.Runtime
         public RuntimeStruct(ByteClass @class)
         {
             this.Class = @class;
-            this.Properties = new Dictionary<string, object>();
+            this.Properties = new List<object>();
 
             foreach (var field in Class.Fields) // modifiers != static
             {
-                Properties.Add(field.Name, field.Value);
+                Properties.Add(field.Value);
             }
         }
 
-        public void Set(string property,object value)
+        public void Set(int propertyId, object value)
         {
-            this.Properties[property] = value;
+            this.Properties[propertyId] = value;
         }
-        public object Get(string property)
+        public object Get(int property)
         {
             return this.Properties[property];
         }

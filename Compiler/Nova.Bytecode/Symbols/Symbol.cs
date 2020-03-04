@@ -1,4 +1,5 @@
 ﻿using Nova.ByteCode.IO;
+using Nova.Utils;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Symbols
 {
-    public class Symbol : IByteElement
+    public class Symbol : IByteElement 
     {
         public int Id;
         public string Type;

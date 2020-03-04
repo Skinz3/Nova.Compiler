@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class JumpIfFalseCode : ICode
     {
-        public int TypeId => 4;
+        public int TypeId => 5;
 
         public int targetIndex;
 

@@ -14,7 +14,7 @@ using Nova.ByteCode.Generation;
 using Nova.Semantics;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Symbols;
-
+using Nova.Lexer.Accessors;
 
 namespace Nova.Statements
 {
@@ -25,7 +25,7 @@ namespace Nova.Statements
         /// <summary>
         /// Nom de la methode.
         /// </summary>
-        private MemberName MethodName
+        private Accessor MethodName
         {
             get;
             set;
@@ -45,7 +45,7 @@ namespace Nova.Statements
         }
         public MethodCallStatement(IParentBlock parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
         {
-            this.MethodName = new MemberName(match.Groups[1].Value);
+            this.MethodName = new MethodAccessor(match.Groups[1].Value);
             string parametersStr = match.Groups[2].Value;
             this.Parameters = Parser.ParseMethodCallParameters(parent, lineIndex, parametersStr);
         }
@@ -56,13 +56,20 @@ namespace Nova.Statements
 
         public MethodCallStatement(IParentBlock parent, string line, int lineIndex, string methodName, string parametersStr) : base(parent, line, lineIndex)
         {
-            this.MethodName = new MemberName(methodName);
+            this.MethodName = new MethodAccessor(methodName);
             this.Parameters = Parser.ParseMethodCallParameters(parent, lineIndex, parametersStr);
         }
         public MethodCallStatement(IParentBlock parent, string line, int lineIndex, string methodName, StatementNode[] parameters) : base(parent, line, lineIndex)
         {
-            this.MethodName = new MemberName(methodName);
+            this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;
+        }
+        private void GenerateStructAccessorBytecode(ByteBlockMetadata context, int loadStart)
+        {
+            for (int i = 1; i < MethodName.Elements.Count - 1; i++)
+            {
+                context.Results.Add(new StructLoadMemberCode(MethodName.GetElement<Field>(i).Id));
+            }
         }
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
@@ -70,92 +77,86 @@ namespace Nova.Statements
             {
                 parameter.GenerateBytecode(container, context);
             }
-            var symInfo = DeduceSymbolCategory(context, MethodName, this.Parent.ParentClass);
 
-            switch (symInfo)
+            switch (this.MethodName.Category)
             {
+                case SymbolType.NoSymbol: // should be member function.
+                    var target = this.MethodName.GetRoot<Method>();
+                    context.Results.Add(new MethodCallCode(target.Id, Parameters.Length));
+                    break;
                 case SymbolType.Local: // un struct local.
 
-                    /*  context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(this.MethodName.GetRoot()).Id));
+                    Variable variable = this.MethodName.GetRoot<Variable>();
 
-                      for (int i = 1; i < MethodName.Elements.Length - 1; i++)
-                      {
-                          context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                      }
+                    context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(variable.Name).Id));
 
-                      context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length)); */
+                    GenerateStructAccessorBytecode(context, 1);
 
-
+                    Method targetMethod = MethodName.GetLeaf<Method>();
+                    context.Results.Add(new StructCallMethodCode(targetMethod.Id, Parameters.Length));
                     break;
+
                 case SymbolType.ClassMember: // un struct de classe
 
-                    /*   context.Results.Add(new LoadStaticMemberCode(MethodName.GetRoot()));
+                    Field field = this.MethodName.GetRoot<Field>();
 
-                      for (int i = 1; i < MethodName.Elements.Length - 1; i++)
-                      {
-                          context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                      }
+                    context.Results.Add(new LoadStaticMemberCode(field.Id));
 
-                      context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
-                       */
+                    GenerateStructAccessorBytecode(context, 1);
+
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id, Parameters.Length));
+
                     break;
 
                 case SymbolType.StructMember:
-                    /*
-                   context.Results.Add(new StructPushCurrent());
 
-                   for (int i = 0; i < MethodName.Elements.Length - 1; i++)
-                   {
-                       context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                   }
-                   
-                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length));
-                     */
+                    context.Results.Add(new StructPushCurrent());
+
+                    GenerateStructAccessorBytecode(context, 1);
+
+                    context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id, Parameters.Length));
+
                     break;
 
                 case SymbolType.StaticExternal:
 
-                    if (MethodName.ElementsStr.Length == 2)
+                    if (MethodName.Elements.Count == 2) // Nova.PrintLine()
                     {
-                        // (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))
-                        //  Method method = MethodName.Elements[1];
-                        context.Results.Add(new MethodCallStaticCode(MethodName.ElementsStr[0], 0, Parameters.Length));
-                    }
-                    else
-                    {
-                        /*    context.Results.Add(new LoadStaticCode(MethodName.Elements[0], MethodName.Elements[1]));
+                        // (Parent.ParentClass.Methods.ContainsKey(MethodName.GetRoot()))  => optimisation.
 
-                            for (int i = 2; i < MethodName.Elements.Length-1; i++)
-                            {
-                                context.Results.Add(new StructLoadMemberCode(MethodName.Elements[i]));
-                            }
-                            context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf(), Parameters.Length)); */
+                        target = MethodName.GetLeaf<Method>();
+                        Class owner = MethodName.GetRoot<Class>();
+
+                        context.Results.Add(new MethodCallStaticCode(owner.ClassName, target.Id, Parameters.Length));
+                    }
+                    else // Nova.humain.method(); where Nova is a static external class
+                    {
+                        field = this.MethodName.GetElement<Field>(1);
+
+                        Class owner = MethodName.GetElement<Class>(0);
+                        context.Results.Add(new LoadStaticCode(owner.ClassName, field.Id));
+
+                        GenerateStructAccessorBytecode(context, 2);
+
+                        target = this.MethodName.GetLeaf<Method>();
+                        context.Results.Add(new StructCallMethodCode(target.Id, Parameters.Length));
 
                     }
                     break;
             }
-
 
 
         }
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
-       
+            MethodName.Validate(validator, this.Parent.ParentClass, LineIndex);
 
-            var target = validator.GetMethod(this.Parent.ParentClass, this.MethodName);
-
-            if (target == null)
-            {
-                validator.AddError("Undefined reference to method : \"" + this.MethodName.Raw + "()\"", LineIndex);
-                return;
-            }
-
-            if (target.Parameters.Count != Parameters.Length)
-            {
-                validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", LineIndex);
-            }
-
+            /* if (target.Parameters.Count != Parameters.Length)
+             {
+                 validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", LineIndex);
+             }
+             */
             foreach (var parameter in Parameters)
             {
                 parameter.ValidateSemantics(validator);

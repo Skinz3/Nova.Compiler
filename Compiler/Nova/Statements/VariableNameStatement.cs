@@ -13,7 +13,7 @@ using Nova.Members;
 using Nova.Semantics;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
- 
+using Nova.Lexer.Accessors;
 
 namespace Nova.Statements
 {
@@ -21,14 +21,14 @@ namespace Nova.Statements
     {
         public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s*$";
 
-        private MemberName Name
+        private VariableAccessor Name
         {
             get;
             set;
         }
         public VariableNameStatement(IParentBlock parent, string input, int lineIndex) : base(parent, input, lineIndex)
         {
-            this.Name = new MemberName(input);
+            this.Name = new VariableAccessor(input);
         }
 
         public VariableNameStatement(IParentBlock parent) : base(parent)
@@ -36,46 +36,59 @@ namespace Nova.Statements
 
         }
 
+
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-           /* var symType = DeduceSymbolCategory(context, Name, this.Parent.ParentClass);
+            int loadStart = 0;
 
-            int loadStart = 1;
-
-            switch (symType)
+            switch (this.Name.Category)
             {
+                case SymbolType.NoSymbol:
+                    throw new NotImplementedException();
                 case SymbolType.Local:
-                    context.Results.Add(new LoadCode(context.SymbolTable.GetSymbol(Name.GetRoot()).Id));
+
+                    Variable variable = Name.GetRoot<Variable>();
+                    Symbol symbol = context.SymbolTable.GetSymbol(variable.Name);
+                    context.Results.Add(new LoadCode(symbol.Id));
+                    loadStart = 1;
+
                     break;
                 case SymbolType.ClassMember:
-                    context.Results.Add(new LoadStaticMemberCode(Name.GetRoot()));
+
+                    Field target = Name.GetRoot<Field>();
+                    context.Results.Add(new LoadStaticMemberCode(target.Id));
+                    loadStart = 1;
+
                     break;
                 case SymbolType.StructMember:
+
                     context.Results.Add(new StructPushCurrent());
                     loadStart = 0;
+
                     break;
                 case SymbolType.StaticExternal:
-                    context.Results.Add(new LoadStaticCode(Name.GetRoot(), Name.Elements[1]));
+                    target = this.Name.GetElement<Field>(1);
+                    context.Results.Add(new LoadStaticCode(Name.GetRoot<Class>().ClassName, target.Id));
                     loadStart = 2;
                     break;
             }
 
-            for (int i = loadStart; i < Name.Elements.Length; i++)
+            Field field = null;
+
+            for (int i = loadStart; i < Name.Elements.Count; i++)
             {
-                context.Results.Add(new StructLoadMemberCode(Name.Elements[i]));
+                field = this.Name.GetElement<Field>(i);
+                context.Results.Add(new StructLoadMemberCode(field.Id));
             }
 
-    */
 
         }
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            if (!validator.IsVariableDeclared(this.Parent.ParentClass, Name))
-            {
-                validator.AddError("Undefined reference to \"" + Name.Raw + "\"", LineIndex);
-            }
+            Name.Validate(validator, this.Parent.ParentClass, LineIndex);
+
         }
-        
+
 
     }
 }

@@ -5,7 +5,7 @@ using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Lexer;
- 
+using Nova.Lexer.Accessors;
 using Nova.Members;
 using Nova.Semantics;
 using System;
@@ -21,7 +21,7 @@ namespace Nova.Statements
     {
         public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_._$0-9]*)\s*=>\s*\((.*)\)$";
 
-        private MemberName Target
+        private VariableAccessor Target
         {
             get;
             set;
@@ -36,73 +36,47 @@ namespace Nova.Statements
             get;
             set;
         }
-        private string StructTypeStr
-        {
-            get;
-            set;
-        }
         public StructAssignationStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
-            this.Target = new MemberName(match.Groups[1].Value);
+            this.Target = new VariableAccessor(match.Groups[1].Value);
             string parametersStr = match.Groups[2].Value;
             this.CtorParameters = Parser.ParseMethodCallParameters(Parent, LineIndex, parametersStr);
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlockMetadata context)
         {
-            var symInfo = DeduceSymbolCategory(context, Target, this.Parent.ParentClass);
-
             context.Results.Add(new StructCreateCode(this.StructType.ClassName));
 
             StructDeclarationStatement.GenerateCtorBytecode(this.StructType.GetCtor(), container, context, CtorParameters);
 
-            AssignationStatement.GenerateAssignation(context, Target, symInfo);
+            AssignationStatement.GenerateAssignation(context, Target);
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            if (!validator.IsVariableDeclared(this.Parent.ParentClass, Target))
+            this.Target.Validate(validator, this.Parent.ParentClass, LineIndex);
+
+            switch (this.Target.Category)
             {
-                validator.AddError("Undefined reference to struct: " + Target.Raw, LineIndex);
+                case SymbolType.NoSymbol:
+                    throw new NotImplementedException();
+                case SymbolType.Local:
+                    Variable variable = this.Target.GetRoot<Variable>();
+                    this.StructType = validator.Container.TryGetClass(variable.Name);
+                    break;
+                case SymbolType.ClassMember:
+                case SymbolType.StructMember:
+                    Field field = this.Target.GetRoot<Field>();
+                    this.StructType = validator.Container.TryGetClass(field.Type);
+                    break;
+                case SymbolType.StaticExternal:
+                    field = this.Target.GetElement<Field>(1);
+                    this.StructType = validator.Container.TryGetClass(field.Type);
+                    break;
             }
 
-            this.ComputeStructType(validator);
+            StructDeclarationStatement.ValidateStructSemantics(StructType, CtorParameters, validator, LineIndex);
 
-            StructDeclarationStatement.ValidateStructSemantics(StructTypeStr, StructType, CtorParameters, validator, LineIndex);
-
-        }
-        private void ComputeStructType(SemanticsValidator validator)
-        {
-            string type = string.Empty;
-
-            string root = Target.GetRoot();
-
-            Variable symbol = validator.GetDeclaredVariable(this.Parent.ParentClass, new MemberName(root));
-
-            if (symbol != null)
-            {
-                type = symbol.Type;
-            }
-            else if (this.Parent.ParentClass.Fields.ContainsKey(root))
-            {
-                Field field = this.Parent.ParentClass.Fields[root];
-
-                for (int i = 1; i < this.Target.ElementsStr.Length; i++)
-                {
-                    Class fType = validator.Container.TryGetClass(field.Type);
-
-                    field = fType.Fields[Target.ElementsStr[i]];
-                }
-
-                type = field.Type;
-            }
-            else
-            {
-                type = validator.Container.TryGetClass(Target.ElementsStr[0]).Fields[Target.ElementsStr[1]].Type;
-            }
-
-            this.StructTypeStr = type;
-            this.StructType = validator.Container.TryGetClass(type);
         }
     }
 }

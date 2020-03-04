@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class PushNullCode : ICode
     {
-        public int TypeId => 25;
+        public int TypeId => 14;
 
         public PushNullCode()
         {

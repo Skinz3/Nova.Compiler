@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class JumpCode : ICode
     {
-        public int TypeId => 3;
+        public int TypeId => 4;
 
         public int targetIndex;
 

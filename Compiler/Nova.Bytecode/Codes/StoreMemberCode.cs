@@ -13,7 +13,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StoreMemberCode : ICode
     {
-        public int TypeId => 16;
+        public int TypeId => 18;
 
         private int fieldId;
 

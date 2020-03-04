@@ -11,7 +11,7 @@ namespace Nova.ByteCode.Codes
 {
     public class LoadCode : ICode
     {
-        public int TypeId => 5;
+        public int TypeId => 6;
 
         private int variableId;
 

@@ -12,10 +12,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
+using Nova.Lexer.Accessors;
 
 namespace Nova.Members
 {
-    public class Field : IParentBlock, IByteData
+    public class Field : IParentBlock, IByteData, IAccessible
     {
         public const string FIELD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
 
@@ -91,7 +92,7 @@ namespace Nova.Members
         }
         public override string ToString()
         {
-            return Variable.Type + " " + Variable.Name;
+            return Modifiers + " " + Variable.Type + " " + Variable.Name;
         }
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
@@ -105,6 +106,12 @@ namespace Nova.Members
         public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
         {
             SemanticsValidator validator = new SemanticsValidator(container);
+
+            if (!container.ContainsClass(this.Type))
+            {
+                // aled.
+            }
+
             Value.ValidateSemantics(validator);
             return validator.GetErrors();
         }

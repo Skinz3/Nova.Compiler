@@ -207,7 +207,7 @@ namespace Nova.Lexer.Tokens
 
                     TokenType type = TokenType.MethodCall;
 
-                    if (tokens[i - 1].Type == TokenType.Native)
+                    if (i - 1 >= 0  && tokens[i - 1].Type == TokenType.Native)
                     {
                         type = TokenType.Native;
                     }

@@ -1,4 +1,5 @@
 ﻿using Nova.IO;
+using Nova.Lexer.Accessors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Members
 {
-    public class Variable 
+    public class Variable : IAccessible
     {
         public string Name
         {

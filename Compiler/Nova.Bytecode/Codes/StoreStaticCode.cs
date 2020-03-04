@@ -13,7 +13,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StoreStaticCode : ICode
     {
-        public int TypeId => 15;
+        public int TypeId => 19;
 
         private string className;
 
@@ -32,7 +32,10 @@ namespace Nova.Bytecode.Codes
             context.Set(className, fieldId, value); 
             index++;
         }
-
+        public override string ToString()
+        {
+            return "(" + TypeId + ") " + "StoreStaticCode " + className +" " + fieldId;
+        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(className);

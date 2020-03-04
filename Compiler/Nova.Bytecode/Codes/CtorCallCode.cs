@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class CtorCallCode : ICode
     {
-        public int TypeId => 23;
+        public int TypeId => 3;
 
         private int parametersCount;
 

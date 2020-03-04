@@ -12,7 +12,7 @@ namespace Nova.ByteCode.Codes
 {
     public class PrintlCode : ICode
     {
-        public int TypeId => 10;
+        public int TypeId => 11;
 
         public PrintlCode()
         {

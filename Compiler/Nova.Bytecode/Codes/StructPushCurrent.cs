@@ -15,7 +15,7 @@ namespace Nova.Bytecode.Codes
      */
     public class StructPushCurrent : ICode
     {
-        public int TypeId => 20;
+        public int TypeId => 23;
 
         public StructPushCurrent()
         {

@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StructCreateCode : ICode
     {
-        public int TypeId => 17;
+        public int TypeId => 21;
 
         private string className;
 

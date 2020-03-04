@@ -55,50 +55,20 @@ namespace Nova.Semantics
             DeclaredVariables.Remove(Deepness);
             Deepness--;
         }
-        public Variable GetDeclaredVariable(Class parentClass, MemberName name)
+        public bool IsLocalDeclared(string name)
         {
-            if (name.NoTree())
-            {
-                if (parentClass.Fields.ContainsKey(name.Raw))
-                {
-                    return new Variable(name.Raw, parentClass.Fields[name.Raw].Type);
-                }
-
-                for (int i = 0; i <= Deepness; i++)
-                {
-                    if (DeclaredVariables[i].ContainsKey(name.Raw))
-                    {
-                        return new Variable(name.Raw, DeclaredVariables[i][name.Raw]);
-                    }
-                }
-
-                return null;
-
-            }
-            else
-            {
-                string root = name.GetRoot();
-
-                var result = GetDeclaredVariable(parentClass, new MemberName(root)); // check forall members
-
-                if (result != null)
-                {
-                    return result;
-                }
-                else
-                {
-                    if (!this.Container.ContainsClass(name.ElementsStr[0]))
-                    {
-                        return null;
-                    }
-
-                    return new Variable(name.Raw, this.Container[name.ElementsStr[0]].Fields[name.ElementsStr[1]].Type);
-                }
-            }
+            return GetLocal(name) != null;
         }
-        public bool IsVariableDeclared(Class parentClass, MemberName name)
+        public Variable GetLocal(string name)
         {
-            return GetDeclaredVariable(parentClass, name) != null;
+            for (int i = 0; i <= Deepness; i++)
+            {
+                if (DeclaredVariables[i].ContainsKey(name))
+                {
+                    return new Variable(name, DeclaredVariables[i][name]);
+                }
+            }
+            return null;
         }
         public void AddError(string message, int lineIndex)
         {
@@ -107,51 +77,6 @@ namespace Nova.Semantics
         public IEnumerable<SemanticalError> GetErrors()
         {
             return Errors;
-        }
-
-        public Method GetMethod(Class parentClass, MemberName methodName)
-        {
-            if (methodName.NoTree())
-            {
-                return parentClass.Methods[methodName.Raw];
-            }
-            else
-            {
-                var variable = GetDeclaredVariable(parentClass, new MemberName(methodName.ElementsStr[0]));
-
-                if (variable != null)
-                {
-                    if (!Container.ContainsClass(variable.Type))
-                    {
-                        return null;
-                    }
-                    if (!Container[variable.Type].Methods.ContainsKey(methodName.ElementsStr[1]))
-                    {
-                        return null;
-                    }
-                    return Container[variable.Type].Methods[methodName.ElementsStr[1]];
-                }
-                else
-                {
-                    if (!Container.ContainsClass(methodName.ElementsStr[0]))
-                    {
-                        return null;
-                    }
-
-                    var @class = Container[methodName.ElementsStr[0]];
-
-                    Method method = null;
-
-                    if (@class.Methods.TryGetValue(methodName.ElementsStr[1], out method))
-                    {
-                        return method;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
         }
     }
 }

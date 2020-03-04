@@ -65,7 +65,6 @@ namespace Nova.Statements
 
             GenerateCtorBytecode(container[StructTypeStr].GetCtor(), container, context, CtorParameters);
 
-
             context.Results.Add(new StoreCode(variableId));
 
         }
@@ -87,20 +86,20 @@ namespace Nova.Statements
         public override void ValidateSemantics(SemanticsValidator validator)
         {
             this.StructType = validator.Container.TryGetClass(StructTypeStr);
-            ValidateStructSemantics(this.StructTypeStr, this.StructType, CtorParameters, validator, LineIndex);
+            ValidateStructSemantics(this.StructType, CtorParameters, validator, LineIndex);
             validator.DeclareVariable(this.Name, this.StructTypeStr);
         }
 
 
-        public static void ValidateStructSemantics(string type, Class structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
+        public static void ValidateStructSemantics(Class structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
         {
             if (structType == null)
             {
-                validator.AddError("Unknown type : \"" + type + "\"", lineIndex);
+                validator.AddError("Unknown type : \"????\"", lineIndex);
             }
             else if (structType.Type != ContainerType.@struct)
             {
-                validator.AddError("Type: \"" + structType.ClassName + "\" is not a struct class. Cannot be instantiated", lineIndex);
+                validator.AddError("Type \"" + structType.ClassName + "\" is not a struct class. Cannot be instantiated", lineIndex);
             }
             else
             {
@@ -115,7 +114,7 @@ namespace Nova.Statements
                 }
                 else if (ctor.Parameters.Count != ctorParameters.Length)
                 {
-                    validator.AddError("Invalid numbers of parameters for type :\"" + structType + "\"", lineIndex);
+                    validator.AddError("Invalid parameters for ctor \"" + structType + "\"", lineIndex);
                 }
 
             }
