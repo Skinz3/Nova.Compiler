@@ -82,7 +82,7 @@ namespace Nova.Statements
             {
                 case SymbolType.NoSymbol: // should be member function.
                     var target = this.MethodName.GetRoot<Method>();
-                    context.Results.Add(new MethodCallCode(target.Id));
+                    context.Results.Add(new MethodCallMemberCode(target.Id));
                     break;
                 case SymbolType.Local: // un struct local.
 

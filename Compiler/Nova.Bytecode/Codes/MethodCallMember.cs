@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Codes
 {
-    public class MethodCallCode : ICode
+    public class MethodCallMemberCode : ICode
     {
         public int TypeId => 9;
 
         private int methodId;
 
-        public MethodCallCode(int methodId)
+        public MethodCallMemberCode(int methodId)
         {
             this.methodId = methodId;
         }

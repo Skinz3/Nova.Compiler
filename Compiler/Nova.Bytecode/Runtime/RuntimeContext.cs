@@ -32,10 +32,7 @@ namespace Nova.ByteCode.Runtime
             private set;
         }
 
-        public object GetConstant(int constantId)
-        {
-            return ExecutingClass.GetConstant(constantId);
-        }
+
 
         private ByteClass ExecutingClass
         {
@@ -90,6 +87,10 @@ namespace Nova.ByteCode.Runtime
 
             Exec.Execute(this, loc, method.Meta.Results);
             CallStack.Pop();
+        }
+        public object GetConstant(int constantId)
+        {
+            return ExecutingClass.GetConstant(constantId);
         }
         public void MainEntryPoint()
         {

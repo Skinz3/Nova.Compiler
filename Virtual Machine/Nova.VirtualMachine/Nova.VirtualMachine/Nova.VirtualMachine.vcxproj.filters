@@ -25,6 +25,12 @@
     <Filter Include="Fichiers d%27en-tête\IO">
       <UniqueIdentifier>{c889219b-c5f4-4ec7-ad7b-ec6215efbf0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Runtime">
+      <UniqueIdentifier>{2cfd3d8a-132c-4248-9bad-32e9bdd47f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Runtime">
+      <UniqueIdentifier>{da3720d1-ea8f-4e8e-b08d-c00f48d68422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -45,6 +51,18 @@
     <ClCompile Include="ByteField.cpp">
       <Filter>Fichiers sources\Members</Filter>
     </ClCompile>
+    <ClCompile Include="RuntimeContext.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="RuntimeStruct.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeConstants.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Exec.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryReader.h">
@@ -64,6 +82,18 @@
     </ClInclude>
     <ClInclude Include="OpCodes.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeContext.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeStruct.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeConstants.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Exec.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
