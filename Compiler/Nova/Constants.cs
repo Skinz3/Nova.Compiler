@@ -23,6 +23,8 @@ namespace Nova
 
         public const string MAIN_METHOD_NAME = "Main";
 
+        public const string COMMENT_SINGLE = "//";
+
         public static Assembly ASSEMBLY = Assembly.GetExecutingAssembly();
     }
 }

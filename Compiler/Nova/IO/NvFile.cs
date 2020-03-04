@@ -15,8 +15,6 @@ namespace Nova.IO
     {
         const string USING_PATTERN = "^using \"([a-zA-Z_$][a-zA-Z_$0-9_.\\/]*)\"$";
 
-        const string COMMENT = "//";
-
         public string Filepath
         {
             get;
@@ -72,7 +70,7 @@ namespace Nova.IO
         {
             for (int i = 0; i < Lines.Length; i++)
             {
-                int index = Lines[i].IndexOf(COMMENT);
+                int index = Lines[i].IndexOf(Constants.COMMENT_SINGLE);
 
                 if (index != -1)
                 {
@@ -105,6 +103,12 @@ namespace Nova.IO
                 if (count > 0)
                 {
                     currentIndent -= count;
+
+                    if (this.Brackets.ContainsKey(i))
+                    {
+                        Logger.Write("Bracket must be open and close on a different line. at line " + (i + 1), LogType.Error);
+                        return false;
+                    }
                     this.Brackets.Add(i, currentIndent);
                 }
             }
@@ -125,7 +129,7 @@ namespace Nova.IO
         {
             try
             {
-                this.Lines = File.ReadAllLines(this.Filepath, Encoding.UTF8).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                this.Lines = File.ReadAllLines(this.Filepath, Encoding.UTF8);
                 return true;
             }
             catch
@@ -167,7 +171,7 @@ namespace Nova.IO
                     {
                         Usings.Add(match.Groups[1].Value);
                     }
-                    else
+                    else if (!string.IsNullOrWhiteSpace(Lines[i]))
                     {
                         Logger.Write("line ignored :" + Lines[i], LogType.Warning);
                     }

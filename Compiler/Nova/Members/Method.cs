@@ -32,10 +32,10 @@ namespace Nova.Members
             get;
             set;
         }
-        private int EndIndex
+        public int EndIndex
         {
             get;
-            set;
+            private set;
         }
         public string Name
         {

@@ -69,7 +69,6 @@ namespace Nova.Compiler
             for (int i = 0; i < args.Length - (outputPathSpecified ? 1 : 0); i++)
             {
                 NvFile file = new NvFile(args[i]);
-
                 if (!file.Read() || !file.ReadClasses())
                 {
                     Console.Read();

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
+using Nova.ByteCode.Enums;
 using Nova.Members;
 using Nova.Semantics;
 
@@ -94,6 +95,11 @@ namespace Nova.Lexer.Accessors
                     validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[i] + "\"", lineIndex);
                     return false;
                 }
+                if (field.Modifiers == ModifiersEnum.@private && field.ParentClass != parentClass)
+                {
+                    validator.AddError("Unable to access private field \"" + field.Name + "\" from class \"" + parentClass.ClassName + "\"", lineIndex);
+                    return false;
+                }
 
                 this.Elements.Add(field);
                 currentType = field.Type;
@@ -103,9 +109,15 @@ namespace Nova.Lexer.Accessors
 
             Method method = null;
 
+           
             if (!owner.Methods.TryGetValue(this.GetLeaf(), out method))
             {
-                validator.AddError("Type \"" + currentType + "\" has no member \"" + this.GetLeaf() + "\"", lineIndex);
+                validator.AddError("Type \"" + currentType + "\" has no member \"" + this.GetLeaf() + "\"()", lineIndex);
+                return false;
+            }
+            if (method.Modifiers == ModifiersEnum.@private && method.ParentClass != parentClass)
+            {
+                validator.AddError("Unable to access private method \"" + method.Name + "\" from class \""+parentClass.ClassName+"\"", lineIndex);
                 return false;
             }
 

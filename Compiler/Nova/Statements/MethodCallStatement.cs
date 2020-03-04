@@ -66,7 +66,7 @@ namespace Nova.Statements
         }
         private void GenerateStructAccessorBytecode(ByteBlockMetadata context, int loadStart)
         {
-            for (int i = 1; i < MethodName.Elements.Count - 1; i++)
+            for (int i = loadStart; i < MethodName.Elements.Count - 1; i++)
             {
                 context.Results.Add(new StructLoadMemberCode(MethodName.GetElement<Field>(i).Id));
             }
@@ -112,7 +112,7 @@ namespace Nova.Statements
 
                     context.Results.Add(new StructPushCurrent());
 
-                    GenerateStructAccessorBytecode(context, 1);
+                    GenerateStructAccessorBytecode(context, 0);
 
                     context.Results.Add(new StructCallMethodCode(MethodName.GetLeaf<Method>().Id, Parameters.Length));
 

@@ -57,7 +57,7 @@ namespace Nova.IO
             /* tests */
             Console.WriteLine();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            novFile.ByteClasses["Nova"].Methods[0].Meta.Print();
+            novFile.ByteClasses["Nova2"].Methods[0].Meta.Print();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
             Console.WriteLine();
             Exec.Run(novFile);
@@ -81,7 +81,7 @@ namespace Nova.IO
                 }
 
 
-                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(container,null);
+                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(container, null);
                 novFile.ByteClasses.Add(byteClass.Name, byteClass);
             }
             return novFile;

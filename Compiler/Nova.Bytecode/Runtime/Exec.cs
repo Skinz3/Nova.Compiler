@@ -41,11 +41,7 @@ namespace Nova.ByteCode.Runtime
             context.Call("Nova", 0, 0);
 
             Logger.Write("Program terminated in " + st.ElapsedMilliseconds + "ms", LogType.Success);
-
-            if (context.StackSize > 0)
-            {
-                throw new Exception("Stack size is > 0.");
-            }
+            Logger.Write("Stack size is :" + context.StackSize, LogType.Debug);
         }
     }
 }
