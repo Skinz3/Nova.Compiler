@@ -5,21 +5,8 @@
 Traiter UnaryToken (pour les constantes comme -3)
 Définir les types primitif en nova
 interfaces et polymorphisme
+collections
+deserializer un .nov et faire le linking coté compilateur
+... écrire la VM en c++ ... pour de vrai cette fois :3
 
-namespace nova
-
-static class int
-{     
-    public string IDENTIFIER = "Int32"
-
-    operator +(int other)
-	{
-		return [Native("int32_plus_int32")]
-	}
-	operator -(int other)
-	{
-		return [Native("int32_min_int32")]
-	}
-
-}
 

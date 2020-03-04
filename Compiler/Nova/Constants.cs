@@ -9,7 +9,7 @@ namespace Nova
 {
     public class Constants
     {
-        public const string INTERMEDIATE_LANGUAGE_FILE_EXTENSION = ".nov";
+        public const string BYTECODE_FILE_EXTENSION = ".nov";
 
         public const string SOURCE_CODE_FILE_EXTENSION = ".nv";
 

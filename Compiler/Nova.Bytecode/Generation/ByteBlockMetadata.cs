@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Generation
 {
-    public class ByteBlockMetadata
+    public class ByteBlockMetadata : IByteElement
     {
         public SymbolTable SymbolTable
         {
@@ -70,6 +70,11 @@ namespace Nova.ByteCode.Generation
                 writer.Write(code.TypeId);
                 code.Serialize(writer);
             }
+        }
+
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Nova.ByteCode.IO
     public interface IByteElement 
     {
         void Serialize(CppBinaryWriter writer);
+        void Deserialize(CppBinaryReader reader);
     }
 }

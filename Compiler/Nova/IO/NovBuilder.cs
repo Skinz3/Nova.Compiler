@@ -57,7 +57,7 @@ namespace Nova.IO
             /* tests */
             Console.WriteLine();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            novFile.ByteClasses["Nova2"].Methods[0].Meta.Print();
+            novFile.ByteClasses["Nova"].Methods[0].Meta.Print();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
             Console.WriteLine();
             Exec.Run(novFile);

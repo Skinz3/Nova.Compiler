@@ -64,5 +64,10 @@ namespace Nova.ByteCode.IO
             if (context.StackSize > 0)
                 this.Value = context.PopStack();
         }
+
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

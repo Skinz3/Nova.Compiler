@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nova.Bytecode.Symbols;
+using Nova.ByteCode.Enums;
 using Nova.Members;
 using Nova.Semantics;
 
@@ -100,6 +101,12 @@ namespace Nova.Lexer.Accessors
                 if (!targetClass.Fields.TryGetValue(this.ElementsStr[i], out field))
                 {
                     validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[i] + "\"", lineIndex);
+                    return false;
+                }
+
+                if (field.Modifiers == ModifiersEnum.@private && field.ParentClass != parentClass)
+                {
+                    validator.AddError("Unable to access private field \"" + field.Name + "\" from class \"" + parentClass.ClassName + "\"", lineIndex);
                     return false;
                 }
 

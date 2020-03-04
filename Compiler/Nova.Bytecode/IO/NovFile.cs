@@ -52,6 +52,9 @@ namespace Nova.ByteCode.IO
             }
         }
 
-        
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

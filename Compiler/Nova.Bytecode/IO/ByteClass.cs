@@ -71,5 +71,10 @@ namespace Nova.ByteCode.IO
                 field.Serialize(writer);
             }
         }
+
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

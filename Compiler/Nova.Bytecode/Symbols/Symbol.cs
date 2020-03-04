@@ -19,6 +19,12 @@ namespace Nova.Bytecode.Symbols
             this.Id = id;
             this.Type = type;
         }
+
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(Id);

@@ -52,5 +52,10 @@ namespace Nova.Bytecode.Symbols
                 symbol.Value.Serialize(writer);
             }
         }
+
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

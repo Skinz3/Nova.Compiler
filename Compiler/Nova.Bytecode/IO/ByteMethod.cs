@@ -46,5 +46,10 @@ namespace Nova.ByteCode.IO
             writer.Write(Name);
             Meta.Serialize(writer);
         }
+
+        public void Deserialize(CppBinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

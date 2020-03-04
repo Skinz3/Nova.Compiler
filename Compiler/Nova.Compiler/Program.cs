@@ -39,7 +39,7 @@ namespace Nova.Compiler
                 return;
             }
 
-            bool outputPathSpecified = Path.GetExtension(args.Last()) == Constants.INTERMEDIATE_LANGUAGE_FILE_EXTENSION;
+            bool outputPathSpecified = Path.GetExtension(args.Last()) == Constants.BYTECODE_FILE_EXTENSION;
 
             string outputPath;
 
