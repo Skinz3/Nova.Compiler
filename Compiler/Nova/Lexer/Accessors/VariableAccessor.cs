@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
 using Nova.ByteCode.Enums;
 using Nova.Members;
@@ -70,6 +71,11 @@ namespace Nova.Lexer.Accessors
                         validator.AddError("Undefined reference to variable \"" + this.Raw + "\"", lineIndex);
                         return false;
                     }
+                    if (targetClass.Type == ContainerType.@struct)
+                    {
+                        validator.AddError("Cannot access a struct field statically : \"" + this.Raw + "\"", lineIndex);
+                        return false;
+                    }
                     Field targetField = null;
 
                     if (!targetClass.Fields.TryGetValue(this.ElementsStr[1], out targetField))
@@ -77,6 +83,7 @@ namespace Nova.Lexer.Accessors
                         validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[1] + "\"", lineIndex);
                         return false;
                     }
+
 
                     this.Elements.Add(targetClass);
                     this.Elements.Add(targetField);

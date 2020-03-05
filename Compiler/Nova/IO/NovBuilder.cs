@@ -2,6 +2,7 @@
 using Nova.ByteCode.IO;
 using Nova.ByteCode.Runtime;
 using Nova.Semantics;
+using Nova.Utils;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;

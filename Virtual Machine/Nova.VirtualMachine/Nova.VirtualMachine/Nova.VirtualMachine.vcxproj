@@ -139,7 +139,6 @@
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RuntimeContext.cpp" />
     <ClCompile Include="RuntimeStruct.cpp" />
-    <ClCompile Include="TypeConstants.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryReader.h" />
@@ -147,6 +146,7 @@
     <ClInclude Include="ByteClass.h" />
     <ClInclude Include="ByteField.h" />
     <ClInclude Include="ByteMethod.h" />
+    <ClInclude Include="Null.h" />
     <ClInclude Include="OperatorsEnum.h" />
     <ClInclude Include="Exec.h" />
     <ClInclude Include="Logger.h" />
@@ -156,7 +156,6 @@
     <ClInclude Include="OpCodes.h" />
     <ClInclude Include="RuntimeContext.h" />
     <ClInclude Include="RuntimeStruct.h" />
-    <ClInclude Include="TypeConstants.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

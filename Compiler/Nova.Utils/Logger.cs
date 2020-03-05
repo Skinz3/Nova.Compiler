@@ -17,6 +17,7 @@ namespace Nova.Utils
         Success = 7,
         Warning = 8,
         ProgramOutput = 9,
+        Purple,
     }
     public class Logger
     {
@@ -29,14 +30,16 @@ namespace Nova.Utils
             { LogType.Debug,         ConsoleColor.DarkGray },
             { LogType.LogImportant,  ConsoleColor.White },
 
-            { LogType.Error,         ConsoleColor.DarkRed },
-            { LogType.SemanticError, ConsoleColor.DarkRed },
-            { LogType.SyntaxicError, ConsoleColor.DarkRed },
+            { LogType.Error,         ConsoleColor.Red },
+            { LogType.SemanticError, ConsoleColor.Red },
+            { LogType.SyntaxicError, ConsoleColor.Red },
 
             { LogType.Warning,       ConsoleColor.Yellow},
 
             { LogType.Success,       ConsoleColor.Green },
-            { LogType.ProgramOutput,         ConsoleColor.Magenta },
+            { LogType.ProgramOutput, ConsoleColor.Magenta },
+
+            { LogType.Purple,        ConsoleColor.DarkMagenta }
         };
 
         public static void Write(object value, LogType state = LogType.Log)

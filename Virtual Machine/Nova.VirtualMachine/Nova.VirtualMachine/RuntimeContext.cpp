@@ -79,3 +79,19 @@ RuntimeContext::RuntimeElement RuntimeContext::PopStack()
 	stack.erase(stack.begin() + stackSize - 1);
 	return value;
 }
+
+RuntimeContext::RuntimeElement RuntimeContext::StackMinus(int minus)
+{
+	return this->stack[this->stack.size() - 1 - minus];
+}
+
+RuntimeStruct* RuntimeContext::CreateStruct(int classId)
+{
+	return new RuntimeStruct(novFile->byteClasses[classId]);
+}
+
+RuntimeStruct* RuntimeContext::GetCurrentStruct()
+{
+	return structsStack.at(structsStack.size() - 1);
+}
+

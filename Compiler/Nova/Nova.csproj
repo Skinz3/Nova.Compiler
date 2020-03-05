@@ -56,7 +56,6 @@
     <Compile Include="Lexer\Accessors\MethodAccessor.cs" />
     <Compile Include="Lexer\Accessors\VariableAccessor.cs" />
     <Compile Include="Lexer\RegexConstants.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Lexer\Accessors\Accessor.cs" />
     <Compile Include="IO\ClassesContainer.cs" />

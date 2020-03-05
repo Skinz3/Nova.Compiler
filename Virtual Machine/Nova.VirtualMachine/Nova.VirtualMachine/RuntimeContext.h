@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "ByteMethod.h"
+#include "Null.h"
 
 class RuntimeStruct;
 
@@ -12,7 +13,7 @@ class RuntimeContext
 {
 public:
 
-	using RuntimeElement = std::variant<int, std::string*, bool>;
+	using RuntimeElement = std::variant<int, RuntimeStruct*, std::string*, bool, Null>;
 
 	NovFile* novFile;
 
@@ -33,6 +34,11 @@ public:
 	/* Stack management */
 	void PushStack(RuntimeContext::RuntimeElement element);
 	RuntimeContext::RuntimeElement PopStack();
+	RuntimeContext::RuntimeElement StackMinus(int minus);
+
+	/* Runtime Structs */
+	RuntimeStruct* CreateStruct(int classId);
+	RuntimeStruct* GetCurrentStruct();
 
 
 private:

@@ -13,6 +13,7 @@ using Nova.Semantics;
 using Nova.ByteCode.Enums;
 using Nova.Bytecode.Enums;
 using Nova.Lexer.Accessors;
+using Nova.Utils;
 
 namespace Nova.Members
 {

@@ -57,9 +57,6 @@
     <ClCompile Include="RuntimeStruct.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="TypeConstants.cpp">
-      <Filter>Fichiers sources\Runtime</Filter>
-    </ClCompile>
     <ClCompile Include="Exec.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
     <ClInclude Include="RuntimeStruct.h">
       <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="TypeConstants.h">
-      <Filter>Fichiers d%27en-tête\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="Exec.h">
       <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
@@ -118,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="OperatorsEnum.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Null.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

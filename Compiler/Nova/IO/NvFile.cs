@@ -1,6 +1,7 @@
 ﻿using Nova.Bytecode.Enums;
 using Nova.ByteCode.Enums;
 using Nova.Members;
+using Nova.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	std::string fileName = argv[1];
 
 	NovFile file(fileName);
-	
+
 	if (!file.Deserialize())
 	{
 		return EXIT_FAILURE;

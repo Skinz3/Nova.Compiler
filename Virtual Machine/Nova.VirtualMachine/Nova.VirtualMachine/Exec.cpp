@@ -2,6 +2,7 @@
 #include "OpCodes.h"
 #include "Logger.h"
 #include "OperatorsEnum.h"
+#include "RuntimeStruct.h"
 
 void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElement> locales, std::vector<int> ins)
 {
@@ -31,10 +32,26 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
-		case OpCodes::Printl: // how?
-			cout << std::get<int>(context->PopStack()) << endl;
+		case OpCodes::Printl:
+		{
+			RuntimeContext::RuntimeElement ele = context->PopStack();
+
+			if (std::holds_alternative<std::string*>(ele)) /* Optimized in release x86. 0ms for 1 million iterations. */
+			{
+				cout << *std::get<string*>(ele) << endl;
+			}
+			else if (std::holds_alternative<int>(ele))
+			{
+				cout << std::get<int>(ele) << endl;
+			}
+			else if (std::holds_alternative<bool>(ele))
+			{
+				bool value = std::get<bool>(ele);
+				cout << (value ? "true" : "false") << endl;
+			}
 			ip++;
 			break;
+		}
 		case OpCodes::MethodCallMember:
 			context->Call(ins[++ip]);
 			ip++;
@@ -77,9 +94,65 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
+		case OpCodes::StructCallMethod:
+		{
+			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
+			context->Call(st, ins[++ip]);
+			ip++;
+			break;
+		}
+		case OpCodes::StructCreate:
+		{
+			context->PushStack(context->CreateStruct(ins[++ip]));
+			ip++;
+			break;
+		}
+		case OpCodes::CtorCall:
+		{
+			int parametersCount = ins[++ip];
+			int methodId = ins[++ip];
+
+			RuntimeStruct* obj = std::get<RuntimeStruct*>(context->StackMinus(parametersCount));
+			context->Call(obj, methodId);
+			ip++;
+			break;
+		}
+		case OpCodes::StructPushCurrent:
+		{
+			context->PushStack(context->GetCurrentStruct());
+			ip++;
+			break;
+		}
+		case OpCodes::StructLoadMember:
+		{
+			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
+			int fieldId = ins[++ip];
+			RuntimeContext::RuntimeElement member = st->Get(fieldId);
+			context->PushStack(member);
+			ip++;
+			break;
+		}
+		case OpCodes::StructStoreMember:
+		{
+			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
+			RuntimeContext::RuntimeElement ele = context->PopStack();
+			st->Set(ins[++ip], ele);
+			ip++;
+			break;
+		}
+		case OpCodes::MethodCallStatic:
+		{
+			int classId = ins[++ip];
+			int methodId = ins[++ip];
+			context->Call(classId, methodId);
+			ip++;
+			break;
+		}
 		default:
 			Logger::Error("Unhandled op code: " + std::to_string(ins[ip]));
 			return;
 		}
 	}
 }
+
+
