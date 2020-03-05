@@ -25,8 +25,8 @@ bool NovFile::Deserialize()
 
 	for (int i = 0; i < classesCount; i++)
 	{
-		ByteClass byteClass;
-		byteClass.Deserialize(reader);
+		ByteClass* byteClass = new ByteClass();
+		byteClass->Deserialize(reader);
 		this->byteClasses.push_back(byteClass);
 	}
 
@@ -36,13 +36,13 @@ bool NovFile::Deserialize()
 
 void NovFile::Print()
 {
-	for (ByteClass byteClass : byteClasses)
+	for (ByteClass* byteClass : byteClasses)
 	{
-		Logger::Log("> " + byteClass.name + " (" + std::to_string(byteClass.fields.size()) + " fields)");
+		Logger::Log("> " + byteClass->name + " (" + std::to_string(byteClass->fields.size()) + " fields)");
 
-		for (ByteMethod method : byteClass.methods)
+		for (ByteMethod* method : byteClass->methods)
 		{
-			Logger::Debug("> " + method.name + "()");
+			Logger::Debug("> " + method->name + "()");
 		}
 
 	}
@@ -50,13 +50,14 @@ void NovFile::Print()
 
 void NovFile::Dispose()
 {
-	for (ByteClass byteClass : byteClasses)
+	for (ByteClass* byteClass : byteClasses)
 	{
-		byteClass.Dispose();
+		byteClass->Dispose();
+		delete byteClass;
 	}
 }
 
-ByteMethod NovFile::GetMainMethod()
+ByteMethod* NovFile::GetMainMethod()
 {
-	return this->byteClasses[mainPointEntry.classIndex].methods[mainPointEntry.methodIndex];
+	return this->byteClasses[mainPointEntry.classIndex]->methods[mainPointEntry.methodIndex];
 }

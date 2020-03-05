@@ -9,8 +9,8 @@ class ByteClass
 {
 public:
 	std::string name;
-	std::vector<ByteMethod> methods;
-	std::vector<ByteField> fields;
+	std::vector<ByteMethod*> methods;
+	std::vector<ByteField*> fields;
 	std::vector<RuntimeContext::RuntimeElement> constants;
 	void Deserialize(BinaryReader& reader);
 

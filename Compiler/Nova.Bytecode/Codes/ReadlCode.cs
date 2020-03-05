@@ -13,7 +13,7 @@ namespace Nova.Bytecode.Codes
 {
     public class ReadlCode : ICode
     {
-        public int OpId => 15;
+        public int OpId => 17;
 
         public ReadlCode()
         {

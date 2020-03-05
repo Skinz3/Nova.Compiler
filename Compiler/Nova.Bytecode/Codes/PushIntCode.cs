@@ -12,7 +12,7 @@ namespace Nova.ByteCode.Codes
 {
     public class PushIntCode : ICode
     {
-        public int OpId => 13;
+        public int OpId => 15;
 
         private int value;
 

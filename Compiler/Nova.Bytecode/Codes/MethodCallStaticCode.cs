@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class MethodCallStaticCode : ICode
     {
-        public int OpId => 10;
+        public int OpId => 11;
 
         private int classId;
         private int methodId;

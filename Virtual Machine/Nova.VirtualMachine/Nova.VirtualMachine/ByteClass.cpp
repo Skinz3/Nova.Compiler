@@ -8,8 +8,8 @@ void ByteClass::Deserialize(BinaryReader& reader)
 
 	for (int i = 0; i < methodCount; i++)
 	{
-		ByteMethod method(this);
-		method.Deserialize(reader);
+		ByteMethod* method = new ByteMethod(this);
+		method->Deserialize(reader);
 		this->methods.push_back(method);
 	}
 
@@ -17,8 +17,8 @@ void ByteClass::Deserialize(BinaryReader& reader)
 
 	for (int i = 0; i < fieldsCount; i++)
 	{
-		ByteField field;
-		field.Deserialize(reader);
+		ByteField* field = new ByteField();
+		field->Deserialize(reader);
 		this->fields.push_back(field);
 	}
 
@@ -43,8 +43,18 @@ void ByteClass::Deserialize(BinaryReader& reader)
 
 void ByteClass::Dispose()
 {
+	for (ByteMethod* method : this->methods)
+	{
+		method->Dispose();
+		delete method;
+	}
+	for (ByteField* field : this->fields)
+	{
+		field->Dispose();
+		delete field;
+	}
 	for (RuntimeContext::RuntimeElement element : this->constants)
 	{
-		delete& element;
+		delete &element;
 	}
 }

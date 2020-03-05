@@ -9,11 +9,11 @@ class NovFile
 public:
 	NovFile(std::string& fileName);
 	bool Deserialize();
-	std::vector<ByteClass> byteClasses;
+	std::vector<ByteClass*> byteClasses;
 	MainPointEntry mainPointEntry;
 	void Print();
 	void Dispose();
-	ByteMethod GetMainMethod();
+	ByteMethod* GetMainMethod();
 
 private:
 	std::string fileName;

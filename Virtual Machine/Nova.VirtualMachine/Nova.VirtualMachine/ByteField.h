@@ -7,9 +7,11 @@ class ByteField
 {
 public:
 	string name;
-	ByteBlock valueBlock;
+	ByteBlock* valueBlock;
 	Modifiers modifiers;
 
 	void Deserialize(BinaryReader& reader);
+
+	void Dispose();
 };
 

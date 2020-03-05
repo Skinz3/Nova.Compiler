@@ -12,7 +12,7 @@ class RuntimeContext
 {
 public:
 
-	using RuntimeElement = std::variant<int, std::string*>;
+	using RuntimeElement = std::variant<int, std::string*, bool>;
 
 	NovFile* novFile;
 
@@ -38,11 +38,11 @@ public:
 private:
 	/* Stacks */
 	std::vector<RuntimeElement> stack;
-	std::vector<ByteMethod*> callStack; 
-	std::vector<RuntimeStruct*> structsStack; 
+	std::vector<ByteMethod*> callStack;
+	std::vector<RuntimeStruct*> structsStack;
 
 	ByteClass* GetExecutingClass();
 
-	void Call(ByteMethod& method);
+	void Call(ByteMethod* method);
 };
 

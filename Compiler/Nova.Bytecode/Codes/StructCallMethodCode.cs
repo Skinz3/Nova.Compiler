@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StructCallMethodCode : ICode
     {
-        public int OpId => 20;
+        public int OpId => 22;
 
         private int methodId;
 

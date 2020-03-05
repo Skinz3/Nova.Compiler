@@ -15,7 +15,7 @@ namespace Nova.Bytecode.Codes
      */
     public class StructStoreMemberCode : ICode
     {
-        public int OpId => 24;
+        public int OpId => 26;
 
         private int propertyId;
 

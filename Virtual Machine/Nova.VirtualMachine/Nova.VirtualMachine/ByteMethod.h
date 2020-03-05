@@ -12,10 +12,12 @@ public:
 	std::string name;
 	Modifiers modifiers;
 	int parametersCount;
-	ByteBlock block;
+	ByteBlock* block;
 	ByteClass* parent;
 	void Deserialize(BinaryReader& reader);
 
 	ByteMethod(ByteClass* parent);
+
+	void Dispose();
 };
 

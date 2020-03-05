@@ -15,19 +15,20 @@ void RuntimeContext::Initialize()
 
 void RuntimeContext::CallMain()
 {
-	ByteMethod method = this->novFile->GetMainMethod();
+	ByteMethod* method = this->novFile->GetMainMethod();
 	Call(method);
 }
 
 void RuntimeContext::Call(int classId, int methodId)
 {
-	ByteMethod method = this->novFile->byteClasses[classId].methods[methodId];
+	ByteMethod* method = this->novFile->byteClasses[classId]->methods[methodId];
 	Call(method);
 }
 
 void RuntimeContext::Call(int methodId)
 {
-	ByteMethod method = this->GetExecutingClass()->methods[methodId];
+	ByteClass* executingClass = this->GetExecutingClass();
+	ByteMethod* method = executingClass->methods[methodId];
 	Call(method);
 }
 
@@ -35,24 +36,24 @@ void RuntimeContext::Call(RuntimeStruct* st, int methodId)
 {
 	structsStack.push_back(st);
 
-	ByteMethod method = st->typeClass->methods[methodId];
+	ByteMethod* method = st->typeClass->methods[methodId];
 	Call(method);
 
-	structsStack.erase(structsStack.begin() + structsStack.size() - 1); 
+	structsStack.erase(structsStack.begin() + structsStack.size() - 1);
 }
 
-void RuntimeContext::Call(ByteMethod& method)
+void RuntimeContext::Call(ByteMethod* method)
 {
-	callStack.push_back(&method); // we push call stack
+	callStack.push_back(method); // we push call stack
 
-	vector<RuntimeContext::RuntimeElement> locales(method.block.localesCount);
+	vector<RuntimeContext::RuntimeElement> locales(method->block->localesCount);
 
-	for (int i = method.parametersCount - 1; i >= 0; i--)
+	for (int i = method->parametersCount - 1; i >= 0; i--)
 	{
 		locales[i] = PopStack();
 	}
 
-	Exec::Execute(this, locales, method.block.instructions);
+	Exec::Execute(this, locales, method->block->instructions);
 
 	callStack.erase(callStack.begin() + callStack.size() - 1); // we pop call stack. 
 }

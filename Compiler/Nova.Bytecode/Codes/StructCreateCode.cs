@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StructCreateCode : ICode
     {
-        public int OpId => 21;
+        public int OpId => 23;
 
         private int classId;
 

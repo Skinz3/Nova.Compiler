@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class StructLoadMemberCode : ICode
     {
-        public int OpId => 22;
+        public int OpId => 24;
 
         private int propertyId; // propertyId (symbolTable)
 

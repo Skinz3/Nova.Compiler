@@ -145,6 +145,7 @@
     <ClInclude Include="ByteClass.h" />
     <ClInclude Include="ByteField.h" />
     <ClInclude Include="ByteMethod.h" />
+    <ClInclude Include="OperatorsEnum.h" />
     <ClInclude Include="Exec.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MainPointEntry.h" />

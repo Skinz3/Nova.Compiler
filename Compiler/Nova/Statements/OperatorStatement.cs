@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.Bytecode.Codes;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.Enums;
 using Nova.ByteCode.Generation;
 using Nova.IO;
@@ -48,23 +49,26 @@ namespace Nova.Statements
         {
 
         }
-     /*   public static void GenerateBytecode(OperatorStatement operatorSt,Statement right, Statement left, ByteBlockMetadata context)
-        {
-          
-        } */
+        /*   public static void GenerateBytecode(OperatorStatement operatorSt,Statement right, Statement left, ByteBlockMetadata context)
+           {
+
+           } */
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             //throw new InvalidOperationException();
             switch (OperatorEnum)
             {
                 case OperatorsEnum.Plus:
-                    context.Instructions.Add(new ArithmeticCode(OperatorsEnum.Plus));
+                    context.Instructions.Add(new AddCode());
                     break;
                 case OperatorsEnum.Minus:
-                    context.Instructions.Add(new ArithmeticCode(OperatorsEnum.Minus));
+                    context.Instructions.Add(new SubCode());
                     break;
                 case OperatorsEnum.Multiply:
-                    context.Instructions.Add(new ArithmeticCode(OperatorsEnum.Multiply));
+                    context.Instructions.Add(new MulCode());
+                    break;
+                case OperatorsEnum.Divide:
+                    context.Instructions.Add(new DivCode());
                     break;
                 case OperatorsEnum.Inferior:
                     context.Instructions.Add(new ComparaisonCode(OperatorsEnum.Inferior));

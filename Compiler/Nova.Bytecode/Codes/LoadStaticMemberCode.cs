@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Codes
 {
     public class LoadStaticMemberCode : ICode
     {
-        public int OpId => 8;
+        public int OpId => 9;
 
         private int fieldId; // fieldId (symbolTable)
 

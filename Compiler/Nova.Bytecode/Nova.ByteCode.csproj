@@ -50,7 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Codes\AddCode.cs" />
     <Compile Include="Codes\CtorCallCode.cs" />
+    <Compile Include="Codes\DivCode.cs" />
+    <Compile Include="Codes\MulCode.cs" />
+    <Compile Include="Codes\SubCode.cs" />
     <Compile Include="Codes\PushNullCode.cs" />
     <Compile Include="Codes\PushConstCode.cs" />
     <Compile Include="Codes\StructLoadMemberCode.cs" />
@@ -65,9 +69,9 @@
     <Compile Include="Codes\StoreMemberCode.cs" />
     <Compile Include="Enums\ContainerType.cs" />
     <Compile Include="Enums\ModifiersEnum.cs" />
+    <Compile Include="Enums\OperatorsEnum.cs" />
     <Compile Include="IO\MainPointEntry.cs" />
     <Compile Include="Runtime\Exec.cs" />
-    <Compile Include="Codes\ArithmeticCode.cs" />
     <Compile Include="Codes\ComparaisonCode.cs" />
     <Compile Include="Codes\ICode.cs" />
     <Compile Include="Codes\JumpCode.cs" />
@@ -79,7 +83,6 @@
     <Compile Include="Codes\PushIntCode.cs" />
     <Compile Include="Codes\ReturnCode.cs" />
     <Compile Include="Codes\StoreCode.cs" />
-    <Compile Include="Enums\OperatorsEnum.cs" />
     <Compile Include="Generation\ByteBlock.cs" />
     <Compile Include="IO\ByteClass.cs" />
     <Compile Include="IO\ByteMethod.cs" />
