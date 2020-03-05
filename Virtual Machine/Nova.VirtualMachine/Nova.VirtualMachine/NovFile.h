@@ -1,6 +1,7 @@
 #include <string>
 #include "ByteClass.h"
 #include "MainPointEntry.h"
+#include  "ByteMethod.h"
 
 #pragma once
 class NovFile
@@ -12,6 +13,8 @@ public:
 	MainPointEntry mainPointEntry;
 	void Print();
 	void Dispose();
+	ByteMethod GetMainMethod();
+
 private:
 	std::string fileName;
 };

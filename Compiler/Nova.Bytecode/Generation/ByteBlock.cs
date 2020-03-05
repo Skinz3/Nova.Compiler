@@ -71,6 +71,8 @@ namespace Nova.ByteCode.Generation
                 writer.Write(code.OpId);
                 code.Serialize(writer);
             }
+
+            writer.Write(LocalsCount);
         }
 
     }

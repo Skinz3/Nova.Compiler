@@ -5,8 +5,7 @@ class ByteBlock
 {
 public:
 	void Deserialize(BinaryReader& reader);
-
-private:
+	int localesCount;
 	std::vector<int> instructions;
 };
 

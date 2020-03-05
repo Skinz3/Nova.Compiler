@@ -21,7 +21,8 @@ int main(int argc, char* argv[])
 
 	file.Print();
 
-	Exec::Run(file);
+	RuntimeContext context(&file);
+	context.CallMain();
 
 	return EXIT_SUCCESS;
 }

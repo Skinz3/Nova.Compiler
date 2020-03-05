@@ -72,7 +72,7 @@ namespace Nova.ByteCode.Runtime
 
             this.StructsStack.Pop();
         }
-        public void Call(ByteMethod method)
+        private void Call(ByteMethod method)
         {
             CallStack.Push(method);
 
@@ -90,7 +90,7 @@ namespace Nova.ByteCode.Runtime
         {
             return ExecutingClass.GetConstant(constantId);
         }
-        public void MainEntryPoint()
+        public void CallMain()
         {
             var method = NovFile.GetMainMethod();
             Call(method);
@@ -150,7 +150,7 @@ namespace Nova.ByteCode.Runtime
             this.Stack.RemoveAt(Stack.Count - 1);
             return value;
         }
-
+            
         public object PeekStack()
         {
             return Stack[Stack.Count - 1];

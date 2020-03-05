@@ -8,4 +8,6 @@ void ByteBlock::Deserialize(BinaryReader& reader)
 	{
 		instructions.push_back(reader.Read<int>());
 	}
+
+	this->localesCount = reader.Read<int>();
 }

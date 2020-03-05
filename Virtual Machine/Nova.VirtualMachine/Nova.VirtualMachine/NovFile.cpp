@@ -55,3 +55,8 @@ void NovFile::Dispose()
 		byteClass.Dispose();
 	}
 }
+
+ByteMethod NovFile::GetMainMethod()
+{
+	return this->byteClasses[mainPointEntry.classIndex].methods[mainPointEntry.methodIndex];
+}

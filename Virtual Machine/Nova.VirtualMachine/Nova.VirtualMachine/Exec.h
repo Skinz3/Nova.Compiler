@@ -3,6 +3,6 @@
 class Exec
 {
 public:
-	static void Run(NovFile& file);
+	static void Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElement> locales, std::vector<int> ins);
 };
 

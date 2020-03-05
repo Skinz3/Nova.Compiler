@@ -89,9 +89,6 @@
     <ClInclude Include="ByteField.h">
       <Filter>Fichiers d%27en-tête\Members</Filter>
     </ClInclude>
-    <ClInclude Include="OpCodes.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="RuntimeContext.h">
       <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
@@ -115,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="Modifiers.h">
       <Filter>Fichiers d%27en-tête\Members</Filter>
+    </ClInclude>
+    <ClInclude Include="OpCodes.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
