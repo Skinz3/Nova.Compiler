@@ -95,7 +95,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            int jumpIndex = context.ByteCodeLength + 1;
+            int jumpIndex = context.NextOpIndex;
 
             IfCondition.GenerateBytecode(container, context);
 
@@ -111,7 +111,7 @@ namespace Nova.Statements
             JumpCode jumpElseIfTrue = new JumpCode(-1);
             context.Instructions.Add(jumpElseIfTrue);
 
-            jumpIfFalse.targetIndex = context.ByteCodeLength + 1;
+            jumpIfFalse.targetIndex = context.NextOpIndex;
 
             JumpIfFalseCode jumpElseFalse = new JumpIfFalseCode(-1);
 
@@ -130,8 +130,8 @@ namespace Nova.Statements
                 }
             }
 
-            jumpElseFalse.targetIndex = context.ByteCodeLength + 1;
-            jumpElseIfTrue.targetIndex = context.ByteCodeLength + 1;
+            jumpElseFalse.targetIndex = context.NextOpIndex;
+            jumpElseIfTrue.targetIndex = context.NextOpIndex;
 
 
         }

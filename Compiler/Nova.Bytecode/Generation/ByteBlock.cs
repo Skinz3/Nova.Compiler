@@ -24,11 +24,11 @@ namespace Nova.ByteCode.Generation
             get;
             set;
         }
-        public int ByteCodeLength
+        public int NextOpIndex
         {
             get
             {
-                return Instructions.Count - 1;
+                return Instructions.Sum(x => x.GetSize() + 1);
             }
         }
         public int LocalsCount

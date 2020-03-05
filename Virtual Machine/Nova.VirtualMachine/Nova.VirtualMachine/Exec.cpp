@@ -32,7 +32,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			break;
 		}
 		case OpCodes::Printl: // how?
-			cout << *std::get<string*>(context->PopStack()) << endl;
+			cout << std::get<int>(context->PopStack()) << endl;
 			ip++;
 			break;
 		case OpCodes::MethodCallMember:
@@ -47,14 +47,14 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip = ins[++ip];
 			break;
 		case OpCodes::JumpIfFalse:
-			
-			if (std::get<bool>(context->PopStack()) == false)
+
+			if (std::get<bool>(context->PopStack()) == 0)
 			{
 				ip = ins[++ip];
 			}
 			else
 			{
-				ip++;
+				ip += 2;
 			}
 			break;
 		case OpCodes::Comparaison:
