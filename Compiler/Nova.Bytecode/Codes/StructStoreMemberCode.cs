@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -22,13 +20,6 @@ namespace Nova.Bytecode.Codes
         public StructStoreMemberCode(int propertyId)
         {
             this.propertyId = propertyId;
-        }
-
-        public void Compute(RuntimeContext context,object[] locales, ref int index)
-        {
-            RuntimeStruct @struct = (RuntimeStruct)context.PopStack();
-            @struct.Set(propertyId, context.PopStack());
-            index++;
         }
 
         public void Serialize(CppBinaryWriter writer)

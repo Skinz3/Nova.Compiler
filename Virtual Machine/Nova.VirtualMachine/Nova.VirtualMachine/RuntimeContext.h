@@ -12,8 +12,9 @@ class NovFile;
 class RuntimeContext
 {
 public:
+	static Null* NULL_VALUE;
 
-	using RuntimeElement = std::variant<int, RuntimeStruct*, std::string*, bool, Null>;
+	using RuntimeElement = std::variant<int, RuntimeStruct*, std::string*, bool, Null*>;
 
 	NovFile* novFile;
 
@@ -35,6 +36,7 @@ public:
 	void PushStack(RuntimeContext::RuntimeElement element);
 	RuntimeContext::RuntimeElement PopStack();
 	RuntimeContext::RuntimeElement StackMinus(int minus);
+	size_t GetStackSize();
 
 	/* Runtime Structs */
 	RuntimeStruct* CreateStruct(int classId);

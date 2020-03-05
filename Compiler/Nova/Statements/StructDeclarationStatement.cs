@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Enums;
-using Nova.Bytecode.Runtime;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;

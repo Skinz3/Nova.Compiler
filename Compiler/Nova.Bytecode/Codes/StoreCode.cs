@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Runtime;
-using Nova.Utils.IO;
+﻿using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,14 +17,6 @@ namespace Nova.ByteCode.Codes
         public StoreCode(int variableId)
         {
             this.variableId = variableId;
-        }
-
-        public void Compute(RuntimeContext context, object[] locales, ref int index)
-        {
-            object value = context.PopStack();
-
-            locales[variableId] = value;
-            index++;
         }
 
         public void Serialize(CppBinaryWriter writer)

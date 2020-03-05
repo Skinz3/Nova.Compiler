@@ -1,5 +1,4 @@
 ﻿using Nova.Bytecode.Codes;
-using Nova.Bytecode.Runtime;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;

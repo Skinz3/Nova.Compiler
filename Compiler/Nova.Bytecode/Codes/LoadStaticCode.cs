@@ -1,6 +1,5 @@
 ﻿using Nova.ByteCode;
 using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -25,12 +24,6 @@ namespace Nova.Bytecode.Codes
             this.fieldId = fieldId;
         }
 
-
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            context.PushStack(context.Get(classId, fieldId));
-            index++;
-        }
         public override string ToString()
         {
             return "(" + OpId + ") " + "LoadStatic " + classId + " " + fieldId;

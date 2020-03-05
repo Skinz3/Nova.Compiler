@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Runtime;
-using Nova.Utils.IO;
+﻿using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,20 +10,15 @@ namespace Nova.ByteCode.Codes
 {
     public class ReturnCode : ICode
     {
-        public int OpId =>18;
+        public int OpId => 18;
 
         public ReturnCode()
         {
 
         }
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            index++;
-        }
-   
         public void Serialize(CppBinaryWriter writer)
         {
-           
+
         }
         public int GetSize()
         {

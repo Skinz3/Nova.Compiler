@@ -1,5 +1,4 @@
 ﻿using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -23,12 +22,6 @@ namespace Nova.Bytecode.Codes
             this.methodId = methodId;
         }
 
-
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            context.Call(classId, methodId);
-            index++;
-        }
         public override string ToString()
         {
             return "(" + OpId + ") " + "MethodCallStatic " + classId + " " + methodId;

@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -19,11 +17,7 @@ namespace Nova.Bytecode.Codes
 
         public StructPushCurrent()
         {
-        }
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            context.PushStack(context.StructsStack.Peek());
-            index++;
+
         }
 
         public void Serialize(CppBinaryWriter writer)

@@ -69,7 +69,6 @@
     <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Enums\OperatorsEnum.cs" />
     <Compile Include="IO\MainPointEntry.cs" />
-    <Compile Include="Runtime\Exec.cs" />
     <Compile Include="Codes\ComparaisonCode.cs" />
     <Compile Include="Codes\ICode.cs" />
     <Compile Include="Codes\JumpCode.cs" />
@@ -87,9 +86,6 @@
     <Compile Include="IO\IByteElement.cs" />
     <Compile Include="IO\NovFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runtime\TypeDefs.cs" />
-    <Compile Include="Runtime\RuntimeContext.cs" />
-    <Compile Include="Runtime\RuntimeStruct.cs" />
     <Compile Include="Symbols\Symbol.cs" />
     <Compile Include="Symbols\SymbolTable.cs" />
     <Compile Include="Symbols\SymbolType.cs" />

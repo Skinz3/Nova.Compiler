@@ -7,9 +7,9 @@
 void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElement> locales, std::vector<int> ins)
 {
 	int ip = 0;
-	int size = ins.size();
+	size_t insSize = ins.size();
 
-	while (ip < size)
+	while (ip < insSize)
 	{
 		switch (ins[ip])
 		{
@@ -52,6 +52,10 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			{
 				bool value = std::get<bool>(ele);
 				cout << (value ? "true" : "false") << endl;
+			}
+			else if (std::holds_alternative<Null*>(ele))
+			{
+				cout << "null" << endl;
 			}
 			else if (std::holds_alternative<RuntimeStruct*>(ele))
 			{
@@ -137,7 +141,15 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 		}
 		case OpCodes::StructLoadMember:
 		{
-			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
+			RuntimeContext::RuntimeElement stElement = context->PopStack();
+
+			if (std::holds_alternative<Null*>(stElement)) 
+			{
+				ip = insSize;
+				Logger::Error("Null reference exception."); /* Todo : handle this kind of errors. */
+				return;
+			}
+			RuntimeStruct* st = std::get<RuntimeStruct*>(stElement);
 			int fieldId = ins[++ip];
 			RuntimeContext::RuntimeElement member = st->Get(fieldId);
 			context->PushStack(member);
@@ -174,6 +186,17 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			int fieldId = ins[++ip];
 			context->PushStack(context->Get(classId, fieldId));
 			ip++;
+			break;
+		}
+		case OpCodes::PushNull:
+		{
+			context->PushStack(RuntimeContext::NULL_VALUE);
+			ip++;
+			break;
+		}
+		case OpCodes::Return:
+		{
+			ip = insSize;
 			break;
 		}
 		default:

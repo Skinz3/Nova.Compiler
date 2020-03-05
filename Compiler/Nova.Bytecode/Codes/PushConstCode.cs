@@ -1,5 +1,4 @@
 ﻿using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -20,11 +19,6 @@ namespace Nova.Bytecode.Codes
             this.constantId = constantId;
         }
 
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            context.PushStack(context.GetConstant(constantId));
-            index++;
-        }
         public override string ToString()
         {
             return "(" + OpId + ") " + "PushConst " + constantId;

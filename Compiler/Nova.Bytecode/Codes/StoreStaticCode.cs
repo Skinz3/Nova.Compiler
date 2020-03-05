@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -25,13 +23,6 @@ namespace Nova.Bytecode.Codes
             this.fieldId = fieldId;
         }
 
-
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            object value = context.PopStack();
-            context.Set(classId, fieldId, value); 
-            index++;
-        }
         public override string ToString()
         {
             return "(" + OpId + ") " + "StoreStaticCode " + classId + " " + fieldId;

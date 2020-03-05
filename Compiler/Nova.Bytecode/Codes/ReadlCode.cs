@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -17,21 +15,16 @@ namespace Nova.Bytecode.Codes
 
         public ReadlCode()
         {
+
         }
 
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            string value = Console.ReadLine();
-            context.PushStack(value);
-            index++;
-        }
         public override string ToString()
         {
             return "(" + OpId + ") " + "Readl";
         }
         public void Serialize(CppBinaryWriter writer)
         {
-          
+
         }
         public int GetSize()
         {

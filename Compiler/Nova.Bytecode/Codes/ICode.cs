@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Runtime;
-using Nova.Utils.IO;
+﻿using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +14,7 @@ namespace Nova.ByteCode.Codes
         {
             get;
         }
-        void Compute(RuntimeContext context,object[] locals, ref int index);
+
         void Serialize(CppBinaryWriter writer);
 
         int GetSize();

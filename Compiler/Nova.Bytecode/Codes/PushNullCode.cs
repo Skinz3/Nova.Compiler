@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -18,12 +16,7 @@ namespace Nova.Bytecode.Codes
         {
 
         }
-
-        public void Compute(RuntimeContext context,object[] locals, ref int index)
-        {
-            context.PushStack(TypeDefs.NULL_VALUE);
-            index++;
-        }
+     
         public override string ToString()
         {
             return "(" + OpId + ") " + "PushNull";

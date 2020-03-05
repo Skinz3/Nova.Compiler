@@ -24,6 +24,8 @@ int main(int argc, char* argv[])
 
 	RuntimeContext context(&file);
 
+	context.Initialize();
+
 	const clock_t begin_time = clock();
 
 	context.CallMain();

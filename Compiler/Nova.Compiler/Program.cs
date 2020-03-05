@@ -63,7 +63,7 @@ namespace Nova.Compiler
 
             Logger.Write(outputPath + " generated in " + st.ElapsedMilliseconds + "ms");
 
-        //    builder.Run();
+            builder.PrintMainByteCode();
 
             Console.Read();
 

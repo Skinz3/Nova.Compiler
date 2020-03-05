@@ -1,5 +1,4 @@
-﻿using Nova.ByteCode.Runtime;
-using Nova.Utils.IO;
+﻿using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,11 +17,6 @@ namespace Nova.ByteCode.Codes
         public JumpCode(int targetIndex)
         {
             this.targetIndex = targetIndex;
-        }
-
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            index = targetIndex;
         }
 
         public void Serialize(CppBinaryWriter writer)

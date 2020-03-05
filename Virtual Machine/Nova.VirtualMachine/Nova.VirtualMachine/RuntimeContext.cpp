@@ -3,6 +3,9 @@
 #include "Exec.h"
 #include "RuntimeStruct.h"
 
+Null* RuntimeContext::NULL_VALUE = new Null(); /* Should we create a class to store this kinda types? FALSE , TRUE ? */
+
+
 RuntimeContext::RuntimeContext(NovFile* file)
 {
 	this->novFile = file;
@@ -10,7 +13,13 @@ RuntimeContext::RuntimeContext(NovFile* file)
 
 void RuntimeContext::Initialize()
 {
-	/* Todo */
+	for (ByteClass* byteClass : this->novFile->byteClasses)
+	{
+		for (ByteField* field : byteClass->fields)
+		{
+			field->Initializer(this);
+		}
+	}
 }
 
 void RuntimeContext::CallMain()
@@ -83,6 +92,11 @@ RuntimeContext::RuntimeElement RuntimeContext::PopStack()
 RuntimeContext::RuntimeElement RuntimeContext::StackMinus(int minus)
 {
 	return this->stack[this->stack.size() - 1 - minus];
+}
+
+size_t RuntimeContext::GetStackSize()
+{
+	return this->stack.size();
 }
 
 RuntimeStruct* RuntimeContext::CreateStruct(int classId)

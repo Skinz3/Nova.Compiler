@@ -1,5 +1,4 @@
-﻿using Nova.ByteCode.Runtime;
-using Nova.Utils.IO;
+﻿using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,17 +19,6 @@ namespace Nova.ByteCode.Codes
             this.targetIndex = index;
         }
 
-        public void Compute(RuntimeContext context,  object[] locals, ref int index)
-        {
-            if ((int)context.PopStack() == 0)
-            {
-                index = this.targetIndex;
-            }
-            else
-            {
-                index++;
-            }
-        }
         public override string ToString()
         {
             return "(" + OpId + ") " +  "JumpIfFalse " + targetIndex;

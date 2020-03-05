@@ -37,7 +37,7 @@ namespace Nova.Members
             get;
             set;
         }
-        public string Type
+        public string Type /* Validate type is a struct. Cannot be class ! */
         {
             get
             {
@@ -106,12 +106,6 @@ namespace Nova.Members
         public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
         {
             SemanticsValidator validator = new SemanticsValidator(container);
-
-            if (!container.ContainsClass(this.Type))
-            {
-                // aled.
-            }
-
             Value.ValidateSemantics(validator);
             return validator.GetErrors();
         }

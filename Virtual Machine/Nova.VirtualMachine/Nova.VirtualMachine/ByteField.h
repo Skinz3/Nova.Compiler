@@ -17,6 +17,6 @@ public:
 
 	void Dispose();
 
-	// Initializer
+	void Initializer(RuntimeContext* context);
 };
 

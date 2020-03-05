@@ -1,8 +1,6 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
+﻿using Nova.ByteCode.Codes;
 using Nova.ByteCode.Enums;
 using Nova.ByteCode.Generation;
-using Nova.ByteCode.Runtime;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -57,13 +55,7 @@ namespace Nova.ByteCode.IO
             writer.Write((byte)Modifiers);
             Meta.Serialize(writer);
         }
-        public void Initializer(RuntimeContext context)
-        {
-            Exec.Execute(context, new object[0], Meta.Instructions);
-
-            if (context.StackSize > 0)
-                this.Value = context.PopStack();
-        }
+      
 
         
     }

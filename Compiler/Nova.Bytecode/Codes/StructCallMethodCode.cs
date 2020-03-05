@@ -1,6 +1,4 @@
-﻿using Nova.Bytecode.Runtime;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Runtime;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -19,12 +17,6 @@ namespace Nova.Bytecode.Codes
         public StructCallMethodCode(int methodId)
         {
             this.methodId = methodId;
-        }
-        public void Compute(RuntimeContext context, object[] locals, ref int index)
-        {
-            RuntimeStruct obj = (RuntimeStruct)context.PopStack();
-            context.Call(obj, methodId);
-            index++;
         }
         public override string ToString()
         {

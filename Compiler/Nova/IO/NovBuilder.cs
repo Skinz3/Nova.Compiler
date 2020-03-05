@@ -1,6 +1,5 @@
 ﻿using Nova.Bytecode.IO;
 using Nova.ByteCode.IO;
-using Nova.ByteCode.Runtime;
 using Nova.Semantics;
 using Nova.Utils;
 using Nova.Utils.IO;
@@ -83,22 +82,14 @@ namespace Nova.IO
             return true;
         }
 
-
-        public void Run()
+        /* Tests */
+        public void PrintMainByteCode()
         {
-            /* tests */
             Console.WriteLine();
-
-
-
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            Result.ByteClasses[0].Methods[0].Meta.Print();
+            Result.GetMainMethod().Meta.Print();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
-
-
             Console.WriteLine();
-            Exec.Run(Result);
-            /* end tests */
         }
 
 
