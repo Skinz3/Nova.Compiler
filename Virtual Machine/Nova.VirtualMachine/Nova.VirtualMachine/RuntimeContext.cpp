@@ -95,3 +95,13 @@ RuntimeStruct* RuntimeContext::GetCurrentStruct()
 	return structsStack.at(structsStack.size() - 1);
 }
 
+RuntimeContext::RuntimeElement RuntimeContext::Get(int classId, int fieldId)
+{
+	return this->novFile->byteClasses[classId]->fields[fieldId]->value;
+}
+
+void RuntimeContext::Set(int classId, int fieldId, RuntimeContext::RuntimeElement value)
+{
+	this->novFile->byteClasses[classId]->fields[fieldId]->value = value;
+}
+

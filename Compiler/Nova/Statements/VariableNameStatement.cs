@@ -56,7 +56,7 @@ namespace Nova.Statements
                 case SymbolType.ClassMember:
 
                     Field target = Name.GetRoot<Field>();
-                    context.Instructions.Add(new LoadStaticMemberCode(target.Id));
+                    context.Instructions.Add(new LoadStaticCode(container.GetClassId(this.Parent.ParentClass.ClassName), target.Id));
                     loadStart = 1;
 
                     break;

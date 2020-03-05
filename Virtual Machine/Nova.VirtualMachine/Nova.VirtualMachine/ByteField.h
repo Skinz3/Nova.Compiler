@@ -16,5 +16,7 @@ public:
 	void Deserialize(BinaryReader& reader);
 
 	void Dispose();
+
+	// Initializer
 };
 

@@ -95,12 +95,12 @@ namespace Nova.Statements
 
                     if (target.NoTree())
                     {
-                        context.Instructions.Add(new StoreMemberCode(targetField.Id)); // field of a class.
+                        context.Instructions.Add(new StoreStaticCode(container.GetClassId(context.ParentClass.Name), targetField.Id)); // field of a class.
                         return;
                     }
                     else
                     {
-                        context.Instructions.Add(new LoadStaticMemberCode(targetField.Id));
+                        context.Instructions.Add(new LoadStaticCode(container.GetClassId(context.ParentClass.Name), targetField.Id));
                         offset = 1;
                     }
                     break;

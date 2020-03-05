@@ -100,11 +100,6 @@ namespace Nova.ByteCode.Runtime
             var method = NovFile.ByteClasses[classId].Methods[methodId];
             Call(method);
         }
-        public void Call(int methodId)
-        {
-            var method = CallStack.Peek().ParentClass.Methods[methodId];
-            Call(method);
-        }
         #endregion
 
         #region Fields
@@ -112,17 +107,9 @@ namespace Nova.ByteCode.Runtime
         {
             return NovFile.ByteClasses[classId].Fields[fieldId].Value;
         }
-        public object Get(int fieldName)
-        {
-            return ExecutingClass.Fields[fieldName].Value;
-        }
         public void Set(int classId, int fieldId, object value)
         {
             NovFile.ByteClasses[classId].Fields[fieldId].Value = value;
-        }
-        public void Set(int fieldId, object value)
-        {
-            ExecutingClass.Fields[fieldId].Value = value;
         }
         #endregion
 

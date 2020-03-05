@@ -82,7 +82,7 @@ namespace Nova.Statements
             {
                 case SymbolType.NoSymbol: // should be member function.
                     var target = this.MethodName.GetRoot<Method>();
-                    context.Instructions.Add(new MethodCallMemberCode(target.Id));
+                    context.Instructions.Add(new MethodCallStaticCode(container.GetClassId(this.Parent.ParentClass.ClassName), target.Id));
                     break;
                 case SymbolType.Local: // un struct local.
 
@@ -100,7 +100,7 @@ namespace Nova.Statements
 
                     Field field = this.MethodName.GetRoot<Field>();
 
-                    context.Instructions.Add(new LoadStaticMemberCode(field.Id));
+                    context.Instructions.Add(new LoadStaticCode(container.GetClassId(this.Parent.ParentClass.ClassName), field.Id));
 
                     GenerateStructAccessorBytecode(context, 1);
 

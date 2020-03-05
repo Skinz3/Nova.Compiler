@@ -61,12 +61,10 @@
     <Compile Include="Codes\StructStoreMemberCode.cs" />
     <Compile Include="Codes\StructCallMethodCode.cs" />
     <Compile Include="Codes\StructCreateCode.cs" />
-    <Compile Include="Codes\LoadStaticMemberCode.cs" />
     <Compile Include="Codes\MethodCallStaticCode.cs" />
     <Compile Include="Codes\StructPushCurrent.cs" />
     <Compile Include="Codes\ReadlCode.cs" />
     <Compile Include="Codes\StoreStaticCode.cs" />
-    <Compile Include="Codes\StoreMemberCode.cs" />
     <Compile Include="Enums\ContainerType.cs" />
     <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Enums\OperatorsEnum.cs" />
@@ -78,7 +76,6 @@
     <Compile Include="Codes\JumpIfFalseCode.cs" />
     <Compile Include="Codes\LoadCode.cs" />
     <Compile Include="Codes\LoadStaticCode.cs" />
-    <Compile Include="Codes\MethodCallMember.cs" />
     <Compile Include="Codes\PrintlCode.cs" />
     <Compile Include="Codes\PushIntCode.cs" />
     <Compile Include="Codes\ReturnCode.cs" />

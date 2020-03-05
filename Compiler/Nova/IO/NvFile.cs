@@ -76,10 +76,7 @@ namespace Nova.IO
                 if (index != -1)
                 {
                     string line = Lines[i];
-
                     Lines[i] = line.Substring(0, index);
-
-                    Console.WriteLine(Lines[i]);
                 }
             }
         }

@@ -17,6 +17,10 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			context->PushStack(std::get<int>(context->PopStack()) + std::get<int>(context->PopStack()));
 			ip++;
 			break;
+		case OpCodes::Mul:
+			context->PushStack(std::get<int>(context->PopStack()) * std::get<int>(context->PopStack()));
+			ip++;
+			break;
 		case OpCodes::PushInt:
 			context->PushStack(ins[++ip]);
 			ip++;
@@ -48,6 +52,14 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			{
 				bool value = std::get<bool>(ele);
 				cout << (value ? "true" : "false") << endl;
+			}
+			else if (std::holds_alternative<RuntimeStruct*>(ele))
+			{
+				cout << "{" << std::get<RuntimeStruct*>(ele)->typeClass->name << "}" << endl;
+			}
+			else
+			{
+				Logger::Error("Unable to print element.");
 			}
 			ip++;
 			break;
@@ -145,6 +157,22 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			int classId = ins[++ip];
 			int methodId = ins[++ip];
 			context->Call(classId, methodId);
+			ip++;
+			break;
+		}
+		case OpCodes::StoreStatic:
+		{
+			int classId = ins[++ip];
+			int fieldId = ins[++ip];
+			context->Set(classId, fieldId, context->PopStack());
+			ip++;
+			break;
+		}
+		case OpCodes::LoadStatic:
+		{
+			int classId = ins[++ip];
+			int fieldId = ins[++ip];
+			context->PushStack(context->Get(classId, fieldId));
 			ip++;
 			break;
 		}

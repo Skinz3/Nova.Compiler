@@ -40,6 +40,9 @@ public:
 	RuntimeStruct* CreateStruct(int classId);
 	RuntimeStruct* GetCurrentStruct();
 
+	/* Static Fields */
+	RuntimeContext::RuntimeElement Get(int classId, int fieldId);
+	void Set(int classId, int fieldId, RuntimeContext::RuntimeElement value);
 
 private:
 	/* Stacks */
