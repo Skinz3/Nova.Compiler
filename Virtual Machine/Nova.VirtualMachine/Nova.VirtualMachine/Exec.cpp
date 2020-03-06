@@ -4,12 +4,14 @@
 #include "OperatorsEnum.h"
 #include "RuntimeStruct.h"
 
+template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+template<class... Ts> overloaded(Ts...)->overloaded<Ts...>;
+
 void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElement> locales, std::vector<int> ins)
 {
 	int ip = 0;
-	size_t insSize = ins.size();
 
-	while (ip < insSize)
+	while (ip < ins.size())
 	{
 		switch (ins[ip])
 		{
@@ -17,6 +19,14 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			context->PushStack(std::get<int>(context->PopStack()) + std::get<int>(context->PopStack()));
 			ip++;
 			break;
+		case OpCodes::Sub:
+		{
+			int val1 = std::get<int>(context->PopStack());
+			int val2 = std::get<int>(context->PopStack());
+			context->PushStack(val2 - val1);
+			ip++;
+			break;
+		}
 		case OpCodes::Mul:
 			context->PushStack(std::get<int>(context->PopStack()) * std::get<int>(context->PopStack()));
 			ip++;
@@ -40,31 +50,16 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 		{
 			RuntimeContext::RuntimeElement ele = context->PopStack();
 
-			if (std::holds_alternative<std::string*>(ele)) /* Optimized in release x86. 0ms for 1 million iterations. */
+			std::visit(overloaded
 			{
-				cout << *std::get<string*>(ele) << endl;
-			}
-			else if (std::holds_alternative<int>(ele))
-			{
-				cout << std::get<int>(ele) << endl;
-			}
-			else if (std::holds_alternative<bool>(ele))
-			{
-				bool value = std::get<bool>(ele);
-				cout << (value ? "true" : "false") << endl;
-			}
-			else if (std::holds_alternative<Null*>(ele))
-			{
-				cout << "null" << endl;
-			}
-			else if (std::holds_alternative<RuntimeStruct*>(ele))
-			{
-				cout << "{" << std::get<RuntimeStruct*>(ele)->typeClass->name << "}" << endl;
-			}
-			else
-			{
-				Logger::Error("Unable to print element.");
-			}
+					[](Null* arg) { std::cout << "null" << std::endl; },
+					[](bool arg) { std::cout << (arg ? "true" : "false") << std::endl; },
+					[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}" << std::endl; },
+					[](int arg) { std::cout << arg << std::endl; },
+					[](std::string* arg) { std::cout << *arg << std::endl; },
+
+			}, ele);
+
 			ip++;
 			break;
 		}
@@ -81,7 +76,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			break;
 		case OpCodes::JumpIfFalse:
 
-			if (std::get<bool>(context->PopStack()) == 0)
+			if (std::get<bool>(context->PopStack()) == false)
 			{
 				ip = ins[++ip];
 			}
@@ -103,6 +98,9 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			{
 			case OperatorsEnum::Inferior:
 				result = val1 < val2;
+				break;
+			case OperatorsEnum::Equals:
+				result = val1 == val2;
 				break;
 			}
 
@@ -143,9 +141,9 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 		{
 			RuntimeContext::RuntimeElement stElement = context->PopStack();
 
-			if (std::holds_alternative<Null*>(stElement)) 
+			if (std::holds_alternative<Null*>(stElement))
 			{
-				ip = insSize;
+				ip = ins.size();
 				Logger::Error("Null reference exception."); /* Todo : handle this kind of errors. */
 				return;
 			}
@@ -196,7 +194,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 		}
 		case OpCodes::Return:
 		{
-			ip = insSize;
+			ip = ins.size();
 			break;
 		}
 		default:

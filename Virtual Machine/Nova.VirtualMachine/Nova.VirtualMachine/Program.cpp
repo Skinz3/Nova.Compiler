@@ -6,6 +6,7 @@
 
 int main(int argc, char* argv[])
 {
+		
 	if (argc != 2)
 	{
 		Logger::Log("You need to specify 1 .nov file");

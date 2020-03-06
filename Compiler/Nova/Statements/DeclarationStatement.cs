@@ -45,11 +45,8 @@ namespace Nova.Statements
 
             int variableId = context.SymbolTable.Bind(Variable.Name, Variable.Type);
 
-            if (!Value.IsNull())
-            {
-                Value.GenerateBytecode(container,context);
-                context.Instructions.Add(new StoreCode(variableId));
-            }
+            Value.GenerateBytecode(container, context);
+            context.Instructions.Add(new StoreCode(variableId));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)

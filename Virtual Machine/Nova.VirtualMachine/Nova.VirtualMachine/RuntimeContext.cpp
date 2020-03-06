@@ -64,7 +64,9 @@ void RuntimeContext::Call(ByteMethod* method)
 
 	Exec::Execute(this, locales, method->block->instructions);
 
-	callStack.erase(callStack.begin() + callStack.size() - 1); // we pop call stack. 
+	callStack.resize(callStack.size() - 1);// we pop call stack. 
+	
+
 }
 
 ByteClass* RuntimeContext::GetExecutingClass()

@@ -21,7 +21,7 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        private ByteBlock Meta
+        private ByteBlock Meta  
         {
             get;
             set;
