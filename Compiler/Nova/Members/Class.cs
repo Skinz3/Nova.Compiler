@@ -17,7 +17,7 @@ using Nova.Utils;
 
 namespace Nova.Members
 {
-    public class Class : IByteData, IAccessible
+    public class Class : IAccessible
     {
         public const string CLASS_PATTERN = @"^\s*(class|struct)\s+(\w+)$";
 
@@ -227,9 +227,9 @@ namespace Nova.Members
             return Methods.Values.FirstOrDefault(x => x.Modifiers == ModifiersEnum.ctor);
         }
 
-        public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
+        public IByteElement GetByteElement(NovFile file, ClassesContainer container, IByteElement parent)
         {
-            ByteClass byteClass = new ByteClass(this.ClassName, Type);
+            ByteClass byteClass = new ByteClass(file, this.ClassName, Type);
 
             foreach (var method in this.Methods)
             {

@@ -208,7 +208,7 @@ namespace Nova.IO
 
             foreach (var @class in Container)
             {
-                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(Container, null);
+                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(Result, Container, null);
                 Result.ByteClasses.Add(byteClass);
             }
 

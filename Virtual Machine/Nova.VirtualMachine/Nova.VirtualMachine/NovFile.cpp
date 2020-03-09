@@ -31,6 +31,33 @@ bool NovFile::Deserialize()
 		
 	}
 
+	int constantsCount = reader.Read<int>();
+
+	for (int i = 0; i < constantsCount; i++)
+	{
+		int type = reader.Read<int>();
+
+		switch (type)
+		{
+		case 1:
+		{
+			string* value = new string(); // allocates a string.
+			*value = reader.ReadString();
+			constants.push_back(value);
+			break;
+		}
+		case 2:
+		{
+			constants.push_back((bool)reader.Read<bool>());
+			break;
+		}
+		default:
+		{
+			throw std::invalid_argument("Unknown constant type.");
+		}
+		}
+	}
+
 	reader.Close();
 
 	return true;
@@ -57,6 +84,10 @@ void NovFile::Dispose()
 	{
 		byteClass->Dispose();
 		delete byteClass;
+	}
+	for (RuntimeContext::RuntimeElement element : this->constants)
+	{
+		delete& element;
 	}
 }
 

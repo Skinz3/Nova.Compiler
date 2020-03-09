@@ -39,7 +39,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            int variableId = context.ParentClass.BindConstant(Value);
+            int variableId = context.BindConstant(Value);
             context.Instructions.Add(new PushConstCode(variableId)); 
         }
 

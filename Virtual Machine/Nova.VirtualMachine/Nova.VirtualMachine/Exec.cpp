@@ -18,7 +18,7 @@ void Exec::Run(NovFile& file)
 
 	ByteMethod* mainMethod = file.GetMainMethod();
 
-	Call call(mainMethod, nullptr, -1, std::vector<RuntimeContext::RuntimeElement>());
+	Call call(mainMethod, nullptr, -1);
 
 	context.callStack.push_back(&call);
 
@@ -28,6 +28,8 @@ void Exec::Run(NovFile& file)
 void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 {
 	int ip = 0;
+
+	int lOffset = 0;
 
 	std::vector<RuntimeContext::RuntimeElement> locales(block->localesCount);
 
@@ -58,13 +60,13 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip++;
 			break;
 		case OpCodes::Store:
-			locales[ins[++ip]] = context->PopStack();
+			locales[lOffset + ins[++ip]] = context->PopStack();
 			ip++;
 			break;
 		case OpCodes::Load:
 		{
 			int id = ins[++ip];
-			context->PushStack(locales[id]);
+			context->PushStack(locales[lOffset + id]);
 			ip++;
 			break;
 		}
@@ -140,7 +142,7 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			RuntimeStruct* obj = std::get<RuntimeStruct*>(context->StackMinus(parametersCount));
 			context->structsStack.push_back(obj);
 			ByteMethod* method = obj->typeClass->methods[methodId];
-			CallMethod(context, method, &ip, &ins, &locales);
+			CallMethod(context, method, ip, lOffset, ins, &locales);
 			break;
 		}
 		case OpCodes::StructPushCurrent:
@@ -179,7 +181,7 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
 			context->structsStack.push_back(st);
 			ByteMethod* method = st->typeClass->methods[ins[++ip]];
-			CallMethod(context, method, &ip, &ins, &locales);
+			CallMethod(context, method, ip, lOffset, ins, &locales); // <-------------------------------------
 			break;
 		}
 		case OpCodes::MethodCall:
@@ -187,7 +189,7 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			int classId = ins[++ip];
 			int methodId = ins[++ip];
 			ByteMethod* method = context->novFile->byteClasses[classId]->methods[methodId];
-			CallMethod(context, method, &ip, &ins, &locales);
+			CallMethod(context, method, ip, lOffset, ins, &locales); // <-------------------------------------
 			break;
 		}
 		case OpCodes::StoreGlobal:
@@ -225,10 +227,12 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			{
 				context->structsStack.resize(context->structsStack.size() - 1);
 			}
+
 			ip = lastCall->returnIp;
 			ins = lastCall->previousMethod->block->instructions;
-			locales = lastCall->previousLocales;
-			locales.resize(lastCall->previousMethod->block->localesCount);
+
+			lOffset -= lastCall->previousMethod->block->localesCount;
+			locales.resize(locales.size() - lastCall->previousMethod->block->localesCount);
 
 			delete lastCall;
 			context->callStack.resize(context->callStack.size() - 1);
@@ -241,23 +245,25 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 	}
 }
 
-void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int* ip, std::vector<int>* ins, std::vector<RuntimeContext::RuntimeElement>* locales)
+void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int & ip, int & lOffset, std::vector<int> & ins, std::vector<RuntimeContext::RuntimeElement>* locales)
 {
 	ByteMethod* executingMethod = context->callStack[context->callStack.size() - 1]->method;
 
-	Call* methodCall = new Call(targetMethod, executingMethod, (*ip) + 1, *locales); // how to optimize this...
+	Call* methodCall = new Call(targetMethod, executingMethod, ip + 1); // how to optimize this...
 
 	context->callStack.push_back(methodCall);
 
-	locales->resize(targetMethod->block->localesCount);
+	lOffset += executingMethod->block->localesCount;
 
-	for (int i = 0; i < locales->size(); i++)
+	locales->resize(locales->size() + targetMethod->block->localesCount);
+
+	for (int i = 0; i < targetMethod->parametersCount; i++)
 	{
-		locales->at(i) = context->PopStack();
+		locales->at(lOffset + i) = context->PopStack();
 	}
 
-	*ip = 0;
-	*ins = targetMethod->block->instructions;
+	ip = 0;
+	ins = targetMethod->block->instructions;
 }
 
 

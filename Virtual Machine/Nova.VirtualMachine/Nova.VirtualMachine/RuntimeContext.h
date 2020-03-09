@@ -47,9 +47,6 @@ private:
 	/* Stacks */
 	std::vector<RuntimeElement> stack;
 
-	
-
-	ByteClass* GetExecutingClass();
 
 };
 

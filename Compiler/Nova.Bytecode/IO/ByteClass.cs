@@ -33,34 +33,23 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        /*
-         * Toutes les constantes de chaque blocs de toutes les methodes de la classe.
-         */
-        private List<object> ConstantsTable
+
+        public NovFile NovFile
         {
             get;
-            set;
+            private set;
         }
 
-        public ByteClass(string name,ContainerType type)
+        public ByteClass(NovFile file, string name, ContainerType type)
         {
+            this.NovFile = file;
             this.Name = name;
             this.Type = type;
             this.Methods = new List<ByteMethod>();
             this.Fields = new List<ByteField>();
-            this.ConstantsTable = new List<object>();
         }
 
-        public object GetConstant(int constantId)
-        {
-            return ConstantsTable[constantId];
-        }
 
-        public int BindConstant(object constant)
-        {
-            ConstantsTable.Add(constant);
-            return ConstantsTable.Count - 1;
-        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(Name);
@@ -79,26 +68,6 @@ namespace Nova.ByteCode.IO
             foreach (var field in Fields)
             {
                 field.Serialize(writer);
-            }
-
-            writer.Write(ConstantsTable.Count);
-
-            foreach (var value in ConstantsTable)
-            {
-                if (value is string)
-                {
-                    writer.Write(1);
-                    writer.Write(value.ToString());
-                }
-                else if (value is bool)
-                {
-                    writer.Write(2);
-                    writer.Write((bool)value);
-                }
-                else
-                {
-                    throw new Exception("Unhandled constant serialization.");
-                }
             }
         }
     }

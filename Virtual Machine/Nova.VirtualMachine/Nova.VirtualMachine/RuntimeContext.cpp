@@ -25,13 +25,9 @@ void RuntimeContext::Initialize()
 
 
 
-ByteClass* RuntimeContext::GetExecutingClass()
-{
-	return callStack.at(callStack.size() - 1)->method->parent;
-}
 RuntimeContext::RuntimeElement RuntimeContext::GetConstant(int id)
 {
-	return this->GetExecutingClass()->constants[id];
+	return this->novFile->constants[id];
 }
 
 void RuntimeContext::PushStack(RuntimeContext::RuntimeElement  element)

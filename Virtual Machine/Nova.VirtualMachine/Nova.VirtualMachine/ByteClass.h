@@ -13,7 +13,6 @@ public:
 	ContainerType type;
 	std::vector<ByteMethod*> methods;
 	std::vector<ByteField*> fields;
-	std::vector<RuntimeContext::RuntimeElement> constants;
 	void Deserialize(BinaryReader& reader);
 
 	void Dispose();

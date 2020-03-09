@@ -11,6 +11,7 @@ public:
 	bool Deserialize();
 	std::vector<ByteClass*> byteClasses;
 	MainPointEntry mainPointEntry;
+	std::vector<RuntimeContext::RuntimeElement> constants;
 	void Print();
 	void Dispose();
 	ByteMethod* GetMainMethod();

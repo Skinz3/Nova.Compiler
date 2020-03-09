@@ -58,6 +58,11 @@ namespace Nova.ByteCode.Generation
             }
         }
 
+        public int BindConstant(object value)
+        {
+            return ParentClass.NovFile.BindConstant(value);
+        }
+
         public void Serialize(CppBinaryWriter writer)
         {
             //SymbolTable.Serialize(writer);
