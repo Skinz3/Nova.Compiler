@@ -60,7 +60,7 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip++;
 			break;
 		case OpCodes::Store:
-			locales[lOffset + ins[++ip]] = context->PopStack();
+			locales[lOffset + ins[++ip]] = context->PopStack(); // see warning.
 			ip++;
 			break;
 		case OpCodes::Load:
@@ -116,6 +116,9 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 
 			switch (cmpType)
 			{
+			case OperatorsEnum::Superior:
+				result = val1 > val2;
+				break;
 			case OperatorsEnum::Inferior:
 				result = val1 < val2;
 				break;
@@ -184,6 +187,13 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			CallMethod(context, method, ip, lOffset, ins, &locales); // <-------------------------------------
 			break;
 		}
+		case OpCodes::Readl:
+		{
+			string result;
+			std::getline(std::cin, result);
+			context->PushStack(&result);
+			break;
+		}
 		case OpCodes::MethodCall:
 		{
 			int classId = ins[++ip];
@@ -216,14 +226,14 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 		}
 		case OpCodes::Return:
 		{
-			if (context->callStack.size() == 1)
+			if (context->callStack.size() == 1) // main method call is on heap.
 			{
 				return;
 			}
 
 			Call* lastCall = context->callStack[context->callStack.size() - 1];
 
-			if (lastCall->method->parent->type == ContainerType::Struct)
+			if (lastCall->method->parent->type == ContainerType::Struct) // <--- far from memory
 			{
 				context->structsStack.resize(context->structsStack.size() - 1);
 			}
@@ -231,7 +241,10 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip = lastCall->returnIp;
 			ins = lastCall->previousMethod->block->instructions;
 
+		//	FreeHeap(&locales, lOffset); <-------------------------- todo
+
 			lOffset -= lastCall->previousMethod->block->localesCount;
+
 			locales.resize(locales.size() - lastCall->method->block->localesCount);
 
 			delete lastCall;
@@ -246,11 +259,11 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 	}
 }
 
-void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int & ip, int & lOffset, std::vector<int> & ins, std::vector<RuntimeContext::RuntimeElement>* locales)
+void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int& ip, int& lOffset, std::vector<int>& ins, std::vector<RuntimeContext::RuntimeElement>* locales)
 {
 	ByteMethod* executingMethod = context->callStack[context->callStack.size() - 1]->method;
 
-	Call* methodCall = new Call(targetMethod, executingMethod, ip + 1); // how to optimize this...
+	Call* methodCall = new Call(targetMethod, executingMethod, ip + 1); // is Call.cpp really necessary ? cant we optimize it?
 
 	context->callStack.push_back(methodCall);
 
@@ -265,6 +278,19 @@ void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int & i
 
 	ip = 0;
 	ins = targetMethod->block->instructions;
+}
+
+void Exec::FreeHeap(std::vector<RuntimeContext::RuntimeElement>* locales, int& lOffset)
+{
+	for (int i = lOffset; i < locales->size(); i++) // manage this.
+	{
+		if (std::holds_alternative<std::string*>(locales->at(i)))
+		{
+			string* value = std::get<string*>(locales->at(i));
+			delete value;
+		}
+	
+	}
 }
 
 

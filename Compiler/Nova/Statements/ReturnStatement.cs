@@ -35,7 +35,10 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            Value.GenerateBytecode(container,context);
+            if (!Value.IsNull())
+            {
+                Value.GenerateBytecode(container, context);
+            }
             context.Instructions.Add(new ReturnCode());
         }
 

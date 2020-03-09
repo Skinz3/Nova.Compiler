@@ -9,5 +9,7 @@ private:
 	
 	static void CallMethod(RuntimeContext* context, ByteMethod* byteMethod,
 		int & ip, int & lOffset, std::vector<int> & ins, std::vector<RuntimeContext::RuntimeElement>* locales);
+
+	static void FreeHeap(std::vector<RuntimeContext::RuntimeElement>* locales, int& lOffset);
 };
 
