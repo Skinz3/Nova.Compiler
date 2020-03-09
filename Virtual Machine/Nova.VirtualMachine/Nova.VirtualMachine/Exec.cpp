@@ -4,7 +4,6 @@
 #include "OperatorsEnum.h"
 #include "RuntimeStruct.h"
 
-#include "Call.h"
 
 template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
 template<class... Ts> overloaded(Ts...)->overloaded<Ts...>;
@@ -20,7 +19,7 @@ void Exec::Run(NovFile& file)
 
 	Call call(mainMethod, nullptr, -1);
 
-	context.callStack.push_back(&call);
+	context.callStack.push_back(call);
 
 	Execute(&context, mainMethod->block);
 }
@@ -231,23 +230,22 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 				return;
 			}
 
-			Call* lastCall = context->callStack[context->callStack.size() - 1];
+			Call lastCall = context->callStack[context->callStack.size() - 1];
 
-			if (lastCall->method->parent->type == ContainerType::Struct) // <--- far from memory
+			if (lastCall.method->parent->type == ContainerType::Struct) // <--- far from memory
 			{
 				context->structsStack.resize(context->structsStack.size() - 1);
 			}
 
-			ip = lastCall->returnIp;
-			ins = lastCall->previousMethod->block->instructions;
+			ip = lastCall.returnIp;
+			ins = lastCall.previousMethod->block->instructions;
 
 		//	FreeHeap(&locales, lOffset); <-------------------------- todo
 
-			lOffset -= lastCall->previousMethod->block->localesCount;
+			lOffset -= lastCall.previousMethod->block->localesCount;
 
-			locales.resize(locales.size() - lastCall->method->block->localesCount);
+			locales.resize(locales.size() - lastCall.method->block->localesCount);
 
-			delete lastCall;
 
 			context->callStack.resize(context->callStack.size() - 1);
 			break;
@@ -261,9 +259,9 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 
 void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int& ip, int& lOffset, std::vector<int>& ins, std::vector<RuntimeContext::RuntimeElement>* locales)
 {
-	ByteMethod* executingMethod = context->callStack[context->callStack.size() - 1]->method;
+	ByteMethod* executingMethod = context->callStack[context->callStack.size() - 1].method;
 
-	Call* methodCall = new Call(targetMethod, executingMethod, ip + 1); // is Call.cpp really necessary ? cant we optimize it?
+	Call methodCall(targetMethod, executingMethod, ip + 1); // is Call.cpp really necessary ? cant we optimize it?
 
 	context->callStack.push_back(methodCall);
 

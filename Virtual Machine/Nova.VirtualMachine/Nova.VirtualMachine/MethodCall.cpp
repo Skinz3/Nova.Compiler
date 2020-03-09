@@ -8,3 +8,7 @@ Call::Call(ByteMethod* method, ByteMethod* previousMethod, int returnIp)
 	this->returnIp = returnIp;
 	this->previousMethod = previousMethod;
 }
+
+Call::Call()
+{
+}

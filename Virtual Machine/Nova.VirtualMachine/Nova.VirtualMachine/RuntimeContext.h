@@ -4,8 +4,7 @@
 #include <vector>
 #include "ByteMethod.h"
 #include "Null.h"
-
-class Call;
+#include "Call.h"
 
 class RuntimeStruct;
 
@@ -41,7 +40,7 @@ public:
 	/* Static Fields */
 	RuntimeContext::RuntimeElement Get(int classId, int fieldId);
 	void Set(int classId, int fieldId, RuntimeContext::RuntimeElement value);
-	std::vector<Call*> callStack;
+	std::vector<Call> callStack;
 	std::vector<RuntimeStruct*> structsStack;
 private:
 	/* Stacks */
