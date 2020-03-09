@@ -13,7 +13,7 @@
   ###### Example:
 
   ```
-using "nova.nov" // this is a nova library
+using <nova> // this is a nova library
 
 // This code is written in Nova !
 class MyClass
