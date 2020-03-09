@@ -62,7 +62,7 @@ struct Human
 
 ## Thanks
 
-  > Thanks to Uriopass (https://github.com/Uriopass) for its precious help
+  > Thanks to Uriopass (https://github.com/Uriopass) for his precious help
 ## Contacts
 
   > My discord is: **Skinz#1128**
