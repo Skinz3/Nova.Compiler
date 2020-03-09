@@ -23,13 +23,9 @@ int main(int argc, char* argv[])
 
 	// file.Print();
 
-	RuntimeContext context(&file);
-
-	context.Initialize();
-
 	const clock_t begin_time = clock();
 
-	Exec::Execute(&context, file.GetMainMethod());
+	Exec::Run(file);
 
 	std::cout << "Code executed in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
 

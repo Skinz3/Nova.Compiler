@@ -9,20 +9,29 @@
 template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
 template<class... Ts> overloaded(Ts...)->overloaded<Ts...>;
 
-void Exec::Execute(RuntimeContext* context, ByteMethod* mainMethod)
+
+void Exec::Run(NovFile& file)
 {
+	RuntimeContext context(&file);
 
+	context.Initialize();
 
+	ByteMethod* mainMethod = file.GetMainMethod();
+
+	Call call(mainMethod, nullptr, -1, std::vector<RuntimeContext::RuntimeElement>());
+
+	context.callStack.push_back(&call);
+
+	Execute(&context, mainMethod->block);
+}
+
+void Exec::Execute(RuntimeContext* context, ByteBlock* block)
+{
 	int ip = 0;
 
-	std::vector<RuntimeContext::RuntimeElement> locales(mainMethod->block->localesCount);
+	std::vector<RuntimeContext::RuntimeElement> locales(block->localesCount);
 
-
-	std::vector<int> ins = mainMethod->block->instructions;
-
-	Call call(mainMethod, nullptr, -1, locales);
-
-	context->callStack.push_back(&call);
+	std::vector<int> ins = block->instructions;
 
 	while (ip < ins.size())
 	{
@@ -165,7 +174,7 @@ void Exec::Execute(RuntimeContext* context, ByteMethod* mainMethod)
 			ip++;
 			break;
 		}
-		case OpCodes::StructCallMethod: 
+		case OpCodes::StructCallMethod:
 		{
 			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
 			context->structsStack.push_back(st);
@@ -205,7 +214,7 @@ void Exec::Execute(RuntimeContext* context, ByteMethod* mainMethod)
 		}
 		case OpCodes::Return:
 		{
-			if (context->callStack.size() == 1) 
+			if (context->callStack.size() == 1)
 			{
 				return;
 			}
