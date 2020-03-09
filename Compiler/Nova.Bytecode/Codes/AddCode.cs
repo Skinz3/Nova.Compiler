@@ -21,5 +21,9 @@ namespace Nova.Bytecode.Codes
         {
 
         }
+        public override string ToString()
+        {
+            return "(" + OpId + ") " + "Add";
+        }
     }
 }

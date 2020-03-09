@@ -1,4 +1,5 @@
-﻿using Nova.ByteCode.Codes;
+﻿using Nova.ByteCode;
+using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -9,27 +10,28 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class MethodCallStaticCode : ICode
+    public class LoadGlobalCode : ICode
     {
-        public int OpId => 11;
+        public int OpId => 8;
 
         private int classId;
-        private int methodId;
 
-        public MethodCallStaticCode(int classId, int methodId)
+        private int fieldId;
+
+        public LoadGlobalCode(int classId, int fieldId)
         {
             this.classId = classId;
-            this.methodId = methodId;
+            this.fieldId = fieldId;
         }
 
         public override string ToString()
         {
-            return "(" + OpId + ") " + "MethodCallStatic " + classId + " " + methodId;
+            return "(" + OpId + ") " + "LoadGlobal " + classId + " " + fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(classId);
-            writer.Write(methodId);
+            writer.Write(fieldId);
         }
         public int GetSize()
         {

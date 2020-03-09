@@ -56,7 +56,7 @@ namespace Nova.Statements
                 case SymbolType.ClassMember:
 
                     Field target = Name.GetRoot<Field>();
-                    context.Instructions.Add(new LoadStaticCode(container.GetClassId(this.Parent.ParentClass.ClassName), target.Id));
+                    context.Instructions.Add(new LoadGlobalCode(container.GetClassId(this.Parent.ParentClass.ClassName), target.Id));
                     loadStart = 1;
 
                     break;
@@ -68,7 +68,7 @@ namespace Nova.Statements
                     break;
                 case SymbolType.StaticExternal:
                     target = this.Name.GetElement<Field>(1);
-                    context.Instructions.Add(new LoadStaticCode(container.GetClassId(Name.GetRoot<Class>().ClassName), target.Id));
+                    context.Instructions.Add(new LoadGlobalCode(container.GetClassId(Name.GetRoot<Class>().ClassName), target.Id));
                     loadStart = 2;
                     break;
             }

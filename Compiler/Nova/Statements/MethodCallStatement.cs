@@ -82,7 +82,7 @@ namespace Nova.Statements
             {
                 case SymbolType.NoSymbol: // should be member function.
                     var target = this.MethodName.GetRoot<Method>();
-                    context.Instructions.Add(new MethodCallStaticCode(container.GetClassId(this.Parent.ParentClass.ClassName), target.Id));
+                    context.Instructions.Add(new MethodCallCode(container.GetClassId(this.Parent.ParentClass.ClassName), target.Id));
                     break;
                 case SymbolType.Local: // un struct local.
 
@@ -100,7 +100,7 @@ namespace Nova.Statements
 
                     Field field = this.MethodName.GetRoot<Field>();
 
-                    context.Instructions.Add(new LoadStaticCode(container.GetClassId(this.Parent.ParentClass.ClassName), field.Id));
+                    context.Instructions.Add(new LoadGlobalCode(container.GetClassId(this.Parent.ParentClass.ClassName), field.Id));
 
                     GenerateStructAccessorBytecode(context, 1);
 
@@ -127,14 +127,14 @@ namespace Nova.Statements
                         target = MethodName.GetLeaf<Method>();
                         Class owner = MethodName.GetRoot<Class>();
 
-                        context.Instructions.Add(new MethodCallStaticCode(container.GetClassId(owner.ClassName), target.Id));
+                        context.Instructions.Add(new MethodCallCode(container.GetClassId(owner.ClassName), target.Id));
                     }
                     else // Nova.humain.method(); where Nova is a static external class
                     {
                         field = this.MethodName.GetElement<Field>(1);
 
                         Class owner = MethodName.GetElement<Class>(0);
-                        context.Instructions.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), field.Id));
+                        context.Instructions.Add(new LoadGlobalCode(container.GetClassId(owner.ClassName), field.Id));
 
                         GenerateStructAccessorBytecode(context, 2);
 

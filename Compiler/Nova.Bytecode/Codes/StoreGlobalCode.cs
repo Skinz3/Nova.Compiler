@@ -1,5 +1,4 @@
-﻿using Nova.ByteCode;
-using Nova.ByteCode.Codes;
+﻿using Nova.ByteCode.Codes;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -10,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class LoadStaticCode : ICode
+    public class StoreGlobalCode : ICode
     {
-        public int OpId => 8;
+        public int OpId => 21;
 
         private int classId;
 
-        private int fieldId;
+        private int fieldId; 
 
-        public LoadStaticCode(int classId, int fieldId)
+        public StoreGlobalCode(int classId,int fieldId)
         {
             this.classId = classId;
             this.fieldId = fieldId;
@@ -26,7 +25,7 @@ namespace Nova.Bytecode.Codes
 
         public override string ToString()
         {
-            return "(" + OpId + ") " + "LoadStatic " + classId + " " + fieldId;
+            return "(" + OpId + ") " + "StoreGlobal " + classId + " " + fieldId;
         }
         public void Serialize(CppBinaryWriter writer)
         {

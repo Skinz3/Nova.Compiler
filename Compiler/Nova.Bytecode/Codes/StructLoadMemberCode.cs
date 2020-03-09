@@ -26,7 +26,7 @@ namespace Nova.Bytecode.Codes
 
         public override string ToString()
         {
-            return "(" + OpId + ") " + "StructGetMemberCode " + propertyId;
+            return "(" + OpId + ") " + "StructLoadMemberCode " + propertyId;
         }
         public int GetSize()
         {

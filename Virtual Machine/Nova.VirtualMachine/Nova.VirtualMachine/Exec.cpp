@@ -51,22 +51,18 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			RuntimeContext::RuntimeElement ele = context->PopStack();
 
 			std::visit(overloaded
-			{
-					[](Null* arg) { std::cout << "null" << std::endl; },
-					[](bool arg) { std::cout << (arg ? "true" : "false") << std::endl; },
-					[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}" << std::endl; },
-					[](int arg) { std::cout << arg << std::endl; },
-					[](std::string* arg) { std::cout << *arg << std::endl; },
+				{
+						[](Null* arg) { std::cout << "null" << std::endl; },
+						[](bool arg) { std::cout << (arg ? "true" : "false") << std::endl; },
+						[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}" << std::endl; },
+						[](int arg) { std::cout << arg << std::endl; },
+						[](std::string* arg) { std::cout << *arg << std::endl; },
 
-			}, ele);
+				}, ele);
 
 			ip++;
 			break;
 		}
-		case OpCodes::MethodCallMember:
-			context->Call(ins[++ip]);
-			ip++;
-			break;
 		case OpCodes::PushConst:
 			context->PushStack(context->GetConstant(ins[++ip]));
 			ip++;
@@ -162,7 +158,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
-		case OpCodes::MethodCallStatic:
+		case OpCodes::MethodCall:
 		{
 			int classId = ins[++ip];
 			int methodId = ins[++ip];
@@ -170,7 +166,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
-		case OpCodes::StoreStatic:
+		case OpCodes::StoreGlobal:
 		{
 			int classId = ins[++ip];
 			int fieldId = ins[++ip];
@@ -178,7 +174,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
-		case OpCodes::LoadStatic:
+		case OpCodes::LoadGlobal:
 		{
 			int classId = ins[++ip];
 			int fieldId = ins[++ip];

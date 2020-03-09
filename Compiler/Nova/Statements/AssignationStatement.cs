@@ -95,12 +95,12 @@ namespace Nova.Statements
 
                     if (target.NoTree())
                     {
-                        context.Instructions.Add(new StoreStaticCode(container.GetClassId(context.ParentClass.Name), targetField.Id)); // field of a class.
+                        context.Instructions.Add(new StoreGlobalCode(container.GetClassId(context.ParentClass.Name), targetField.Id)); // field of a class.
                         return;
                     }
                     else
                     {
-                        context.Instructions.Add(new LoadStaticCode(container.GetClassId(context.ParentClass.Name), targetField.Id));
+                        context.Instructions.Add(new LoadGlobalCode(container.GetClassId(context.ParentClass.Name), targetField.Id));
                         offset = 1;
                     }
                     break;
@@ -116,12 +116,12 @@ namespace Nova.Statements
 
                     if (target.Elements.Count == 2)
                     {
-                        context.Instructions.Add(new StoreStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
+                        context.Instructions.Add(new StoreGlobalCode(container.GetClassId(owner.ClassName), targetField.Id));
                         return;
                     }
                     else
                     {
-                        context.Instructions.Add(new LoadStaticCode(container.GetClassId(owner.ClassName), targetField.Id));
+                        context.Instructions.Add(new LoadGlobalCode(container.GetClassId(owner.ClassName), targetField.Id));
                         offset = 2;
                     }
                     break;

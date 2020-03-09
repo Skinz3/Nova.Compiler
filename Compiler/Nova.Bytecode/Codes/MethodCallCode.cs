@@ -9,28 +9,27 @@ using System.Threading.Tasks;
 
 namespace Nova.Bytecode.Codes
 {
-    public class StoreStaticCode : ICode
+    public class MethodCallCode : ICode
     {
-        public int OpId => 21;
+        public int OpId => 11;
 
         private int classId;
+        private int methodId;
 
-        private int fieldId; 
-
-        public StoreStaticCode(int classId,int fieldId)
+        public MethodCallCode(int classId, int methodId)
         {
             this.classId = classId;
-            this.fieldId = fieldId;
+            this.methodId = methodId;
         }
 
         public override string ToString()
         {
-            return "(" + OpId + ") " + "StoreStaticCode " + classId + " " + fieldId;
+            return "(" + OpId + ") " + "MethodCall " + classId + " " + methodId;
         }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(classId);
-            writer.Write(fieldId);
+            writer.Write(methodId);
         }
         public int GetSize()
         {

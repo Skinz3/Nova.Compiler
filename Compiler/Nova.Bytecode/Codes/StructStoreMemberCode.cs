@@ -29,7 +29,7 @@ namespace Nova.Bytecode.Codes
 
         public override string ToString()
         {
-            return "(" + OpId + ") " + "StructSetMember " + propertyId;
+            return "(" + OpId + ") " + "StructStoreMember " + propertyId;
         }
         public int GetSize()
         {
