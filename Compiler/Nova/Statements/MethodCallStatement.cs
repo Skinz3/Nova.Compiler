@@ -152,11 +152,16 @@ namespace Nova.Statements
         {
             MethodName.Validate(validator, this.Parent.ParentClass, LineIndex);
 
-            /* if (target.Parameters.Count != Parameters.Length)
-             {
-                 validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", LineIndex);
-             }
-             */
+            var target = MethodName.GetLeaf<Method>();
+
+            if (target != null)
+            {
+                if (target.Parameters.Count != Parameters.Length)
+                {
+                    validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", LineIndex);
+                }
+            }
+
             foreach (var parameter in Parameters)
             {
                 parameter.ValidateSemantics(validator);

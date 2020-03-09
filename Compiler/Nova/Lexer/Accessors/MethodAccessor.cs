@@ -109,7 +109,6 @@ namespace Nova.Lexer.Accessors
 
             Method method = null;
 
-           
             if (!owner.Methods.TryGetValue(this.GetLeaf(), out method))
             {
                 validator.AddError("Type \"" + currentType + "\" has no member \"" + this.GetLeaf() + "\"()", lineIndex);
@@ -117,7 +116,7 @@ namespace Nova.Lexer.Accessors
             }
             if (method.Modifiers == ModifiersEnum.@private && method.ParentClass != parentClass)
             {
-                validator.AddError("Unable to access private method \"" + method.Name + "\" from class \""+parentClass.ClassName+"\"", lineIndex);
+                validator.AddError("Unable to access private method \"" + method.Name + "\" from class \"" + parentClass.ClassName + "\"", lineIndex);
                 return false;
             }
 

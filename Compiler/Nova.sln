@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Utils", "Nova.Utils\No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.Compiler", "Nova.Compiler\Nova.Compiler.csproj", "{02D71F87-48C5-4EE2-83CB-3FFD8B79E877}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova.VirtualMachine", "Nova.VirtualMachine\Nova.VirtualMachine.csproj", "{4F4B7955-1285-4ACF-8FEB-9710D69D278A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,14 +51,6 @@ Global
 		{02D71F87-48C5-4EE2-83CB-3FFD8B79E877}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02D71F87-48C5-4EE2-83CB-3FFD8B79E877}.Release|x64.ActiveCfg = Release|x64
 		{02D71F87-48C5-4EE2-83CB-3FFD8B79E877}.Release|x64.Build.0 = Release|x64
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Debug|x64.Build.0 = Debug|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Release|x64.ActiveCfg = Release|Any CPU
-		{4F4B7955-1285-4ACF-8FEB-9710D69D278A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -92,11 +92,7 @@ namespace Nova.Statements
 
         public static void ValidateStructSemantics(Class structType, StatementNode[] ctorParameters, SemanticsValidator validator, int lineIndex)
         {
-            if (structType == null)
-            {
-                validator.AddError("Unknown type : \"????\"", lineIndex);
-            }
-            else if (structType.Type != ContainerType.@struct)
+            if (structType.Type != ContainerType.@struct)
             {
                 validator.AddError("Type \"" + structType.ClassName + "\" is not a struct class. Cannot be instantiated", lineIndex);
             }
