@@ -60,6 +60,9 @@ struct Human
   + ``` ./Nova.Compiler mySourceFile.nv output.nov ```  ---> myScript.nv must have a main point entry. 
   + ``` ./Nova.VM output.nov ``` ----> execute the program
 
+## Thanks
+
+  > Thanks to Uriopass (https://github.com/Uriopass) for its precious help
 ## Contacts
 
   > My discord is: **Skinz#1128**
