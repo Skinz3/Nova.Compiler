@@ -232,9 +232,10 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ins = lastCall->previousMethod->block->instructions;
 
 			lOffset -= lastCall->previousMethod->block->localesCount;
-			locales.resize(locales.size() - lastCall->previousMethod->block->localesCount);
+			locales.resize(locales.size() - lastCall->method->block->localesCount);
 
 			delete lastCall;
+
 			context->callStack.resize(context->callStack.size() - 1);
 			break;
 		}

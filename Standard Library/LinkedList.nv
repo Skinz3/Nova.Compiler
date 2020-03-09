@@ -1,18 +1,18 @@
+using <nova>
 
-class TestClass
+class MyProgram
 {
 	public void Main()
 	{
-		List list => ()
+		List myList => ()
+		myList.Add("Welcome")
+		myList.Add("to")
+		myList.Add("nova")
 
-		list.Add("value1")
-		list.Add("value2")
-
-		list.Print()
+		myList.Print()
 	}
+	
 }	
-
-
 
 struct ListElement
 {
@@ -37,7 +37,7 @@ struct List
 	{
 		if (Size == 0)
 		{
-		    Current.Value = element
+		     Current.Value = element
 		}
 		else
 		{
@@ -50,19 +50,15 @@ struct List
 	}
 	public void Print()
 	{
-		Nova.PrintLine("Size " + Size)
-
 		ListElement current = Head
 
 		int i = 0
 
 		while (i < Size)
 		{
-			Nova.PrintLine("Element: " + current.Value)
+			Nova.PrintLine(current.Value)
 			current = current.Next
 			i = i + 1
 		}
 	}
 }
-
-
