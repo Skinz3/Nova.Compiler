@@ -8,7 +8,7 @@ namespace Nova.Bytecode.Enums
 {
     public enum ContainerType
     {
-        @class,
+        @class = 0,
         @struct,
     }
 }

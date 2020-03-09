@@ -20,7 +20,7 @@ void ByteField::Dispose()
 */
 void ByteField::Initializer(RuntimeContext* context)
 {
-	std::vector<RuntimeContext::RuntimeElement> locales;
+	/*std::vector<RuntimeContext::RuntimeElement> locales;
 	Exec::Execute(context, locales, this->valueBlock->instructions);
 
 	if (context->GetStackSize() == 1)
@@ -30,5 +30,5 @@ void ByteField::Initializer(RuntimeContext* context)
 	else
 	{
 		Logger::Error("Unable to initialize field " + this->name + " invalid value.");
-	}
+	} */
 }

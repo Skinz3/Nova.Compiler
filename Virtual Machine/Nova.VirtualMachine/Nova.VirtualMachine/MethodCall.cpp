@@ -1,8 +1,11 @@
-#include "MethodCall.h"
+#include "Call.h"
+#include "RuntimeContext.h"
+#include "ByteMethod.h"
 
-MethodCall::MethodCall(ByteClass* parentClass, std::vector<int> previousInstructions, int returnIp, std::vector<RuntimeContext::RuntimeElement> locales)
+Call::Call(ByteMethod* method, ByteMethod* previousMethod, int returnIp, std::vector<RuntimeContext::RuntimeElement> previousLocales)
 {
-	this->previousInstructions = previousInstructions;
+	this->method = method;
 	this->returnIp = returnIp;
-	this->locales = locales;
+	this->previousMethod = previousMethod;
+	this->previousLocales = previousLocales;
 }

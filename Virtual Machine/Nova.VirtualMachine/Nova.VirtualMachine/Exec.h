@@ -3,6 +3,9 @@
 class Exec
 {
 public:
-	static void Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElement> locales, std::vector<int> ins);
+	static void Execute(RuntimeContext* context, ByteMethod* mainMethod);
+private:
+	static void CallMethod(RuntimeContext* context, ByteMethod* byteMethod,
+		int* ip, std::vector<int>* ins, std::vector<RuntimeContext::RuntimeElement>* locales);
 };
 

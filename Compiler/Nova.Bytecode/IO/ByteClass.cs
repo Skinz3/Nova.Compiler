@@ -1,4 +1,5 @@
-﻿using Nova.Bytecode.Symbols;
+﻿using Nova.Bytecode.Enums;
+using Nova.Bytecode.Symbols;
 using Nova.Utils.IO;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,11 @@ namespace Nova.ByteCode.IO
             get;
             private set;
         }
-
+        public ContainerType Type
+        {
+            get;
+            private set;
+        }
         public List<ByteMethod> Methods
         {
             get;
@@ -37,9 +42,10 @@ namespace Nova.ByteCode.IO
             set;
         }
 
-        public ByteClass(string name)
+        public ByteClass(string name,ContainerType type)
         {
             this.Name = name;
+            this.Type = type;
             this.Methods = new List<ByteMethod>();
             this.Fields = new List<ByteField>();
             this.ConstantsTable = new List<object>();
@@ -58,6 +64,8 @@ namespace Nova.ByteCode.IO
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(Name);
+
+            writer.Write((byte)Type);
 
             writer.Write(Methods.Count);
 

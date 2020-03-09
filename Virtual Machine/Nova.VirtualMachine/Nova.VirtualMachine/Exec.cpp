@@ -4,12 +4,25 @@
 #include "OperatorsEnum.h"
 #include "RuntimeStruct.h"
 
+#include "Call.h"
+
 template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
 template<class... Ts> overloaded(Ts...)->overloaded<Ts...>;
 
-void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElement> locales, std::vector<int> ins)
+void Exec::Execute(RuntimeContext* context, ByteMethod* mainMethod)
 {
+
+
 	int ip = 0;
+
+	std::vector<RuntimeContext::RuntimeElement> locales(mainMethod->block->localesCount);
+
+
+	std::vector<int> ins = mainMethod->block->instructions;
+
+	Call call(mainMethod, nullptr, -1, locales);
+
+	context->callStack.push_back(&call);
 
 	while (ip < ins.size())
 	{
@@ -104,13 +117,7 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
-		case OpCodes::StructCallMethod:
-		{
-			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
-			context->Call(st, ins[++ip]);
-			ip++;
-			break;
-		}
+
 		case OpCodes::StructCreate:
 		{
 			context->PushStack(context->CreateStruct(ins[++ip]));
@@ -121,10 +128,10 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 		{
 			int parametersCount = ins[++ip];
 			int methodId = ins[++ip];
-
 			RuntimeStruct* obj = std::get<RuntimeStruct*>(context->StackMinus(parametersCount));
-			context->Call(obj, methodId);
-			ip++;
+			context->structsStack.push_back(obj);
+			ByteMethod* method = obj->typeClass->methods[methodId];
+			CallMethod(context, method, &ip, &ins, &locales);
 			break;
 		}
 		case OpCodes::StructPushCurrent:
@@ -158,12 +165,20 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			ip++;
 			break;
 		}
+		case OpCodes::StructCallMethod: 
+		{
+			RuntimeStruct* st = std::get<RuntimeStruct*>(context->PopStack());
+			context->structsStack.push_back(st);
+			ByteMethod* method = st->typeClass->methods[ins[++ip]];
+			CallMethod(context, method, &ip, &ins, &locales);
+			break;
+		}
 		case OpCodes::MethodCall:
 		{
 			int classId = ins[++ip];
 			int methodId = ins[++ip];
-			context->Call(classId, methodId);
-			ip++;
+			ByteMethod* method = context->novFile->byteClasses[classId]->methods[methodId];
+			CallMethod(context, method, &ip, &ins, &locales);
 			break;
 		}
 		case OpCodes::StoreGlobal:
@@ -190,7 +205,24 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 		}
 		case OpCodes::Return:
 		{
-			ip = ins.size();
+			if (context->callStack.size() == 1) 
+			{
+				return;
+			}
+
+			Call* lastCall = context->callStack[context->callStack.size() - 1];
+
+			if (lastCall->method->parent->type == ContainerType::Struct)
+			{
+				context->structsStack.resize(context->structsStack.size() - 1);
+			}
+			ip = lastCall->returnIp;
+			ins = lastCall->previousMethod->block->instructions;
+			locales = lastCall->previousLocales;
+			locales.resize(lastCall->previousMethod->block->localesCount);
+
+			delete lastCall;
+			context->callStack.resize(context->callStack.size() - 1);
 			break;
 		}
 		default:
@@ -198,6 +230,25 @@ void Exec::Execute(RuntimeContext* context, vector<RuntimeContext::RuntimeElemen
 			return;
 		}
 	}
+}
+
+void Exec::CallMethod(RuntimeContext* context, ByteMethod* targetMethod, int* ip, std::vector<int>* ins, std::vector<RuntimeContext::RuntimeElement>* locales)
+{
+	ByteMethod* executingMethod = context->callStack[context->callStack.size() - 1]->method;
+
+	Call* methodCall = new Call(targetMethod, executingMethod, (*ip) + 1, *locales); // how to optimize this...
+
+	context->callStack.push_back(methodCall);
+
+	locales->resize(targetMethod->block->localesCount);
+
+	for (int i = 0; i < locales->size(); i++)
+	{
+		locales->at(i) = context->PopStack();
+	}
+
+	*ip = 0;
+	*ins = targetMethod->block->instructions;
 }
 
 

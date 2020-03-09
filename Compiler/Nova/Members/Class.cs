@@ -229,7 +229,7 @@ namespace Nova.Members
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {
-            ByteClass byteClass = new ByteClass(this.ClassName);
+            ByteClass byteClass = new ByteClass(this.ClassName, Type);
 
             foreach (var method in this.Methods)
             {

@@ -141,6 +141,7 @@
     <ClCompile Include="Exec.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MainPointEntry.cpp" />
+    <ClCompile Include="MethodCall.cpp" />
     <ClCompile Include="NovFile.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RuntimeContext.cpp" />
@@ -152,6 +153,8 @@
     <ClInclude Include="ByteClass.h" />
     <ClInclude Include="ByteField.h" />
     <ClInclude Include="ByteMethod.h" />
+    <ClInclude Include="Call.h" />
+    <ClInclude Include="ContainerType.h" />
     <ClInclude Include="Null.h" />
     <ClInclude Include="OperatorsEnum.h" />
     <ClInclude Include="Exec.h" />

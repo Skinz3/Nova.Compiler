@@ -119,11 +119,11 @@ namespace Nova.Members
                 statement.GenerateBytecode(container, result.Meta);
             }
 
-            if (!(result.Meta.Instructions.Last() is ReturnCode))
+            if (result.Meta.Instructions.Count == 0 || (!(result.Meta.Instructions.Last() is ReturnCode)))
             {
                 result.Meta.Instructions.Add(new ReturnCode());
             }
-
+          
 
             return result;
 

@@ -25,8 +25,6 @@ namespace Nova.VirtualMachine.Runtime
             while (ip < ins.Count)
             {
 
-                Logger.Write("op: " + ((OpCodes)ins[ip]).ToString(), LogType.Success);
-
                 switch ((OpCodes)ins[ip])
                 {
                     case OpCodes.Add:
@@ -38,6 +36,23 @@ namespace Nova.VirtualMachine.Runtime
                             int val1 = (int)context.PopStack();
                             int val2 = (int)context.PopStack();
                             context.PushStack(val2 / val1);
+                            ip++;
+                            break;
+                        }
+                    case OpCodes.Comparaison:
+                        {
+                            int cmpType = ins[++ip];
+                            bool result = false;
+
+                            int val2 = (int)context.PopStack();
+                            int val1 = (int)context.PopStack();
+
+                            if (cmpType == 6)
+                            {
+                                result = val1 < val2;
+                            }
+
+                            context.PushStack(result);
                             ip++;
                             break;
                         }
@@ -56,6 +71,7 @@ namespace Nova.VirtualMachine.Runtime
                         ip++;
                         break;
                     case OpCodes.MethodCall:
+
                         int classId = ins[++ip];
                         int methodId = ins[++ip];
 
@@ -75,10 +91,13 @@ namespace Nova.VirtualMachine.Runtime
                         ip = 0;
                         ins = targetMethod.Block.Instructions;
 
+                        executingMethod = targetMethod;
+
                         break;
                     case OpCodes.Load:
                         int id = ins[++ip];
-                        context.PushStack(locales[id]);
+                        int value = (int)locales[id];
+                        context.PushStack(value);
                         ip++;
                         break;
                     case OpCodes.Mul:
@@ -89,11 +108,23 @@ namespace Nova.VirtualMachine.Runtime
                         context.PushStack(ins[++ip]);
                         ip++;
                         break;
+                    case OpCodes.JumpIfFalse:
+                        if (((bool)context.PopStack()) == false)
+                        {
+                            int t = ins[++ip];
+                            ip = t;
+                        }
+                        else
+                        {
+                            ip += 2;
+                        }
+                        break;
                     case OpCodes.Store:
                         locales[ins[++ip]] = context.PopStack();
                         ip++;
                         break;
                     case OpCodes.Return:
+
                         var lastCall = context.CallStack[context.CallStack.Count - 1];
 
                         if (context.CallStack.Count == 1)

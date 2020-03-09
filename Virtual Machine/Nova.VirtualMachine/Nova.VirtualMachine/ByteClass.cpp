@@ -4,6 +4,8 @@ void ByteClass::Deserialize(BinaryReader& reader)
 {
 	this->name = reader.ReadString();
 
+	this->type = (ContainerType)reader.Read<char>();
+
 	int methodsCount = reader.Read<int>();
 
 	for (int i = 0; i < methodsCount; i++)
