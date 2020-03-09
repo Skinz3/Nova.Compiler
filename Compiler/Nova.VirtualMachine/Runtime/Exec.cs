@@ -1,4 +1,5 @@
 ﻿using Nova.Utils;
+using Nova.VirtualMachine.Members;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,23 @@ namespace Nova.VirtualMachine.Runtime
 {
     class Exec
     {
-        public static void Execute(RuntimeContext context, object[] locales, List<int> ins) // byteMethod mainMethod as parameter
+        public static void Execute(RuntimeContext context, ByteMethod mainMethod) // byteMethod mainMethod as parameter
         {
+            ByteMethod executingMethod = mainMethod;
+
+            MethodCall call = new MethodCall(mainMethod, null, -1, null);
+            context.CallStack.Add(call);
+
+            List<int> ins = mainMethod.Block.Instructions;
+            object[] locales = new object[mainMethod.Block.LocalesCount];
+
             int ip = 0;
 
             while (ip < ins.Count)
             {
+
+                Logger.Write("op: " + ((OpCodes)ins[ip]).ToString(), LogType.Success);
+
                 switch ((OpCodes)ins[ip])
                 {
                     case OpCodes.Add:
@@ -31,7 +43,7 @@ namespace Nova.VirtualMachine.Runtime
                         }
                     case OpCodes.Printl:
                         {
-                            Console.WriteLine(context.PopStack());
+                            Logger.Write(context.PopStack());
                             ip++;
                             break;
                         }
@@ -46,8 +58,23 @@ namespace Nova.VirtualMachine.Runtime
                     case OpCodes.MethodCall:
                         int classId = ins[++ip];
                         int methodId = ins[++ip];
-                        context.Call(classId, methodId);
-                        ip++;
+
+                        var targetMethod = context.NovFile.Classes[classId].Methods[methodId];
+
+                        MethodCall call2 = new MethodCall(targetMethod, executingMethod, ip + 1, (object[])locales.Clone());
+
+                        context.CallStack.Add(call2);
+
+                        locales = new object[targetMethod.Block.LocalesCount];
+
+                        for (int i = 0; i < locales.Length; i++)
+                        {
+                            locales[i] = context.PopStack();
+                        }
+
+                        ip = 0;
+                        ins = targetMethod.Block.Instructions;
+
                         break;
                     case OpCodes.Load:
                         int id = ins[++ip];
@@ -67,7 +94,17 @@ namespace Nova.VirtualMachine.Runtime
                         ip++;
                         break;
                     case OpCodes.Return:
-                        ip = ins.Count;
+                        var lastCall = context.CallStack[context.CallStack.Count - 1];
+
+                        if (context.CallStack.Count == 1)
+                        {
+                            return;
+                        }
+                        ip = lastCall.ReturnIp;
+                        ins = lastCall.PreviousMethod.Block.Instructions;
+                        locales = lastCall.PreviousLocales;
+
+                        context.CallStack.RemoveAt(context.CallStack.Count - 1);
                         break;
                     case OpCodes.Sub:
                         {

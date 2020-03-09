@@ -47,5 +47,9 @@ namespace Nova.VirtualMachine.Members
 
             this.Block.Deserialize(reader);
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

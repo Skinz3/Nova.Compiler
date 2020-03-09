@@ -45,7 +45,7 @@ namespace Nova.VirtualMachine.Members
 
         public void Initializer(RuntimeContext context)
         {
-            Exec.Execute(context, null, this.ValueBlock.Instructions);
+            //Exec.Execute(context, null, this.ValueBlock.Instructions);
 
             if (context.GetStackSize() == 1)
             {

@@ -58,6 +58,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="bin\Debug\script.nv" />
+    <None Include="bin\Debug\STD\nova.nv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nova.Bytecode\Nova.Bytecode.csproj">

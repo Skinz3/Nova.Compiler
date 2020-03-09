@@ -27,7 +27,7 @@ namespace Nova.VirtualMachine.Runtime
             get;
             set;
         }
-        private List<ByteMethod> CallStack
+        public List<MethodCall> CallStack
         {
             get;
             set;
@@ -37,7 +37,7 @@ namespace Nova.VirtualMachine.Runtime
             this.NovFile = file;
             this.Stack = new List<object>();
             this.StructStack = new List<RuntimeStruct>();
-            this.CallStack = new List<ByteMethod>();
+            this.CallStack = new List<MethodCall>();
         }
 
         public void Initialize()
@@ -51,11 +51,6 @@ namespace Nova.VirtualMachine.Runtime
             }
 
         }
-        public void CallMain()
-        {
-            ByteMethod method = this.NovFile.GetMainMethod();
-            Call(method);
-        }
 
         public object GetConstant(int index)
         {
@@ -64,40 +59,10 @@ namespace Nova.VirtualMachine.Runtime
 
         private ByteClass GetExecutingClass()
         {
-            return CallStack[CallStack.Count - 1].Parent;
+            return CallStack[CallStack.Count - 1].Method.Parent;
         }
-        public void Call(int classId, int methodId)
-        {
-            ByteMethod method = this.NovFile.Classes[classId].Methods[methodId];
-            Call(method);
-        }
+      
 
-
-        public void Call(RuntimeStruct st, int methodId)
-        {
-            StructStack.Add(st);
-
-            ByteMethod method = st.TypeClass.Methods[methodId];
-            Call(method);
-
-            StructStack.RemoveAt(StructStack.Count - 1);
-        }
-
-        private void Call(ByteMethod method)
-        {
-            CallStack.Add(method); // we push call stack
-
-            object[] locales = new object[method.ParametersCount];
-
-            for (int i = method.ParametersCount - 1; i >= 0; i--)
-            {
-                locales[i] = PopStack();
-            }
-
-            Exec.Execute(this, locales, method.Block.Instructions);
-
-            CallStack.RemoveAt(CallStack.Count - 1);
-        }
 
         public int GetStackSize()
         {

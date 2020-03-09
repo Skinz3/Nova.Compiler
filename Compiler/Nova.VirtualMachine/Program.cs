@@ -34,7 +34,7 @@ namespace Nova.VirtualMachine
 
             Stopwatch st = Stopwatch.StartNew();
 
-            context.CallMain();
+            Exec.Execute(context, file.GetMainMethod());
 
             Logger.Write("Code executed in " + st.ElapsedMilliseconds + "ms");
 
