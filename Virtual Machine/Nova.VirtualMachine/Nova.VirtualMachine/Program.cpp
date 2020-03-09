@@ -6,7 +6,6 @@
 
 int main(int argc, char* argv[])
 {
-		
 	if (argc != 2)
 	{
 		Logger::Log("You need to specify 1 .nov file");
@@ -32,6 +31,8 @@ int main(int argc, char* argv[])
 	context.CallMain();
 
 	std::cout << "Code executed in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
+
+	// file.Dispose(); <-- get an error here. fix it
 
 	return EXIT_SUCCESS;
 }

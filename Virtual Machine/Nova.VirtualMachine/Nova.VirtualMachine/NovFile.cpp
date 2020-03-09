@@ -21,14 +21,14 @@ bool NovFile::Deserialize()
 
 	mainPointEntry.Deserialize(reader);
 
-	int classesCount = reader.Read<int>();
-
-	for (int i = 0; i < classesCount; i++)
+	for (int i = 0; i < reader.Read<int>(); i++)
 	{
 		ByteClass* byteClass = new ByteClass();
 		byteClass->Deserialize(reader);
 		this->byteClasses.push_back(byteClass);
 	}
+
+	reader.Close();
 
 	return true;
 

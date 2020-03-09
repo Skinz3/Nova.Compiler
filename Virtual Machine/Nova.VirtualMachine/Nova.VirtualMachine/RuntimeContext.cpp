@@ -34,13 +34,6 @@ void RuntimeContext::Call(int classId, int methodId)
 	Call(method);
 }
 
-void RuntimeContext::Call(int methodId)
-{
-	ByteClass* executingClass = this->GetExecutingClass();
-	ByteMethod* method = executingClass->methods[methodId];
-	Call(method);
-}
-
 void RuntimeContext::Call(RuntimeStruct* st, int methodId)
 {
 	structsStack.push_back(st);
@@ -65,8 +58,6 @@ void RuntimeContext::Call(ByteMethod* method)
 	Exec::Execute(this, locales, method->block->instructions);
 
 	callStack.resize(callStack.size() - 1);// we pop call stack. 
-	
-
 }
 
 ByteClass* RuntimeContext::GetExecutingClass()

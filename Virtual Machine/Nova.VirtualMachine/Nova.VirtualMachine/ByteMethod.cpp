@@ -15,6 +15,9 @@ void ByteMethod::Deserialize(BinaryReader& reader)
 ByteMethod::ByteMethod(ByteClass* parent)
 {
 	this->parent = parent;
+	this->parametersCount = 0;
+	this->block = nullptr;
+	this->modifiers = Modifiers::Private;
 }
 
 void ByteMethod::Dispose()

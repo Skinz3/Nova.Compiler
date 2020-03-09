@@ -4,9 +4,9 @@ void ByteClass::Deserialize(BinaryReader& reader)
 {
 	this->name = reader.ReadString();
 
-	int methodCount = reader.Read<int>();
+	int methodsCount = reader.Read<int>();
 
-	for (int i = 0; i < methodCount; i++)
+	for (int i = 0; i < methodsCount; i++)
 	{
 		ByteMethod* method = new ByteMethod(this);
 		method->Deserialize(reader);
@@ -28,15 +28,24 @@ void ByteClass::Deserialize(BinaryReader& reader)
 	{
 		int type = reader.Read<int>();
 
-		if (type == 1)
+		switch (type)
 		{
-			string* value = new string(); // allocates a string.
-			*value = reader.ReadString();
-			constants.push_back(value);
-		}
-		else if (type == 2)
-		{
-			constants.push_back((bool)reader.Read<bool>());
+			case 1:
+			{
+				string* value = new string(); // allocates a string.
+				*value = reader.ReadString();
+				constants.push_back(value);
+				break;
+			}
+			case 2:
+			{
+				constants.push_back((bool)reader.Read<bool>());
+				break;
+			}
+			default:
+			{
+				throw std::invalid_argument("Unknown constant type.");
+			}
 		}
 	}
 }
@@ -55,6 +64,6 @@ void ByteClass::Dispose()
 	}
 	for (RuntimeContext::RuntimeElement element : this->constants)
 	{
-		delete &element;
+		delete& element;
 	}
 }

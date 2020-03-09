@@ -43,11 +43,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\NovFile.cs" />
+    <Compile Include="Members\ByteBlock.cs" />
+    <Compile Include="Members\ByteClass.cs" />
+    <Compile Include="Members\ByteField.cs" />
+    <Compile Include="Members\ByteMethod.cs" />
+    <Compile Include="Members\MainPointEntry.cs" />
+    <Compile Include="Modifiers.cs" />
+    <Compile Include="OpCodes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runtime\Exec.cs" />
+    <Compile Include="Runtime\Null.cs" />
+    <Compile Include="Runtime\RuntimeContext.cs" />
+    <Compile Include="Runtime\RuntimeStruct.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nova.Utils\Nova.Utils.csproj">
+      <Project>{7350e0c1-89ba-49ca-a71f-635916446c35}</Project>
+      <Name>Nova.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
