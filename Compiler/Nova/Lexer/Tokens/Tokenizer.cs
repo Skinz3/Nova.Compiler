@@ -26,6 +26,8 @@ namespace Nova.Lexer.Tokens
 
         public const string CONSTANT_LITTERAL = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s*";
 
+        public const string CTOR_KEYWORD = "->";
+
         public static Token[] GenerateTokens(string input)
         {
             List<Token> tokens = new List<Token>();
@@ -46,9 +48,9 @@ namespace Nova.Lexer.Tokens
                     tokens.Add(new BasicToken(")", TokenType.ParenthesisClose));
                     index++;
                 }
-                else if (index < input.Length - 2 && input[index] == '-' && input[index + 1] == '>')
+                else if (index < input.Length - CTOR_KEYWORD.Length && CTOR_KEYWORD == input.Substring(index, CTOR_KEYWORD.Length))
                 {
-                    tokens.Add(new BasicToken("->", TokenType.Ctor));
+                    tokens.Add(new BasicToken(CTOR_KEYWORD, TokenType.Ctor));
                     index += 2;
                 }
                 else if (Numerics.Contains(input[index]))

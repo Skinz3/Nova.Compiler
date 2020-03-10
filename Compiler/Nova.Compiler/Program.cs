@@ -1,6 +1,7 @@
 ﻿using Nova.ByteCode;
 using Nova.ByteCode.Generation;
 using Nova.IO;
+using Nova.Lexer;
 using Nova.Utils;
 using Nova.Utils.IO;
 using System;
@@ -20,6 +21,8 @@ namespace Nova.Compiler
     {
         static void Main(string[] args)
         {
+            StatementTreeBuilder.Build(null, "-> StatementNode()", 0);
+
             if (args.Length == 0)
             {
                 Logger.Write("You need to specify a nova file (.nv).", LogType.Warning);

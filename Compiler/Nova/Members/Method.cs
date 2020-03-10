@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.ByteCode.Enums;
 using Nova.Lexer.Accessors;
+using Nova.Lexer.Tokens;
 
 namespace Nova.Members
 {
@@ -20,7 +21,7 @@ namespace Nova.Members
     {
         public const string METHOD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\((.*?)\)";
 
-        public const string CTOR_PATTERN = @"^->\s*([a-zA-Z_$][a-zA-Z_$0-9]*)\s*\((.*?)\)";
+        public const string CTOR_PATTERN = @"^" + Tokenizer.CTOR_KEYWORD + @"\s*([a-zA-Z_$][a-zA-Z_$0-9]*)\s*\((.*?)\)";
 
         public Class ParentClass
         {
@@ -123,7 +124,7 @@ namespace Nova.Members
             {
                 result.Meta.Instructions.Add(new ReturnCode());
             }
-          
+
 
             return result;
 
