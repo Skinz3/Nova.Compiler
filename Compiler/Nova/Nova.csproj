@@ -90,12 +90,11 @@
     <Compile Include="Statements\IfStatement.cs" />
     <Compile Include="Statements\MethodCallStatement.cs" />
     <Compile Include="Statements\NativeStatement.cs" />
-    <Compile Include="Statements\StructAssignationStatement.cs" />
-    <Compile Include="Statements\StructDeclarationStatement.cs" />
     <Compile Include="Statements\OperatorStatement.cs" />
     <Compile Include="Statements\ReturnStatement.cs" />
     <Compile Include="Statements\Statement.cs" />
     <Compile Include="Statements\StatementBuilder.cs" />
+    <Compile Include="Statements\StructCallCtorStatement.cs" />
     <Compile Include="Statements\UnknownStatement.cs" />
     <Compile Include="Statements\VariableNameStatement.cs" />
     <Compile Include="Statements\WhileStatement.cs" />

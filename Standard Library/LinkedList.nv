@@ -4,7 +4,7 @@ class MyProgram
 {
 	public void Main()
 	{
-		List myList => ()
+		List myList = -> List()
 		myList.Add("Welcome")
 		myList.Add("to")
 		myList.Add("nova")
@@ -27,9 +27,9 @@ struct List
 
 	public ListElement Current
 
-	=> List()
+	-> List()
 	{
-		Head => ()
+		Head = -> ListElement()
 		Current = Head
 		Size = 0
 	}
@@ -41,7 +41,7 @@ struct List
 		}
 		else
 		{
-		    Current.Next => ()
+		    Current.Next = -> ListElement()
 		    Current.Next.Value = element
 		    Current = Current.Next
 		}

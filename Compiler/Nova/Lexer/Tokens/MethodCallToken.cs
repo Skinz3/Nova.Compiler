@@ -44,9 +44,13 @@ namespace Nova.Lexer.Tokens
             {
                 return new NativeStatement(member, Raw, lineIndex, MethodName, parametersNodes.ToArray());
             }
+            else if (Type == TokenType.Ctor)
+            {
+                return new StructCallCtorStatement(member, Raw, lineIndex, MethodName, parametersNodes.ToArray());
+            }
             else
             {
-                throw new Exception("Not handled.");
+                throw new Exception("Unhandled method call type " + Type);
             }
         }
 

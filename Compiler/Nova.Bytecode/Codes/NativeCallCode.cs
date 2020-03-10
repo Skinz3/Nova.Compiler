@@ -9,27 +9,29 @@ using System.Threading.Tasks;
 
 namespace Nova.ByteCode.Codes
 {
-    public class PrintlCode : ICode
+    public class NativeCallCode : ICode
     {
         public int OpId => 13;
 
-        public PrintlCode()
-        {
+        private int nativeId;
 
+        public NativeCallCode(int nativeId)
+        {
+            this.nativeId = nativeId;
         }
         public override string ToString()
         {
-            return "(" + OpId + ") " + "Printl";
+            return "(" + OpId + ") " + "NativeId " + nativeId;
         }
 
         public void Serialize(CppBinaryWriter writer)
         {
-
+            writer.Write(nativeId);
         }
 
         public int GetSize()
         {
-            return 0;
+            return 1;
         }
     }
 }

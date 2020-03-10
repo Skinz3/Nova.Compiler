@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "OperatorsEnum.h"
 #include "RuntimeStruct.h"
+#include "Natives.h"
 
 
 template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
@@ -69,20 +70,9 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip++;
 			break;
 		}
-		case OpCodes::Printl:
+		case OpCodes::NativeCall:
 		{
-			RuntimeContext::RuntimeElement ele = context->PopStack();
-
-			std::visit(overloaded
-				{
-						[](Null* arg) { std::cout << "null" << std::endl; },
-						[](bool arg) { std::cout << (arg ? "true" : "false") << std::endl; },
-						[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}" << std::endl; },
-						[](int arg) { std::cout << arg << std::endl; },
-						[](std::string* arg) { std::cout << *arg << std::endl; },
-
-				}, ele);
-
+			DispatchNative(context, ins[++ip]);
 			ip++;
 			break;
 		}
@@ -186,13 +176,7 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			CallMethod(context, method, ip, lOffset, ins, &locales); // <-------------------------------------
 			break;
 		}
-		case OpCodes::Readl:
-		{
-			string result;
-			std::getline(std::cin, result);
-			context->PushStack(&result);
-			break;
-		}
+
 		case OpCodes::MethodCall:
 		{
 			int classId = ins[++ip];
@@ -240,7 +224,7 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip = lastCall.returnIp;
 			ins = lastCall.previousMethod->block->instructions;
 
-		//	FreeHeap(&locales, lOffset); <-------------------------- todo
+			//	FreeHeap(&locales, lOffset); <-------------------------- todo
 
 			lOffset -= lastCall.previousMethod->block->localesCount;
 
@@ -287,7 +271,36 @@ void Exec::FreeHeap(std::vector<RuntimeContext::RuntimeElement>* locales, int& l
 			string* value = std::get<string*>(locales->at(i));
 			delete value;
 		}
-	
+
+	}
+}
+
+void Exec::DispatchNative(RuntimeContext* context, int& nativeType)
+{
+	switch (nativeType)
+	{
+	case Natives::Printl:
+	{
+		std::visit(overloaded
+			{
+					[](Null* arg) { std::cout << "null" << std::endl; },
+					[](bool arg) { std::cout << (arg ? "true" : "false") << std::endl; },
+					[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}" << std::endl; },
+					[](int arg) { std::cout << arg << std::endl; },
+					[](std::string* arg) { std::cout << *arg << std::endl; },
+
+			},
+			context->PopStack());
+
+		break;
+	}
+	case Natives::Readl:
+	{
+		string result;
+		std::getline(std::cin, result);
+		context->PushStack(&result);
+		break;
+	}
 	}
 }
 

@@ -20,7 +20,7 @@ class MyClass
 {
     public int Main()
     {
-        Human human => ("Freddy",18)
+        Human human = -> Human("Freddy",18)
         human.PrintAge()
     }
 }
@@ -29,7 +29,7 @@ struct Human
     public string Name
     public int Age
     
-    => Human(string name,int age) // Human constructor
+    -> Human(string name,int age) // Human constructor
     {
         Name = name
         Age = age

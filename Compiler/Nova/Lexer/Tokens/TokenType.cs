@@ -30,5 +30,7 @@ namespace Nova.Lexer.Tokens
 
         Native,
 
+        Ctor,
+
     }
 }

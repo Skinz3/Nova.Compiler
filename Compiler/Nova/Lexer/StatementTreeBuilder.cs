@@ -51,7 +51,7 @@ namespace Nova.Lexer
                 case TokenType.ConstantBoolean:
                 case TokenType.ConstantInt:
                     return new StatementNode(parent, pivot.GetStatement(parent, lineIndex), null, null);
-
+                case TokenType.Ctor:
                 case TokenType.Native:
                 case TokenType.MethodCall:
                     return new StatementNode(parent, pivot.GetStatement(parent, lineIndex), null, null);

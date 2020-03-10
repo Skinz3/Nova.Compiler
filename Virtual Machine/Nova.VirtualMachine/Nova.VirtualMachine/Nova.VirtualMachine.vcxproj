@@ -155,6 +155,7 @@
     <ClInclude Include="ByteMethod.h" />
     <ClInclude Include="Call.h" />
     <ClInclude Include="ContainerType.h" />
+    <ClInclude Include="Natives.h" />
     <ClInclude Include="Null.h" />
     <ClInclude Include="OperatorsEnum.h" />
     <ClInclude Include="Exec.h" />

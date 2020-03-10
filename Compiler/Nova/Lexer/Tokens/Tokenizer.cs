@@ -46,6 +46,11 @@ namespace Nova.Lexer.Tokens
                     tokens.Add(new BasicToken(")", TokenType.ParenthesisClose));
                     index++;
                 }
+                else if (index < input.Length - 2 && input[index] == '-' && input[index + 1] == '>')
+                {
+                    tokens.Add(new BasicToken("->", TokenType.Ctor));
+                    index += 2;
+                }
                 else if (Numerics.Contains(input[index]))
                 {
                     BasicToken numericToken = BasicToken.ParseNumericToken(input, ref index);
@@ -207,9 +212,13 @@ namespace Nova.Lexer.Tokens
 
                     TokenType type = TokenType.MethodCall;
 
-                    if (i - 1 >= 0  && tokens[i - 1].Type == TokenType.Native)
+                    if (i - 1 >= 0 && tokens[i - 1].Type == TokenType.Native)
                     {
                         type = TokenType.Native;
+                    }
+                    if (i - 1 >= 0 && tokens[i - 1].Type == TokenType.Ctor)
+                    {
+                        type = TokenType.Ctor;
                     }
 
                     MethodCallToken methodCall = new MethodCallToken(type, methodName + next.Raw, methodName, (ExpressionToken)next);
@@ -218,7 +227,7 @@ namespace Nova.Lexer.Tokens
                 }
                 else
                 {
-                    if (current.Type != TokenType.Native)
+                    if (current.Type != TokenType.Native && current.Type != TokenType.Ctor)
                         results.Add(current);
                     i++;
 

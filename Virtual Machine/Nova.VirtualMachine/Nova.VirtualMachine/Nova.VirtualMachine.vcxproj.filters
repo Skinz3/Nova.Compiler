@@ -125,5 +125,8 @@
     <ClInclude Include="ContainerType.h">
       <Filter>Fichiers d%27en-tête\Members</Filter>
     </ClInclude>
+    <ClInclude Include="Natives.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
