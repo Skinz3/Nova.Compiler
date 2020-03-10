@@ -28,6 +28,12 @@ namespace Nova.Lexer.Tokens
 
         public const string CTOR_KEYWORD = "->";
 
+        public const string PARENTHESIS_OPEN = "(";
+
+        public const string PARENTHESIS_CLOSE = ")";
+
+        public const string NATIVE = "~";
+
         public static Token[] GenerateTokens(string input)
         {
             List<Token> tokens = new List<Token>();
@@ -38,14 +44,14 @@ namespace Nova.Lexer.Tokens
             {
                 char chara = input[index];
 
-                if (input[index] == '(')
+                if (input[index] == PARENTHESIS_OPEN[0])
                 {
-                    tokens.Add(new BasicToken("(", TokenType.ParenthesisOpen));
+                    tokens.Add(new BasicToken(PARENTHESIS_OPEN, TokenType.ParenthesisOpen));
                     index++;
                 }
-                else if (input[index] == ')')
+                else if (input[index] == PARENTHESIS_CLOSE[0])
                 {
-                    tokens.Add(new BasicToken(")", TokenType.ParenthesisClose));
+                    tokens.Add(new BasicToken(PARENTHESIS_CLOSE, TokenType.ParenthesisClose));
                     index++;
                 }
                 else if (index < input.Length - CTOR_KEYWORD.Length && CTOR_KEYWORD == input.Substring(index, CTOR_KEYWORD.Length))
@@ -80,9 +86,9 @@ namespace Nova.Lexer.Tokens
                     index++;
                     tokens.Add(dotToken);
                 }
-                else if (input[index] == '~')
+                else if (input[index] == NATIVE[0])
                 {
-                    BasicToken nativeToken = new BasicToken("~", TokenType.Native);
+                    BasicToken nativeToken = new BasicToken(NATIVE, TokenType.Native);
                     index++;
                     tokens.Add(nativeToken);
                 }
@@ -105,8 +111,6 @@ namespace Nova.Lexer.Tokens
                             tokens.Add(new BasicToken(result, TokenType.Variable));
 
                         }
-
-
 
                         index += result.Length;
                     }
