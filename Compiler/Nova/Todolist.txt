@@ -3,10 +3,10 @@
 -- A faire ---
 
 Traiter UnaryToken (pour les constantes comme -3)
-Définir les types primitif en nova
+Définir les types primitif en nova et strong typing
 interfaces et polymorphisme
 collections
-deserializer un .nov et faire le linking coté compilateur
-... écrire la VM en c++ ... pour de vrai cette fois :3 
+projet en Nova
+
 
 
