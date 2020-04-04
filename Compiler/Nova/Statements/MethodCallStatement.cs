@@ -47,7 +47,7 @@ namespace Nova.Statements
         {
             this.MethodName = new MethodAccessor(match.Groups[1].Value);
             string parametersStr = match.Groups[2].Value;
-            this.Parameters = Parser.ParseMethodCallParameters(parent, lineIndex, parametersStr);
+            this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
         }
         public MethodCallStatement(IParentBlock parent) : base(parent)
         {
@@ -57,7 +57,7 @@ namespace Nova.Statements
         public MethodCallStatement(IParentBlock parent, string line, int lineIndex, string methodName, string parametersStr) : base(parent, line, lineIndex)
         {
             this.MethodName = new MethodAccessor(methodName);
-            this.Parameters = Parser.ParseMethodCallParameters(parent, lineIndex, parametersStr);
+            this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
         }
         public MethodCallStatement(IParentBlock parent, string line, int lineIndex, string methodName, StatementNode[] parameters) : base(parent, line, lineIndex)
         {

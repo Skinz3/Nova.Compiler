@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="IO\NovBuilder.cs" />
     <Compile Include="IO\Using.cs" />
     <Compile Include="Lexer\Accessors\IAccessible.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Statements\StructCallCtorStatement.cs" />
     <Compile Include="Statements\UnknownStatement.cs" />
     <Compile Include="Statements\VariableNameStatement.cs" />
+    <Compile Include="Statements\VectorCreationStatement.cs" />
     <Compile Include="Statements\WhileStatement.cs" />
   </ItemGroup>
   <ItemGroup>

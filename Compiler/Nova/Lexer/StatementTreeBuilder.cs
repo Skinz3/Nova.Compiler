@@ -13,6 +13,7 @@ namespace Nova.Lexer
     {
         private const string REGEX_REMOVE_WHITESPACES = "\\s+(?=((\\[\\\"]|[^\\\"])*\"(\\[\\\"]|[^\\\"])*\")*(\\[\\\"]|[^\\\"])*$)";
 
+
         public static StatementNode Build(IParentBlock parent, string input, int lineIndex)
         {
             input = Regex.Replace(input, REGEX_REMOVE_WHITESPACES, string.Empty);
@@ -23,6 +24,28 @@ namespace Nova.Lexer
         }
         public static StatementNode Build(IParentBlock parent, Token[] tokens, int lineIndex)
         {
+            MergeTokens(ref tokens);
+            return MakeComponentTree(parent, lineIndex, tokens, 0, tokens.Length);
+        }
+        public static StatementNode[] BuildNodeCollection(IParentBlock parent, string input, int lineIndex, TokenType splitter)
+        {
+            List<StatementNode> results = new List<StatementNode>();
+
+            Token[] tokens = Tokenizer.GenerateTokens(input);
+            MergeTokens(ref tokens);
+
+            IEnumerable<IEnumerable<Token>> splitted = tokens.Split(x => x.Type == splitter);
+
+            foreach (var elements in splitted)
+            {
+                StatementNode node = Build(parent, elements.ToArray(), lineIndex);
+                results.Add(node);
+            }
+            return results.ToArray();
+        }
+
+        private static void MergeTokens(ref Token[] tokens)
+        {
             tokens = Tokenizer.MergeBrackets(tokens);
 
             tokens = Tokenizer.MergeFunctions(tokens);
@@ -30,8 +53,6 @@ namespace Nova.Lexer
             tokens = Tokenizer.MergeVariableName(tokens);
 
             tokens = Tokenizer.MergeConstants(tokens);
-
-            return MakeComponentTree(parent, lineIndex, tokens, 0, tokens.Length);
         }
         public static StatementNode MakeComponentTree(IParentBlock parent, int lineIndex, Token[] components, int start, int count)
         {

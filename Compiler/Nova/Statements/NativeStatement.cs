@@ -10,6 +10,7 @@ using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Lexer;
+using Nova.Lexer.Tokens;
 using Nova.Members;
 using Nova.Semantics;
 using Nova.Utils;
@@ -39,7 +40,7 @@ namespace Nova.Statements
         {
             this.NativeName = match.Groups[1].Value;
             string parametersStr = match.Groups[2].Value;
-            this.Parameters = Parser.ParseMethodCallParameters(parent, lineIndex, parametersStr);
+            this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
         }
         public NativeStatement(IParentBlock parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
         {

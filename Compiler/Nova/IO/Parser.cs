@@ -112,22 +112,6 @@ namespace Nova.IO
             }
             return statements;
         }
-        public static StatementNode[] ParseMethodCallParameters(IParentBlock parent, int lineIndex, string parametersStr)
-        {
-            List<StatementNode> results = new List<StatementNode>();
-
-            if (string.IsNullOrWhiteSpace(parametersStr))
-            {
-                return results.ToArray();
-            }
-            else
-            {
-                foreach (var value in parametersStr.Split(','))
-                {
-                    results.Add(StatementTreeBuilder.Build(parent, value.Trim(), lineIndex));
-                }
-                return results.ToArray();
-            }
-        }
+         
     }
 }
