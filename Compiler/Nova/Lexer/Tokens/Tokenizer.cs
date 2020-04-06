@@ -34,6 +34,10 @@ namespace Nova.Lexer.Tokens
 
         public const string NATIVE = "~";
 
+        public const string VECTOR_OPEN = "[";
+
+        public const string VECTOR_CLOSE = "]";
+
         public static Token[] GenerateTokens(string input)
         {
             List<Token> tokens = new List<Token>();
@@ -92,6 +96,11 @@ namespace Nova.Lexer.Tokens
                     index++;
                     tokens.Add(nativeToken);
                 }
+                else if (input[index] == VECTOR_OPEN[0])
+                {
+                    VectorCreateToken vectorToken = VectorCreateToken.Parse(input, ref index);
+                    tokens.Add(vectorToken);
+                }
                 else if (char.IsLetter(input[index]))
                 {
                     string sub = input.Substring(index, input.Length - index);
@@ -130,7 +139,6 @@ namespace Nova.Lexer.Tokens
             {
                 return tokens;
             }
-
             List<Token> results = new List<Token>();
 
             int i = 0;
@@ -141,13 +149,13 @@ namespace Nova.Lexer.Tokens
 
                 Token next = tokens[i + 1];
 
-                if (current.Type == TokenType.Variable && next.Type == TokenType.Dot)
+                if ((current.Type == TokenType.Variable || current.Type == TokenType.MethodCall) && next.Type == TokenType.Dot)
                 {
                     string variableName = string.Empty;
 
                     while (i < tokens.Length)
                     {
-                        if (current.Type == TokenType.Variable || current.Type == TokenType.Dot)
+                        if (current.Type == TokenType.Variable || current.Type == TokenType.MethodCall || current.Type == TokenType.Dot)
                         {
                             variableName += current.Raw;
                             i++;

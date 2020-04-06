@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "OperatorsEnum.h"
 #include "RuntimeStruct.h"
+#include "RuntimeVector.h"
 #include "Natives.h"
 
 
@@ -207,6 +208,25 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip++;
 			break;
 		}
+		case OpCodes::VectCreate:
+		{
+			int size = ins[++ip];
+
+			RuntimeVector* vector = new RuntimeVector();
+
+			for (int i = size - 1; i >= 0; i--)
+			{
+				RuntimeContext::RuntimeElement element = context->StackMinus(i);
+				vector->Add(element);
+			}
+
+			context->ResizeStack(context->GetStackSize() - size);
+
+			context->PushStack(vector);
+
+			ip++;
+			break;
+		}
 		case OpCodes::Return:
 		{
 			if (context->callStack.size() == 1) // main method call is on heap.
@@ -279,6 +299,7 @@ void Exec::DispatchNative(RuntimeContext* context, int& nativeType)
 {
 	switch (nativeType)
 	{
+
 	case Natives::Printl:
 	{
 		std::visit(overloaded
@@ -299,6 +320,31 @@ void Exec::DispatchNative(RuntimeContext* context, int& nativeType)
 		string result;
 		std::getline(std::cin, result);
 		context->PushStack(&result);
+		break;
+	}
+	case Natives::GetVectSize:
+	{
+		RuntimeVector* vect = std::get<RuntimeVector*>(context->PopStack());
+		context->PushStack(vect->Size());
+		break;
+	}
+	case Natives::VectAdd:
+	{
+		RuntimeContext::RuntimeElement element = context->PopStack();
+		RuntimeVector* vect = std::get<RuntimeVector*>(context->PopStack());
+		vect->Add(element);
+		break;
+	}
+	case Natives::VectAt:
+	{
+		int index = std::get<int>(context->PopStack());
+		RuntimeVector* vect = std::get<RuntimeVector*>(context->PopStack());
+		context->PushStack(vect->At(index));
+		break;
+	}
+	default:
+	{
+		Logger::Error("Unhandled native: " + std::to_string(nativeType));
 		break;
 	}
 	}

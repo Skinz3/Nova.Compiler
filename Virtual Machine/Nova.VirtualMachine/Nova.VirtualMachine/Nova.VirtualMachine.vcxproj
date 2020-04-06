@@ -144,6 +144,7 @@
     <ClCompile Include="MethodCall.cpp" />
     <ClCompile Include="NovFile.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="RuntimeVector.cpp" />
     <ClCompile Include="RuntimeContext.cpp" />
     <ClCompile Include="RuntimeStruct.cpp" />
   </ItemGroup>
@@ -164,6 +165,7 @@
     <ClInclude Include="Modifiers.h" />
     <ClInclude Include="NovFile.h" />
     <ClInclude Include="OpCodes.h" />
+    <ClInclude Include="RuntimeVector.h" />
     <ClInclude Include="RuntimeContext.h" />
     <ClInclude Include="RuntimeStruct.h" />
   </ItemGroup>

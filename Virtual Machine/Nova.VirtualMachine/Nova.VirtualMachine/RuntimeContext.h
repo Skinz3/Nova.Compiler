@@ -6,6 +6,8 @@
 #include "Null.h"
 #include "Call.h"
 
+class RuntimeVector;
+
 class RuntimeStruct;
 
 class NovFile;
@@ -15,7 +17,7 @@ class RuntimeContext
 public:
 	static Null* NULL_VALUE;
 
-	using RuntimeElement = std::variant<int, RuntimeStruct*, std::string*, bool, Null*>;
+	using RuntimeElement = std::variant<int, RuntimeStruct*, std::string*, bool, Null*, RuntimeVector*>;
 
 	NovFile* novFile;
 
@@ -30,7 +32,9 @@ public:
 	/* Stack management */
 	void PushStack(RuntimeContext::RuntimeElement element);
 	RuntimeContext::RuntimeElement PopStack();
+	RuntimeContext::RuntimeElement PeekStack();
 	RuntimeContext::RuntimeElement StackMinus(int minus);
+	void ResizeStack(int newSize);
 	size_t GetStackSize();
 
 	/* Runtime Structs */
@@ -43,9 +47,6 @@ public:
 	std::vector<Call> callStack;
 	std::vector<RuntimeStruct*> structsStack;
 private:
-	/* Stacks */
 	std::vector<RuntimeElement> stack;
-
-
 };
 

@@ -53,6 +53,7 @@
     <Compile Include="Codes\AddCode.cs" />
     <Compile Include="Codes\CtorCallCode.cs" />
     <Compile Include="Codes\DivCode.cs" />
+    <Compile Include="Codes\DuplicateCode.cs" />
     <Compile Include="Codes\MulCode.cs" />
     <Compile Include="Codes\SubCode.cs" />
     <Compile Include="Codes\PushNullCode.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Codes\MethodCallCode.cs" />
     <Compile Include="Codes\StructPushCurrent.cs" />
     <Compile Include="Codes\StoreGlobalCode.cs" />
+    <Compile Include="Codes\VectCreateCode.cs" />
     <Compile Include="Enums\ContainerType.cs" />
     <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Enums\NativesEnum.cs" />

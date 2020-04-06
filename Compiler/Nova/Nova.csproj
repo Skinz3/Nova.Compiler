@@ -61,6 +61,7 @@
     <Compile Include="Lexer\Accessors\Accessor.cs" />
     <Compile Include="IO\ClassesContainer.cs" />
     <Compile Include="IO\IByteData.cs" />
+    <Compile Include="Lexer\Tokens\VectorCreateToken.cs" />
     <Compile Include="Members\Interface.cs" />
     <Compile Include="Lexer\StatementNode.cs" />
     <Compile Include="Lexer\StatementTreeBuilder.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Statements\ConstStringStatement.cs" />
     <Compile Include="Statements\DeclarationStatement.cs" />
     <Compile Include="Statements\EmptyStatement.cs" />
+    <Compile Include="Statements\ForStatement.cs" />
     <Compile Include="Statements\IfStatement.cs" />
     <Compile Include="Statements\MethodCallStatement.cs" />
     <Compile Include="Statements\NativeStatement.cs" />

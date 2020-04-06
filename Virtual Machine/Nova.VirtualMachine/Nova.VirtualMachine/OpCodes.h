@@ -24,5 +24,6 @@ enum OpCodes
 	StructLoadMember = 24,
 	StructPushCurrent = 25,
 	StructStoreMember = 26,
-	Sub = 27
+	Sub = 27,
+	VectCreate = 28,
 };

@@ -25,6 +25,8 @@ namespace Nova
 
         public const string COMMENT_SINGLE = "//";
 
+        public const string STD_VECTOR_CLASSNAME = "Vector";
+
         public static Assembly ASSEMBLY = Assembly.GetExecutingAssembly();
     }
 }

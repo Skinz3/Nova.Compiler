@@ -11,5 +11,8 @@ namespace Nova.Bytecode.Enums
         Unknown = 0,
         Printl = 1,
         Readl = 2,
+        GetVectSize = 3,
+        AddVect = 4,
+        AtVect = 5,
     }
 }

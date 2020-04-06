@@ -85,7 +85,7 @@ namespace Nova.Statements
                     else
                     {
                         context.Instructions.Add(new LoadCode(variableId));
-                        offset = 2;
+                        offset = 1;
 
                     }
                     break;
@@ -140,7 +140,10 @@ namespace Nova.Statements
         }
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            Target.Validate(validator, this.Parent.ParentClass, LineIndex);
+            if (!Target.Validate(validator, this.Parent.ParentClass, LineIndex))
+            {
+                return;
+            }
             Value.ValidateSemantics(validator);
         }
     }

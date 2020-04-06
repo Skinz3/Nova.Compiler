@@ -21,6 +21,7 @@ namespace Nova.Lexer.Tokens
         Expr,
 
         Variable,
+        VariableAccessor,
 
         MethodCall,
 
@@ -31,6 +32,8 @@ namespace Nova.Lexer.Tokens
         Native,
 
         Ctor,
+
+        VectorCreate,
 
     }
 }

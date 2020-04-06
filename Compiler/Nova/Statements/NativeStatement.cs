@@ -65,7 +65,7 @@ namespace Nova.Statements
 
             if (!Enum.TryParse(NativeName, out result) || result == NativesEnum.Unknown)
             {
-                validator.AddError("Unknown native function :" + NativeName, LineIndex);
+                validator.AddError("Unknown native function : " + NativeName, LineIndex);
             }
 
             NativeEnum = result;

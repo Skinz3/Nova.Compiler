@@ -72,6 +72,9 @@
     <ClCompile Include="MethodCall.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="RuntimeVector.cpp">
+      <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryReader.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Natives.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeVector.h">
+      <Filter>Fichiers d%27en-tête\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

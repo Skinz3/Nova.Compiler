@@ -3,6 +3,7 @@
 #include "Exec.h"
 #include "RuntimeStruct.h"
 #include "Call.h"
+#include "RuntimeVector.h"
 
 Null* RuntimeContext::NULL_VALUE = new Null(); /* Should we create a class to store this kinda types? FALSE , TRUE ? */
 
@@ -43,9 +44,21 @@ RuntimeContext::RuntimeElement RuntimeContext::PopStack()
 	return value;
 }
 
+RuntimeContext::RuntimeElement RuntimeContext::PeekStack()
+{
+	size_t stackSize = stack.size();
+	RuntimeContext::RuntimeElement value = stack.at(stackSize - 1);
+	return value;
+}
+
 RuntimeContext::RuntimeElement RuntimeContext::StackMinus(int minus)
 {
 	return this->stack[this->stack.size() - 1 - minus];
+}
+
+void RuntimeContext::ResizeStack(int newSize)
+{
+	this->stack.resize(newSize);
 }
 
 size_t RuntimeContext::GetStackSize()

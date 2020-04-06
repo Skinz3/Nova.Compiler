@@ -13,7 +13,6 @@ namespace Nova.Lexer
     {
         private const string REGEX_REMOVE_WHITESPACES = "\\s+(?=((\\[\\\"]|[^\\\"])*\"(\\[\\\"]|[^\\\"])*\")*(\\[\\\"]|[^\\\"])*$)";
 
-
         public static StatementNode Build(IParentBlock parent, string input, int lineIndex)
         {
             input = Regex.Replace(input, REGEX_REMOVE_WHITESPACES, string.Empty);
@@ -74,6 +73,7 @@ namespace Nova.Lexer
                     return new StatementNode(parent, pivot.GetStatement(parent, lineIndex), null, null);
                 case TokenType.Ctor:
                 case TokenType.Native:
+                case TokenType.VectorCreate:
                 case TokenType.MethodCall:
                     return new StatementNode(parent, pivot.GetStatement(parent, lineIndex), null, null);
                 case TokenType.Variable:

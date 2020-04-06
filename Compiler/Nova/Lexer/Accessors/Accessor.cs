@@ -71,36 +71,6 @@ namespace Nova.Lexer.Accessors
         }
         public abstract bool Validate(SemanticsValidator validator, Class parentClass, int lineIndex);
 
-        protected SymbolType DeduceSymbolCategory(SemanticsValidator context, Class parentClass)
-        {
-            if (context.IsLocalDeclared(this.GetRoot()))
-            {
-                return SymbolType.Local;
-            }
-            else if (parentClass.Fields.ContainsKey(this.GetRoot()))
-            {
-                switch (parentClass.Type)
-                {
-                    case ContainerType.@class:
-                        return SymbolType.ClassMember;
-                    case ContainerType.@struct:
-                        return SymbolType.StructMember;
-                }
-
-            }
-            else
-            {
-                if (this.ElementsStr.Length == 1)
-                {
-                    return SymbolType.NoSymbol;
-                }
-                else
-                {
-                    return SymbolType.StaticExternal;
-                }
-            }
-
-            throw new Exception("Unknown symbol type.");
-        }
+        protected abstract SymbolType DeduceSymbolCategory(SemanticsValidator context, Class parentClass);
     }
 }
