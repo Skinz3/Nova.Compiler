@@ -26,12 +26,12 @@ namespace Nova.Lexer.Tokens
             get;
             set;
         }
-        public ExpressionToken(Token[] tokens) : base(string.Empty)
+        public ExpressionToken(Token[] tokens) : base("(" + string.Join(",", tokens.Select(x => x.Raw).ToArray()) + ")")
         {
             this.Tokens = tokens;
         }
 
-        public override Statement GetStatement(IParentBlock member,int lineIndex)
+        public override Statement GetStatement(IParentBlock member, int lineIndex)
         {
             throw new NotImplementedException();
         }

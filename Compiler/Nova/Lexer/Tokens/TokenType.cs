@@ -21,7 +21,6 @@ namespace Nova.Lexer.Tokens
         Expr,
 
         Variable,
-        VariableAccessor,
 
         MethodCall,
 
