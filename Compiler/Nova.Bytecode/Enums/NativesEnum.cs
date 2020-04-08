@@ -9,10 +9,11 @@ namespace Nova.Bytecode.Enums
     public enum NativesEnum
     {
         Unknown = 0,
-        Printl = 1,
+        Print = 1,
         Readl = 2,
         GetVectSize = 3,
         AddVect = 4,
         AtVect = 5,
+        SetVect = 6,
     }
 }

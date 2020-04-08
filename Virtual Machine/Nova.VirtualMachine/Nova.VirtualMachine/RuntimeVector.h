@@ -9,6 +9,7 @@ private:
 
 public:
 	void Add(RuntimeContext::RuntimeElement element);
+	void Set(int index, RuntimeContext::RuntimeElement element);
 	RuntimeContext::RuntimeElement At(int index);
 	int Size();
 };

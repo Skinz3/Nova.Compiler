@@ -145,14 +145,17 @@ namespace Nova.Statements
                 statement.ValidateSemantics(validator);
             }
 
-            if (!ElseCondition.IsNull())
+            if (ElseCondition != null)
             {
-                ElseCondition.ValidateSemantics(validator);
-            }
+                if (!ElseCondition.IsNull())
+                {
+                    ElseCondition.ValidateSemantics(validator);
+                }
 
-            foreach (var st in ElseStatements)
-            {
-                st.ValidateSemantics(validator);
+                foreach (var st in ElseStatements)
+                {
+                    st.ValidateSemantics(validator);
+                }
             }
         }
     }

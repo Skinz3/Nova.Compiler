@@ -52,6 +52,14 @@ void Exec::Execute(RuntimeContext* context, ByteBlock* block)
 			ip++;
 			break;
 		}
+		case OpCodes::Div:
+		{
+			int val1 = std::get<int>(context->PopStack());
+			int val2 = std::get<int>(context->PopStack());
+			context->PushStack(val2 / val1);
+			ip++;
+			break;
+		}
 		case OpCodes::Mul:
 			context->PushStack(std::get<int>(context->PopStack()) * std::get<int>(context->PopStack()));
 			ip++;
@@ -300,15 +308,15 @@ void Exec::DispatchNative(RuntimeContext* context, int& nativeType)
 	switch (nativeType)
 	{
 
-	case Natives::Printl:
+	case Natives::Print:
 	{
 		std::visit(overloaded
 			{
-					[](Null* arg) { std::cout << "null" << std::endl; },
-					[](bool arg) { std::cout << (arg ? "true" : "false") << std::endl; },
-					[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}" << std::endl; },
-					[](int arg) { std::cout << arg << std::endl; },
-					[](std::string* arg) { std::cout << *arg << std::endl; },
+					[](Null* arg) { std::cout << "null"; },
+					[](bool arg) { std::cout << (arg ? "true" : "false"); },
+					[](RuntimeStruct* arg) { std::cout << "{" << arg->typeClass->name << "}"; },
+					[](int arg) { std::cout << arg; },
+					[](std::string* arg) { std::cout << *arg; },
 
 			},
 			context->PopStack());
@@ -321,6 +329,16 @@ void Exec::DispatchNative(RuntimeContext* context, int& nativeType)
 		std::getline(std::cin, result);
 		context->PushStack(&result);
 		break;
+	}
+	case Natives::VectSet:
+	{
+		int index = std::get<int>(context->PopStack());
+		RuntimeContext::RuntimeElement element = context->PopStack();
+		RuntimeVector* vect = std::get<RuntimeVector*>(context->PopStack());
+
+		vect->Set(index, element);
+		break;
+
 	}
 	case Natives::GetVectSize:
 	{

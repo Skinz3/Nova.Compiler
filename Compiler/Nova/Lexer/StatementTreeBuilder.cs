@@ -28,6 +28,8 @@ namespace Nova.Lexer
         }
         public static StatementNode[] BuildNodeCollection(IParentBlock parent, string input, int lineIndex, TokenType splitter)
         {
+            input = Regex.Replace(input, REGEX_REMOVE_WHITESPACES, string.Empty);
+
             List<StatementNode> results = new List<StatementNode>();
 
             Token[] tokens = Tokenizer.GenerateTokens(input);

@@ -78,6 +78,11 @@ namespace Nova.Statements
             if (match.Success)
                 return new NativeStatement(parent, line, lineIndex, match);
 
+            match = Regex.Match(line, ForStatement.REGEX);
+
+            if (match.Success)
+                return new ForStatement(parent, line, lineIndex, match);
+
             throw new Exception("Unknown Statement"); // SyntaxicValidator.AddError()
 
             //    return new UnknownStatement(parent, line, lineIndex);

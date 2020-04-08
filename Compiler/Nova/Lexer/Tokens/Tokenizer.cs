@@ -149,13 +149,13 @@ namespace Nova.Lexer.Tokens
 
                 Token next = tokens[i + 1];
 
-                if ((current.Type == TokenType.Variable || current.Type == TokenType.MethodCall) && next.Type == TokenType.Dot)
+                if (current.Type == TokenType.Variable && next.Type == TokenType.Dot)
                 {
                     string variableName = string.Empty;
 
                     while (i < tokens.Length)
                     {
-                        if (current.Type == TokenType.Variable || current.Type == TokenType.MethodCall || current.Type == TokenType.Dot)
+                        if (current.Type == TokenType.Variable || current.Type == TokenType.Dot)
                         {
                             variableName += current.Raw;
                             i++;

@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
 
 	Exec::Run(file);
 
-	std::cout << "Code executed in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
+
+	std::cout << std::endl << "Code executed in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
 
 	// file.Dispose(); <-- get an error here. fix it
 
