@@ -13,7 +13,7 @@
   ###### Example:
 
   ```
-using <nova> // this is a nova library
+using <nova> // Nova std library
 
 // This code is written in Nova !
 class MyClass
@@ -22,6 +22,12 @@ class MyClass
     {
         Human human = -> Human("Freddy",18)
         human.PrintAge()
+
+        Vector myVect = [7]
+
+        myVect.Add(5)
+
+        myVect.Print() // Print 7,5
     }
 }
 struct Human
