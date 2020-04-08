@@ -88,6 +88,8 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
+            validator.BlockStart();
+
             DeclarationStatement.ValidateSemantics(validator);
             BeginNode.ValidateSemantics(validator);
             AssignationStatement.ValidateSemantics(validator);
@@ -96,6 +98,8 @@ namespace Nova.Statements
             {
                 statement.ValidateSemantics(validator);
             }
+
+            validator.BlockEnd();
         }
         public override int GetLineSkip()
         {
