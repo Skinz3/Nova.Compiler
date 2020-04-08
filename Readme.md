@@ -23,11 +23,10 @@ class MyClass
         Human human = -> Human("Freddy",18)
         human.PrintAge()
 
-        Vector myVect = [7]
-
+        Vector myVect = [7,8,9,10]
         myVect.Add(5)
 
-        myVect.Print() // Print 7,5
+        myVect.Print() // Print '7,8,9,10,5'
     }
 }
 struct Human
