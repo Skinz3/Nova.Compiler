@@ -1,0 +1,35 @@
+using <nova>
+
+class ExampleClass
+{
+  // This code is written in Nova !
+  public int Main()
+  {
+      Human human = -> Human("Freddy",18)
+
+      human.Print()
+  
+  }
+}
+struct Human
+{
+  public string Name
+
+  public int Age
+  
+  -> Human(string name,int age)
+  {
+      Name = name
+      Age = age
+  }
+
+  public void Print()
+  {
+      Nova.Print("Age: ")
+	  Nova.Print(Age)
+	  Nova.Print(", ")
+	  Nova.Print("Nom: ")
+	  Nova.Print(Name)
+  }
+}
+

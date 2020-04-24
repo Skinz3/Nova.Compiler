@@ -130,7 +130,7 @@ namespace Nova.IO
                 this.Lines = File.ReadAllLines(this.Filepath, Encoding.UTF8);
                 return true;
             }
-            catch
+            catch 
             {
                 return false;
             }
