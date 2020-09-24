@@ -70,17 +70,17 @@ struct Human
 
 | OpCode | Result |
 | :--- | :--- | 
-| `add` | `Add two numbers on top of the stack` | 
-| `comp` | `compare two éléments on top of the stack (passing operator as arg)` |
-| `ctorCall` | `Call the constructor of the struct on top of the stack` | 
-| `div` | `Divide two numbers on top of the stack` | 
-| `dup` | `Duplicate element on top of the stack, and put it on tos` | 
-| `jump` | `Define instruction pointer value ` | 
-| `jumpIfFalse` | `Define instruction pointer if condition is false on tos ` | 
-| `load` | `Load member on top of the stack` | 
-| `loadGlobal` | `Load static element on top of the stack` | 
-| `call` | `Call a method / function ` | 
-| `mul` | `Multiply two numbers on top of the stack` | 
+| `add` | Add two numbers on top of the stack | 
+| `comp` | compare two éléments on top of the stack (passing operator as arg)|
+| `ctorCall` | Call the constructor of the struct on top of the stack | 
+| `div` | Divide two numbers on top of the stack | 
+| `dup` | Duplicate element on top of the stack, and put it on tos| 
+| `jump` | Define instruction pointer value  | 
+| `jumpIfFalse` | Define instruction pointer if condition is false on tos  | 
+| `load` | Load member on top of the stack| 
+| `loadGlobal` | Load static element on top of the stack | 
+| `call` | Call a method / function  | 
+| `mul` | Multiply two numbers on top of the stack | 
 
 ## Thanks
 
