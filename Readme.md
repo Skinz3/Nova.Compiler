@@ -77,7 +77,7 @@ struct Human
 | `dup` | Duplicate element on top of the stack, and put it on tos| 
 | `jump` | Define instruction pointer value  | 
 | `jumpIfFalse` | Define instruction pointer if condition is false on tos  | 
-| `load` | Load member on top of the stack| 
+| `load` | Load local value | 
 | `loadGlobal` | Load static element on top of the stack | 
 | `call` | Call a method / function  | 
 | `mul` | Multiply two numbers on top of the stack | 
@@ -87,7 +87,16 @@ struct Human
 | `pushNull` | Push a Null value (nova semantics) on the top of the stack  |
 | `return` | Set instruction ptr = instructions.length  |
 | `store` | Store a local value  |
+| `storeGlobal` | Store a static value  | 
+| `structCallMethod` | Call a struct method  |
+| `structCreate` | Create a new Struct<T> an put it on tos (typeId as parameter)  |
+| `structLoadMember' | Load a structure member and put it on tos |
+| `structPushCurrent` | Push current executing structure on top of the stack |
+| `structStoreMember` | Store tos as a structure member value  |
+| `sub` | Substract two numbers |
+| `vectCreate` | Create a Vector<T> and put it on tos  |
 
+ 
 ## Thanks
 
   > Thanks to Uriopass (https://github.com/Uriopass) for his precious help
