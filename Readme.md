@@ -70,8 +70,8 @@ struct Human
 
 | OpCode | Result |
 | :--- | :--- | :--- |
-| `toogle` | `void` | Toogle shop open/close.  |
-| `buyItem` | `void` |`(int indice)` Buy an item in shop |
+| `toogle` | `void` | 
+| `buyItem` | `void` |
 
 ## Thanks
 
