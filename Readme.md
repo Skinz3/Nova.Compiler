@@ -81,6 +81,12 @@ struct Human
 | `loadGlobal` | Load static element on top of the stack | 
 | `call` | Call a method / function  | 
 | `mul` | Multiply two numbers on top of the stack | 
+| `nat` | Call a native method `(Network, IO, kernel, all system calls in general)` | 
+| `pushConst` | Push constant value on top of the stack |
+| `pushInt` | Push integer on top of the stack (unused) |
+| `pushNull` | Push a Null value (nova semantics) on the top of the stack  |
+| `return` | Set instruction ptr = instructions.length  |
+| `store` | Store a local value  |
 
 ## Thanks
 
