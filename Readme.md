@@ -69,7 +69,7 @@ struct Human
 ## Nova Bytecode
 
 | OpCode | Result |
-| :--- | :--- | :--- |
+| :--- | :--- | 
 | `toogle` | `void` | 
 | `buyItem` | `void` |
 
