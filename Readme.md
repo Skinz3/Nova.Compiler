@@ -59,11 +59,19 @@ struct Human
 
 ![NOV Files](https://puu.sh/F2jDk/390c696ae5.png)
 
+
 ###### How to run
   + git clone https://github.com/Skinz3/Nova.git
   + Build Nova.Compiler & Nova.VM
   + ``` ./Nova.Compiler mySourceFile.nv output.nov ```  ---> myScript.nv must have a main point entry. 
   + ``` ./Nova.VM output.nov ``` ----> execute the program
+
+## Nova Bytecode
+
+| OpCode | Result |
+| :--- | :--- | :--- |
+| `toogle` | `void` | Toogle shop open/close.  |
+| `buyItem` | `void` |`(int indice)` Buy an item in shop |
 
 ## Thanks
 
