@@ -90,7 +90,7 @@ struct Human
 | `storeGlobal` | Store a static value  | 
 | `structCallMethod` | Call a struct method  |
 | `structCreate` | Create a new Struct<T> an put it on tos (typeId as parameter)  |
-| `structLoadMember' | Load a structure member and put it on tos |
+| `structLoadMember` | Load a structure member and put it on tos |
 | `structPushCurrent` | Push current executing structure on top of the stack |
 | `structStoreMember` | Store tos as a structure member value  |
 | `sub` | Substract two numbers |
