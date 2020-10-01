@@ -10,13 +10,14 @@ class BinaryReader
 {
 private:
 	ifstream stream;
-
 public:
 	BinaryReader(string filePath);
 
 	string ReadString();
 
 	void Close();
+
+	bool IsValid();
 
 	template<typename T>
 	T Read()

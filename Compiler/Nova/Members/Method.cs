@@ -132,7 +132,7 @@ namespace Nova.Members
 
         public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
         {
-            SemanticsValidator validator = new SemanticsValidator(container);
+            SemanticsValidator validator = new SemanticsValidator(ParentClass, container);
 
             foreach (var param in Parameters)
             {

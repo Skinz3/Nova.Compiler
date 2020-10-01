@@ -1,6 +1,6 @@
 ﻿using Nova.IO;
 using Nova.Lexer;
- 
+
 using Nova.Members;
 using System;
 using System.Collections.Generic;
@@ -32,8 +32,14 @@ namespace Nova.Semantics
             get;
             private set;
         }
-        public SemanticsValidator(ClassesContainer container)
+        private Class CurrentClass
         {
+            get;
+            set;
+        }
+        public SemanticsValidator(Class currentClass, ClassesContainer container)
+        {
+            this.CurrentClass = currentClass;
             this.Deepness = 0;
             this.DeclaredVariables = new Dictionary<int, Dictionary<string, string>>();
             this.DeclaredVariables.Add(0, new Dictionary<string, string>());
@@ -72,7 +78,7 @@ namespace Nova.Semantics
         }
         public void AddError(string message, int lineIndex)
         {
-            this.Errors.Add(new SemanticalError(message, lineIndex));
+            this.Errors.Add(new SemanticalError(CurrentClass.File.Filepath, message, lineIndex));
         }
         public IEnumerable<SemanticalError> GetErrors()
         {

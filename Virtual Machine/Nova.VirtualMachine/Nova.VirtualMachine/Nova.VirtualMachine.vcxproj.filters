@@ -60,9 +60,6 @@
     <ClCompile Include="Exec.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="NovFile.cpp">
-      <Filter>Fichiers sources\Members</Filter>
-    </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Fichiers sources\IO</Filter>
     </ClCompile>
@@ -74,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="RuntimeVector.cpp">
       <Filter>Fichiers sources\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="NovFile.cpp">
+      <Filter>Fichiers sources\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

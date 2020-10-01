@@ -1,3 +1,0 @@
-install: make get-deps
-compiler: gcc
-language: c++

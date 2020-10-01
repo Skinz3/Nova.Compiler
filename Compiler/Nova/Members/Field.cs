@@ -105,7 +105,7 @@ namespace Nova.Members
 
         public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
         {
-            SemanticsValidator validator = new SemanticsValidator(container);
+            SemanticsValidator validator = new SemanticsValidator(ParentClass, container);
             Value.ValidateSemantics(validator);
             return validator.GetErrors();
         }

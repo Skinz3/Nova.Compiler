@@ -14,6 +14,8 @@ int main(int argc, char* argv[])
 	}
 	std::string fileName = argv[1];
 
+	Logger::Log(fileName);
+
 	NovFile file(fileName);
 
 	if (!file.Deserialize())
@@ -26,7 +28,6 @@ int main(int argc, char* argv[])
 	const clock_t begin_time = clock();
 
 	Exec::Run(file);
-
 
 	std::cout << std::endl << "Code executed in: " << (float(clock() - begin_time) / CLOCKS_PER_SEC) * 1000 << "ms" << std::endl;
 

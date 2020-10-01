@@ -1,35 +1,30 @@
 using <nova>
 
-class ExampleClass
+class MyProgram
 {
-  // This code is written in Nova !
-  public int Main()
-  {
-      Human human = -> Human("Freddy",18)
+    public void Main()
+    {
 
-      human.Print()
-  
-  }
-}
-struct Human
+
+		Humain h = ->Humain("test")
+
+		Nova.Print(h.Nom)
+
+		h.Nom = "weirdo"
+
+		Nova.Print(h.Nom)
+    }
+
+
+}	
+
+struct Humain
 {
-  public string Name
+    public string Nom // attribut numero 0
 
-  public int Age
-  
-  -> Human(string name,int age)
-  {
-      Name = name
-      Age = age
-  }
+	-> Humain(string nom)
+	{
+		Nom = nom
+	}
 
-  public void Print()
-  {
-      Nova.Print("Age: ")
-	  Nova.Print(Age)
-	  Nova.Print(", ")
-	  Nova.Print("Nom: ")
-	  Nova.Print(Name)
-  }
 }
-

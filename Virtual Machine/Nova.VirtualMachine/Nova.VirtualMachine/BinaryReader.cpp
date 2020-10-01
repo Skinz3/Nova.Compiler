@@ -5,7 +5,10 @@ BinaryReader::BinaryReader(string filePath)
 {
 	stream.open(filePath.c_str(), ios::binary);
 }
-
+bool BinaryReader::IsValid()
+{
+	return stream.good();
+}
 string BinaryReader::ReadString()
 {
 	char c;

@@ -13,6 +13,11 @@ bool NovFile::Deserialize()
 {
 	BinaryReader reader(this->fileName);
 
+	if (!reader.IsValid())
+	{
+		Logger::Error(this->fileName+" do not exists.");
+		return false;
+	}
 	if (reader.ReadString() != HEADER)
 	{
 		Logger::Error("Corrupted .nov file: Wrong header.");
