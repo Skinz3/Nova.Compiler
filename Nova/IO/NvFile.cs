@@ -51,8 +51,9 @@ namespace Nova.IO
             var parser = new NovaParser(commonTokenStream);
             NovaParser.CompilationUnitContext ectx = parser.compilationUnit();
 
-            ClassListener extractor = new ClassListener(this);
-            ParseTreeWalker.Default.Walk(extractor, ectx);
+            ClassListener classListener = new ClassListener(this);
+
+            ParseTreeWalker.Default.Walk(classListener, ectx);
 
             Console.WriteLine(ectx.ToStringTree(parser));
 

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
 using Nova.ByteCode.Enums;
 using Nova.Members;
 using Nova.Semantics;
 
-namespace Nova.Lexer.Accessors
+namespace Nova.Parser.Accessors
 {
     public class VariableAccessor : Accessor
     {
@@ -49,17 +50,17 @@ namespace Nova.Lexer.Accessors
             throw new Exception("Unknown symbol type.");
         }
 
-        public override bool Validate(SemanticsValidator validator, Class parentClass, int lineIndex)
+        public override bool Validate(SemanticsValidator validator, Class parentClass, ParserRuleContext context)
         {
             this.Category = DeduceSymbolCategory(validator, parentClass);
-           
+
             string currentType = null;
             int loadStart = 0;
 
             switch (Category)
             {
                 case SymbolType.NoSymbol:
-                    validator.AddError("Undefined reference to locale \"" + this.Raw + "\"", lineIndex);
+                    validator.AddError("Undefined reference to locale \"" + this.Raw + "\"", context);
                     return false;
                 case SymbolType.Local:
 
@@ -67,7 +68,7 @@ namespace Nova.Lexer.Accessors
 
                     if (variable == null)
                     {
-                        validator.AddError("Undefined reference to locale \"" + this.Raw + "\"", lineIndex);
+                        validator.AddError("Undefined reference to locale \"" + this.Raw + "\"", context);
                         return false;
                     }
 
@@ -99,19 +100,19 @@ namespace Nova.Lexer.Accessors
 
                     if (targetClass == null)
                     {
-                        validator.AddError("Undefined reference to variable \"" + this.Raw + "\"", lineIndex);
+                        validator.AddError("Undefined reference to variable \"" + this.Raw + "\"", context);
                         return false;
                     }
                     if (targetClass.Type == ContainerType.@struct)
                     {
-                        validator.AddError("Cannot access a struct field statically : \"" + this.Raw + "\"", lineIndex);
+                        validator.AddError("Cannot access a struct field statically : \"" + this.Raw + "\"", context);
                         return false;
                     }
                     Field targetField = null;
 
                     if (!targetClass.Fields.TryGetValue(this.ElementsStr[1], out targetField))
                     {
-                        validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[1] + "\"", lineIndex);
+                        validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[1] + "\"", context);
                         return false;
                     }
 
@@ -133,18 +134,18 @@ namespace Nova.Lexer.Accessors
 
                 if (targetClass == null)
                 {
-                    validator.AddError("Not implemented error (VariableAccessor.cs).", lineIndex);
+                    validator.AddError("Not implemented error (VariableAccessor.cs).", context);
                     return false;
                 }
                 if (!targetClass.Fields.TryGetValue(this.ElementsStr[i], out field))
                 {
-                    validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[i] + "\"", lineIndex);
+                    validator.AddError("Type \"" + targetClass.ClassName + "\" has no member \"" + this.ElementsStr[i] + "\"", context);
                     return false;
                 }
 
                 if (field.Modifiers == ModifiersEnum.@private && field.ParentClass != parentClass)
                 {
-                    validator.AddError("Unable to access private field \"" + field.Name + "\" from class \"" + parentClass.ClassName + "\"", lineIndex);
+                    validator.AddError("Unable to access private field \"" + field.Name + "\" from class \"" + parentClass.ClassName + "\"", context);
                     return false;
                 }
 

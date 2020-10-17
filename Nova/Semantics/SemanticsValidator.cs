@@ -1,4 +1,5 @@
-﻿using Nova.IO;
+﻿using Antlr4.Runtime;
+using Nova.IO;
 using Nova.Lexer;
 
 using Nova.Members;
@@ -76,9 +77,9 @@ namespace Nova.Semantics
             }
             return null;
         }
-        public void AddError(string message, int lineIndex)
+        public void AddError(string message,ParserRuleContext context)
         {
-            this.Errors.Add(new SemanticalError(CurrentClass.File.Filepath, message, lineIndex));
+            this.Errors.Add(new SemanticalError(CurrentClass.File.Filepath, message, context));
         }
         public IEnumerable<SemanticalError> GetErrors()
         {

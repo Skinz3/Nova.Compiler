@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.Lexer.Accessors
+namespace Nova.Parser.Accessors
 {
     public interface IAccessible
     {

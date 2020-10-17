@@ -20,7 +20,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private List<Expression> Parameters
+        private List<ExpressionNode> Parameters
         {
             get;
             set;
@@ -36,7 +36,7 @@ namespace Nova.Statements
             set;
         }
 
-        public StructCallCtorStatement(IChild parent, string name, List<Expression> parameters, ParserRuleContext context) : base(parent, context)
+        public StructCallCtorStatement(IChild parent, string name, List<ExpressionNode> parameters, ParserRuleContext context) : base(parent, context)
         {
             this.CtorName = name;
             this.Parameters = parameters;
@@ -71,7 +71,7 @@ namespace Nova.Statements
 
             if (StructClass == null)
             {
-                validator.AddError("Unknown struct type " + CtorName, LineIndex);
+                validator.AddError("Unknown struct type " + CtorName, ParsingContext);
             }
 
             this.StructClass = validator.Container[CtorName];
@@ -82,11 +82,11 @@ namespace Nova.Statements
             {
                 if (StructCtor == null)
                 {
-                    validator.AddError("Unknown struct ctor \"" + StructClass.ClassName + "\"", LineIndex);
+                    validator.AddError("Unknown struct ctor \"" + StructClass.ClassName + "\"", ParsingContext);
                 }
                 else if (Parameters.Count != StructCtor.Parameters.Count)
                 {
-                    validator.AddError("Invalid parameters count for Ctor \"" + StructClass.ClassName + "\"", LineIndex);
+                    validator.AddError("Invalid parameters count for Ctor \"" + StructClass.ClassName + "\"", ParsingContext);
                 }
             }
 

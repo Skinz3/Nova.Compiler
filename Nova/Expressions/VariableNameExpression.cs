@@ -1,38 +1,31 @@
-﻿using System;
+﻿using Antlr4.Runtime;
+using Nova.Bytecode.Codes;
+using Nova.Bytecode.Symbols;
+using Nova.ByteCode.Codes;
+using Nova.ByteCode.Generation;
+using Nova.IO;
+using Nova.Parser.Accessors;
+using Nova.Members;
+using Nova.Semantics;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Nova.Bytecode.Codes;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Generation;
-using Nova.Lexer;
-using Nova.IO;
-using Nova.Members;
-using Nova.Semantics;
-using Nova.Bytecode.Enums;
-using Nova.Bytecode.Symbols;
-using Nova.Parser.Accessors;
-using Antlr4.Runtime;
 
-namespace Nova.Statements
+namespace Nova.Expressions
 {
-    public class VariableNameStatement : Statement
+    public class VariableNameExpression : Expression
     {
-        public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s*$";
-
         private VariableAccessor Name
         {
             get;
             set;
         }
-        public VariableNameStatement(IChild parent, string name,ParserRuleContext context) : base(parent,context)
+        public VariableNameExpression(IChild parent, ParserRuleContext context, string name) : base(parent, context)
         {
             this.Name = new VariableAccessor(name);
         }
-
-
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             int loadStart = 0;
@@ -76,15 +69,11 @@ namespace Nova.Statements
                 field = this.Name.GetElement<Field>(i);
                 context.Instructions.Add(new StructLoadMemberCode(field.Id));
             }
-
-
         }
+
         public override void ValidateSemantics(SemanticsValidator validator)
         {
             Name.Validate(validator, this.Parent.ParentClass, ParsingContext);
-
         }
-
-
     }
 }

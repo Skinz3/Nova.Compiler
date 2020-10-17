@@ -23,7 +23,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private Expression BeginNode
+        private ExpressionNode BeginNode
         {
             get;
             set;
@@ -39,7 +39,7 @@ namespace Nova.Statements
             private set;
         }
       
-        public ForStatement(IChild parent, Statement declarationStatement, Expression beginNode, Statement assignationStatement,
+        public ForStatement(IChild parent, Statement declarationStatement, ExpressionNode beginNode, Statement assignationStatement,
             List<Statement> statements, ParserRuleContext context) : base(parent, context)
         {
             /* this.DeclarationStatement = StatementBuilder.Build(parent, match.Groups[1].Value, lineIndex);

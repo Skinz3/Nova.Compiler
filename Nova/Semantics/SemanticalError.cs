@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Antlr4.Runtime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,20 +20,20 @@ namespace Nova.Semantics
             get;
             set;
         }
-        private int LineIndex
+        private ParserRuleContext Context
         {
             get;
             set;
         }
-        public SemanticalError(string filepath, string message, int lineIndex)
+        public SemanticalError(string filepath, string message, ParserRuleContext context)
         {
             this.Filepath = filepath;
             this.Message = message;
-            this.LineIndex = lineIndex + 1; // starting from 1
+            this.Context = context; // starting from 1
         }
         public override string ToString()
         {
-            return "File: " + Path.GetFileName(Filepath) + " "+Message+ " at line " + LineIndex;
+            return "File: " + Path.GetFileName(Filepath) + " " + Message + " at line " + Context.start.Line;
         }
     }
 }

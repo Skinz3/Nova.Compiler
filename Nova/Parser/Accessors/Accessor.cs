@@ -1,4 +1,5 @@
-﻿using Nova.Bytecode.Enums;
+﻿using Antlr4.Runtime;
+using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
 using Nova.Members;
 using Nova.Semantics;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.Lexer.Accessors
+namespace Nova.Parser.Accessors
 {
     public abstract class Accessor
     {
@@ -69,7 +70,7 @@ namespace Nova.Lexer.Accessors
         {
             return (T)Elements[index];
         }
-        public abstract bool Validate(SemanticsValidator validator, Class parentClass, int lineIndex);
+        public abstract bool Validate(SemanticsValidator validator, Class parentClass, ParserRuleContext context);
 
         protected abstract SymbolType DeduceSymbolCategory(SemanticsValidator context, Class parentClass);
     }

@@ -24,7 +24,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private List<Expression> Parameters
+        private List<ExpressionNode> Parameters
         {
             get;
             set;
@@ -34,7 +34,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        public NativeStatement(IChild parent, string nativeName, List<Expression> parameters, NativesEnum native, ParserRuleContext context) : base(parent, context)
+        public NativeStatement(IChild parent, string nativeName, List<ExpressionNode> parameters, NativesEnum native, ParserRuleContext context) : base(parent, context)
         {
             this.NativeName = nativeName;
             this.Parameters = parameters;
@@ -58,7 +58,7 @@ namespace Nova.Statements
 
             if (!Enum.TryParse(NativeName, out result) || result == NativesEnum.Unknown)
             {
-                validator.AddError("Unknown native function : " + NativeName, LineIndex);
+                validator.AddError("Unknown native function : " + NativeName, ParsingContext);
             }
 
             NativeEnum = result;

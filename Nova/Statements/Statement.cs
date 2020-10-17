@@ -17,55 +17,41 @@ using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
-    public abstract class Statement 
+    public abstract class Statement : ISemanticMember
     {
-        public string Input
-        {
-            get;
-            private set;
-        }
         protected IChild Parent
         {
             get;
             private set;
         }
-        public int Line
-        {
-            get;
-            set;
-        }
-        public int LineIndex
+
+        protected ParserRuleContext ParsingContext
         {
             get;
             private set;
-        }
-        private ParserRuleContext ParserRuleContext
-        {
-            get;
-            set;
         }
 
         public Statement(IChild parent, ParserRuleContext ruleContext)
         {
             this.Parent = parent;
-            this.ParserRuleContext = ruleContext;
+            this.ParsingContext = ruleContext;
         }
-       /* public Statement(IChild parent)
-        {
-            this.Parent = parent;
-        } */
+        /* public Statement(IChild parent)
+         {
+             this.Parent = parent;
+         } */
 
 
         public override string ToString()
         {
-            return string.Format("({0}) {1}", this.GetType().Name, Input);
+            return string.Format("({0}) {1}", this.GetType().Name, ParsingContext.GetText());
         }
 
-        /*
-         * Cette classe n'a rien a faire ici ! 
-         */
         public abstract void GenerateBytecode(ClassesContainer container, ByteBlock context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
+
+
+
     }
 }

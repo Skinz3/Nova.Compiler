@@ -1,5 +1,5 @@
 ﻿using Nova.IO;
-using Nova.Lexer.Accessors;
+using Nova.Parser.Accessors;
 using System;
 using System.Collections.Generic;
 using System.IO;

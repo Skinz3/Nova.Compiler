@@ -16,13 +16,13 @@ namespace Nova.Statements
 {
     public class VectorCreationStatement : Statement
     {
-        private List<Expression> Elements
+        private List<ExpressionNode> Elements
         {
             get;
             set;
         }
 
-        public VectorCreationStatement(IChild parent, List<Expression> elements, ParserRuleContext context) : base(parent, context)
+        public VectorCreationStatement(IChild parent, List<ExpressionNode> elements, ParserRuleContext context) : base(parent, context)
         {
             this.Elements = elements;
         }

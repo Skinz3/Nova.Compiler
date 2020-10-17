@@ -8,14 +8,13 @@ using Nova.Members;
 using Nova.Semantics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.Statements
+namespace Nova.Expressions
 {
-    public class OperatorStatement : Statement // shouldnt be a statement....
+    public class OperatorExpression : Expression
     {
         private static readonly Dictionary<string, OperatorsEnum> OPERATORS_BINDING = new Dictionary<string, OperatorsEnum>()
         {
@@ -42,7 +41,7 @@ namespace Nova.Statements
             }
         }
 
-        public OperatorStatement(IChild parent, string @operator, ParserRuleContext context) : base(parent, context)
+        public OperatorExpression(IChild parent, string @operator, ParserRuleContext context) : base(parent, context)
         {
             this.Operator = @operator;
         }
@@ -89,6 +88,5 @@ namespace Nova.Statements
         {
 
         }
-
     }
 }

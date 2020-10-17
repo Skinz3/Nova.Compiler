@@ -13,7 +13,7 @@ using Nova.ByteCode.Generation;
 using Nova.Semantics;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Symbols;
-using Nova.Lexer.Accessors;
+using Nova.Parser.Accessors;
 using Antlr4.Runtime;
 
 namespace Nova.Statements
@@ -32,12 +32,12 @@ namespace Nova.Statements
         /// Paramètres passés a la méthodes (liste d'Lexer)
         /// Verifier qu'il s'agit bien de statement valide pour une methode. (ne retourne pas void). (analyse sémantique)
         /// </summary>
-        private List<Expression> Parameters
+        private List<ExpressionNode> Parameters
         {
             get;
             set;
         }
-        public MethodCallStatement(IChild parent, string methodName, List<Expression> parameters, ParserRuleContext context) : base(parent, context)
+        public MethodCallStatement(IChild parent, string methodName, List<ExpressionNode> parameters, ParserRuleContext context) : base(parent, context)
         {
             this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;
@@ -130,7 +130,7 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
-            if (!MethodName.Validate(validator, this.Parent.ParentClass, LineIndex))
+            if (!MethodName.Validate(validator, this.Parent.ParentClass, ParsingContext))
             {
                 return;
             }
@@ -141,7 +141,7 @@ namespace Nova.Statements
             {
                 if (target.Parameters.Count != Parameters.Count)
                 {
-                    validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", LineIndex);
+                    validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", ParsingContext);
                 }
             }
 

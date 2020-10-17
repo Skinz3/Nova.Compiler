@@ -32,13 +32,19 @@ namespace Nova.Parser
 
             Variable variable = new Variable(type, name);
 
-            Expression value = new Expression(Block);
+            ExpressionNode value = new ExpressionNode(Block); // should not be block but the statement.
 
             VariableInitializerContext initializer = declarator.variableInitializer();
 
             if (initializer != null)
             {
                 ExpressionContext expressionContext = initializer.expression();
+
+                ExpressionListener listener = new ExpressionListener(Block); // same here
+
+                ParseTreeWalker.Default.Walk(listener, context);
+
+                value = listener.GetResult();
             }
 
             Block.Statements.Add(new DeclarationStatement(Block, variable, value, context));

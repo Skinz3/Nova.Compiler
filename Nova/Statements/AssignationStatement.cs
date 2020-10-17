@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
-using Nova.Lexer.Accessors;
+using Nova.Parser.Accessors;
 using Antlr4.Runtime;
 
 namespace Nova.Statements
@@ -34,12 +34,12 @@ namespace Nova.Statements
             get;
             set;
         }
-        private Expression Value
+        private ExpressionNode Value
         {
             get;
             set;
         }
-        public AssignationStatement(IChild parent, VariableAccessor target, char op, Expression node, ParserRuleContext context) : base(parent, context)
+        public AssignationStatement(IChild parent, VariableAccessor target, char op, ExpressionNode node, ParserRuleContext context) : base(parent, context)
         {
             this.Target = target;
             this.Operator = op;
@@ -128,7 +128,7 @@ namespace Nova.Statements
         }
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            if (!Target.Validate(validator, this.Parent.ParentClass, LineIndex))
+            if (!Target.Validate(validator, this.Parent.ParentClass, ParsingContext))
             {
                 return;
             }

@@ -24,7 +24,7 @@ namespace Nova.Statements
 
         public override string ToString()
         {
-            return "Unknown Statement (" + this.Input + ")";
+            return "Unknown Statement (" + this.ParsingContext.GetText() + ")";
         }
 
 

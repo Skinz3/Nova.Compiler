@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
-using Nova.Lexer.Accessors;
+using Nova.Parser.Accessors;
 
 namespace Nova.Members
 {
@@ -53,7 +53,7 @@ namespace Nova.Members
             get;
             private set;
         }
-        private Expression Value
+        private ExpressionNode Value
         {
             get;
             set;
@@ -72,7 +72,7 @@ namespace Nova.Members
         public IChild Parent => null;
 
         public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex,
-            Expression value)
+            ExpressionNode value)
         {
             this.Id = fieldId;
             this.ParentClass = parentClass;

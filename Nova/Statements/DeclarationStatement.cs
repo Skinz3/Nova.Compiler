@@ -24,12 +24,12 @@ namespace Nova.Statements
             get;
             set;
         }
-        public Expression Value
+        public ExpressionNode Value
         {
             get;
             private set;
         }
-        public DeclarationStatement(IChild parent, Variable variable, Expression value, ParserRuleContext context) : base(parent, context)
+        public DeclarationStatement(IChild parent, Variable variable, ExpressionNode value, ParserRuleContext context) : base(parent, context)
         {
             Variable = variable;
             this.Value = value;

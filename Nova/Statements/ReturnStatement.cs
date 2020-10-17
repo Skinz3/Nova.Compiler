@@ -19,12 +19,12 @@ namespace Nova.Statements
     {
         public const string REGEX = @"^return\s*(.+)?$";
 
-        private Expression Value
+        private ExpressionNode Value
         {
             get;
             set;
         }
-        public ReturnStatement(IChild parent, Expression value, ParserRuleContext context) : base(parent, context)
+        public ReturnStatement(IChild parent, ExpressionNode value, ParserRuleContext context) : base(parent, context)
         {
             this.Value = value;
         }
@@ -32,7 +32,7 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            if (!Value.IsNull())
+            if (!Value.Empty)
             {
                 Value.GenerateBytecode(container, context);
             }

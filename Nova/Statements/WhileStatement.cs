@@ -20,7 +20,7 @@ namespace Nova.Statements
     {
         public const string REGEX = @"^while\s*\((.+)\)\s*({)?$";
 
-        private Expression Condition
+        private ExpressionNode Condition
         {
             get;
             set;
@@ -37,7 +37,7 @@ namespace Nova.Statements
         IChild IChild.Parent => this.Parent;
 
 
-        public WhileStatement(IChild parent, Expression condition, List<Statement> statements, ParserRuleContext context) : base(parent, context)
+        public WhileStatement(IChild parent, ExpressionNode condition, List<Statement> statements, ParserRuleContext context) : base(parent, context)
         {
             /*  string conditionStr = match.Groups[1].Value;
 

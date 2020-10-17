@@ -22,7 +22,7 @@ namespace Nova.Statements
         public const string ELSE_REGEX = @"^else(\s*if?\s*)?(\((.*)\))?\s*({)?$";
 
       
-        private Expression IfCondition
+        private ExpressionNode IfCondition
         {
             get;
             set;
@@ -32,7 +32,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private Expression ElseCondition
+        private ExpressionNode ElseCondition
         {
             get;
             set;
@@ -42,7 +42,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        public IfStatement(IChild parent, Expression condition, List<Statement> ifStatements, Expression elseCondition,
+        public IfStatement(IChild parent, ExpressionNode condition, List<Statement> ifStatements, ExpressionNode elseCondition,
             List<Statement> elseStatements, ParserRuleContext context) : base(parent, context)
         {
             /*  string conditionStr = match.Groups[1].Value;
@@ -108,7 +108,7 @@ namespace Nova.Statements
 
             if (ElseCondition != null) // else
             {
-                if (ElseCondition.IsNull() == false) // else (...)
+                if (ElseCondition.Empty == false) // else (...)
                 {
                     ElseCondition.GenerateBytecode(container, context);
 
@@ -138,7 +138,7 @@ namespace Nova.Statements
 
             if (ElseCondition != null)
             {
-                if (!ElseCondition.IsNull())
+                if (!ElseCondition.Empty)
                 {
                     ElseCondition.ValidateSemantics(validator);
                 }
