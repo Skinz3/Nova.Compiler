@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Antlr4.Runtime;
-using Nova.Bytecode.Codes;
+﻿using Antlr4.Runtime;
 using Nova.Bytecode.Enums;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
@@ -13,9 +6,14 @@ using Nova.IO;
 using Nova.Lexer;
 using Nova.Members;
 using Nova.Semantics;
-using Nova.Utils;
+using Nova.Statements;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Nova.Statements
+namespace Nova.Expressions
 {
     public class NativeStatement : Statement
     {

@@ -42,6 +42,9 @@ namespace Nova.Parser
                 new List<Statement>());
 
             StatementBlockListener listener = new StatementBlockListener(method);
+
+            ParseTreeWalker.Default.Walk(listener, context);
+
             Class.Methods.Add(method.Name, method);
         }
         public override void EnterFieldDeclaration([NotNull] NovaParser.FieldDeclarationContext context)

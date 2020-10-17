@@ -940,16 +940,45 @@ public partial class NovaParser : Parser {
 	}
 
 	public partial class ExpressionContext : ParserRuleContext {
+		public ExpressionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_expression; } }
+	 
+		public ExpressionContext() { }
+		public virtual void CopyFrom(ExpressionContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class OpExprContext : ExpressionContext {
+		public ExpressionContext left;
 		public IToken prefix;
 		public IToken bop;
-		public PrimaryContext primary() {
-			return GetRuleContext<PrimaryContext>(0);
-		}
+		public ExpressionContext right;
 		public ExpressionContext[] expression() {
 			return GetRuleContexts<ExpressionContext>();
 		}
 		public ExpressionContext expression(int i) {
 			return GetRuleContext<ExpressionContext>(i);
+		}
+		public OpExprContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterOpExpr(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitOpExpr(this);
+		}
+	}
+	public partial class TerminalContext : ExpressionContext {
+		public IToken bop;
+		public PrimaryContext primary() {
+			return GetRuleContext<PrimaryContext>(0);
+		}
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
 		}
 		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
 		public MethodCallContext methodCall() {
@@ -962,18 +991,14 @@ public partial class NovaParser : Parser {
 		public CreatorContext creator() {
 			return GetRuleContext<CreatorContext>(0);
 		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_expression; } }
+		public TerminalContext(ExpressionContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterExpression(this);
+			if (typedListener != null) typedListener.EnterTerminal(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitExpression(this);
+			if (typedListener != null) typedListener.ExitTerminal(this);
 		}
 	}
 
@@ -999,24 +1024,37 @@ public partial class NovaParser : Parser {
 			switch ( Interpreter.AdaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				{
+				_localctx = new TerminalContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
 				State = 161; primary();
 				}
 				break;
 
 			case 2:
 				{
+				_localctx = new TerminalContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				State = 162; nativeCall();
 				}
 				break;
 
 			case 3:
 				{
+				_localctx = new TerminalContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				State = 163; methodCall();
 				}
 				break;
 
 			case 4:
 				{
+				_localctx = new TerminalContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				State = 164; Match(NEW);
 				State = 165; creator();
 				}
@@ -1024,11 +1062,14 @@ public partial class NovaParser : Parser {
 
 			case 5:
 				{
+				_localctx = new OpExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				State = 166;
-				_localctx.prefix = _input.Lt(1);
+				((OpExprContext)_localctx).prefix = _input.Lt(1);
 				_la = _input.La(1);
 				if ( !(_la==ADD || _la==SUB) ) {
-					_localctx.prefix = _errHandler.RecoverInline(this);
+					((OpExprContext)_localctx).prefix = _errHandler.RecoverInline(this);
 				} else {
 					if (_input.La(1) == TokenConstants.Eof) {
 						matchedEOF = true;
@@ -1055,15 +1096,16 @@ public partial class NovaParser : Parser {
 					switch ( Interpreter.AdaptivePredict(_input,11,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 170;
 						if (!(Precpred(_ctx, 8))) throw new FailedPredicateException(this, "Precpred(_ctx, 8)");
 						State = 171;
-						_localctx.bop = _input.Lt(1);
+						((OpExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==MUL || _la==DIV) ) {
-							_localctx.bop = _errHandler.RecoverInline(this);
+							((OpExprContext)_localctx).bop = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
 								matchedEOF = true;
@@ -1072,21 +1114,22 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 172; expression(9);
+						State = 172; ((OpExprContext)_localctx).right = expression(9);
 						}
 						break;
 
 					case 2:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 173;
 						if (!(Precpred(_ctx, 7))) throw new FailedPredicateException(this, "Precpred(_ctx, 7)");
 						State = 174;
-						_localctx.bop = _input.Lt(1);
+						((OpExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==ADD || _la==SUB) ) {
-							_localctx.bop = _errHandler.RecoverInline(this);
+							((OpExprContext)_localctx).bop = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
 								matchedEOF = true;
@@ -1095,13 +1138,14 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 175; expression(8);
+						State = 175; ((OpExprContext)_localctx).right = expression(8);
 						}
 						break;
 
 					case 3:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 176;
 						if (!(Precpred(_ctx, 6))) throw new FailedPredicateException(this, "Precpred(_ctx, 6)");
@@ -1130,21 +1174,22 @@ public partial class NovaParser : Parser {
 							}
 							break;
 						}
-						State = 186; expression(7);
+						State = 186; ((OpExprContext)_localctx).right = expression(7);
 						}
 						break;
 
 					case 4:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 187;
 						if (!(Precpred(_ctx, 5))) throw new FailedPredicateException(this, "Precpred(_ctx, 5)");
 						State = 188;
-						_localctx.bop = _input.Lt(1);
+						((OpExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LE) | (1L << GE) | (1L << GT) | (1L << LT))) != 0)) ) {
-							_localctx.bop = _errHandler.RecoverInline(this);
+							((OpExprContext)_localctx).bop = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
 								matchedEOF = true;
@@ -1153,21 +1198,22 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 189; expression(6);
+						State = 189; ((OpExprContext)_localctx).right = expression(6);
 						}
 						break;
 
 					case 5:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 190;
 						if (!(Precpred(_ctx, 4))) throw new FailedPredicateException(this, "Precpred(_ctx, 4)");
 						State = 191;
-						_localctx.bop = _input.Lt(1);
+						((OpExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==EQUAL || _la==NOTEQUAL) ) {
-							_localctx.bop = _errHandler.RecoverInline(this);
+							((OpExprContext)_localctx).bop = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
 								matchedEOF = true;
@@ -1176,50 +1222,53 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 192; expression(5);
+						State = 192; ((OpExprContext)_localctx).right = expression(5);
 						}
 						break;
 
 					case 6:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 193;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 194; _localctx.bop = Match(AND);
-						State = 195; expression(4);
+						State = 194; ((OpExprContext)_localctx).bop = Match(AND);
+						State = 195; ((OpExprContext)_localctx).right = expression(4);
 						}
 						break;
 
 					case 7:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 196;
 						if (!(Precpred(_ctx, 2))) throw new FailedPredicateException(this, "Precpred(_ctx, 2)");
-						State = 197; _localctx.bop = Match(OR);
-						State = 198; expression(3);
+						State = 197; ((OpExprContext)_localctx).bop = Match(OR);
+						State = 198; ((OpExprContext)_localctx).right = expression(3);
 						}
 						break;
 
 					case 8:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpExprContext(new ExpressionContext(_parentctx, _parentState));
+						((OpExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 199;
 						if (!(Precpred(_ctx, 1))) throw new FailedPredicateException(this, "Precpred(_ctx, 1)");
 						State = 200; Match(ASSIGN);
-						State = 201; expression(1);
+						State = 201; ((OpExprContext)_localctx).right = expression(1);
 						}
 						break;
 
 					case 9:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new TerminalContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 202;
 						if (!(Precpred(_ctx, 13))) throw new FailedPredicateException(this, "Precpred(_ctx, 13)");
-						State = 203; _localctx.bop = Match(DOT);
+						State = 203; ((TerminalContext)_localctx).bop = Match(DOT);
 						State = 206;
 						_errHandler.Sync(this);
 						switch ( Interpreter.AdaptivePredict(_input,10,_ctx) ) {

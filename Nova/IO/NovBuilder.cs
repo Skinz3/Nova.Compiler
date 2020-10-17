@@ -51,7 +51,7 @@ namespace Nova.IO
                 return false;
             }
 
-            if (!CreateContainer())
+            if (!CreateContainer(file))
             {
                 return false;
             }
@@ -103,7 +103,7 @@ namespace Nova.IO
             {
                 return null;
             }
-           
+
             return result;
         }
         public bool ComputeEntryPoint() // rien a faire ici?
@@ -132,11 +132,10 @@ namespace Nova.IO
 
             return true;
         }
-        private bool CreateContainer()
+        private bool CreateContainer(NvFile mainFile)
         {
             this.Container = new ClassesContainer();
-            NvFile file = OpenNvFile(InputFilePath);
-            return CreateContainerRecursively(file, new List<string>());
+            return CreateContainerRecursively(mainFile, new List<string>());
 
         }
         private bool CreateContainerRecursively(NvFile file, List<string> usings)

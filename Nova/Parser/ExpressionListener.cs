@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
 using Nova.Expressions;
 using Nova.Lexer;
 using Nova.Members;
@@ -33,11 +34,14 @@ namespace Nova.Parser
         {
             this.Result.Add(new ConstIntExpression(Result, context, int.Parse(context.GetText())));
         }
-        public override void EnterExpression([NotNull] ExpressionContext context)
+        public override void EnterOpExpr([NotNull] OpExprContext context)
         {
-            var child = context.GetChild(0);
-            Console.WriteLine(child.GetText());
-            base.EnterExpression(context);
+            this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
+        }
+        public override void EnterNativeCall([NotNull] NativeCallContext context)
+        {
+            this.Result.Add(new Nativeca)
+            base.EnterNativeCall(context);
         }
         public ExpressionNode GetResult()
         {

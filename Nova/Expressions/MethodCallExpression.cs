@@ -1,24 +1,22 @@
-﻿using Nova.IO;
-using Nova.Lexer;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Nova.Members;
-using Nova.ByteCode.Codes;
-using Nova.ByteCode.Generation;
-using Nova.Semantics;
+﻿using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Symbols;
+using Nova.ByteCode.Codes;
+using Nova.ByteCode.Generation;
+using Nova.IO;
+using Nova.Lexer;
+using Nova.Members;
 using Nova.Parser.Accessors;
-using Antlr4.Runtime;
+using Nova.Semantics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Nova.Statements
+namespace Nova.Expressions
 {
-    public class MethodCallStatement : Statement
+    public class MethodCallExpression : Expression
     {
         /// <summary>
         /// Nom de la methode.
@@ -37,13 +35,11 @@ namespace Nova.Statements
             get;
             set;
         }
-        public MethodCallStatement(IChild parent, string methodName, List<ExpressionNode> parameters, ParserRuleContext context) : base(parent, context)
+        public MethodCallExpression(IChild parent, ParserRuleContext context) : base(parent, context)
         {
             this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;
         }
-       
-        
         private void GenerateStructAccessorBytecode(ByteBlock context, int loadStart)
         {
             for (int i = loadStart; i < MethodName.Elements.Count - 1; i++)

@@ -35,6 +35,36 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class NovaParserBaseListener : INovaParserListener {
 	/// <summary>
+	/// Enter a parse tree produced by the <c>opExpr</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOpExpr([NotNull] NovaParser.OpExprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>opExpr</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOpExpr([NotNull] NovaParser.OpExprContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>terminal</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTerminal([NotNull] NovaParser.TerminalContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>terminal</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTerminal([NotNull] NovaParser.TerminalContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.compilationUnit"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

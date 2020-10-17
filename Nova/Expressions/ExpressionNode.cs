@@ -18,7 +18,7 @@ namespace Nova.Lexer
     /*
      * bad name
      */
-    public class ExpressionNode : IChild 
+    public class ExpressionNode : IChild
     {
         /*
          * Postfix
@@ -70,7 +70,7 @@ namespace Nova.Lexer
         }
         public void Add(Expression expression)
         {
-            this.Tree.Add(expression);
+            this.Tree.Insert(0, expression);
         }
         public bool ValidateSemantics(SemanticsValidator validator)
         {

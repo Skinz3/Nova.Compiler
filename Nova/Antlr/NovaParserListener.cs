@@ -31,6 +31,32 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface INovaParserListener : IParseTreeListener {
 	/// <summary>
+	/// Enter a parse tree produced by the <c>opExpr</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterOpExpr([NotNull] NovaParser.OpExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>opExpr</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitOpExpr([NotNull] NovaParser.OpExprContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>terminal</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTerminal([NotNull] NovaParser.TerminalContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>terminal</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTerminal([NotNull] NovaParser.TerminalContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.compilationUnit"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
