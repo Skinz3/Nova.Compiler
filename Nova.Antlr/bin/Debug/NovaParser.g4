@@ -78,13 +78,15 @@ primitiveType
     ;
 
 expression
-    : primary  #terminal 
+
+    : methodCall #terminal 
+    | primary  #terminal 
     | expression bop='.' 
       ( IDENTIFIER
       | methodCall
       ) #terminal 
     | nativeCall #terminal 
-    | methodCall #terminal 
+    
     | NEW creator #terminal 
     | prefix=('+'|'-') expression #opExpr
     | left=expression bop=('*'|'/') right=expression #opExpr

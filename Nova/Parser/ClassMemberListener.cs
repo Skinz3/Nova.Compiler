@@ -38,7 +38,7 @@ namespace Nova.Parser
             string methodName = context.IDENTIFIER().GetText();
             ModifiersEnum modifiers = ParserUtils.ParseModifier(parent.modifier().classModifier().GetText());
 
-            AddMethod(methodName, returnType, modifiers, context);
+            AddMethod(methodName, returnType, modifiers, context, context.formalParameters());
         }
         public override void EnterFieldDeclaration([NotNull] NovaParser.FieldDeclarationContext context)
         {
@@ -63,7 +63,7 @@ namespace Nova.Parser
 
                 ExpressionListener listener = new ExpressionListener(field); // same here
 
-                ParseTreeWalker.Default.Walk(listener, context);
+                ParseTreeWalker.Default.Walk(listener, expressionContext);
 
                 value = listener.GetResult();
             }
@@ -81,17 +81,31 @@ namespace Nova.Parser
             string methodName = context.IDENTIFIER().GetText();
             ModifiersEnum modifiers = ModifiersEnum.ctor; // this is not a modifier ! 
 
-            AddMethod(methodName, returnType, modifiers, context);
+            AddMethod(methodName, returnType, modifiers, context, context.formalParameters());
         }
-        private void AddMethod(string methodName, string returnType, ModifiersEnum modifiers, ParserRuleContext context)
+        private void AddMethod(string methodName, string returnType, ModifiersEnum modifiers, ParserRuleContext context, FormalParametersContext parameterContext)
         {
+            List<Variable> parameters = new List<Variable>();
+
+            FormalParameterListContext parameterListContext = parameterContext.formalParameterList();
+
+            if (parameterListContext != null)
+            {
+                foreach (var parameter in parameterListContext.formalParameter())
+                {
+                    parameters.Add(new Variable(parameter.variableDeclaratorId().GetText(), parameter.typeType().GetText()));
+                }
+            }
+
+
             Method method = new Method(Class, Class.PopMethodId(), methodName, modifiers, returnType,
-                new List<Variable>(),
+               parameters,
                 context.start.Line,
                 context.stop.Line,
                 new List<Statement>());
 
-            StatementBlockListener listener = new StatementBlockListener(method);
+
+            StatementListener listener = new StatementListener(method);
 
             ParseTreeWalker.Default.Walk(listener, context);
 

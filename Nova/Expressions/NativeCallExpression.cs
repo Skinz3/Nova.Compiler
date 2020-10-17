@@ -22,7 +22,7 @@ namespace Nova.Expressions
             get;
             set;
         }
-        private List<ExpressionNode> Parameters
+        public List<ExpressionNode> Parameters
         {
             get;
             set;
@@ -32,10 +32,9 @@ namespace Nova.Expressions
             get;
             set;
         }
-        public NativeCallExpression(IChild parent, string nativeName, List<ExpressionNode> parameters, ParserRuleContext context) : base(parent, context)
+        public NativeCallExpression(IChild parent, string nativeName, ParserRuleContext context) : base(parent, context)
         {
             this.NativeName = nativeName;
-            this.Parameters = parameters;
             this.NativeName = nativeName;
         }
 

@@ -12,7 +12,7 @@ using static NovaParser;
 
 namespace Nova.Parser
 {
-    public class StatementBlockListener : NovaParserBaseListener
+    public class StatementListener : NovaParserBaseListener
     {
         private IStatementBlock Block
         {
@@ -20,7 +20,7 @@ namespace Nova.Parser
             set;
         }
 
-        public StatementBlockListener(IStatementBlock block)
+        public StatementListener(IStatementBlock block)
         {
             this.Block = block;
         }

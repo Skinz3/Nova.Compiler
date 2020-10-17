@@ -30,15 +30,14 @@ namespace Nova.Expressions
         /// Paramètres passés a la méthodes (liste d'Lexer)
         /// Verifier qu'il s'agit bien de statement valide pour une methode. (ne retourne pas void). (analyse sémantique)
         /// </summary>
-        private List<ExpressionNode> Parameters
+        public List<ExpressionNode> Parameters
         {
             get;
             set;
         }
-        public MethodCallExpression(IChild parent, ParserRuleContext context, string methodName, List<ExpressionNode> parameters) : base(parent, context)
+        public MethodCallExpression(IChild parent, ParserRuleContext context, string methodName) : base(parent, context)
         {
             this.MethodName = new MethodAccessor(methodName);
-            this.Parameters = parameters;
         }
         private void GenerateStructAccessorBytecode(ByteBlock context, int loadStart)
         {

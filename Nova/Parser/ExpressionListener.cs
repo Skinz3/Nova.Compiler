@@ -29,7 +29,15 @@ namespace Nova.Parser
             this.Parent = parent;
             this.Result = new ExpressionNode(Parent);
         }
+        public override void EnterPrimary([NotNull] PrimaryContext context)
+        {
+            var identifier = context.IDENTIFIER();
 
+            if (identifier != null)
+            {
+                Result.Add(new VariableNameExpression(Result, context, identifier.GetText()));
+            }
+        }
         public override void EnterIntegerLiteral([NotNull] IntegerLiteralContext context)
         {
             this.Result.Add(new ConstIntExpression(Result, context, int.Parse(context.GetText())));
@@ -40,10 +48,51 @@ namespace Nova.Parser
         }
         public override void EnterNativeCall([NotNull] NativeCallContext context)
         {
-            this.Result.Add(new NativeCallExpression(Result, context.IDENTIFIER().GetText(), new List<ExpressionNode>()
+            NativeCallExpression expr = new NativeCallExpression(Result, context.IDENTIFIER().GetText(), context);
+
+            List<ExpressionNode> parameters = new List<ExpressionNode>();
+
+            ExpressionListContext expressionListContext = context.expressionList();
+
+            if (expressionListContext != null)
             {
-                new ExpressionNode(Result,new VariableNameExpression(Result,context,"a"))
-        }, context));
+                foreach (var expression in expressionListContext.expression())
+                {
+                    ExpressionListener listener = new ExpressionListener(expr); // same here
+
+                    ParseTreeWalker.Default.Walk(listener, expression);
+
+                    parameters.Add(listener.GetResult());
+                }
+            }
+
+            expr.Parameters = parameters;
+
+            this.Result.Add(expr);
+        }
+        public override void EnterMethodCall([NotNull] MethodCallContext context)
+        {
+            MethodCallExpression expr = new MethodCallExpression(Result, context, context.IDENTIFIER().GetText());
+
+            List<ExpressionNode> parameters = new List<ExpressionNode>();
+
+            ExpressionListContext expressionListContext = context.expressionList();
+
+            if (expressionListContext != null)
+            {
+                foreach (var expression in expressionListContext.expression())
+                {
+                    ExpressionListener listener = new ExpressionListener(expr); // same here
+
+                    ParseTreeWalker.Default.Walk(listener, expression);
+
+                    parameters.Add(listener.GetResult());
+                }
+            }
+
+            expr.Parameters = parameters;
+
+            this.Result.Add(expr);
         }
         public ExpressionNode GetResult()
         {

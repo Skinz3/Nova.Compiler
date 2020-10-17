@@ -86,7 +86,7 @@
     <Compile Include="Parser\ClassListener.cs" />
     <Compile Include="Parser\ExpressionListener.cs" />
     <Compile Include="Parser\ParserUtils.cs" />
-    <Compile Include="Parser\StatementBlockListener.cs" />
+    <Compile Include="Parser\StatementListener.cs" />
     <Compile Include="Expressions\ExpressionNode.cs" />
     <Compile Include="IO\NvFile.cs" />
     <Compile Include="Members\Class.cs" />

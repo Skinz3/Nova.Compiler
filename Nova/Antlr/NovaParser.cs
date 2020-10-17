@@ -974,6 +974,9 @@ public partial class NovaParser : Parser {
 	}
 	public partial class TerminalContext : ExpressionContext {
 		public IToken bop;
+		public MethodCallContext methodCall() {
+			return GetRuleContext<MethodCallContext>(0);
+		}
 		public PrimaryContext primary() {
 			return GetRuleContext<PrimaryContext>(0);
 		}
@@ -981,9 +984,6 @@ public partial class NovaParser : Parser {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
-		public MethodCallContext methodCall() {
-			return GetRuleContext<MethodCallContext>(0);
-		}
 		public NativeCallContext nativeCall() {
 			return GetRuleContext<NativeCallContext>(0);
 		}
@@ -1028,7 +1028,7 @@ public partial class NovaParser : Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 165; primary();
+				State = 165; methodCall();
 				}
 				break;
 
@@ -1037,7 +1037,7 @@ public partial class NovaParser : Parser {
 				_localctx = new TerminalContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 166; nativeCall();
+				State = 166; primary();
 				}
 				break;
 
@@ -1046,7 +1046,7 @@ public partial class NovaParser : Parser {
 				_localctx = new TerminalContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 167; methodCall();
+				State = 167; nativeCall();
 				}
 				break;
 
@@ -1267,7 +1267,7 @@ public partial class NovaParser : Parser {
 						_localctx = new TerminalContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 206;
-						if (!(Precpred(_ctx, 13))) throw new FailedPredicateException(this, "Precpred(_ctx, 13)");
+						if (!(Precpred(_ctx, 12))) throw new FailedPredicateException(this, "Precpred(_ctx, 12)");
 						State = 207; ((TerminalContext)_localctx).bop = Match(DOT);
 						State = 210;
 						_errHandler.Sync(this);
@@ -2925,7 +2925,7 @@ public partial class NovaParser : Parser {
 
 		case 7: return Precpred(_ctx, 1);
 
-		case 8: return Precpred(_ctx, 13);
+		case 8: return Precpred(_ctx, 12);
 		}
 		return true;
 	}
@@ -3002,8 +3002,8 @@ public partial class NovaParser : Parser {
 		"\x2\x2\x2\x9C\x9D\x5 \x11\x2\x9D\x19\x3\x2\x2\x2\x9E\x9F\a/\x2\x2\x9F"+
 		"\x1B\x3\x2\x2\x2\xA0\xA3\a/\x2\x2\xA1\xA3\x5\x1E\x10\x2\xA2\xA0\x3\x2"+
 		"\x2\x2\xA2\xA1\x3\x2\x2\x2\xA3\x1D\x3\x2\x2\x2\xA4\xA5\t\x3\x2\x2\xA5"+
-		"\x1F\x3\x2\x2\x2\xA6\xA7\b\x11\x1\x2\xA7\xAF\x5\x46$\x2\xA8\xAF\x5P)\x2"+
-		"\xA9\xAF\x5N(\x2\xAA\xAB\a\x17\x2\x2\xAB\xAF\x5R*\x2\xAC\xAD\t\x4\x2\x2"+
+		"\x1F\x3\x2\x2\x2\xA6\xA7\b\x11\x1\x2\xA7\xAF\x5N(\x2\xA8\xAF\x5\x46$\x2"+
+		"\xA9\xAF\x5P)\x2\xAA\xAB\a\x17\x2\x2\xAB\xAF\x5R*\x2\xAC\xAD\t\x4\x2\x2"+
 		"\xAD\xAF\x5 \x11\v\xAE\xA6\x3\x2\x2\x2\xAE\xA8\x3\x2\x2\x2\xAE\xA9\x3"+
 		"\x2\x2\x2\xAE\xAA\x3\x2\x2\x2\xAE\xAC\x3\x2\x2\x2\xAF\xD8\x3\x2\x2\x2"+
 		"\xB0\xB1\f\n\x2\x2\xB1\xB2\t\x5\x2\x2\xB2\xD7\x5 \x11\v\xB3\xB4\f\t\x2"+
@@ -3014,7 +3014,7 @@ public partial class NovaParser : Parser {
 		"\f\a\x2\x2\xC2\xC3\t\x6\x2\x2\xC3\xD7\x5 \x11\b\xC4\xC5\f\x6\x2\x2\xC5"+
 		"\xC6\t\a\x2\x2\xC6\xD7\x5 \x11\a\xC7\xC8\f\x5\x2\x2\xC8\xC9\a$\x2\x2\xC9"+
 		"\xD7\x5 \x11\x6\xCA\xCB\f\x4\x2\x2\xCB\xCC\a%\x2\x2\xCC\xD7\x5 \x11\x5"+
-		"\xCD\xCE\f\x3\x2\x2\xCE\xCF\a\x19\x2\x2\xCF\xD7\x5 \x11\x3\xD0\xD1\f\xF"+
+		"\xCD\xCE\f\x3\x2\x2\xCE\xCF\a\x19\x2\x2\xCF\xD7\x5 \x11\x3\xD0\xD1\f\xE"+
 		"\x2\x2\xD1\xD4\a-\x2\x2\xD2\xD5\a/\x2\x2\xD3\xD5\x5N(\x2\xD4\xD2\x3\x2"+
 		"\x2\x2\xD4\xD3\x3\x2\x2\x2\xD5\xD7\x3\x2\x2\x2\xD6\xB0\x3\x2\x2\x2\xD6"+
 		"\xB3\x3\x2\x2\x2\xD6\xB6\x3\x2\x2\x2\xD6\xC1\x3\x2\x2\x2\xD6\xC4\x3\x2"+

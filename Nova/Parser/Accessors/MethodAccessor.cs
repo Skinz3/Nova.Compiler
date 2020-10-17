@@ -38,10 +38,11 @@ namespace Nova.Parser.Accessors
             {
                 if (this.ElementsStr.Length == 1)
                 {
-                    if (parentClass.Methods.ContainsKey(this.Raw))
+                    if (parentClass.Methods.ContainsKey(this.Raw) && parentClass.Type == ContainerType.@struct)
                     {
                         return SymbolType.StructMember;
                     }
+                  
                     return SymbolType.NoSymbol;
                 }
                 else
