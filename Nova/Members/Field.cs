@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
 using Nova.Parser.Accessors;
+using Antlr4.Runtime;
 
 namespace Nova.Members
 {
@@ -53,17 +54,7 @@ namespace Nova.Members
             get;
             private set;
         }
-        private ExpressionNode Value
-        {
-            get;
-            set;
-        }
-        private string ValueStr
-        {
-            get;
-            set;
-        }
-        private int LineIndex
+        public ExpressionNode Value
         {
             get;
             set;
@@ -71,15 +62,12 @@ namespace Nova.Members
 
         public IChild Parent => null;
 
-        public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex,
-            ExpressionNode value)
+        public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable)
         {
             this.Id = fieldId;
             this.ParentClass = parentClass;
             this.Modifiers = modifiers;
             this.Variable = variable;
-            this.ValueStr = valueStr;
-            this.LineIndex = lineIndex;
         }
         public Field()
         {

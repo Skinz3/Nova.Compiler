@@ -70,7 +70,7 @@ namespace Nova.Lexer
         }
         public void Add(Expression expression)
         {
-            this.Tree.Insert(0, expression);
+            this.Tree.Insert(0, expression); // postfix order
         }
         public bool ValidateSemantics(SemanticsValidator validator)
         {

@@ -35,7 +35,7 @@ namespace Nova.Expressions
             get;
             set;
         }
-        public MethodCallExpression(IChild parent, ParserRuleContext context) : base(parent, context)
+        public MethodCallExpression(IChild parent, ParserRuleContext context, string methodName, List<ExpressionNode> parameters) : base(parent, context)
         {
             this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;

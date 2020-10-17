@@ -30,9 +30,11 @@ namespace Nova.Parser
             string type = context.typeType().GetChild(0).GetText();
             string name = declarator.variableDeclaratorId().GetText();
 
-            Variable variable = new Variable(type, name);
+            DeclarationStatement statement = new DeclarationStatement(Block, context);
 
-            ExpressionNode value = new ExpressionNode(Block); // should not be block but the statement.
+            Variable variable = new Variable(name, type);
+
+            ExpressionNode value = new ExpressionNode(statement); // should not be block but the statement.
 
             VariableInitializerContext initializer = declarator.variableInitializer();
 
@@ -40,16 +42,28 @@ namespace Nova.Parser
             {
                 ExpressionContext expressionContext = initializer.expression();
 
-                ExpressionListener listener = new ExpressionListener(Block); // same here
+                ExpressionListener listener = new ExpressionListener(statement); // same here
 
                 ParseTreeWalker.Default.Walk(listener, context);
 
                 value = listener.GetResult();
             }
 
-            Block.Statements.Add(new DeclarationStatement(Block, variable, value, context));
-        }
+            statement.Value = value;
+            statement.Variable = variable;
 
+            Block.Statements.Add(statement);
+        }
+        public override void EnterStatementExpression([NotNull] StatementExpressionContext context)
+        {
+            ExpressionListener listener = new ExpressionListener(Block); // same here
+
+            ParseTreeWalker.Default.Walk(listener, context);
+
+            ExpressionNode value = listener.GetResult();
+
+            Block.Statements.Add(new ExpressionStatement(Block, value, context));
+        }
         public override void EnterBlock([NotNull] NovaParser.BlockContext context)
         {
             base.EnterBlock(context);

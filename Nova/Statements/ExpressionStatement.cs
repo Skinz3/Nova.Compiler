@@ -2,6 +2,7 @@
 using Nova.ByteCode.Generation;
 using Nova.Expressions;
 using Nova.IO;
+using Nova.Lexer;
 using Nova.Members;
 using Nova.Semantics;
 using System;
@@ -14,12 +15,12 @@ namespace Nova.Statements
 {
     public class ExpressionStatement : Statement
     {
-        private Expression Expression
+        private ExpressionNode Expression
         {
             get;
             set;
         }
-        public ExpressionStatement(IChild parent, Expression expression, ParserRuleContext ruleContext) : base(parent, ruleContext)
+        public ExpressionStatement(IChild parent, ExpressionNode expression, ParserRuleContext ruleContext) : base(parent, ruleContext)
         {
             this.Expression = expression;
         }

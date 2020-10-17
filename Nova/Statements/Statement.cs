@@ -17,9 +17,9 @@ using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
-    public abstract class Statement : ISemanticMember
+    public abstract class Statement : ISemanticMember , IChild
     {
-        protected IChild Parent
+        public IChild Parent
         {
             get;
             private set;
@@ -31,16 +31,13 @@ namespace Nova.Statements
             private set;
         }
 
+        public Class ParentClass => Parent.ParentClass;
+
         public Statement(IChild parent, ParserRuleContext ruleContext)
         {
             this.Parent = parent;
             this.ParsingContext = ruleContext;
         }
-        /* public Statement(IChild parent)
-         {
-             this.Parent = parent;
-         } */
-
 
         public override string ToString()
         {

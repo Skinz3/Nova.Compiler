@@ -1,6 +1,8 @@
-﻿using Antlr4.Runtime.Misc;
+﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using Nova.ByteCode.Enums;
+using Nova.Lexer;
 using Nova.Members;
 using Nova.Statements;
 using System;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static NovaParser;
 
 namespace Nova.Parser
 {
@@ -25,7 +28,7 @@ namespace Nova.Parser
         }
         public override void EnterMemberDeclaration([NotNull] NovaParser.MemberDeclarationContext context)
         {
-              
+
         }
         public override void EnterMethodDeclaration([NotNull] NovaParser.MethodDeclarationContext context)
         {
@@ -35,7 +38,54 @@ namespace Nova.Parser
             string methodName = context.IDENTIFIER().GetText();
             ModifiersEnum modifiers = ParserUtils.ParseModifier(parent.modifier().classModifier().GetText());
 
-            Method method = new Method(Class, -1, methodName, modifiers, returnType,
+            AddMethod(methodName, returnType, modifiers, context);
+        }
+        public override void EnterFieldDeclaration([NotNull] NovaParser.FieldDeclarationContext context)
+        {
+            NovaParser.MemberDeclarationContext parent = (NovaParser.MemberDeclarationContext)context.parent;
+            ModifiersEnum modifiers = ParserUtils.ParseModifier(parent.modifier().classModifier().GetText());
+
+
+            VariableDeclaratorContext declarator = context.variableDeclarator();
+
+            string type = context.typeType().GetText();
+            string name = declarator.variableDeclaratorId().GetText();
+
+            Field field = new Field(Class, Class.PopFieldId(), modifiers, new Variable(name, type));
+
+            ExpressionNode value = new ExpressionNode(field);
+
+            var initializer = declarator.variableInitializer();
+
+            if (initializer != null)
+            {
+                ExpressionContext expressionContext = initializer.expression();
+
+                ExpressionListener listener = new ExpressionListener(field); // same here
+
+                ParseTreeWalker.Default.Walk(listener, context);
+
+                value = listener.GetResult();
+            }
+
+            field.Value = value;
+
+            Class.Fields.Add(field.Name, field);
+
+        }
+        public override void EnterConstructorDeclaration([NotNull] NovaParser.ConstructorDeclarationContext context)
+        {
+            NovaParser.MemberDeclarationContext parent = (NovaParser.MemberDeclarationContext)context.parent;
+
+            string returnType = string.Empty; // must be unit
+            string methodName = context.IDENTIFIER().GetText();
+            ModifiersEnum modifiers = ModifiersEnum.ctor; // this is not a modifier ! 
+
+            AddMethod(methodName, returnType, modifiers, context);
+        }
+        private void AddMethod(string methodName, string returnType, ModifiersEnum modifiers, ParserRuleContext context)
+        {
+            Method method = new Method(Class, Class.PopMethodId(), methodName, modifiers, returnType,
                 new List<Variable>(),
                 context.start.Line,
                 context.stop.Line,
@@ -46,14 +96,6 @@ namespace Nova.Parser
             ParseTreeWalker.Default.Walk(listener, context);
 
             Class.Methods.Add(method.Name, method);
-        }
-        public override void EnterFieldDeclaration([NotNull] NovaParser.FieldDeclarationContext context)
-        {
-
-        }
-        public override void EnterConstructorDeclaration([NotNull] NovaParser.ConstructorDeclarationContext context)
-        {
-
         }
     }
 }

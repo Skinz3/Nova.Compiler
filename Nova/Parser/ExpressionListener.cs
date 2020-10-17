@@ -40,8 +40,10 @@ namespace Nova.Parser
         }
         public override void EnterNativeCall([NotNull] NativeCallContext context)
         {
-            this.Result.Add(new Nativeca)
-            base.EnterNativeCall(context);
+            this.Result.Add(new NativeCallExpression(Result, context.IDENTIFIER().GetText(), new List<ExpressionNode>()
+            {
+                new ExpressionNode(Result,new VariableNameExpression(Result,context,"a"))
+        }, context));
         }
         public ExpressionNode GetResult()
         {

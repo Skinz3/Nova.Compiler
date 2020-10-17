@@ -66,6 +66,9 @@ namespace Nova.Members
             this.Fields = new Dictionary<string, Field>();
             this.Type = type;
         }
+
+      
+
         public Class()
         {
             this.Methods = new Dictionary<string, Method>();
@@ -81,7 +84,14 @@ namespace Nova.Members
         {
             return Methods.Values.FirstOrDefault(x => x.Modifiers == ModifiersEnum.ctor);
         }
-
+        public int PopMethodId()
+        {
+            return Methods.Count;
+        }
+        public int PopFieldId()
+        {
+            return Fields.Count;
+        }
         public IByteElement GetByteElement(NovFile file, ClassesContainer container, IByteElement parent)
         {
             ByteClass byteClass = new ByteClass(file, this.ClassName, Type);

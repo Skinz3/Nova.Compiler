@@ -354,6 +354,28 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitStatement([NotNull] NovaParser.StatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.statementExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStatementExpression([NotNull] NovaParser.StatementExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.statementExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStatementExpression([NotNull] NovaParser.StatementExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.ifStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfStatement([NotNull] NovaParser.IfStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.ifStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfStatement([NotNull] NovaParser.IfStatementContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.forStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

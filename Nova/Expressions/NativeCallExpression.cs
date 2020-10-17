@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Expressions
 {
-    public class NativeStatement : Statement
+    public class NativeCallExpression : Expression
     {
         private string NativeName
         {
@@ -32,11 +32,11 @@ namespace Nova.Expressions
             get;
             set;
         }
-        public NativeStatement(IChild parent, string nativeName, List<ExpressionNode> parameters, NativesEnum native, ParserRuleContext context) : base(parent, context)
+        public NativeCallExpression(IChild parent, string nativeName, List<ExpressionNode> parameters, ParserRuleContext context) : base(parent, context)
         {
             this.NativeName = nativeName;
             this.Parameters = parameters;
-            this.NativeEnum = native;
+            this.NativeName = nativeName;
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

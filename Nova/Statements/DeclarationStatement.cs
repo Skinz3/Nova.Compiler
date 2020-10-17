@@ -19,7 +19,7 @@ namespace Nova.Statements
     {
         public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
 
-        private Variable Variable
+        public Variable Variable
         {
             get;
             set;
@@ -27,12 +27,11 @@ namespace Nova.Statements
         public ExpressionNode Value
         {
             get;
-            private set;
+            set;
         }
-        public DeclarationStatement(IChild parent, Variable variable, ExpressionNode value, ParserRuleContext context) : base(parent, context)
+        public DeclarationStatement(IChild parent, ParserRuleContext context) : base(parent, context)
         {
-            Variable = variable;
-            this.Value = value;
+            
         }
 
 
