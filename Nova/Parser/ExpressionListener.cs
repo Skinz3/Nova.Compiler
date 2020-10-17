@@ -1,17 +1,18 @@
-﻿using Nova.Statements;
+﻿using Nova.Lexer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.Members
+namespace Nova.Parser
 {
-    public interface IStatementBlock : IChild
+    public class ExpressionListener : NovaParserBaseListener
     {
-        List<Statement> Statements
+        private Expression Result
         {
             get;
+            set;
         }
     }
 }

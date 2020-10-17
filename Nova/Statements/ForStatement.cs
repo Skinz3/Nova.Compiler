@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
@@ -13,7 +14,7 @@ using Nova.Semantics;
 
 namespace Nova.Statements
 {
-    public class ForStatement : Statement, IChild, IStatementBlock
+    public class ForStatement : Statement, IStatementBlock
     {
         public const string REGEX = @"^for \((.+);(.+);(.+)\)$"; // for i from 1 to 3
 
@@ -22,7 +23,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private StatementNode BeginNode
+        private Expression BeginNode
         {
             get;
             set;
@@ -37,12 +38,9 @@ namespace Nova.Statements
             get;
             private set;
         }
-        private int LineSize
-        {
-            get;
-            set;
-        }
-        public ForStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+      
+        public ForStatement(IChild parent, Statement declarationStatement, Expression beginNode, Statement assignationStatement,
+            List<Statement> statements, ParserRuleContext context) : base(parent, context)
         {
             /* this.DeclarationStatement = StatementBuilder.Build(parent, match.Groups[1].Value, lineIndex);
              this.BeginNode = StatementTreeBuilder.Build(parent, match.Groups[2].Value, lineIndex);
@@ -100,10 +98,6 @@ namespace Nova.Statements
             }
 
             validator.BlockEnd();
-        }
-        public override int GetLineSkip()
-        {
-            return LineSize;
         }
 
     }

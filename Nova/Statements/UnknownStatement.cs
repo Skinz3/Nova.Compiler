@@ -10,20 +10,17 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
     public class UnknownStatement : Statement
     {
-        public UnknownStatement(IChild parent, string line, int lineIndex) : base(parent, line, lineIndex)
+        public UnknownStatement(IChild parent, ParserRuleContext context) : base(parent, context)
         {
 
         }
-        public UnknownStatement(IChild parent) : base(parent)
-        {
 
-        }
-    
 
         public override string ToString()
         {

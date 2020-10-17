@@ -13,10 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.Bytecode.Symbols;
 using Nova.Bytecode.Enums;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
-    public abstract class Statement
+    public abstract class Statement 
     {
         public string Input
         {
@@ -38,32 +39,32 @@ namespace Nova.Statements
             get;
             private set;
         }
+        private ParserRuleContext ParserRuleContext
+        {
+            get;
+            set;
+        }
 
-        public Statement(IChild parent, string input, int lineIndex)
+        public Statement(IChild parent, ParserRuleContext ruleContext)
         {
             this.Parent = parent;
-            this.Input = input;
-            this.LineIndex = lineIndex;
+            this.ParserRuleContext = ruleContext;
         }
-        public Statement(IChild parent)
+       /* public Statement(IChild parent)
         {
             this.Parent = parent;
-        }
-  
+        } */
+
 
         public override string ToString()
         {
             return string.Format("({0}) {1}", this.GetType().Name, Input);
         }
 
-        public virtual int GetLineSkip()
-        {
-            return 1;
-        }
         /*
          * Cette classe n'a rien a faire ici ! 
          */
-        public abstract void GenerateBytecode(ClassesContainer container,ByteBlock context);
+        public abstract void GenerateBytecode(ClassesContainer container, ByteBlock context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
     }

@@ -76,7 +76,7 @@
     <Compile Include="Parser\ClassListener.cs" />
     <Compile Include="Parser\ParserUtils.cs" />
     <Compile Include="Parser\StatementBlockListener.cs" />
-    <Compile Include="Parser\StatementNode.cs" />
+    <Compile Include="Parser\Expression.cs" />
     <Compile Include="IO\NvFile.cs" />
     <Compile Include="Members\Class.cs" />
     <Compile Include="Members\Field.cs" />

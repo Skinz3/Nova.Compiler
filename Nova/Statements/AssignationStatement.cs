@@ -15,6 +15,7 @@ using Nova.Bytecode.Codes;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
 using Nova.Lexer.Accessors;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
@@ -33,22 +34,17 @@ namespace Nova.Statements
             get;
             set;
         }
-        private StatementNode Value
+        private Expression Value
         {
             get;
             set;
         }
-        public AssignationStatement(IChild parent, VariableAccessor target, char op, StatementNode node, string line, int lineIndex) : base(parent, line, lineIndex)
+        public AssignationStatement(IChild parent, VariableAccessor target, char op, Expression node, ParserRuleContext context) : base(parent, context)
         {
             this.Target = target;
             this.Operator = op;
             this.Value = node;
         }
-        public AssignationStatement(IChild parent) : base(parent)
-        {
-
-        }
-
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {

@@ -10,12 +10,13 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
     public class EmptyStatement : Statement
     {
-        public EmptyStatement(IChild member, int lineIndex) : base(member, string.Empty, lineIndex)
+        public EmptyStatement(IChild member, ParserRuleContext context) : base(member, context)
         {
 
         }

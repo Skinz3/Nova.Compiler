@@ -14,6 +14,7 @@ using Nova.Semantics;
 using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
 using Nova.Lexer.Accessors;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
@@ -26,14 +27,9 @@ namespace Nova.Statements
             get;
             set;
         }
-        public VariableNameStatement(IChild parent, string input, int lineIndex) : base(parent, input, lineIndex)
+        public VariableNameStatement(IChild parent, string name,ParserRuleContext context) : base(parent,context)
         {
-            this.Name = new VariableAccessor(input);
-        }
-
-        public VariableNameStatement(IChild parent) : base(parent)
-        {
-
+            this.Name = new VariableAccessor(name);
         }
 
 

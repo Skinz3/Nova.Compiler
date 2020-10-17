@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Enums;
 using Nova.ByteCode.Codes;
@@ -23,7 +24,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private StatementNode[] Parameters
+        private List<Expression> Parameters
         {
             get;
             set;
@@ -33,15 +34,11 @@ namespace Nova.Statements
             get;
             set;
         }
-        public NativeStatement(IChild parent, string nativeName, string parametersStr, int lineIndex, StatementNode[] parameters) : base(parent, nativeName, lineIndex)
+        public NativeStatement(IChild parent, string nativeName, List<Expression> parameters, NativesEnum native, ParserRuleContext context) : base(parent, context)
         {
             this.NativeName = nativeName;
             this.Parameters = parameters;
-        }
-        public NativeStatement(IChild parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
-        {
-            this.NativeName = name;
-            this.Parameters = parameters;
+            this.NativeEnum = native;
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

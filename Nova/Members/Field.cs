@@ -53,7 +53,7 @@ namespace Nova.Members
             get;
             private set;
         }
-        private StatementNode Value
+        private Expression Value
         {
             get;
             set;
@@ -72,7 +72,7 @@ namespace Nova.Members
         public IChild Parent => null;
 
         public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex,
-            StatementNode value)
+            Expression value)
         {
             this.Id = fieldId;
             this.ParentClass = parentClass;

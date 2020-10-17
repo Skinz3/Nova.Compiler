@@ -11,6 +11,7 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
@@ -20,12 +21,8 @@ namespace Nova.Statements
 
         public const string ELSE_REGEX = @"^else(\s*if?\s*)?(\((.*)\))?\s*({)?$";
 
-        private int LineSize
-        {
-            get;
-            set;
-        }
-        private StatementNode IfCondition
+      
+        private Expression IfCondition
         {
             get;
             set;
@@ -35,7 +32,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private StatementNode ElseCondition
+        private Expression ElseCondition
         {
             get;
             set;
@@ -45,53 +42,47 @@ namespace Nova.Statements
             get;
             set;
         }
-        public IfStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public IfStatement(IChild parent, Expression condition, List<Statement> ifStatements, Expression elseCondition,
+            List<Statement> elseStatements, ParserRuleContext context) : base(parent, context)
         {
-          /*  string conditionStr = match.Groups[1].Value;
-            this.IfCondition = StatementTreeBuilder.Build(parent, conditionStr, lineIndex);
-            int startIndex = Parser.FindNextOpenBracket(parent.ParentClass.File.Lines, lineIndex);
-            int endIndex = Parser.GetBracketCloseIndex(parent.ParentClass.File.Brackets, startIndex);
+            /*  string conditionStr = match.Groups[1].Value;
+              this.IfCondition = StatementTreeBuilder.Build(parent, conditionStr, lineIndex);
+              int startIndex = Parser.FindNextOpenBracket(parent.ParentClass.File.Lines, lineIndex);
+              int endIndex = Parser.GetBracketCloseIndex(parent.ParentClass.File.Brackets, startIndex);
 
-            this.LineSize = (endIndex - startIndex) + 2;
+              this.LineSize = (endIndex - startIndex) + 2;
 
-            this.IfStatements = Parser.BuildStatementBlock(parent, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
+              this.IfStatements = Parser.BuildStatementBlock(parent, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
 
-            ParseElseStatement(endIndex); */
+              ParseElseStatement(endIndex); */
 
 
         }
         private void ParseElseStatement(int ifEndIndex)
         {
-          /*  int nextIndex = Parser.FindNextInstructionIndex(Parent.ParentClass.File.Lines, ifEndIndex);
+            /*  int nextIndex = Parser.FindNextInstructionIndex(Parent.ParentClass.File.Lines, ifEndIndex);
 
-            if (nextIndex != -1)
-            {
-                string line = Parent.ParentClass.File.Lines[nextIndex].Trim();
-                Match elseMatch = Regex.Match(line, ELSE_REGEX);
+              if (nextIndex != -1)
+              {
+                  string line = Parent.ParentClass.File.Lines[nextIndex].Trim();
+                  Match elseMatch = Regex.Match(line, ELSE_REGEX);
 
-                if (elseMatch.Success)
-                {
-                    string elseConditionStr = elseMatch.Groups[3].Value;
-                    this.ElseCondition = StatementTreeBuilder.Build(Parent, elseConditionStr, nextIndex);
+                  if (elseMatch.Success)
+                  {
+                      string elseConditionStr = elseMatch.Groups[3].Value;
+                      this.ElseCondition = StatementTreeBuilder.Build(Parent, elseConditionStr, nextIndex);
 
-                    int startIndex = Parser.FindNextOpenBracket(Parent.ParentClass.File.Lines, nextIndex);
-                    int endIndex = Parser.GetBracketCloseIndex(Parent.ParentClass.File.Brackets, startIndex);
+                      int startIndex = Parser.FindNextOpenBracket(Parent.ParentClass.File.Lines, nextIndex);
+                      int endIndex = Parser.GetBracketCloseIndex(Parent.ParentClass.File.Brackets, startIndex);
 
-                    this.ElseStatements = Parser.BuildStatementBlock(Parent, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
-                    LineSize += (endIndex - startIndex) + 2;
-                }
-            } */
-
-        }
-        public IfStatement(IChild parent) : base(parent)
-        {
+                      this.ElseStatements = Parser.BuildStatementBlock(Parent, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
+                      LineSize += (endIndex - startIndex) + 2;
+                  }
+              } */
 
         }
-        public override int GetLineSkip()
-        {
-            return LineSize;
-        }
-
+      
+       
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {

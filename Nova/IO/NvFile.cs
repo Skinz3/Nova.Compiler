@@ -54,7 +54,7 @@ namespace Nova.IO
             ClassListener extractor = new ClassListener(this);
             ParseTreeWalker.Default.Walk(extractor, ectx);
 
-            // Console.WriteLine(ectx.ToStringTree(parser));
+            Console.WriteLine(ectx.ToStringTree(parser));
 
             return true;
         }

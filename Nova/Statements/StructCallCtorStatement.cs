@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
@@ -19,7 +20,7 @@ namespace Nova.Statements
             get;
             set;
         }
-        private StatementNode[] Parameters
+        private List<Expression> Parameters
         {
             get;
             set;
@@ -34,11 +35,8 @@ namespace Nova.Statements
             get;
             set;
         }
-        public StructCallCtorStatement(IChild parent) : base(parent)
-        {
-        }
 
-        public StructCallCtorStatement(IChild parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
+        public StructCallCtorStatement(IChild parent, string name, List<Expression> parameters, ParserRuleContext context) : base(parent, context)
         {
             this.CtorName = name;
             this.Parameters = parameters;
@@ -58,7 +56,7 @@ namespace Nova.Statements
                     parameter.GenerateBytecode(container, context);
                 }
 
-                context.Instructions.Add(new CtorCallCode(targetClass.GetCtor().Id, Parameters.Length));
+                context.Instructions.Add(new CtorCallCode(targetClass.GetCtor().Id, Parameters.Count));
             }
         }
 
@@ -80,13 +78,13 @@ namespace Nova.Statements
 
             this.StructCtor = StructClass.GetCtor();
 
-            if (Parameters.Length > 0)
+            if (Parameters.Count > 0)
             {
                 if (StructCtor == null)
                 {
                     validator.AddError("Unknown struct ctor \"" + StructClass.ClassName + "\"", LineIndex);
                 }
-                else if (Parameters.Length != StructCtor.Parameters.Count)
+                else if (Parameters.Count != StructCtor.Parameters.Count)
                 {
                     validator.AddError("Invalid parameters count for Ctor \"" + StructClass.ClassName + "\"", LineIndex);
                 }

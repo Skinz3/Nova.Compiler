@@ -12,29 +12,20 @@ using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
 using Nova.Bytecode.Codes;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
     public class ConstStringStatement : Statement
     {
-        public const string REGEX = "^\"(.+)\"$";
-
         private string Value
         {
             get;
             set;
         }
-        public ConstStringStatement(IChild parent, string value, int lineIndex) : base(parent, string.Format("\"{0}\"", value), lineIndex)
+        public ConstStringStatement(IChild parent, string value, ParserRuleContext context) : base(parent, context)
         {
             this.Value = value;
-        }
-        public ConstStringStatement(IChild parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
-        {
-            this.Value = match.Groups[1].Value;
-        }
-        public ConstStringStatement(IChild parent) : base(parent)
-        {
-
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

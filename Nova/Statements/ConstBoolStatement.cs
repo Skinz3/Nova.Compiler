@@ -11,40 +11,33 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Nova.Bytecode.Codes;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
     public class ConstBoolStatement : Statement
     {
-        public const string REGEX = "^(true|false)$";
-
         private bool Value
         {
             get;
             set;
         }
-        public ConstBoolStatement(IChild parent, bool value, int lineIndex) : base(parent, string.Format("\"{0}\"", value), lineIndex)
+        public ConstBoolStatement(IChild parent, bool value, ParserRuleContext context) : base(parent, context)
         {
             this.Value = value;
         }
-        public ConstBoolStatement(IChild parent, string line, int lineIndex, Match match) : base(parent, line.ToString(), lineIndex)
-        {
-           // this.Value = match.Groups[1].Value == Tokenizer.BOOLEAN_TRUE;
-        }
-        public ConstBoolStatement(IChild parent) : base(parent)
-        {
 
-        }
+        
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             int variableId = context.BindConstant(Value);
-            context.Instructions.Add(new PushConstCode(variableId)); 
+            context.Instructions.Add(new PushConstCode(variableId));
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-        
+
         }
     }
 }

@@ -11,30 +11,22 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
     public class ConstInt32Statement : Statement // its const Number statement.
     {
-        public const string REGEX = @"^([+-])?([0-9]+)$";
-
         public int Value
         {
             get;
             private set;
         }
-        public ConstInt32Statement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
-        {
-            this.Value = int.Parse(input);
-        }
-        public ConstInt32Statement(IChild parent, int value) : base(parent)
+        public ConstInt32Statement(IChild parent, int value, ParserRuleContext context) : base(parent, context)
         {
             this.Value = value;
         }
-        public ConstInt32Statement(IChild parent) : base(parent)
-        {
-
-        }
+       
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             context.Instructions.Add(new PushIntCode(Value));
@@ -47,7 +39,7 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            
+
         }
     }
 }

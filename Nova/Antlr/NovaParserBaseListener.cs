@@ -360,19 +360,6 @@ public partial class NovaParserBaseListener : INovaParserListener {
 	public virtual void ExitBlock([NotNull] NovaParser.BlockContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="NovaParser.blockStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBlockStatement([NotNull] NovaParser.BlockStatementContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="NovaParser.blockStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBlockStatement([NotNull] NovaParser.BlockStatementContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.localVariableDeclaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

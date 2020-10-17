@@ -306,17 +306,6 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitBlock([NotNull] NovaParser.BlockContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="NovaParser.blockStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBlockStatement([NotNull] NovaParser.BlockStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="NovaParser.blockStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBlockStatement([NotNull] NovaParser.BlockStatementContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.localVariableDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

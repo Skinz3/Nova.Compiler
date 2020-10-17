@@ -15,20 +15,20 @@ using System.Threading.Tasks;
 namespace Nova.Lexer
 {
     // Node Class: Base for binary tree, holds data for left and right nodes.
-    public class StatementNode
+    public class Expression
     {
         public Statement Value
         {
             get;
             private set;
         }
-        private StatementNode Left
+        private Expression Left
         {
             get;
             set;
         }
 
-        private StatementNode Right
+        private Expression Right
         {
             get;
             set;
@@ -107,7 +107,7 @@ namespace Nova.Lexer
             get;
             private set;
         }
-        public StatementNode(IChild parent, Statement statement, StatementNode left, StatementNode right)
+        public Expression(IChild parent, Statement statement, Expression left, Expression right)
         {
             this.Parent = parent;
             this.Left = left;
@@ -115,7 +115,7 @@ namespace Nova.Lexer
             this.Value = statement;
             this.Postfix = this.ComputePostfix();
         }
-        public StatementNode(IChild parent, Statement value)
+        public Expression(IChild parent, Statement value)
         {
             this.Parent = parent;
             Left = null;
@@ -123,9 +123,12 @@ namespace Nova.Lexer
             Value = value;
         }
 
-        public StatementNode(IChild parent)
+        public Expression(IChild parent)
         {
             this.Parent = parent;
+            Left = null;
+            Right = null;
+            Value = null;
         }
 
         public void GenerateBytecode(ClassesContainer container, ByteBlock context)

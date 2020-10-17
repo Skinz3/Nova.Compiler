@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
@@ -23,20 +24,17 @@ namespace Nova.Statements
             get;
             set;
         }
-        public StatementNode Value
+        public Expression Value
         {
             get;
             private set;
         }
-        public DeclarationStatement(IChild parent, string line, int lineIndex, Match match, StatementNode value) : base(parent, line, lineIndex)
+        public DeclarationStatement(IChild parent, Variable variable, Expression value, ParserRuleContext context) : base(parent, context)
         {
-            Variable = new Variable(match.Groups[2].Value, match.Groups[1].Value);
+            Variable = variable;
             this.Value = value;
         }
-        public DeclarationStatement(IChild parent) : base(parent)
-        {
-            
-        }
+
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {

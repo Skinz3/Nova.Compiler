@@ -16,7 +16,7 @@ using Nova.Lexer.Accessors;
 
 namespace Nova.Members
 {
-    public class Method : IChild, IByteData, IAccessible, IStatementBlock
+    public class Method : IByteData, IAccessible, IStatementBlock
     {
         public Class ParentClass
         {

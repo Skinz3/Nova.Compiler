@@ -1,4 +1,5 @@
-﻿using Nova.Bytecode.Codes;
+﻿using Antlr4.Runtime;
+using Nova.Bytecode.Codes;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Enums;
 using Nova.ByteCode.Generation;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Nova.Statements
 {
-    public class OperatorStatement : Statement
+    public class OperatorStatement : Statement // shouldnt be a statement....
     {
         private static readonly Dictionary<string, OperatorsEnum> OPERATORS_BINDING = new Dictionary<string, OperatorsEnum>()
         {
@@ -41,21 +42,14 @@ namespace Nova.Statements
             }
         }
 
-        public OperatorStatement(IChild parent, string @operator, int lineIndex) : base(parent, @operator.ToString(), lineIndex)
+        public OperatorStatement(IChild parent, string @operator, ParserRuleContext context) : base(parent, context)
         {
             this.Operator = @operator;
         }
-        public OperatorStatement(IChild parent) : base(parent)
-        {
 
-        }
-        /*   public static void GenerateBytecode(OperatorStatement operatorSt,Statement right, Statement left, ByteBlockMetadata context)
-           {
-
-           } */
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            //throw new InvalidOperationException();
+
             switch (OperatorEnum)
             {
                 case OperatorsEnum.Plus:

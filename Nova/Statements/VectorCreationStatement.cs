@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
@@ -15,21 +16,15 @@ namespace Nova.Statements
 {
     public class VectorCreationStatement : Statement
     {
-
-
-        private StatementNode[] Elements
+        private List<Expression> Elements
         {
             get;
             set;
         }
-        public VectorCreationStatement(IChild parent) : base(parent)
-        {
 
-        }
-
-        public VectorCreationStatement(IChild parent, string parametersStr, int lineIndex) : base(parent, parametersStr, lineIndex)
+        public VectorCreationStatement(IChild parent, List<Expression> elements, ParserRuleContext context) : base(parent, context)
         {
-            //    this.Elements = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
+            this.Elements = elements;
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
@@ -43,7 +38,7 @@ namespace Nova.Statements
                 element.GenerateBytecode(container, context);
             }
 
-            context.Instructions.Add(new VectCreateCode(Elements.Length));
+            context.Instructions.Add(new VectCreateCode(Elements.Count));
 
             context.Instructions.Add(new CtorCallCode(targetClass.GetCtor().Id, 1));
         }

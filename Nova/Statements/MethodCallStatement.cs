@@ -14,6 +14,7 @@ using Nova.Semantics;
 using Nova.Bytecode.Codes;
 using Nova.Bytecode.Symbols;
 using Nova.Lexer.Accessors;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
@@ -31,36 +32,18 @@ namespace Nova.Statements
         /// Paramètres passés a la méthodes (liste d'Lexer)
         /// Verifier qu'il s'agit bien de statement valide pour une methode. (ne retourne pas void). (analyse sémantique)
         /// </summary>
-        private StatementNode[] Parameters
+        private List<Expression> Parameters
         {
             get;
             set;
         }
-        public MethodCallStatement(IChild parent, string line, int lineIndex) : base(parent, line, lineIndex)
-        {
-
-        }
-        public MethodCallStatement(IChild parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
-        {
-            this.MethodName = new MethodAccessor(match.Groups[1].Value);
-            string parametersStr = match.Groups[2].Value;
-        //    this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
-        }
-        public MethodCallStatement(IChild parent) : base(parent)
-        {
-
-        }
-
-        public MethodCallStatement(IChild parent, string line, int lineIndex, string methodName, string parametersStr) : base(parent, line, lineIndex)
-        {
-            this.MethodName = new MethodAccessor(methodName);
-      //      this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
-        }
-        public MethodCallStatement(IChild parent, string line, int lineIndex, string methodName, StatementNode[] parameters) : base(parent, line, lineIndex)
+        public MethodCallStatement(IChild parent, string methodName, List<Expression> parameters, ParserRuleContext context) : base(parent, context)
         {
             this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;
         }
+       
+        
         private void GenerateStructAccessorBytecode(ByteBlock context, int loadStart)
         {
             for (int i = loadStart; i < MethodName.Elements.Count - 1; i++)
@@ -156,7 +139,7 @@ namespace Nova.Statements
 
             if (target != null)
             {
-                if (target.Parameters.Count != Parameters.Length)
+                if (target.Parameters.Count != Parameters.Count)
                 {
                     validator.AddError("Method \"" + target.ToString() + "\" requires " + target.Parameters.Count + " parameters", LineIndex);
                 }

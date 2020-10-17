@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
@@ -18,20 +19,16 @@ namespace Nova.Statements
     {
         public const string REGEX = @"^return\s*(.+)?$";
 
-        private StatementNode Value
+        private Expression Value
         {
             get;
             set;
         }
-        public ReturnStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public ReturnStatement(IChild parent, Expression value, ParserRuleContext context) : base(parent, context)
         {
-            string valueStr = match.Groups[1].Value;
-            //Value = StatementTreeBuilder.Build(parent, valueStr, lineIndex); //  will return null if valueStr is empty or whitespace
+            this.Value = value;
         }
-        public ReturnStatement(IChild parent) : base(parent)
-        {
-
-        }
+   
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {

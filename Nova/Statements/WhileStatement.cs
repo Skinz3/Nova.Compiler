@@ -12,14 +12,15 @@ using Nova.Lexer;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
+using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
-    public class WhileStatement : Statement, IChild
+    public class WhileStatement : Statement, IStatementBlock
     {
         public const string REGEX = @"^while\s*\((.+)\)\s*({)?$";
 
-        private StatementNode Condition
+        private Expression Condition
         {
             get;
             set;
@@ -29,22 +30,14 @@ namespace Nova.Statements
             get;
             private set;
         }
-        private int LineSize
-        {
-            get;
-            set;
-        }
+
 
         public Class ParentClass => this.Parent.ParentClass;
 
         IChild IChild.Parent => this.Parent;
 
-        public WhileStatement(IChild parent) : base(parent)
-        {
 
-        }
-
-        public WhileStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public WhileStatement(IChild parent, Expression condition, List<Statement> statements, ParserRuleContext context) : base(parent, context)
         {
             /*  string conditionStr = match.Groups[1].Value;
 
@@ -59,10 +52,7 @@ namespace Nova.Statements
 
 
         }
-        public override int GetLineSkip()
-        {
-            return LineSize;
-        }
+   
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
