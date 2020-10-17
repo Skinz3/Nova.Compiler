@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.Lexer
+namespace test2
 {
-    class RegexConstants
+    class Program
     {
-        public static string VARIABLE_PATTERN = "[a-zA-Z$][a-zA-Z$0-9]*";
+        static void Main(string[] args)
+        {
+        }
     }
 }

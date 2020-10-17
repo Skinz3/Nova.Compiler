@@ -34,11 +34,11 @@ namespace Nova.Statements
             get;
             set;
         }
-        public StructCallCtorStatement(IParentBlock parent) : base(parent)
+        public StructCallCtorStatement(IChild parent) : base(parent)
         {
         }
 
-        public StructCallCtorStatement(IParentBlock parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
+        public StructCallCtorStatement(IChild parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
         {
             this.CtorName = name;
             this.Parameters = parameters;

@@ -10,7 +10,6 @@ using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Lexer;
-using Nova.Lexer.Tokens;
 using Nova.Members;
 using Nova.Semantics;
 using Nova.Utils;
@@ -19,8 +18,6 @@ namespace Nova.Statements
 {
     public class NativeStatement : Statement
     {
-        public static string REGEX = @"^~([a-zA-Z_$][a-zA-Z_$0-9]*)\((.*)\)$";
-
         private string NativeName
         {
             get;
@@ -36,13 +33,12 @@ namespace Nova.Statements
             get;
             set;
         }
-        public NativeStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public NativeStatement(IChild parent, string nativeName, string parametersStr, int lineIndex, StatementNode[] parameters) : base(parent, nativeName, lineIndex)
         {
-            this.NativeName = match.Groups[1].Value;
-            string parametersStr = match.Groups[2].Value;
-            this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
+            this.NativeName = nativeName;
+            this.Parameters = parameters;
         }
-        public NativeStatement(IParentBlock parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
+        public NativeStatement(IChild parent, string line, int lineIndex, string name, StatementNode[] parameters) : base(parent, line, lineIndex)
         {
             this.NativeName = name;
             this.Parameters = parameters;

@@ -23,15 +23,15 @@ namespace Nova.Statements
             get;
             private set;
         }
-        public ConstInt32Statement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public ConstInt32Statement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
             this.Value = int.Parse(input);
         }
-        public ConstInt32Statement(IParentBlock parent, int value) : base(parent)
+        public ConstInt32Statement(IChild parent, int value) : base(parent)
         {
             this.Value = value;
         }
-        public ConstInt32Statement(IParentBlock parent) : base(parent)
+        public ConstInt32Statement(IChild parent) : base(parent)
         {
 
         }

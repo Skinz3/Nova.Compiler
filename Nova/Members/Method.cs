@@ -13,16 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.ByteCode.Enums;
 using Nova.Lexer.Accessors;
-using Nova.Lexer.Tokens;
 
 namespace Nova.Members
 {
-    public class Method : IParentBlock, IByteData, IAccessible
+    public class Method : IChild, IByteData, IAccessible, IStatementBlock
     {
-        public const string METHOD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\((.*?)\)";
-
-        public const string CTOR_PATTERN = @"^" + Tokenizer.CTOR_KEYWORD + @"\s*([a-zA-Z_$][a-zA-Z_$0-9]*)\s*\((.*?)\)";
-
         public Class ParentClass
         {
             get;
@@ -69,9 +64,10 @@ namespace Nova.Members
             private set;
         }
 
-        public IParentBlock Parent => null;
+        public IChild Parent => null;
 
-        public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType, List<Variable> parameters, int startIndex, int endIndex)
+        public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType, List<Variable> parameters, int startIndex, int endIndex,
+            List<Statement> statements)
         {
             this.Id = methodId;
             this.ParentClass = parentClass;
@@ -81,7 +77,7 @@ namespace Nova.Members
             this.Parameters = parameters;
             this.StartIndex = startIndex;
             this.EndIndex = endIndex;
-            this.Statements = new List<Statement>();
+            this.Statements = statements;
         }
         public Method(Class parentClass)
         {
@@ -99,13 +95,6 @@ namespace Nova.Members
 
             return sb.ToString();
         }
-
-        public bool BuildStatements()
-        {
-            this.Statements = Parser.BuildStatementBlock(this, StartIndex, EndIndex, this.ParentClass.File.Lines);
-            return true;
-        }
-
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
         {

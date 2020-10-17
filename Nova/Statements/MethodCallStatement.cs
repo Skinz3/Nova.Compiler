@@ -1,6 +1,5 @@
 ﻿using Nova.IO;
 using Nova.Lexer;
-using Nova.Lexer.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,8 +19,6 @@ namespace Nova.Statements
 {
     public class MethodCallStatement : Statement
     {
-        public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_._$0-9]*)\((.*)\)$";
-
         /// <summary>
         /// Nom de la methode.
         /// </summary>
@@ -39,27 +36,27 @@ namespace Nova.Statements
             get;
             set;
         }
-        public MethodCallStatement(IParentBlock parent, string line, int lineIndex) : base(parent, line, lineIndex)
+        public MethodCallStatement(IChild parent, string line, int lineIndex) : base(parent, line, lineIndex)
         {
 
         }
-        public MethodCallStatement(IParentBlock parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
+        public MethodCallStatement(IChild parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
         {
             this.MethodName = new MethodAccessor(match.Groups[1].Value);
             string parametersStr = match.Groups[2].Value;
-            this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
+        //    this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
         }
-        public MethodCallStatement(IParentBlock parent) : base(parent)
+        public MethodCallStatement(IChild parent) : base(parent)
         {
 
         }
 
-        public MethodCallStatement(IParentBlock parent, string line, int lineIndex, string methodName, string parametersStr) : base(parent, line, lineIndex)
+        public MethodCallStatement(IChild parent, string line, int lineIndex, string methodName, string parametersStr) : base(parent, line, lineIndex)
         {
             this.MethodName = new MethodAccessor(methodName);
-            this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
+      //      this.Parameters = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
         }
-        public MethodCallStatement(IParentBlock parent, string line, int lineIndex, string methodName, StatementNode[] parameters) : base(parent, line, lineIndex)
+        public MethodCallStatement(IChild parent, string line, int lineIndex, string methodName, StatementNode[] parameters) : base(parent, line, lineIndex)
         {
             this.MethodName = new MethodAccessor(methodName);
             this.Parameters = parameters;

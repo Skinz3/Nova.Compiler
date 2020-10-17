@@ -15,7 +15,7 @@ using Nova.Semantics;
 
 namespace Nova.Statements
 {
-    public class WhileStatement : Statement, IParentBlock
+    public class WhileStatement : Statement, IChild
     {
         public const string REGEX = @"^while\s*\((.+)\)\s*({)?$";
 
@@ -24,10 +24,10 @@ namespace Nova.Statements
             get;
             set;
         }
-        private Statement[] Statements
+        public List<Statement> Statements
         {
             get;
-            set;
+            private set;
         }
         private int LineSize
         {
@@ -37,25 +37,25 @@ namespace Nova.Statements
 
         public Class ParentClass => this.Parent.ParentClass;
 
-        IParentBlock IParentBlock.Parent => this.Parent;
+        IChild IChild.Parent => this.Parent;
 
-        public WhileStatement(IParentBlock parent) : base(parent)
+        public WhileStatement(IChild parent) : base(parent)
         {
 
         }
 
-        public WhileStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public WhileStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
-            string conditionStr = match.Groups[1].Value;
+            /*  string conditionStr = match.Groups[1].Value;
 
-            this.Condition = StatementTreeBuilder.Build(parent, conditionStr, lineIndex);
+              this.Condition = StatementTreeBuilder.Build(parent, conditionStr, lineIndex);
 
-            int startIndex = Parser.FindNextOpenBracket(parent.ParentClass.File.Lines, lineIndex);
-            int endIndex = Parser.GetBracketCloseIndex(parent.ParentClass.File.Brackets, startIndex);
+              int startIndex = Parser.FindNextOpenBracket(parent.ParentClass.File.Lines, lineIndex);
+              int endIndex = Parser.GetBracketCloseIndex(parent.ParentClass.File.Brackets, startIndex);
 
-            this.LineSize = (endIndex - startIndex) + 2;
+              this.LineSize = (endIndex - startIndex) + 2;
 
-            this.Statements = Parser.BuildStatementBlock(this, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
+              this.Statements = Parser.BuildStatementBlock(this, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray(); */
 
 
         }

@@ -28,14 +28,13 @@ namespace Nova.Lexer
             set;
         }
 
-
         private StatementNode Right
         {
             get;
             set;
         }
 
-        private IParentBlock Parent
+        private IChild Parent
         {
             get;
             set;
@@ -108,7 +107,7 @@ namespace Nova.Lexer
             get;
             private set;
         }
-        public StatementNode(IParentBlock parent, Statement statement, StatementNode left, StatementNode right)
+        public StatementNode(IChild parent, Statement statement, StatementNode left, StatementNode right)
         {
             this.Parent = parent;
             this.Left = left;
@@ -116,7 +115,7 @@ namespace Nova.Lexer
             this.Value = statement;
             this.Postfix = this.ComputePostfix();
         }
-        public StatementNode(IParentBlock parent, Statement value)
+        public StatementNode(IChild parent, Statement value)
         {
             this.Parent = parent;
             Left = null;
@@ -124,7 +123,7 @@ namespace Nova.Lexer
             Value = value;
         }
 
-        public StatementNode(IParentBlock parent)
+        public StatementNode(IChild parent)
         {
             this.Parent = parent;
         }

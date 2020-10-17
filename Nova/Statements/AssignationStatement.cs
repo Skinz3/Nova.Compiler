@@ -1,7 +1,6 @@
 ﻿using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.Lexer;
-using Nova.Lexer.Tokens;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
@@ -21,8 +20,6 @@ namespace Nova.Statements
 {
     public class AssignationStatement : Statement
     {
-        public static string REGEX = @"^([a-zA-Z_$][a-zA-Z_._$0-9]*)\s*(\+|-|\*|\/)?=\s*(.+)$";
-
         private VariableAccessor Target
         {
             get;
@@ -31,7 +28,7 @@ namespace Nova.Statements
         /// <summary>
         /// null -> '='
         /// </summary>
-        private char? Operator
+        private char Operator
         {
             get;
             set;
@@ -41,18 +38,13 @@ namespace Nova.Statements
             get;
             set;
         }
-        public AssignationStatement(IParentBlock parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
+        public AssignationStatement(IChild parent, VariableAccessor target, char op, StatementNode node, string line, int lineIndex) : base(parent, line, lineIndex)
         {
-            this.Target = new VariableAccessor(match.Groups[1].Value);
-
-            if (match.Groups[2].Length > 0)
-                this.Operator = match.Groups[2].Value[0];
-
-            string valueStr = match.Groups[3].Value;
-
-            this.Value = StatementTreeBuilder.Build(parent, valueStr, lineIndex);
+            this.Target = target;
+            this.Operator = op;
+            this.Value = node;
         }
-        public AssignationStatement(IParentBlock parent) : base(parent)
+        public AssignationStatement(IChild parent) : base(parent)
         {
 
         }

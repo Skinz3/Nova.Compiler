@@ -1,6 +1,5 @@
 ﻿using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
-using Nova.Lexer.Tokens;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
@@ -24,15 +23,15 @@ namespace Nova.Statements
             get;
             set;
         }
-        public ConstBoolStatement(IParentBlock parent, bool value, int lineIndex) : base(parent, string.Format("\"{0}\"", value), lineIndex)
+        public ConstBoolStatement(IChild parent, bool value, int lineIndex) : base(parent, string.Format("\"{0}\"", value), lineIndex)
         {
             this.Value = value;
         }
-        public ConstBoolStatement(IParentBlock parent, string line, int lineIndex, Match match) : base(parent, line.ToString(), lineIndex)
+        public ConstBoolStatement(IChild parent, string line, int lineIndex, Match match) : base(parent, line.ToString(), lineIndex)
         {
-            this.Value = match.Groups[1].Value == Tokenizer.BOOLEAN_TRUE;
+           // this.Value = match.Groups[1].Value == Tokenizer.BOOLEAN_TRUE;
         }
-        public ConstBoolStatement(IParentBlock parent) : base(parent)
+        public ConstBoolStatement(IChild parent) : base(parent)
         {
 
         }

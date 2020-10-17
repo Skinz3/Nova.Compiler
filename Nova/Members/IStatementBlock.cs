@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nova.Statements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace Nova.Members
 {
-    public interface IParentBlock
+    public interface IStatementBlock
     {
-        Class ParentClass
-        {
-            get;
-        }
-        IParentBlock Parent
+        List<Statement> Statements
         {
             get;
         }

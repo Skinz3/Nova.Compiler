@@ -23,12 +23,12 @@ namespace Nova.Statements
             get;
             set;
         }
-        public ReturnStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public ReturnStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
             string valueStr = match.Groups[1].Value;
-            Value = StatementTreeBuilder.Build(parent, valueStr, lineIndex); //  will return null if valueStr is empty or whitespace
+            //Value = StatementTreeBuilder.Build(parent, valueStr, lineIndex); //  will return null if valueStr is empty or whitespace
         }
-        public ReturnStatement(IParentBlock parent) : base(parent)
+        public ReturnStatement(IChild parent) : base(parent)
         {
 
         }

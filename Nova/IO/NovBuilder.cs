@@ -103,10 +103,7 @@ namespace Nova.IO
             {
                 return null;
             }
-            if (!result.ReadClasses())
-            {
-                return null;
-            }
+           
             return result;
         }
         public bool ComputeEntryPoint() // rien a faire ici?
@@ -144,7 +141,7 @@ namespace Nova.IO
         }
         private bool CreateContainerRecursively(NvFile file, List<string> usings)
         {
-            foreach (var @class in file.GetClasses())
+            foreach (var @class in file.Classes)
             {
                 if (Container.ContainsClass(@class.ClassName))
                 {

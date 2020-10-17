@@ -8,7 +8,6 @@ using Nova.Bytecode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Lexer;
-using Nova.Lexer.Tokens;
 using Nova.Members;
 using Nova.Semantics;
 
@@ -16,21 +15,21 @@ namespace Nova.Statements
 {
     public class VectorCreationStatement : Statement
     {
-        
+
 
         private StatementNode[] Elements
         {
             get;
             set;
         }
-        public VectorCreationStatement(IParentBlock parent) : base(parent)
+        public VectorCreationStatement(IChild parent) : base(parent)
         {
 
         }
 
-        public VectorCreationStatement(IParentBlock parent, string parametersStr, int lineIndex) : base(parent, parametersStr, lineIndex)
+        public VectorCreationStatement(IChild parent, string parametersStr, int lineIndex) : base(parent, parametersStr, lineIndex)
         {
-            this.Elements = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
+            //    this.Elements = StatementTreeBuilder.BuildNodeCollection(parent, parametersStr, lineIndex, TokenType.Comma);
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

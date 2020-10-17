@@ -21,6 +21,6 @@ namespace Nova.Members
 
         public ModifiersEnum Modifiers => throw new NotImplementedException();
 
-        public IParentBlock Parent => throw new NotImplementedException();
+        public IChild Parent => throw new NotImplementedException();
     }
 }

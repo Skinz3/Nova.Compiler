@@ -15,7 +15,7 @@ namespace Nova.Statements
 {
     public class EmptyStatement : Statement
     {
-        public EmptyStatement(IParentBlock member, int lineIndex) : base(member, string.Empty, lineIndex)
+        public EmptyStatement(IChild member, int lineIndex) : base(member, string.Empty, lineIndex)
         {
 
         }

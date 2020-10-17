@@ -45,9 +45,9 @@ namespace Nova.Statements
             get;
             set;
         }
-        public IfStatement(IParentBlock parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
+        public IfStatement(IChild parent, string input, int lineIndex, Match match) : base(parent, input, lineIndex)
         {
-            string conditionStr = match.Groups[1].Value;
+          /*  string conditionStr = match.Groups[1].Value;
             this.IfCondition = StatementTreeBuilder.Build(parent, conditionStr, lineIndex);
             int startIndex = Parser.FindNextOpenBracket(parent.ParentClass.File.Lines, lineIndex);
             int endIndex = Parser.GetBracketCloseIndex(parent.ParentClass.File.Brackets, startIndex);
@@ -56,13 +56,13 @@ namespace Nova.Statements
 
             this.IfStatements = Parser.BuildStatementBlock(parent, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
 
-            ParseElseStatement(endIndex);
+            ParseElseStatement(endIndex); */
 
 
         }
         private void ParseElseStatement(int ifEndIndex)
         {
-            int nextIndex = Parser.FindNextInstructionIndex(Parent.ParentClass.File.Lines, ifEndIndex);
+          /*  int nextIndex = Parser.FindNextInstructionIndex(Parent.ParentClass.File.Lines, ifEndIndex);
 
             if (nextIndex != -1)
             {
@@ -80,10 +80,10 @@ namespace Nova.Statements
                     this.ElseStatements = Parser.BuildStatementBlock(Parent, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray();
                     LineSize += (endIndex - startIndex) + 2;
                 }
-            }
+            } */
 
         }
-        public IfStatement(IParentBlock parent) : base(parent)
+        public IfStatement(IChild parent) : base(parent)
         {
 
         }

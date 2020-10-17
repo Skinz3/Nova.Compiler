@@ -1,7 +1,6 @@
 ﻿using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.Lexer;
-using Nova.Lexer.Tokens;
 using Nova.IO;
 using Nova.Members;
 using Nova.Semantics;
@@ -29,14 +28,14 @@ namespace Nova.Statements
             get;
             private set;
         }
-        public DeclarationStatement(IParentBlock parent, string line, int lineIndex, Match match) : base(parent, line, lineIndex)
+        public DeclarationStatement(IChild parent, string line, int lineIndex, Match match, StatementNode value) : base(parent, line, lineIndex)
         {
             Variable = new Variable(match.Groups[2].Value, match.Groups[1].Value);
-            this.Value = StatementTreeBuilder.Build(parent, match.Groups[4].Value, lineIndex);
+            this.Value = value;
         }
-        public DeclarationStatement(IParentBlock parent) : base(parent)
+        public DeclarationStatement(IChild parent) : base(parent)
         {
-
+            
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

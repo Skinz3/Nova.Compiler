@@ -41,11 +41,11 @@ namespace Nova.Statements
             }
         }
 
-        public OperatorStatement(IParentBlock parent, string @operator, int lineIndex) : base(parent, @operator.ToString(), lineIndex)
+        public OperatorStatement(IChild parent, string @operator, int lineIndex) : base(parent, @operator.ToString(), lineIndex)
         {
             this.Operator = @operator;
         }
-        public OperatorStatement(IParentBlock parent) : base(parent)
+        public OperatorStatement(IChild parent) : base(parent)
         {
 
         }

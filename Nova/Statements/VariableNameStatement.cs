@@ -26,12 +26,12 @@ namespace Nova.Statements
             get;
             set;
         }
-        public VariableNameStatement(IParentBlock parent, string input, int lineIndex) : base(parent, input, lineIndex)
+        public VariableNameStatement(IChild parent, string input, int lineIndex) : base(parent, input, lineIndex)
         {
             this.Name = new VariableAccessor(input);
         }
 
-        public VariableNameStatement(IParentBlock parent) : base(parent)
+        public VariableNameStatement(IChild parent) : base(parent)
         {
 
         }

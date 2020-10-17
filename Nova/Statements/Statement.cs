@@ -23,10 +23,15 @@ namespace Nova.Statements
             get;
             private set;
         }
-        protected IParentBlock Parent
+        protected IChild Parent
         {
             get;
             private set;
+        }
+        public int Line
+        {
+            get;
+            set;
         }
         public int LineIndex
         {
@@ -34,13 +39,13 @@ namespace Nova.Statements
             private set;
         }
 
-        public Statement(IParentBlock parent, string input, int lineIndex)
+        public Statement(IChild parent, string input, int lineIndex)
         {
             this.Parent = parent;
             this.Input = input;
             this.LineIndex = lineIndex;
         }
-        public Statement(IParentBlock parent)
+        public Statement(IChild parent)
         {
             this.Parent = parent;
         }

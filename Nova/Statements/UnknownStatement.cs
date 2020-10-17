@@ -15,11 +15,11 @@ namespace Nova.Statements
 {
     public class UnknownStatement : Statement
     {
-        public UnknownStatement(IParentBlock parent, string line, int lineIndex) : base(parent, line, lineIndex)
+        public UnknownStatement(IChild parent, string line, int lineIndex) : base(parent, line, lineIndex)
         {
 
         }
-        public UnknownStatement(IParentBlock parent) : base(parent)
+        public UnknownStatement(IChild parent) : base(parent)
         {
 
         }

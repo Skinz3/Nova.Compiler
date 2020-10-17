@@ -1,7 +1,6 @@
 ﻿using Nova.ByteCode.Generation;
 using Nova.ByteCode.IO;
 using Nova.Lexer;
-using Nova.Lexer.Tokens;
 using Nova.IO;
 using Nova.Statements;
 using System;
@@ -16,7 +15,7 @@ using Nova.Lexer.Accessors;
 
 namespace Nova.Members
 {
-    public class Field : IParentBlock, IByteData, IAccessible
+    public class Field : IChild, IByteData, IAccessible
     {
         public const string FIELD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
 
@@ -70,9 +69,10 @@ namespace Nova.Members
             set;
         }
 
-        public IParentBlock Parent => null;
+        public IChild Parent => null;
 
-        public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex)
+        public Field(Class parentClass, int fieldId, ModifiersEnum modifiers, Variable variable, string valueStr, int lineIndex,
+            StatementNode value)
         {
             this.Id = fieldId;
             this.ParentClass = parentClass;
@@ -85,11 +85,7 @@ namespace Nova.Members
         {
 
         }
-        public bool Build()
-        {
-            this.Value = StatementTreeBuilder.Build(this, ValueStr, LineIndex);
-            return true;
-        }
+
         public override string ToString()
         {
             return Modifiers + " " + Variable.Type + " " + Variable.Name;
