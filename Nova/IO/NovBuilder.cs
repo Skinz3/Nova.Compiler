@@ -89,7 +89,6 @@ namespace Nova.IO
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
             Result.GetMainMethod().Meta.Print();
             Logger.Write("-------Main method bytecode--------", LogType.Purple);
-
             Console.WriteLine();
         }
 

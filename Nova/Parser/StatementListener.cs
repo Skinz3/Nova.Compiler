@@ -2,6 +2,7 @@
 using Antlr4.Runtime.Tree;
 using Nova.Lexer;
 using Nova.Members;
+using Nova.Parser.Accessors;
 using Nova.Statements;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace Nova.Parser
         public override void EnterLocalVariableDeclaration([NotNull] NovaParser.LocalVariableDeclarationContext context)
         {
             VariableDeclaratorContext declarator = context.variableDeclarator();
+
             string type = context.typeType().GetChild(0).GetText();
             string name = declarator.variableDeclaratorId().GetText();
 
@@ -34,7 +36,7 @@ namespace Nova.Parser
 
             Variable variable = new Variable(name, type);
 
-            ExpressionNode value = new ExpressionNode(statement); // should not be block but the statement.
+            ExpressionNode value = new ExpressionNode(statement);
 
             VariableInitializerContext initializer = declarator.variableInitializer();
 
@@ -42,32 +44,33 @@ namespace Nova.Parser
             {
                 ExpressionContext expressionContext = initializer.expression();
 
-                ExpressionListener listener = new ExpressionListener(statement); // same here
-
+                ExpressionListener listener = new ExpressionListener(statement);
                 ParseTreeWalker.Default.Walk(listener, context);
 
                 value = listener.GetResult();
+
             }
 
-            statement.Value = value;
             statement.Variable = variable;
+            statement.Value = value;
 
             Block.Statements.Add(statement);
         }
         public override void EnterStatementExpression([NotNull] StatementExpressionContext context)
         {
-            ExpressionListener listener = new ExpressionListener(Block); // same here
+            ExpressionStatement statement = new ExpressionStatement(Block, context);
+
+            ExpressionListener listener = new ExpressionListener(statement);
 
             ParseTreeWalker.Default.Walk(listener, context);
 
             ExpressionNode value = listener.GetResult();
 
-            Block.Statements.Add(new ExpressionStatement(Block, value, context));
+            statement.Expression = value;
+
+            Block.Statements.Add(statement);
         }
-        public override void EnterBlock([NotNull] NovaParser.BlockContext context)
-        {
-            base.EnterBlock(context);
-        }
+
     }
 
 }

@@ -15,14 +15,14 @@ namespace Nova.Statements
 {
     public class ExpressionStatement : Statement
     {
-        private ExpressionNode Expression
+        public ExpressionNode Expression
         {
             get;
             set;
         }
-        public ExpressionStatement(IChild parent, ExpressionNode expression, ParserRuleContext ruleContext) : base(parent, ruleContext)
+        public ExpressionStatement(IChild parent, ParserRuleContext ruleContext) : base(parent, ruleContext)
         {
-            this.Expression = expression;
+
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

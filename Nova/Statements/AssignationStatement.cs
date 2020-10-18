@@ -34,16 +34,15 @@ namespace Nova.Statements
             get;
             set;
         }
-        private ExpressionNode Value
+        public ExpressionNode Value
         {
             get;
             set;
         }
-        public AssignationStatement(IChild parent, VariableAccessor target, char op, ExpressionNode node, ParserRuleContext context) : base(parent, context)
+        public AssignationStatement(IChild parent, string targetName, char op, ParserRuleContext context) : base(parent, context)
         {
-            this.Target = target;
+            this.Target = new VariableAccessor(targetName);
             this.Operator = op;
-            this.Value = node;
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

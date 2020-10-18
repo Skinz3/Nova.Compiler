@@ -45,7 +45,6 @@ namespace Nova.Parser
             NovaParser.MemberDeclarationContext parent = (NovaParser.MemberDeclarationContext)context.parent;
             ModifiersEnum modifiers = ParserUtils.ParseModifier(parent.modifier().classModifier().GetText());
 
-
             VariableDeclaratorContext declarator = context.variableDeclarator();
 
             string type = context.typeType().GetText();
@@ -63,7 +62,7 @@ namespace Nova.Parser
 
                 ExpressionListener listener = new ExpressionListener(field); // same here
 
-                ParseTreeWalker.Default.Walk(listener, expressionContext);
+                ParseTreeWalker.Default.Walk(listener, context);
 
                 value = listener.GetResult();
             }
@@ -102,7 +101,7 @@ namespace Nova.Parser
                parameters,
                 context.start.Line,
                 context.stop.Line,
-                new List<Statement>());
+                new List<Statement>(), context);
 
 
             StatementListener listener = new StatementListener(method);

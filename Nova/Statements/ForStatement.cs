@@ -16,8 +16,6 @@ namespace Nova.Statements
 {
     public class ForStatement : Statement, IStatementBlock
     {
-        public const string REGEX = @"^for \((.+);(.+);(.+)\)$"; // for i from 1 to 3
-
         private Statement DeclarationStatement
         {
             get;
@@ -53,8 +51,6 @@ namespace Nova.Statements
 
              this.Statements = Parser.BuildStatementBlock(this, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray(); */
         }
-
-        public Class ParentClass => this.Parent.ParentClass;
 
         IChild IChild.Parent => this.Parent;
 

@@ -33,5 +33,10 @@ namespace Nova.Expressions
         public abstract void GenerateBytecode(ClassesContainer container, ByteBlock context);
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
+
+        public override string ToString()
+        {
+            return this.GetType().Name;
+        }
     }
 }

@@ -5,22 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
+using Nova.Bytecode.Enums;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Lexer;
 using Nova.Members;
 using Nova.Semantics;
 
-namespace Nova.Statements
+namespace Nova.Expressions
 {
-    public class StructCallCtorStatement : Statement
+    public class StructCallCtorExpression : Expression
     {
         private string CtorName
         {
             get;
             set;
         }
-        private List<ExpressionNode> Parameters
+        public List<ExpressionNode> Parameters
         {
             get;
             set;
@@ -36,10 +37,9 @@ namespace Nova.Statements
             set;
         }
 
-        public StructCallCtorStatement(IChild parent, string name, List<ExpressionNode> parameters, ParserRuleContext context) : base(parent, context)
+        public StructCallCtorExpression(IChild parent, string name, ParserRuleContext context) : base(parent, context)
         {
             this.CtorName = name;
-            this.Parameters = parameters;
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
@@ -73,7 +73,10 @@ namespace Nova.Statements
             {
                 validator.AddError("Unknown struct type " + CtorName, ParsingContext);
             }
-
+            if (StructClass.Type != ContainerType.@struct)
+            {
+                validator.AddError("Constructors can only be called on struct", ParsingContext);
+            }
             this.StructClass = validator.Container[CtorName];
 
             this.StructCtor = StructClass.GetCtor();

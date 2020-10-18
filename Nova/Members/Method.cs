@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.ByteCode.Enums;
 using Nova.Parser.Accessors;
+using Nova.Bytecode.Enums;
+using Antlr4.Runtime;
 
 namespace Nova.Members
 {
@@ -63,11 +65,15 @@ namespace Nova.Members
             get;
             private set;
         }
-
+        private ParserRuleContext Context
+        {
+            get;
+            set;
+        }
         public IChild Parent => null;
 
         public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType, List<Variable> parameters, int startIndex, int endIndex,
-            List<Statement> statements)
+            List<Statement> statements, ParserRuleContext context)
         {
             this.Id = methodId;
             this.ParentClass = parentClass;
@@ -78,6 +84,11 @@ namespace Nova.Members
             this.StartIndex = startIndex;
             this.EndIndex = endIndex;
             this.Statements = statements;
+            this.Context = context;
+        }
+        public bool IsMainPointEntry()
+        {
+            return Modifiers == ModifiersEnum.@public && Name == Constants.MAIN_METHOD_NAME && Parameters.Count == 0;
         }
         public Method(Class parentClass)
         {
@@ -123,6 +134,10 @@ namespace Nova.Members
         {
             SemanticsValidator validator = new SemanticsValidator(ParentClass, container);
 
+            if (ParentClass.Type == ContainerType.@struct && IsMainPointEntry())
+            {
+                validator.AddError("Main point entry cannot be member of struct \"" + ParentClass.ClassName + "\"", Context);
+            }
             foreach (var param in Parameters)
             {
                 validator.DeclareVariable(param.Name, param.Type);

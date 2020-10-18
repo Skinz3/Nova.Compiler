@@ -33,7 +33,7 @@ classBody
 memberDeclaration
     : modifier methodDeclaration
     | modifier fieldDeclaration
-    | modifier constructorDeclaration
+    | constructorDeclaration
     ;
 
 modifier
@@ -77,17 +77,14 @@ primitiveType
     | DOUBLE
     ;
 
-expression
 
-    : methodCall #terminal 
-    | primary  #terminal 
-    | expression bop='.' 
-      ( IDENTIFIER
-      | methodCall
-      ) #terminal 
-    | nativeCall #terminal 
-    
-    | NEW creator #terminal 
+expression
+    : methodCall #call 
+    | expression bop='.' IDENTIFIER #accessibleField
+    | expression bop='.' methodCall #accessibleCall
+    | nativeCall #call 
+    | primary  #val 
+    | constructorCall #ctor
     | prefix=('+'|'-') expression #opExpr
     | left=expression bop=('*'|'/') right=expression #opExpr
     | left=expression bop=('+'|'-') right=expression #opExpr
@@ -96,7 +93,7 @@ expression
     | left=expression bop=('==' | '!=') right=expression #opExpr
     | left=expression bop='&&' right=expression #opExpr
     | left=expression bop='||' right=expression #opExpr
-    | <assoc=right> left=expression '=' right=expression #opExpr
+
     ;
 
 methodDeclaration
@@ -150,7 +147,13 @@ statement
     | forStatement
     | WHILE parExpression statement
     | RETURN expression? 
+    | assignationStatement
     | statementExpression
+
+    ;
+
+assignationStatement
+    : <assoc=right> left=expression '=' right=expression
     ;
 
 statementExpression
@@ -211,6 +214,10 @@ floatLiteral
 
 methodCall
     : IDENTIFIER '(' expressionList? ')'
+    ;
+
+constructorCall
+    : NEW creator
     ;
 
 nativeCall
