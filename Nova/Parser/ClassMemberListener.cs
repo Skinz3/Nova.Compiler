@@ -28,7 +28,10 @@ namespace Nova.Parser
         }
         public override void EnterMemberDeclaration([NotNull] NovaParser.MemberDeclarationContext context)
         {
-
+            foreach (var memberDeclaration in context.GetRuleContexts<ParserRuleContext>())
+            {
+                memberDeclaration.EnterRule(this);
+            }
         }
         public override void EnterMethodDeclaration([NotNull] NovaParser.MethodDeclarationContext context)
         {
@@ -62,7 +65,10 @@ namespace Nova.Parser
 
                 ExpressionListener listener = new ExpressionListener(field); // same here
 
-                ParseTreeWalker.Default.Walk(listener, context);
+                foreach (var expression in expressionContext.GetRuleContexts<ParserRuleContext>())
+                {
+                    expression.EnterRule(listener);
+                }
 
                 value = listener.GetResult();
             }
@@ -106,7 +112,10 @@ namespace Nova.Parser
 
             StatementListener listener = new StatementListener(method);
 
-            ParseTreeWalker.Default.Walk(listener, context);
+            foreach (var methodRule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                methodRule.EnterRule(listener);
+            }
 
             Class.Methods.Add(method.Name, method);
         }

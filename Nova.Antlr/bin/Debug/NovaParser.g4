@@ -79,12 +79,12 @@ primitiveType
 
 
 expression
-    : methodCall #call 
-    | expression bop='.' IDENTIFIER #accessibleField
-    | expression bop='.' methodCall #accessibleCall
-    | nativeCall #call 
-    | primary  #val 
-    | constructorCall #ctor
+    : methodCall #stExpr 
+    | expression bop='.' IDENTIFIER #stExpr
+    | expression bop='.' methodCall #stExpr
+    | nativeCall #stExpr 
+    | constructorCall #stExpr
+    | primary  #primaryValue 
     | prefix=('+'|'-') expression #opExpr
     | left=expression bop=('*'|'/') right=expression #opExpr
     | left=expression bop=('+'|'-') right=expression #opExpr

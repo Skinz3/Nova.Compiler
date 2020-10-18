@@ -52,10 +52,11 @@ namespace Nova.IO
             NovaParser.CompilationUnitContext ectx = parser.compilationUnit();
 
             ClassListener classListener = new ClassListener(this);
-
-            ParseTreeWalker.Default.Walk(classListener, ectx);
-
-            Console.WriteLine(ectx.ToStringTree(parser));
+          
+            foreach (var typeDeclaration in ectx.typeDeclaration())
+            {
+                typeDeclaration.EnterRule(classListener);
+            }
 
             return true;
         }

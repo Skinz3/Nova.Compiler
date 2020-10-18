@@ -952,53 +952,18 @@ public partial class NovaParser : Parser {
 			base.CopyFrom(context);
 		}
 	}
-	public partial class CallContext : ExpressionContext {
-		public MethodCallContext methodCall() {
-			return GetRuleContext<MethodCallContext>(0);
-		}
-		public NativeCallContext nativeCall() {
-			return GetRuleContext<NativeCallContext>(0);
-		}
-		public CallContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterCall(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitCall(this);
-		}
-	}
-	public partial class ValContext : ExpressionContext {
+	public partial class PrimaryValueContext : ExpressionContext {
 		public PrimaryContext primary() {
 			return GetRuleContext<PrimaryContext>(0);
 		}
-		public ValContext(ExpressionContext context) { CopyFrom(context); }
+		public PrimaryValueContext(ExpressionContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterVal(this);
+			if (typedListener != null) typedListener.EnterPrimaryValue(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitVal(this);
-		}
-	}
-	public partial class AccessibleCallContext : ExpressionContext {
-		public IToken bop;
-		public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		public MethodCallContext methodCall() {
-			return GetRuleContext<MethodCallContext>(0);
-		}
-		public AccessibleCallContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterAccessibleCall(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitAccessibleCall(this);
+			if (typedListener != null) typedListener.ExitPrimaryValue(this);
 		}
 	}
 	public partial class OpExprContext : ExpressionContext {
@@ -1022,34 +987,29 @@ public partial class NovaParser : Parser {
 			if (typedListener != null) typedListener.ExitOpExpr(this);
 		}
 	}
-	public partial class AccessibleFieldContext : ExpressionContext {
+	public partial class StExprContext : ExpressionContext {
 		public IToken bop;
+		public MethodCallContext methodCall() {
+			return GetRuleContext<MethodCallContext>(0);
+		}
 		public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
-		public AccessibleFieldContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterAccessibleField(this);
+		public NativeCallContext nativeCall() {
+			return GetRuleContext<NativeCallContext>(0);
 		}
-		public override void ExitRule(IParseTreeListener listener) {
-			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitAccessibleField(this);
-		}
-	}
-	public partial class CtorContext : ExpressionContext {
 		public ConstructorCallContext constructorCall() {
 			return GetRuleContext<ConstructorCallContext>(0);
 		}
-		public CtorContext(ExpressionContext context) { CopyFrom(context); }
+		public StExprContext(ExpressionContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterCtor(this);
+			if (typedListener != null) typedListener.EnterStExpr(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitCtor(this);
+			if (typedListener != null) typedListener.ExitStExpr(this);
 		}
 	}
 
@@ -1075,7 +1035,7 @@ public partial class NovaParser : Parser {
 			switch ( Interpreter.AdaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				{
-				_localctx = new CallContext(_localctx);
+				_localctx = new StExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
@@ -1085,7 +1045,7 @@ public partial class NovaParser : Parser {
 
 			case 2:
 				{
-				_localctx = new CallContext(_localctx);
+				_localctx = new StExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				State = 168; nativeCall();
@@ -1094,19 +1054,19 @@ public partial class NovaParser : Parser {
 
 			case 3:
 				{
-				_localctx = new ValContext(_localctx);
+				_localctx = new StExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 169; primary();
+				State = 169; constructorCall();
 				}
 				break;
 
 			case 4:
 				{
-				_localctx = new CtorContext(_localctx);
+				_localctx = new PrimaryValueContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 170; constructorCall();
+				State = 170; primary();
 				}
 				break;
 
@@ -1302,22 +1262,22 @@ public partial class NovaParser : Parser {
 
 					case 8:
 						{
-						_localctx = new AccessibleFieldContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new StExprContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 204;
 						if (!(Precpred(_ctx, 13))) throw new FailedPredicateException(this, "Precpred(_ctx, 13)");
-						State = 205; ((AccessibleFieldContext)_localctx).bop = Match(DOT);
+						State = 205; ((StExprContext)_localctx).bop = Match(DOT);
 						State = 206; Match(IDENTIFIER);
 						}
 						break;
 
 					case 9:
 						{
-						_localctx = new AccessibleCallContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new StExprContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 207;
 						if (!(Precpred(_ctx, 12))) throw new FailedPredicateException(this, "Precpred(_ctx, 12)");
-						State = 208; ((AccessibleCallContext)_localctx).bop = Match(DOT);
+						State = 208; ((StExprContext)_localctx).bop = Match(DOT);
 						State = 209; methodCall();
 						}
 						break;
@@ -3137,7 +3097,7 @@ public partial class NovaParser : Parser {
 		"\xA0\xA1\a/\x2\x2\xA1\x1B\x3\x2\x2\x2\xA2\xA5\a/\x2\x2\xA3\xA5\x5\x1E"+
 		"\x10\x2\xA4\xA2\x3\x2\x2\x2\xA4\xA3\x3\x2\x2\x2\xA5\x1D\x3\x2\x2\x2\xA6"+
 		"\xA7\t\x3\x2\x2\xA7\x1F\x3\x2\x2\x2\xA8\xA9\b\x11\x1\x2\xA9\xB0\x5P)\x2"+
-		"\xAA\xB0\x5T+\x2\xAB\xB0\x5H%\x2\xAC\xB0\x5R*\x2\xAD\xAE\t\x4\x2\x2\xAE"+
+		"\xAA\xB0\x5T+\x2\xAB\xB0\x5R*\x2\xAC\xB0\x5H%\x2\xAD\xAE\t\x4\x2\x2\xAE"+
 		"\xB0\x5 \x11\n\xAF\xA8\x3\x2\x2\x2\xAF\xAA\x3\x2\x2\x2\xAF\xAB\x3\x2\x2"+
 		"\x2\xAF\xAC\x3\x2\x2\x2\xAF\xAD\x3\x2\x2\x2\xB0\xD6\x3\x2\x2\x2\xB1\xB2"+
 		"\f\t\x2\x2\xB2\xB3\t\x5\x2\x2\xB3\xD5\x5 \x11\n\xB4\xB5\f\b\x2\x2\xB5"+

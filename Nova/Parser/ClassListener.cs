@@ -3,6 +3,8 @@ using Antlr4.Runtime.Tree;
 using Nova.Bytecode.Enums;
 using Nova.IO;
 using Nova.Members;
+using System;
+using static NovaParser;
 using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
 using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
 using IToken = Antlr4.Runtime.IToken;
@@ -22,6 +24,13 @@ namespace Nova.Parser
             this.File = file;
         }
 
+        public override void EnterTypeDeclaration([NotNull] TypeDeclarationContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);
+            }
+        }
         public override void EnterClassDeclaration(NovaParser.ClassDeclarationContext context)
         {
             AddMember(context.IDENTIFIER().GetText(), ContainerType.@class, context.start.Line, context.stop.Line, context);
@@ -31,11 +40,17 @@ namespace Nova.Parser
             AddMember(context.IDENTIFIER().GetText(), ContainerType.@struct, context.start.Line, context.stop.Line, context);
         }
 
-        private void AddMember(string className, ContainerType type, int startLine, int endLine, IParseTree context)
+        private void AddMember(string className, ContainerType type, int startLine, int endLine, ParserRuleContext context)
         {
             Class @class = new Class(File, className, type, startLine, endLine);
             ClassMemberListener listener = new ClassMemberListener(@class);
-            ParseTreeWalker.Default.Walk(listener, context);
+
+            foreach (var memberDeclaration in context.GetRuleContext<ClassBodyContext>(0).GetRuleContexts<ParserRuleContext>())
+            {
+                Console.WriteLine(memberDeclaration.GetType().Name);
+                memberDeclaration.EnterRule(listener);
+            }
+
             File.Classes.Add(@class);
         }
 

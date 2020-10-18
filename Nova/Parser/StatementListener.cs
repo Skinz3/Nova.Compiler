@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime.Misc;
+﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using Nova.Lexer;
 using Nova.Members;
@@ -25,6 +26,24 @@ namespace Nova.Parser
         {
             this.Block = block;
         }
+        public override void EnterMethodBody([NotNull] MethodBodyContext context)
+        {
+            foreach (var blockContext in context.GetRuleContexts<BlockContext>())
+            {
+                foreach (var rule in blockContext.GetRuleContexts<ParserRuleContext>())
+                {
+                    rule.EnterRule(this);
+                }
+
+            }
+        }
+        public override void EnterStatement([NotNull] StatementContext context)
+        {
+            foreach (var statement in context.GetRuleContexts<ParserRuleContext>())
+            {
+                statement.EnterRule(this);
+            }
+        }
         public override void EnterLocalVariableDeclaration([NotNull] NovaParser.LocalVariableDeclarationContext context)
         {
             VariableDeclaratorContext declarator = context.variableDeclarator();
@@ -45,7 +64,11 @@ namespace Nova.Parser
                 ExpressionContext expressionContext = initializer.expression();
 
                 ExpressionListener listener = new ExpressionListener(statement);
-                ParseTreeWalker.Default.Walk(listener, context);
+
+                foreach (var child in expressionContext.GetRuleContexts<ParserRuleContext>())
+                {
+                    child.EnterRule(listener);
+                }
 
                 value = listener.GetResult();
 
@@ -62,7 +85,10 @@ namespace Nova.Parser
 
             ExpressionListener listener = new ExpressionListener(statement);
 
-            ParseTreeWalker.Default.Walk(listener, context);
+            foreach (var child in context.expression().GetRuleContexts<ParserRuleContext>())
+            {
+                child.EnterRule(listener);
+            }
 
             ExpressionNode value = listener.GetResult();
 

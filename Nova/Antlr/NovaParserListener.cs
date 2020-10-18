@@ -31,43 +31,17 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface INovaParserListener : IParseTreeListener {
 	/// <summary>
-	/// Enter a parse tree produced by the <c>call</c>
+	/// Enter a parse tree produced by the <c>primaryValue</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterCall([NotNull] NovaParser.CallContext context);
+	void EnterPrimaryValue([NotNull] NovaParser.PrimaryValueContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>call</c>
+	/// Exit a parse tree produced by the <c>primaryValue</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitCall([NotNull] NovaParser.CallContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>val</c>
-	/// labeled alternative in <see cref="NovaParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterVal([NotNull] NovaParser.ValContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>val</c>
-	/// labeled alternative in <see cref="NovaParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitVal([NotNull] NovaParser.ValContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>accessibleCall</c>
-	/// labeled alternative in <see cref="NovaParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterAccessibleCall([NotNull] NovaParser.AccessibleCallContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>accessibleCall</c>
-	/// labeled alternative in <see cref="NovaParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitAccessibleCall([NotNull] NovaParser.AccessibleCallContext context);
+	void ExitPrimaryValue([NotNull] NovaParser.PrimaryValueContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>opExpr</c>
@@ -83,30 +57,17 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitOpExpr([NotNull] NovaParser.OpExprContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>accessibleField</c>
+	/// Enter a parse tree produced by the <c>stExpr</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAccessibleField([NotNull] NovaParser.AccessibleFieldContext context);
+	void EnterStExpr([NotNull] NovaParser.StExprContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>accessibleField</c>
+	/// Exit a parse tree produced by the <c>stExpr</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAccessibleField([NotNull] NovaParser.AccessibleFieldContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>ctor</c>
-	/// labeled alternative in <see cref="NovaParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCtor([NotNull] NovaParser.CtorContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>ctor</c>
-	/// labeled alternative in <see cref="NovaParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCtor([NotNull] NovaParser.CtorContext context);
+	void ExitStExpr([NotNull] NovaParser.StExprContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.compilationUnit"/>.

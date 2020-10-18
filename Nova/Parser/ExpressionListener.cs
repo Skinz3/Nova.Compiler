@@ -30,7 +30,6 @@ namespace Nova.Parser
             this.Parent = parent;
             this.Result = new ExpressionNode(Parent);
         }
-
         public override void EnterPrimary([NotNull] PrimaryContext context)
         {
             var identifier = context.IDENTIFIER();
@@ -39,6 +38,17 @@ namespace Nova.Parser
             {
                 Result.Add(new VariableNameExpression(Result, context, identifier.GetText()));
             }
+            else
+            {
+                foreach (var rule in context.literal().GetRuleContexts<ParserRuleContext>())
+                {
+                    rule.EnterRule(this);
+                }
+            }
+        }
+        public override void EnterPrimaryValue([NotNull] PrimaryValueContext context)
+        {
+            context.primary().EnterRule(this);
         }
         public override void EnterIntegerLiteral([NotNull] IntegerLiteralContext context)
         {
@@ -58,7 +68,7 @@ namespace Nova.Parser
 
             this.Result.Add(expr);
         }
-        
+
         public override void EnterMethodCall([NotNull] MethodCallContext context)
         {
             MethodCallExpression expr = new MethodCallExpression(Result, context, context.IDENTIFIER().GetText());
@@ -75,16 +85,16 @@ namespace Nova.Parser
 
             if (expressionListContext != null)
             {
-                var exp = expressionListContext.expression();
-                foreach (var expression in exp)
+                foreach (var expression in expressionListContext.GetRuleContexts<ParserRuleContext>())
                 {
                     ExpressionListener listener = new ExpressionListener(parent);
 
-                    ParseTreeWalker.Default.Walk(listener, expression);
+                    expression.EnterRule(listener);
 
                     ExpressionNode result = listener.GetResult();
 
                     parameters.Add(result);
+
                 }
             }
 
