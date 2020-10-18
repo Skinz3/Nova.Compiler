@@ -31,7 +31,7 @@ namespace Nova.Expressions
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

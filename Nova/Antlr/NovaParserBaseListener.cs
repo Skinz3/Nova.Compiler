@@ -35,6 +35,111 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class NovaParserBaseListener : INovaParserListener {
 	/// <summary>
+	/// Enter a parse tree produced by the <c>string</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterString([NotNull] NovaParser.StringContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>string</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitString([NotNull] NovaParser.StringContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>bool</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBool([NotNull] NovaParser.BoolContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>bool</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBool([NotNull] NovaParser.BoolContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>null</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNull([NotNull] NovaParser.NullContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>null</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNull([NotNull] NovaParser.NullContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>char</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterChar([NotNull] NovaParser.CharContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>char</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitChar([NotNull] NovaParser.CharContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>float</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFloat([NotNull] NovaParser.FloatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>float</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFloat([NotNull] NovaParser.FloatContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>int</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInt([NotNull] NovaParser.IntContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>int</c>
+	/// labeled alternative in <see cref="NovaParser.literal"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInt([NotNull] NovaParser.IntContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ntvCall</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNtvCall([NotNull] NovaParser.NtvCallContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ntvCall</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNtvCall([NotNull] NovaParser.NtvCallContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>primaryValue</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -65,19 +170,64 @@ public partial class NovaParserBaseListener : INovaParserListener {
 	public virtual void ExitOpExpr([NotNull] NovaParser.OpExprContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>stExpr</c>
+	/// Enter a parse tree produced by the <c>ctorCall</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterStExpr([NotNull] NovaParser.StExprContext context) { }
+	public virtual void EnterCtorCall([NotNull] NovaParser.CtorCallContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>stExpr</c>
+	/// Exit a parse tree produced by the <c>ctorCall</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitStExpr([NotNull] NovaParser.StExprContext context) { }
+	public virtual void ExitCtorCall([NotNull] NovaParser.CtorCallContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>metCall</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMetCall([NotNull] NovaParser.MetCallContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>metCall</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMetCall([NotNull] NovaParser.MetCallContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>fieldAccessor</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFieldAccessor([NotNull] NovaParser.FieldAccessorContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>fieldAccessor</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFieldAccessor([NotNull] NovaParser.FieldAccessorContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>methodAccessor</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMethodAccessor([NotNull] NovaParser.MethodAccessorContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>methodAccessor</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMethodAccessor([NotNull] NovaParser.MethodAccessorContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.compilationUnit"/>.

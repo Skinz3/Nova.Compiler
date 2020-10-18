@@ -77,22 +77,19 @@ namespace Nova.Expressions
             {
                 validator.AddError("Constructors can only be called on struct", ParsingContext);
             }
+           
             this.StructClass = validator.Container[CtorName];
 
             this.StructCtor = StructClass.GetCtor();
 
-            if (Parameters.Count > 0)
+            if (StructCtor == null)
             {
-                if (StructCtor == null)
-                {
-                    validator.AddError("Unknown struct ctor \"" + StructClass.ClassName + "\"", ParsingContext);
-                }
-                else if (Parameters.Count != StructCtor.Parameters.Count)
-                {
-                    validator.AddError("Invalid parameters count for Ctor \"" + StructClass.ClassName + "\"", ParsingContext);
-                }
+                validator.AddError("Unknown struct ctor \"" + StructClass.ClassName + "\"", ParsingContext);
             }
-
+            else if (Parameters.Count != StructCtor.Parameters.Count)
+            {
+                validator.AddError("Invalid parameters count for Ctor \"" + StructClass.ClassName + "\"", ParsingContext);
+            }
         }
     }
 }

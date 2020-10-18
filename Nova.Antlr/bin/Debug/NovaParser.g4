@@ -79,11 +79,11 @@ primitiveType
 
 
 expression
-    : methodCall #stExpr 
-    | expression bop='.' IDENTIFIER #stExpr
-    | expression bop='.' methodCall #stExpr
-    | nativeCall #stExpr 
-    | constructorCall #stExpr
+    : methodCall #metCall
+    | expression bop='.' IDENTIFIER #fieldAccessor
+    | expression bop='.' methodCall #methodAccessor
+    | nativeCall #ntvCall
+    | constructorCall #ctorCall
     | primary  #primaryValue 
     | prefix=('+'|'-') expression #opExpr
     | left=expression bop=('*'|'/') right=expression #opExpr
@@ -196,12 +196,12 @@ primary
     ;
 
 literal
-    : integerLiteral
-    | floatLiteral
-    | CHAR_LITERAL
-    | STRING_LITERAL
-    | BOOL_LITERAL
-    | NULL_LITERAL
+    : integerLiteral # int
+    | floatLiteral # float
+    | CHAR_LITERAL # char
+    | STRING_LITERAL # string
+    | BOOL_LITERAL # bool
+    | NULL_LITERAL # null
     ;
 
 integerLiteral

@@ -41,55 +41,51 @@ namespace Nova.Parser
             }
             else
             {
-
                 foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
                 {
                     rule.EnterRule(this);
                 }
             }
         }
-        public override void EnterLiteral([NotNull] LiteralContext context)
+        public override void EnterString([NotNull] StringContext context)
         {
-            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
-            {
-                rule.EnterRule(this);  // integer litteral  , float litteral etc
-            }
-        }
-        public override void EnterPrimaryValue([NotNull] PrimaryValueContext context)
-        {
-            context.primary().EnterRule(this);
+            string value = context.STRING_LITERAL().GetText().Replace("\"", "");
+            this.Result.Add(new ConstStringExpression(Result, context, value));
         }
         public override void EnterIntegerLiteral([NotNull] IntegerLiteralContext context)
         {
             this.Result.Add(new ConstIntExpression(Result, context, int.Parse(context.GetText())));
         }
-        public override void EnterOpExpr([NotNull] OpExprContext context)
-        {
-            this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
-
-            context.right.EnterRule(this);
-            context.left.EnterRule(this);
-
-        }
 
         public override void EnterNativeCall([NotNull] NativeCallContext context)
         {
             NativeCallExpression expr = new NativeCallExpression(Result, context.IDENTIFIER().GetText(), context);
-
-            List<ExpressionNode> parameters = new List<ExpressionNode>();
             expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
-
+            this.Result.Add(expr);
+        }
+        public override void EnterCtorCall([NotNull] CtorCallContext context)
+        {
+            StructCallCtorExpression expr = new StructCallCtorExpression(Result, context.constructorCall().creator().createdName().GetText(), context);
+            expr.Parameters = GetMethodCallParameters(expr, context, context.constructorCall().creator().classCreatorRest().arguments().expressionList());
             this.Result.Add(expr);
         }
 
+        public override void EnterMethodAccessor([NotNull] MethodAccessorContext context)
+        {
+            string name = context.expression().GetText() + "." + context.methodCall().IDENTIFIER().GetText();
+            MethodCallExpression expr = new MethodCallExpression(Result, context, name);
+            expr.Parameters = GetMethodCallParameters(expr, context, context.methodCall().expressionList());
+            this.Result.Add(expr);
+        }
+        public override void EnterFieldAccessor([NotNull] FieldAccessorContext context)
+        {
+            string name = context.GetText();
+            Result.Add(new VariableNameExpression(Result, context, name));
+        }
         public override void EnterMethodCall([NotNull] MethodCallContext context)
         {
             MethodCallExpression expr = new MethodCallExpression(Result, context, context.IDENTIFIER().GetText());
-
-            List<ExpressionNode> parameters = new List<ExpressionNode>();
-
             expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
-
             this.Result.Add(expr);
         }
         private List<ExpressionNode> GetMethodCallParameters(IChild parent, ParserRuleContext context, ExpressionListContext expressionListContext)
@@ -106,11 +102,6 @@ namespace Nova.Parser
 
                     parameter.EnterRule(listener);
 
-                    foreach (var expression in parameter.GetRuleContexts<ParserRuleContext>())
-                    {
-                        expression.EnterRule(listener);
-                    }
-
                     ExpressionNode result = listener.GetResult();
                     results.Add(result);
 
@@ -120,6 +111,41 @@ namespace Nova.Parser
 
             return results;
         }
+
+
+        public override void EnterOpExpr([NotNull] OpExprContext context)
+        {
+            if (context.prefix != null)
+            {
+                throw new NotImplementedException("Unary operator not handled yet.");
+            }
+            else
+            {
+                this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
+                context.right.EnterRule(this);
+                context.left.EnterRule(this);
+            }
+        }
+        public override void EnterNtvCall([NotNull] NtvCallContext context)
+        {
+            context.nativeCall().EnterRule(this);
+        }
+        public override void EnterMetCall([NotNull] MetCallContext context)
+        {
+            context.methodCall().EnterRule(this);
+        }
+        public override void EnterLiteral([NotNull] LiteralContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);  // integer litteral  , float litteral etc
+            }
+        }
+        public override void EnterPrimaryValue([NotNull] PrimaryValueContext context)
+        {
+            context.primary().EnterRule(this);
+        }
+
         public ExpressionNode GetResult()
         {
             return this.Result;

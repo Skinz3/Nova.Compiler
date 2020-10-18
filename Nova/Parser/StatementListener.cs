@@ -26,6 +26,27 @@ namespace Nova.Parser
         {
             this.Block = block;
         }
+        public override void EnterAssignationStatement([NotNull] AssignationStatementContext context)
+        {
+            AssignationStatement statement = new AssignationStatement(Block, context.left.GetText(), '=', context);
+
+            ExpressionListener listener = new ExpressionListener(statement);
+
+            context.right.EnterRule(listener);
+
+            ExpressionNode value = listener.GetResult();
+
+            statement.Value = value;
+
+            Block.Statements.Add(statement);
+        }
+        public override void EnterBlock([NotNull] BlockContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);
+            }
+        }
         public override void EnterMethodBody([NotNull] MethodBodyContext context)
         {
             foreach (var blockContext in context.GetRuleContexts<BlockContext>())
@@ -54,11 +75,6 @@ namespace Nova.Parser
 
                 context.expression().EnterRule(listener);
 
-                foreach (var child in context.expression().GetRuleContexts<ParserRuleContext>())
-                {
-                    child.EnterRule(listener);
-                }
-
                 returnStatement.Value = listener.GetResult();
 
             }
@@ -82,15 +98,10 @@ namespace Nova.Parser
             if (initializer != null)
             {
                 ExpressionContext expressionContext = initializer.expression();
-
+                Console.WriteLine(expressionContext.GetType().Name);
                 ExpressionListener listener = new ExpressionListener(statement);
 
                 expressionContext.EnterRule(listener);
-
-                foreach (var child in expressionContext.GetRuleContexts<ParserRuleContext>())
-                {
-                  child.EnterRule(listener);
-                }
 
                 value = listener.GetResult();
 
@@ -107,10 +118,7 @@ namespace Nova.Parser
 
             ExpressionListener listener = new ExpressionListener(statement);
 
-            foreach (var child in context.expression().GetRuleContexts<ParserRuleContext>())
-            {
-                child.EnterRule(listener);
-            }
+            context.expression().EnterRule(listener);
 
             ExpressionNode value = listener.GetResult();
 

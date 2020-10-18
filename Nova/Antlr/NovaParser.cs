@@ -952,6 +952,20 @@ public partial class NovaParser : Parser {
 			base.CopyFrom(context);
 		}
 	}
+	public partial class NtvCallContext : ExpressionContext {
+		public NativeCallContext nativeCall() {
+			return GetRuleContext<NativeCallContext>(0);
+		}
+		public NtvCallContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterNtvCall(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitNtvCall(this);
+		}
+	}
 	public partial class PrimaryValueContext : ExpressionContext {
 		public PrimaryContext primary() {
 			return GetRuleContext<PrimaryContext>(0);
@@ -987,29 +1001,66 @@ public partial class NovaParser : Parser {
 			if (typedListener != null) typedListener.ExitOpExpr(this);
 		}
 	}
-	public partial class StExprContext : ExpressionContext {
-		public IToken bop;
+	public partial class CtorCallContext : ExpressionContext {
+		public ConstructorCallContext constructorCall() {
+			return GetRuleContext<ConstructorCallContext>(0);
+		}
+		public CtorCallContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterCtorCall(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitCtorCall(this);
+		}
+	}
+	public partial class MetCallContext : ExpressionContext {
 		public MethodCallContext methodCall() {
 			return GetRuleContext<MethodCallContext>(0);
 		}
+		public MetCallContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterMetCall(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitMetCall(this);
+		}
+	}
+	public partial class FieldAccessorContext : ExpressionContext {
+		public IToken bop;
 		public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
-		public NativeCallContext nativeCall() {
-			return GetRuleContext<NativeCallContext>(0);
-		}
-		public ConstructorCallContext constructorCall() {
-			return GetRuleContext<ConstructorCallContext>(0);
-		}
-		public StExprContext(ExpressionContext context) { CopyFrom(context); }
+		public FieldAccessorContext(ExpressionContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterStExpr(this);
+			if (typedListener != null) typedListener.EnterFieldAccessor(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitStExpr(this);
+			if (typedListener != null) typedListener.ExitFieldAccessor(this);
+		}
+	}
+	public partial class MethodAccessorContext : ExpressionContext {
+		public IToken bop;
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		public MethodCallContext methodCall() {
+			return GetRuleContext<MethodCallContext>(0);
+		}
+		public MethodAccessorContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterMethodAccessor(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitMethodAccessor(this);
 		}
 	}
 
@@ -1035,7 +1086,7 @@ public partial class NovaParser : Parser {
 			switch ( Interpreter.AdaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				{
-				_localctx = new StExprContext(_localctx);
+				_localctx = new MetCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
@@ -1045,7 +1096,7 @@ public partial class NovaParser : Parser {
 
 			case 2:
 				{
-				_localctx = new StExprContext(_localctx);
+				_localctx = new NtvCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				State = 170; nativeCall();
@@ -1054,7 +1105,7 @@ public partial class NovaParser : Parser {
 
 			case 3:
 				{
-				_localctx = new StExprContext(_localctx);
+				_localctx = new CtorCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				State = 171; constructorCall();
@@ -1262,22 +1313,22 @@ public partial class NovaParser : Parser {
 
 					case 8:
 						{
-						_localctx = new StExprContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new FieldAccessorContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 206;
 						if (!(Precpred(_ctx, 13))) throw new FailedPredicateException(this, "Precpred(_ctx, 13)");
-						State = 207; ((StExprContext)_localctx).bop = Match(DOT);
+						State = 207; ((FieldAccessorContext)_localctx).bop = Match(DOT);
 						State = 208; Match(IDENTIFIER);
 						}
 						break;
 
 					case 9:
 						{
-						_localctx = new StExprContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MethodAccessorContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 209;
 						if (!(Precpred(_ctx, 12))) throw new FailedPredicateException(this, "Precpred(_ctx, 12)");
-						State = 210; ((StExprContext)_localctx).bop = Match(DOT);
+						State = 210; ((MethodAccessorContext)_localctx).bop = Match(DOT);
 						State = 211; methodCall();
 						}
 						break;
@@ -2519,28 +2570,91 @@ public partial class NovaParser : Parser {
 	}
 
 	public partial class LiteralContext : ParserRuleContext {
-		public IntegerLiteralContext integerLiteral() {
-			return GetRuleContext<IntegerLiteralContext>(0);
-		}
-		public FloatLiteralContext floatLiteral() {
-			return GetRuleContext<FloatLiteralContext>(0);
-		}
-		public ITerminalNode CHAR_LITERAL() { return GetToken(NovaParser.CHAR_LITERAL, 0); }
-		public ITerminalNode STRING_LITERAL() { return GetToken(NovaParser.STRING_LITERAL, 0); }
-		public ITerminalNode BOOL_LITERAL() { return GetToken(NovaParser.BOOL_LITERAL, 0); }
-		public ITerminalNode NULL_LITERAL() { return GetToken(NovaParser.NULL_LITERAL, 0); }
 		public LiteralContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_literal; } }
+	 
+		public LiteralContext() { }
+		public virtual void CopyFrom(LiteralContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class StringContext : LiteralContext {
+		public ITerminalNode STRING_LITERAL() { return GetToken(NovaParser.STRING_LITERAL, 0); }
+		public StringContext(LiteralContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.EnterLiteral(this);
+			if (typedListener != null) typedListener.EnterString(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
-			if (typedListener != null) typedListener.ExitLiteral(this);
+			if (typedListener != null) typedListener.ExitString(this);
+		}
+	}
+	public partial class BoolContext : LiteralContext {
+		public ITerminalNode BOOL_LITERAL() { return GetToken(NovaParser.BOOL_LITERAL, 0); }
+		public BoolContext(LiteralContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterBool(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitBool(this);
+		}
+	}
+	public partial class NullContext : LiteralContext {
+		public ITerminalNode NULL_LITERAL() { return GetToken(NovaParser.NULL_LITERAL, 0); }
+		public NullContext(LiteralContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterNull(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitNull(this);
+		}
+	}
+	public partial class CharContext : LiteralContext {
+		public ITerminalNode CHAR_LITERAL() { return GetToken(NovaParser.CHAR_LITERAL, 0); }
+		public CharContext(LiteralContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterChar(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitChar(this);
+		}
+	}
+	public partial class FloatContext : LiteralContext {
+		public FloatLiteralContext floatLiteral() {
+			return GetRuleContext<FloatLiteralContext>(0);
+		}
+		public FloatContext(LiteralContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterFloat(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitFloat(this);
+		}
+	}
+	public partial class IntContext : LiteralContext {
+		public IntegerLiteralContext integerLiteral() {
+			return GetRuleContext<IntegerLiteralContext>(0);
+		}
+		public IntContext(LiteralContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterInt(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitInt(this);
 		}
 	}
 
@@ -2556,6 +2670,7 @@ public partial class NovaParser : Parser {
 			case HEX_LITERAL:
 			case OCT_LITERAL:
 			case BINARY_LITERAL:
+				_localctx = new IntContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 346; integerLiteral();
@@ -2563,30 +2678,35 @@ public partial class NovaParser : Parser {
 				break;
 			case FLOAT_LITERAL:
 			case HEX_FLOAT_LITERAL:
+				_localctx = new FloatContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 347; floatLiteral();
 				}
 				break;
 			case CHAR_LITERAL:
+				_localctx = new CharContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 348; Match(CHAR_LITERAL);
 				}
 				break;
 			case STRING_LITERAL:
+				_localctx = new StringContext(_localctx);
 				EnterOuterAlt(_localctx, 4);
 				{
 				State = 349; Match(STRING_LITERAL);
 				}
 				break;
 			case BOOL_LITERAL:
+				_localctx = new BoolContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 350; Match(BOOL_LITERAL);
 				}
 				break;
 			case NULL_LITERAL:
+				_localctx = new NullContext(_localctx);
 				EnterOuterAlt(_localctx, 6);
 				{
 				State = 351; Match(NULL_LITERAL);
