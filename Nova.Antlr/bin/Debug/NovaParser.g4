@@ -146,10 +146,14 @@ statement
     | ifStatement
     | forStatement
     | WHILE parExpression statement
-    | RETURN expression? 
+    | returnStatement
     | assignationStatement
     | statementExpression
 
+    ;
+
+returnStatement
+    :  RETURN expression? 
     ;
 
 assignationStatement
@@ -188,7 +192,7 @@ expressionList
 primary
     : '(' expression ')'
     | literal
-    | IDENTIFIER
+    | IDENTIFIER 
     ;
 
 literal

@@ -17,18 +17,16 @@ namespace Nova.Statements
 {
     public class ReturnStatement : Statement
     {
-        public const string REGEX = @"^return\s*(.+)?$";
-
-        private ExpressionNode Value
+        public ExpressionNode Value
         {
             get;
             set;
         }
-        public ReturnStatement(IChild parent, ExpressionNode value, ParserRuleContext context) : base(parent, context)
+        public ReturnStatement(IChild parent, ParserRuleContext context) : base(parent, context)
         {
-            this.Value = value;
+
         }
-   
+
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {

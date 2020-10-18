@@ -47,7 +47,6 @@ namespace Nova.Parser
 
             foreach (var memberDeclaration in context.GetRuleContext<ClassBodyContext>(0).GetRuleContexts<ParserRuleContext>())
             {
-                Console.WriteLine(memberDeclaration.GetType().Name);
                 memberDeclaration.EnterRule(listener);
             }
 

@@ -431,6 +431,19 @@ public partial class NovaParserBaseListener : INovaParserListener {
 	public virtual void ExitStatement([NotNull] NovaParser.StatementContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.returnStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterReturnStatement([NotNull] NovaParser.ReturnStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.returnStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitReturnStatement([NotNull] NovaParser.ReturnStatementContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.assignationStatement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

@@ -58,6 +58,7 @@ namespace Nova.IO
                 typeDeclaration.EnterRule(classListener);
             }
 
+            Console.Write(ectx.ToStringTree(parser));
             return true;
         }
 

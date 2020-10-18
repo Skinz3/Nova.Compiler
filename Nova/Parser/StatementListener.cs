@@ -44,6 +44,26 @@ namespace Nova.Parser
                 statement.EnterRule(this);
             }
         }
+        public override void EnterReturnStatement([NotNull] ReturnStatementContext context)
+        {
+            ReturnStatement returnStatement = new ReturnStatement(Block, context);
+
+            if (context.expression() != null)
+            {
+                ExpressionListener listener = new ExpressionListener(returnStatement);
+
+                context.expression().EnterRule(listener);
+
+                foreach (var child in context.expression().GetRuleContexts<ParserRuleContext>())
+                {
+                    child.EnterRule(listener);
+                }
+
+                returnStatement.Value = listener.GetResult();
+
+            }
+            Block.Statements.Add(returnStatement);
+        }
         public override void EnterLocalVariableDeclaration([NotNull] NovaParser.LocalVariableDeclarationContext context)
         {
             VariableDeclaratorContext declarator = context.variableDeclarator();
@@ -65,9 +85,11 @@ namespace Nova.Parser
 
                 ExpressionListener listener = new ExpressionListener(statement);
 
+                expressionContext.EnterRule(listener);
+
                 foreach (var child in expressionContext.GetRuleContexts<ParserRuleContext>())
                 {
-                    child.EnterRule(listener);
+                  child.EnterRule(listener);
                 }
 
                 value = listener.GetResult();

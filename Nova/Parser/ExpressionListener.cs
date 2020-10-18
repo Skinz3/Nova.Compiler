@@ -30,6 +30,7 @@ namespace Nova.Parser
             this.Parent = parent;
             this.Result = new ExpressionNode(Parent);
         }
+
         public override void EnterPrimary([NotNull] PrimaryContext context)
         {
             var identifier = context.IDENTIFIER();
@@ -40,10 +41,18 @@ namespace Nova.Parser
             }
             else
             {
-                foreach (var rule in context.literal().GetRuleContexts<ParserRuleContext>())
+
+                foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
                 {
                     rule.EnterRule(this);
                 }
+            }
+        }
+        public override void EnterLiteral([NotNull] LiteralContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);  // integer litteral  , float litteral etc
             }
         }
         public override void EnterPrimaryValue([NotNull] PrimaryValueContext context)
@@ -57,6 +66,10 @@ namespace Nova.Parser
         public override void EnterOpExpr([NotNull] OpExprContext context)
         {
             this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
+
+            context.right.EnterRule(this);
+            context.left.EnterRule(this);
+
         }
 
         public override void EnterNativeCall([NotNull] NativeCallContext context)
@@ -64,7 +77,7 @@ namespace Nova.Parser
             NativeCallExpression expr = new NativeCallExpression(Result, context.IDENTIFIER().GetText(), context);
 
             List<ExpressionNode> parameters = new List<ExpressionNode>();
-            expr.Parameters = GetMethodParameters(expr, context, context.expressionList());
+            expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
 
             this.Result.Add(expr);
         }
@@ -75,30 +88,37 @@ namespace Nova.Parser
 
             List<ExpressionNode> parameters = new List<ExpressionNode>();
 
-            expr.Parameters = GetMethodParameters(expr, context, context.expressionList());
+            expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
 
             this.Result.Add(expr);
         }
-        private List<ExpressionNode> GetMethodParameters(IChild parent, ParserRuleContext context, ExpressionListContext expressionListContext)
+        private List<ExpressionNode> GetMethodCallParameters(IChild parent, ParserRuleContext context, ExpressionListContext expressionListContext)
         {
-            List<ExpressionNode> parameters = new List<ExpressionNode>();
+            List<ExpressionNode> results = new List<ExpressionNode>();
 
             if (expressionListContext != null)
             {
-                foreach (var expression in expressionListContext.GetRuleContexts<ParserRuleContext>())
+                var parameters = expressionListContext.GetRuleContexts<ParserRuleContext>();
+
+                foreach (var parameter in parameters)
                 {
                     ExpressionListener listener = new ExpressionListener(parent);
 
-                    expression.EnterRule(listener);
+                    parameter.EnterRule(listener);
+
+                    foreach (var expression in parameter.GetRuleContexts<ParserRuleContext>())
+                    {
+                        expression.EnterRule(listener);
+                    }
 
                     ExpressionNode result = listener.GetResult();
+                    results.Add(result);
 
-                    parameters.Add(result);
 
                 }
             }
 
-            return parameters;
+            return results;
         }
         public ExpressionNode GetResult()
         {

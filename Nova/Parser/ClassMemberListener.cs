@@ -102,7 +102,6 @@ namespace Nova.Parser
                 }
             }
 
-
             Method method = new Method(Class, Class.PopMethodId(), methodName, modifiers, returnType,
                parameters,
                 context.start.Line,
