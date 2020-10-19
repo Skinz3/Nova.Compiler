@@ -86,6 +86,11 @@ namespace Nova.Lexer
 
             return true;
         }
+
+        public IEnumerable<Expression> GetTree()
+        {
+            return this.Tree;
+        }
     }
 
 }

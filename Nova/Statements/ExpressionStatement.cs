@@ -32,6 +32,22 @@ namespace Nova.Statements
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
+            var tree = Expression.GetTree();
+
+            if (tree.Count() > 1)
+            {
+                validator.AddError("Invalid expression", base.ParsingContext);
+            }
+
+            var expr = tree.ElementAt(0);
+
+            if (!(expr is MethodCallExpression) || !(expr is NativeCallExpression))
+            {
+                validator.AddError("Forbidenn expression statement (" + expr.GetType().Name + ")", base.ParsingContext);
+            }
+
+
+
             Expression.ValidateSemantics(validator);
         }
     }

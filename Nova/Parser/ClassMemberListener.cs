@@ -26,7 +26,7 @@ namespace Nova.Parser
         {
             this.Class = @class;
         }
-      
+
         public override void EnterMemberDeclaration([NotNull] NovaParser.MemberDeclarationContext context)
         {
             foreach (var memberDeclaration in context.GetRuleContexts<ParserRuleContext>())
@@ -106,8 +106,7 @@ namespace Nova.Parser
             Method method = new Method(Class, Class.PopMethodId(), methodName, modifiers, returnType,
                parameters,
                 context.start.Line,
-                context.stop.Line,
-                new List<Statement>(), context);
+                context.stop.Line, context);
 
 
             StatementListener listener = new StatementListener(method);

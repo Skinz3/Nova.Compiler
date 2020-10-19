@@ -21,6 +21,8 @@ namespace Nova.Compiler
     {
         static void Main(string[] args)
         {
+            Console.Title = Assembly.GetCallingAssembly().GetName().Name;
+
             if (args.Length == 0)
             {
                 Logger.Write("You need to specify a nova file (.nv).", LogType.Warning);
@@ -62,7 +64,7 @@ namespace Nova.Compiler
 
             builder.Save();
 
-            Logger.Write(outputPath + " generated in " + st.ElapsedMilliseconds + "ms");
+            Logger.Write(outputPath + " generated in " + st.ElapsedMilliseconds + "ms", LogType.Debug);
 
             builder.PrintMainByteCode();
 

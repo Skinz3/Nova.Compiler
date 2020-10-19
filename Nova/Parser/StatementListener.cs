@@ -98,7 +98,6 @@ namespace Nova.Parser
             if (initializer != null)
             {
                 ExpressionContext expressionContext = initializer.expression();
-                Console.WriteLine(expressionContext.GetType().Name);
                 ExpressionListener listener = new ExpressionListener(statement);
 
                 expressionContext.EnterRule(listener);

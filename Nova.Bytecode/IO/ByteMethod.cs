@@ -19,7 +19,7 @@ namespace Nova.ByteCode.IO
             get;
             set;
         }
-        public ByteBlock Meta
+        public ByteBlock ByteBlock
         {
             get;
             set;
@@ -43,17 +43,26 @@ namespace Nova.ByteCode.IO
         {
             this.Name = name;
             this.Modifiers = modifiers;
-            this.Meta = new ByteBlock(parentClass);
+            this.ByteBlock = new ByteBlock(parentClass);
             this.ParentClass = parentClass;
             this.ParametersCount = parametersCount;
         }
-
+        public void Print()
+        {
+            Logger.Write("-------" + ToString() + " bytecode--------", LogType.Color2);
+            ByteBlock.Print();
+            Logger.Write("-------" + ToString() + " bytecode--------", LogType.Color2);
+        }
+        public override string ToString()
+        {
+            return Name + "()";
+        }
         public void Serialize(CppBinaryWriter writer)
         {
             writer.Write(Name);
             writer.Write((byte)Modifiers);
             writer.Write(ParametersCount);
-            Meta.Serialize(writer);
+            ByteBlock.Serialize(writer);
         }
 
         public bool IsMainPointEntry()

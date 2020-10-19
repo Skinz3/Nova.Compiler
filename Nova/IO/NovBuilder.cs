@@ -67,7 +67,7 @@ namespace Nova.IO
             {
                 foreach (var error in errors)
                 {
-                    Logger.Write(error.ToString(), LogType.Error);
+                    Logger.Write(error.ToString(), LogType.SemanticError);
                 }
                 return false;
             }
@@ -85,12 +85,7 @@ namespace Nova.IO
         /* Tests */
         public void PrintMainByteCode()
         {
-            Console.WriteLine();
-            Logger.Write("-------Main method bytecode--------", LogType.Purple);
-            Result.GetMainMethod().Meta.Print();
-            Logger.Write("-------Main method bytecode--------", LogType.Purple);
-
-            Console.WriteLine();
+            Result.GetMainMethod().Print();
         }
 
 

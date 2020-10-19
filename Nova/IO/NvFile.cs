@@ -1,9 +1,11 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using Nova.Bytecode.Enums;
+using Nova.Bytecode.Symbols;
 using Nova.ByteCode.Enums;
 using Nova.Members;
 using Nova.Parser;
+using Nova.Parser.Errors;
 using Nova.Utils;
 using System;
 using System.Collections.Generic;
@@ -38,28 +40,36 @@ namespace Nova.IO
             this.Usings = new List<Using>();
             this.Classes = new List<Class>();
         }
-        /*
-         * Add other verification (returns)
-         */
+
+        //  Console.Write(ectx.ToStringTree(parser));
         public bool Read()
         {
-            string text = File.ReadAllText(Filepath); // replace by filestream
+
+            string text = File.ReadAllText(Filepath);
+
+            NovaParsingErrorHandler parsingErrorHandler = new NovaParsingErrorHandler();
 
             var inputStream = new AntlrInputStream(text);
             var lexer = new NovaLexer(inputStream);
+            lexer.RemoveErrorListener(ConsoleErrorListener<int>.Instance);
+
             var commonTokenStream = new CommonTokenStream(lexer);
             var parser = new NovaParser(commonTokenStream);
+            parser.RemoveErrorListener(ConsoleErrorListener<IToken>.Instance);
+            parser.AddErrorListener(parsingErrorHandler);
+
+
+
             NovaParser.CompilationUnitContext ectx = parser.compilationUnit();
 
             ClassListener classListener = new ClassListener(this);
-          
+
             foreach (var typeDeclaration in ectx.typeDeclaration())
             {
                 typeDeclaration.EnterRule(classListener);
             }
 
-          //  Console.Write(ectx.ToStringTree(parser));
-            return true;
+            return parsingErrorHandler.ErrorsCount == 0;
         }
 
     }

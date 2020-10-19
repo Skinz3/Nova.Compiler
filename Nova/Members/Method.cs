@@ -72,8 +72,8 @@ namespace Nova.Members
         }
         public IChild Parent => null;
 
-        public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType, List<Variable> parameters, int startIndex, int endIndex,
-            List<Statement> statements, ParserRuleContext context)
+        public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType,
+            List<Variable> parameters, int startIndex, int endIndex,ParserRuleContext context)
         {
             this.Id = methodId;
             this.ParentClass = parentClass;
@@ -83,8 +83,8 @@ namespace Nova.Members
             this.Parameters = parameters;
             this.StartIndex = startIndex;
             this.EndIndex = endIndex;
-            this.Statements = statements;
             this.Context = context;
+            this.Statements = new List<Statement>();
         }
         public bool IsMainPointEntry()
         {
@@ -95,6 +95,7 @@ namespace Nova.Members
             this.ParentClass = parentClass;
             this.Statements = new List<Statement>();
         }
+      
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -113,16 +114,16 @@ namespace Nova.Members
 
             foreach (var parameter in Parameters)
             {
-                result.Meta.SymbolTable.Bind(parameter.Name, parameter.Type);
+                result.ByteBlock.SymbolTable.Bind(parameter.Name, parameter.Type);
             }
             foreach (var statement in Statements)
             {
-                statement.GenerateBytecode(container, result.Meta);
+                statement.GenerateBytecode(container, result.ByteBlock);
             }
 
-            if (result.Meta.Instructions.Count == 0 || (!(result.Meta.Instructions.Last() is ReturnCode)))
+            if (result.ByteBlock.Instructions.Count == 0 || (!(result.ByteBlock.Instructions.Last() is ReturnCode)))
             {
-                result.Meta.Instructions.Add(new ReturnCode());
+                result.ByteBlock.Instructions.Add(new ReturnCode());
             }
 
 

@@ -88,6 +88,7 @@
     <Compile Include="Members\Interface.cs" />
     <Compile Include="Parser\ClassMemberListener.cs" />
     <Compile Include="Parser\ClassListener.cs" />
+    <Compile Include="Parser\Errors\NovaParsingErrorHandler.cs" />
     <Compile Include="Parser\ExpressionListener.cs" />
     <Compile Include="Parser\ParserUtils.cs" />
     <Compile Include="Parser\StatementListener.cs" />

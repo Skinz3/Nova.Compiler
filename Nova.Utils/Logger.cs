@@ -8,6 +8,7 @@ namespace Nova.Utils
 {
     public enum LogType
     {
+        None = -1,
         Log = 0,
         Debug = 1,
         SemanticError = 2,
@@ -17,15 +18,23 @@ namespace Nova.Utils
         Success = 7,
         Warning = 8,
         ProgramOutput = 9,
-        Purple,
+        Color1,
+        Color2,
     }
     public class Logger
     {
         private const ConsoleColor COLOR_1 = ConsoleColor.Magenta;
         private const ConsoleColor COLOR_2 = ConsoleColor.DarkMagenta;
 
+        private static LogType[] NoPrefix = new LogType[]
+        {
+            LogType.None,
+            LogType.Color1,
+            LogType.Color2,
+        };
         private static Dictionary<LogType, ConsoleColor> Colors = new Dictionary<LogType, ConsoleColor>()
         {
+            { LogType.None,ConsoleColor.Gray },
             { LogType.Log,           ConsoleColor.Gray },
             { LogType.Debug,         ConsoleColor.DarkGray },
             { LogType.LogImportant,  ConsoleColor.White },
@@ -39,12 +48,19 @@ namespace Nova.Utils
             { LogType.Success,       ConsoleColor.Green },
             { LogType.ProgramOutput, ConsoleColor.Magenta },
 
-            { LogType.Purple,        ConsoleColor.DarkMagenta }
+            { LogType.Color1,        ConsoleColor.DarkMagenta },
+            { LogType.Color2,        ConsoleColor.DarkMagenta }
         };
 
-        public static void Write(object value, LogType state = LogType.Log)
+        public static void Write(object value, LogType state = LogType.None)
         {
-            WriteColored("[" + state.ToString() + "] " + value, Colors[state]);
+            if (!NoPrefix.Contains(state))
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write(state + " > ");
+            }
+
+            WriteColored(value, Colors[state]);
         }
         private static void WriteColored(object value, ConsoleColor color)
         {
