@@ -42,10 +42,8 @@ namespace Nova.IO
             this.Classes = new List<Class>();
         }
 
-        //  Console.Write(ectx.ToStringTree(parser));
         public bool Read()
         {
-
             string text = File.ReadAllText(Filepath);
 
             NovaParsingErrorHandler parsingErrorHandler = new NovaParsingErrorHandler();
@@ -69,7 +67,7 @@ namespace Nova.IO
                 typeDeclaration.EnterRule(classListener);
             }
 
-            Console.WriteLine(ectx.ToStringTree(parser));
+          //  Console.WriteLine(ectx.ToStringTree(parser));
 
             return parsingErrorHandler.ErrorsCount == 0;
         }
