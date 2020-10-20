@@ -536,6 +536,17 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitStatement([NotNull] NovaParser.StatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.whileStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterWhileStatement([NotNull] NovaParser.WhileStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.whileStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitWhileStatement([NotNull] NovaParser.WhileStatementContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.returnStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -611,17 +622,6 @@ public interface INovaParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitForControl([NotNull] NovaParser.ForControlContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="NovaParser.forInit"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterForInit([NotNull] NovaParser.ForInitContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="NovaParser.forInit"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitForInit([NotNull] NovaParser.ForInitContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.expressionList"/>.

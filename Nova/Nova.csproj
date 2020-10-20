@@ -115,6 +115,12 @@
     <Compile Include="Statements\VariableNameStatement.cs" />
     <Compile Include="Statements\VectorCreationStatement.cs" />
     <Compile Include="Statements\WhileStatement.cs" />
+    <Compile Include="Types\BaseType.cs" />
+    <Compile Include="Types\Integers\Int32.cs" />
+    <Compile Include="Types\Integers\Int64.cs" />
+    <Compile Include="Types\IType.cs" />
+    <Compile Include="Types\PrimitiveType.cs" />
+    <Compile Include="Types\TypeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Todolist.txt" />

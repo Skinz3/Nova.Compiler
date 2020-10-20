@@ -145,13 +145,15 @@ statement
     | localVariableDeclaration 
     | ifStatement
     | forStatement
-    | WHILE parExpression statement
+    | whileStatement
     | returnStatement
     | assignationStatement
     | statementExpression
 
     ;
-
+whileStatement:
+    WHILE parExpression statement
+    ;   
 returnStatement
     :  RETURN expression? 
     ;
@@ -177,13 +179,9 @@ parExpression
     ;
 
 forControl
-    : forInit ';' forCond=expression ';' forUpdate=expressionList?
+    : forInit=statement ';' forCond=expression ';' forUpdate=assignationStatement
     ;
 
-forInit
-    : localVariableDeclaration
-    | expressionList
-    ;
 
 expressionList
     : expression (COMMA expression)*

@@ -31,6 +31,10 @@ namespace Nova.Parser.Listeners
             this.Parent = parent;
             this.Result = new List<Statement>();
         }
+        /*
+         * Assignation
+         * [Type] [Identifier] = [ExpressionNode]
+         */
         public override void EnterAssignationStatement([NotNull] AssignationStatementContext context)
         {
             AssignationStatement statement = new AssignationStatement(Parent, context.left.GetText(), '=', context);
@@ -46,13 +50,21 @@ namespace Nova.Parser.Listeners
             Result.Add(statement);
         }
 
-        public override void EnterStatement([NotNull] StatementContext context)
+        public override void EnterWhileStatement([NotNull] WhileStatementContext context)
         {
-            foreach (var statement in context.GetRuleContexts<ParserRuleContext>())
-            {
-                statement.EnterRule(this);
-            }
+            WhileStatement whileStatement = new WhileStatement(Parent,context);
+
+            ExpressionListener expressionListener = new ExpressionListener(whileStatement);
+            context.parExpression().expression().EnterRule(expressionListener);
+            whileStatement.Condition = expressionListener.GetResult();
+
+            StatementListener statementListener = new StatementListener(whileStatement);
+            context.statement().EnterRule(statementListener);
+            whileStatement.Statements = statementListener.Result;
+
+            Result.Add(whileStatement);
         }
+
         public override void EnterReturnStatement([NotNull] ReturnStatementContext context)
         {
             ReturnStatement returnStatement = new ReturnStatement(Parent, context);
@@ -120,6 +132,31 @@ namespace Nova.Parser.Listeners
 
             Result.Add(statement);
         }
+        public override void EnterForStatement([NotNull] ForStatementContext context)
+        {
+            ForStatement statement = new ForStatement(Parent, context);
+
+            StatementListener statementListener = new StatementListener(statement);
+            context.forControl().forInit.EnterRule(statementListener);
+            statement.Init = statementListener.GetResult().First();
+
+            statementListener = new StatementListener(statement);
+            context.statement().EnterRule(statementListener);
+            statement.Statements = statementListener.GetResult();
+
+            ExpressionListener expressionListener = new ExpressionListener(statement);
+            context.forControl().forCond.EnterRule(expressionListener);
+            statement.Condition = expressionListener.GetResult();
+
+            statementListener = new StatementListener(statement);
+            context.forControl().forUpdate.EnterRule(statementListener);
+            statement.Update = statementListener.GetResult().First();
+
+            Result.Add(statement);
+
+
+
+        }
         public override void EnterStatementExpression([NotNull] StatementExpressionContext context)
         {
             ExpressionStatement statement = new ExpressionStatement(Parent, context);
@@ -133,6 +170,13 @@ namespace Nova.Parser.Listeners
             statement.Expression = value;
 
             Result.Add(statement);
+        }
+        public override void EnterStatement([NotNull] StatementContext context)
+        {
+            foreach (var statement in context.GetRuleContexts<ParserRuleContext>())
+            {
+                statement.EnterRule(this);
+            }
         }
         public override void EnterBlock([NotNull] BlockContext context)
         {
@@ -149,7 +193,6 @@ namespace Nova.Parser.Listeners
                 {
                     rule.EnterRule(this);
                 }
-
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using Nova.Members;
+using Nova.Types;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,11 @@ namespace Nova.IO
             get;
             set;
         }
+        private TypeManager TypeManager
+        {
+            get;
+            set;
+        }
         private int RelatorId
         {
             get;
@@ -37,6 +43,7 @@ namespace Nova.IO
         {
             this.Elements = new Dictionary<string, Class>();
             this.Relator = new Dictionary<string, int>();
+            this.TypeManager = new TypeManager();
             this.RelatorId = 0;
         }
         public int GetClassId(string className)

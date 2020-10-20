@@ -16,17 +16,17 @@ namespace Nova.Statements
 {
     public class ForStatement : Statement
     {
-        private Statement DeclarationStatement
+        public Statement Init
         {
             get;
             set;
         }
-        private ExpressionNode BeginNode
+        public ExpressionNode Condition
         {
             get;
             set;
         }
-        private Statement AssignationStatement
+        public Statement Update
         {
             get;
             set;
@@ -34,31 +34,21 @@ namespace Nova.Statements
         public List<Statement> Statements
         {
             get;
-            private set;
+            set;
         }
-      
-        public ForStatement(IChild parent, Statement declarationStatement, ExpressionNode beginNode, Statement assignationStatement,
-            List<Statement> statements, ParserRuleContext context) : base(parent, context)
+
+        public ForStatement(IChild parent, ParserRuleContext context) : base(parent, context)
         {
-            /* this.DeclarationStatement = StatementBuilder.Build(parent, match.Groups[1].Value, lineIndex);
-             this.BeginNode = StatementTreeBuilder.Build(parent, match.Groups[2].Value, lineIndex);
-             this.AssignationStatement = StatementBuilder.Build(parent, match.Groups[3].Value, lineIndex);
 
-             int startIndex = Parser.FindNextOpenBracket(parent.ParentClass.File.Lines, lineIndex);
-             int endIndex = Parser.GetBracketCloseIndex(parent.ParentClass.File.Brackets, startIndex);
-
-             this.LineSize = (endIndex - startIndex) + 2;
-
-             this.Statements = Parser.BuildStatementBlock(this, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray(); */
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            DeclarationStatement.GenerateBytecode(container, context);
+            Init.GenerateBytecode(container, context);
 
             int jumpIndex = context.NextOpIndex;
 
-            BeginNode.GenerateBytecode(container, context);
+            Condition.GenerateBytecode(container, context);
 
             JumpIfFalseCode code = new JumpIfFalseCode(-1);
             context.Instructions.Add(code);
@@ -68,7 +58,7 @@ namespace Nova.Statements
                 statement.GenerateBytecode(container, context);
             }
 
-            AssignationStatement.GenerateBytecode(container, context);
+            Update.GenerateBytecode(container, context);
 
             context.Instructions.Add(new JumpCode(jumpIndex));
             code.targetIndex = context.NextOpIndex;
@@ -82,9 +72,9 @@ namespace Nova.Statements
         {
             validator.BlockStart();
 
-            DeclarationStatement.ValidateSemantics(validator);
-            BeginNode.ValidateSemantics(validator);
-            AssignationStatement.ValidateSemantics(validator);
+            Init.ValidateSemantics(validator);
+            Condition.ValidateSemantics(validator);
+            Update.ValidateSemantics(validator);
 
             foreach (var statement in Statements)
             {
