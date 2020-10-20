@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static NovaParser;
 
-namespace Nova.Parser
+namespace Nova.Parser.Listeners
 {
     public class ClassMemberListener : NovaParserBaseListener
     {
@@ -115,6 +115,8 @@ namespace Nova.Parser
             {
                 methodRule.EnterRule(listener);
             }
+
+            method.Statements = listener.GetResult();
 
             Class.Methods.Add(method.Name, method);
         }

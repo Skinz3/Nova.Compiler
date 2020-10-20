@@ -27,6 +27,8 @@ WHILE:              'while';
 ELSE:               'else';
 RETURN:             'return';
 
+
+            
 NEW:                '->';
 
 NATIVE:             '~';
@@ -61,6 +63,12 @@ SEMI:               ';';
 
 // Identifiers
 
+
+NULL_LITERAL:       'null';
+
+BOOL_LITERAL:       'true'
+            |       'false'
+            ;
 IDENTIFIER:         Letter LetterOrDigit*;
 
 
@@ -96,6 +104,7 @@ COMMENT:            '/*' .*? '*/'    -> channel(HIDDEN);
 LINE_COMMENT:       '//' ~[\r\n]*    -> channel(HIDDEN);
 
 
+
 // Literals
 
 DECIMAL_LITERAL:    ('0' | [1-9] (Digits? | '_'+ Digits)) [lL]?;
@@ -108,11 +117,9 @@ FLOAT_LITERAL:      (Digits '.' Digits? | '.' Digits)
 
 HEX_FLOAT_LITERAL:  '0' [xX] (HexDigits '.'? | HexDigits? '.' HexDigits) [pP] [+-]? Digits [fFdD]?;
 
-BOOL_LITERAL:       'true'
-            |       'false'
-            ;
+
 
 CHAR_LITERAL:       '\'' (~['\\\r\n] | EscapeSequence) '\'';
 
 STRING_LITERAL:     '"' (~["\\\r\n] | EscapeSequence)* '"';
-NULL_LITERAL:       'null';
+

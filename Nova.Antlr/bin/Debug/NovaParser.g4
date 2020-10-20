@@ -164,7 +164,7 @@ statementExpression
     : expression 
     ;
 ifStatement
-    :IF parExpression statement (ELSE statement)?
+    :IF parExpression ifSt=statement (ELSE elseSt=statement)?
     ;
 
 forStatement
@@ -190,9 +190,9 @@ expressionList
     ;
 
 primary
-    : '(' expression ')'
-    | literal
-    | IDENTIFIER 
+    : '(' expression ')' # primaryExpr
+    | literal # primarylit
+    | IDENTIFIER # litIdent
     ;
 
 literal

@@ -17,8 +17,6 @@ namespace Nova.Statements
 {
     public class DeclarationStatement : Statement
     {
-        public const string REGEX = @"^([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
-
         public Variable Variable
         {
             get;

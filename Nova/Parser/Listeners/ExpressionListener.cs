@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static NovaParser;
 
-namespace Nova.Parser
+namespace Nova.Parser.Listeners
 {
     public class ExpressionListener : NovaParserBaseListener
     {
@@ -25,6 +25,7 @@ namespace Nova.Parser
             get;
             set;
         }
+
         public ExpressionListener(IChild parent)
         {
             this.Parent = parent;
@@ -33,26 +34,52 @@ namespace Nova.Parser
 
         public override void EnterPrimary([NotNull] PrimaryContext context)
         {
-            var identifier = context.IDENTIFIER();
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);
+            }
+        }
+        public override void EnterPrimaryExpr([NotNull] PrimaryExprContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);
+            }
+        }
 
-            if (identifier != null)
+        public override void EnterPrimarylit([NotNull] PrimarylitContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
             {
-                Result.Add(new VariableNameExpression(Result, context, identifier.GetText()));
+                rule.EnterRule(this);
             }
-            else
-            {
-                foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
-                {
-                    rule.EnterRule(this);
-                }
-            }
+
+        }
+        public override void EnterLitIdent([NotNull] LitIdentContext context)
+        {
+            string value = context.GetText();
+            Result.Add(new VariableNameExpression(Result, context, value));
+        }
+
+        public override void EnterChar([NotNull] CharContext context)
+        {
+            base.EnterChar(context);
+        }
+        public override void EnterBool([NotNull] BoolContext context)
+        {
+            bool value = bool.Parse(context.BOOL_LITERAL().GetText());
+            this.Result.Add(new ConstBoolExpression(Result, context, value));
+        }
+        public override void EnterNull([NotNull] NullContext context)
+        {
+            base.EnterNull(context);
         }
         public override void EnterString([NotNull] StringContext context)
         {
             string value = context.STRING_LITERAL().GetText().Replace("\"", "");
             this.Result.Add(new ConstStringExpression(Result, context, value));
         }
-        public override void EnterIntegerLiteral([NotNull] IntegerLiteralContext context)
+        public override void EnterInt([NotNull] IntContext context)
         {
             this.Result.Add(new ConstIntExpression(Result, context, int.Parse(context.GetText())));
         }
@@ -105,7 +132,6 @@ namespace Nova.Parser
                     ExpressionNode result = listener.GetResult();
                     results.Add(result);
 
-
                 }
             }
 
@@ -138,7 +164,7 @@ namespace Nova.Parser
         {
             foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
             {
-                rule.EnterRule(this);  // integer litteral  , float litteral etc
+                rule.EnterRule(this);  // integer litteral  , bool litteral etc
             }
         }
         public override void EnterPrimaryValue([NotNull] PrimaryValueContext context)

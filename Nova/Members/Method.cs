@@ -18,7 +18,7 @@ using Antlr4.Runtime;
 
 namespace Nova.Members
 {
-    public class Method : IByteData, IAccessible, IStatementBlock
+    public class Method : IByteData, IAccessible, IChild
     {
         public Class ParentClass
         {
@@ -63,7 +63,7 @@ namespace Nova.Members
         public List<Statement> Statements
         {
             get;
-            private set;
+            set;
         }
         private ParserRuleContext Context
         {
@@ -73,7 +73,7 @@ namespace Nova.Members
         public IChild Parent => null;
 
         public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType,
-            List<Variable> parameters, int startIndex, int endIndex,ParserRuleContext context)
+            List<Variable> parameters, int startIndex, int endIndex, ParserRuleContext context)
         {
             this.Id = methodId;
             this.ParentClass = parentClass;
@@ -95,7 +95,7 @@ namespace Nova.Members
             this.ParentClass = parentClass;
             this.Statements = new List<Statement>();
         }
-      
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

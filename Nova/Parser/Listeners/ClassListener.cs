@@ -10,7 +10,7 @@ using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
 using IToken = Antlr4.Runtime.IToken;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
-namespace Nova.Parser
+namespace Nova.Parser.Listeners
 {
     public partial class ClassListener : NovaParserBaseListener
     {

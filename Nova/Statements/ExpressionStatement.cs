@@ -41,7 +41,7 @@ namespace Nova.Statements
 
             var expr = tree.ElementAt(0);
 
-            if (!(expr is MethodCallExpression) || !(expr is NativeCallExpression))
+            if (expr is not MethodCallExpression && expr is not NativeCallExpression)
             {
                 validator.AddError("Forbidenn expression statement (" + expr.GetType().Name + ")", base.ParsingContext);
             }

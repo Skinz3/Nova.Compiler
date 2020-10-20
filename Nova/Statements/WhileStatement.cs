@@ -16,7 +16,7 @@ using Antlr4.Runtime;
 
 namespace Nova.Statements
 {
-    public class WhileStatement : Statement, IStatementBlock
+    public class WhileStatement : Statement
     {
         public const string REGEX = @"^while\s*\((.+)\)\s*({)?$";
 
@@ -30,12 +30,6 @@ namespace Nova.Statements
             get;
             private set;
         }
-
-
-        public Class ParentClass => this.Parent.ParentClass;
-
-        IChild IChild.Parent => this.Parent;
-
 
         public WhileStatement(IChild parent, ExpressionNode condition, List<Statement> statements, ParserRuleContext context) : base(parent, context)
         {

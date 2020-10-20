@@ -12,23 +12,28 @@ using System.Text;
 using System.Threading.Tasks;
 using static NovaParser;
 
-namespace Nova.Parser
+namespace Nova.Parser.Listeners
 {
     public class StatementListener : NovaParserBaseListener
     {
-        private IStatementBlock Block
+        private List<Statement> Result
         {
             get;
             set;
         }
-
-        public StatementListener(IStatementBlock block)
+        private IChild Parent
         {
-            this.Block = block;
+            get;
+            set;
+        }
+        public StatementListener(IChild parent)
+        {
+            this.Parent = parent;
+            this.Result = new List<Statement>();
         }
         public override void EnterAssignationStatement([NotNull] AssignationStatementContext context)
         {
-            AssignationStatement statement = new AssignationStatement(Block, context.left.GetText(), '=', context);
+            AssignationStatement statement = new AssignationStatement(Parent, context.left.GetText(), '=', context);
 
             ExpressionListener listener = new ExpressionListener(statement);
 
@@ -38,26 +43,9 @@ namespace Nova.Parser
 
             statement.Value = value;
 
-            Block.Statements.Add(statement);
+            Result.Add(statement);
         }
-        public override void EnterBlock([NotNull] BlockContext context)
-        {
-            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
-            {
-                rule.EnterRule(this);
-            }
-        }
-        public override void EnterMethodBody([NotNull] MethodBodyContext context)
-        {
-            foreach (var blockContext in context.GetRuleContexts<BlockContext>())
-            {
-                foreach (var rule in blockContext.GetRuleContexts<ParserRuleContext>())
-                {
-                    rule.EnterRule(this);
-                }
 
-            }
-        }
         public override void EnterStatement([NotNull] StatementContext context)
         {
             foreach (var statement in context.GetRuleContexts<ParserRuleContext>())
@@ -67,7 +55,7 @@ namespace Nova.Parser
         }
         public override void EnterReturnStatement([NotNull] ReturnStatementContext context)
         {
-            ReturnStatement returnStatement = new ReturnStatement(Block, context);
+            ReturnStatement returnStatement = new ReturnStatement(Parent, context);
 
             if (context.expression() != null)
             {
@@ -78,7 +66,7 @@ namespace Nova.Parser
                 returnStatement.Value = listener.GetResult();
 
             }
-            Block.Statements.Add(returnStatement);
+            Result.Add(returnStatement);
         }
         public override void EnterLocalVariableDeclaration([NotNull] NovaParser.LocalVariableDeclarationContext context)
         {
@@ -87,7 +75,7 @@ namespace Nova.Parser
             string type = context.typeType().GetChild(0).GetText();
             string name = declarator.variableDeclaratorId().GetText();
 
-            DeclarationStatement statement = new DeclarationStatement(Block, context);
+            DeclarationStatement statement = new DeclarationStatement(Parent, context);
 
             Variable variable = new Variable(name, type);
 
@@ -109,11 +97,32 @@ namespace Nova.Parser
             statement.Variable = variable;
             statement.Value = value;
 
-            Block.Statements.Add(statement);
+            Result.Add(statement);
+        }
+        public override void EnterIfStatement([NotNull] IfStatementContext context)
+        {
+            IfStatement statement = new IfStatement(Parent, context);
+
+            ExpressionListener listener = new ExpressionListener(statement);
+            context.parExpression().expression().EnterRule(listener);
+            statement.IfCondition = listener.GetResult();
+
+            StatementListener statementListener = new StatementListener(statement);
+            context.ifSt.EnterRule(statementListener);
+            statement.IfStatements = statementListener.GetResult();
+
+            if (context.elseSt != null)
+            {
+                statementListener = new StatementListener(statement);
+                context.elseSt.EnterRule(statementListener);
+                statement.ElseStatements = statementListener.GetResult();
+            }
+
+            Result.Add(statement);
         }
         public override void EnterStatementExpression([NotNull] StatementExpressionContext context)
         {
-            ExpressionStatement statement = new ExpressionStatement(Block, context);
+            ExpressionStatement statement = new ExpressionStatement(Parent, context);
 
             ExpressionListener listener = new ExpressionListener(statement);
 
@@ -123,9 +132,31 @@ namespace Nova.Parser
 
             statement.Expression = value;
 
-            Block.Statements.Add(statement);
+            Result.Add(statement);
+        }
+        public override void EnterBlock([NotNull] BlockContext context)
+        {
+            foreach (var rule in context.GetRuleContexts<ParserRuleContext>())
+            {
+                rule.EnterRule(this);
+            }
+        }
+        public override void EnterMethodBody([NotNull] MethodBodyContext context)
+        {
+            foreach (var blockContext in context.GetRuleContexts<BlockContext>())
+            {
+                foreach (var rule in blockContext.GetRuleContexts<ParserRuleContext>())
+                {
+                    rule.EnterRule(this);
+                }
+
+            }
         }
 
+        public List<Statement> GetResult()
+        {
+            return Result;
+        }
     }
 
 }

@@ -6,6 +6,7 @@ using Nova.ByteCode.Enums;
 using Nova.Members;
 using Nova.Parser;
 using Nova.Parser.Errors;
+using Nova.Parser.Listeners;
 using Nova.Utils;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,6 @@ namespace Nova.IO
             parser.AddErrorListener(parsingErrorHandler);
 
 
-
             NovaParser.CompilationUnitContext ectx = parser.compilationUnit();
 
             ClassListener classListener = new ClassListener(this);
@@ -68,6 +68,8 @@ namespace Nova.IO
             {
                 typeDeclaration.EnterRule(classListener);
             }
+
+            Console.WriteLine(ectx.ToStringTree(parser));
 
             return parsingErrorHandler.ErrorsCount == 0;
         }

@@ -14,7 +14,7 @@ using Nova.Semantics;
 
 namespace Nova.Statements
 {
-    public class ForStatement : Statement, IStatementBlock
+    public class ForStatement : Statement
     {
         private Statement DeclarationStatement
         {
@@ -51,8 +51,6 @@ namespace Nova.Statements
 
              this.Statements = Parser.BuildStatementBlock(this, startIndex + 1, endIndex, Parent.ParentClass.File.Lines).ToArray(); */
         }
-
-        IChild IChild.Parent => this.Parent;
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {

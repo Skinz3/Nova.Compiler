@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
+using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
 using Nova.IO;
 using Nova.Members;
@@ -25,13 +26,13 @@ namespace Nova.Expressions
         }
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            int variableId = context.BindConstant(Value);
-            context.Instructions.Add(new PushConstCode(variableId));
+            int value = Value == true ? 1 : 0;
+            context.Instructions.Add(new PushIntCode(value)); // rather push byte ! 
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
