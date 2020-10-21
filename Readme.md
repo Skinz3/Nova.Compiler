@@ -1,7 +1,7 @@
 
 # What is Nova
 
-> Nova is a programming language with a high level of abstraction. This repository contains a compiler in C# (.NET) and a virtual machine in C++ (iso 17)
+> Nova is a programming language with a high level of abstraction. This repository contains a bytecode compiler in C# 
 
   
   ###### Paradigms:
