@@ -135,17 +135,17 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitPrimaryValue([NotNull] NovaParser.PrimaryValueContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>opExpr</c>
+	/// Enter a parse tree produced by the <c>unaryExpr</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterOpExpr([NotNull] NovaParser.OpExprContext context);
+	void EnterUnaryExpr([NotNull] NovaParser.UnaryExprContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>opExpr</c>
+	/// Exit a parse tree produced by the <c>unaryExpr</c>
 	/// labeled alternative in <see cref="NovaParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitOpExpr([NotNull] NovaParser.OpExprContext context);
+	void ExitUnaryExpr([NotNull] NovaParser.UnaryExprContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>ctorCall</c>
@@ -172,6 +172,19 @@ public interface INovaParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitMetCall([NotNull] NovaParser.MetCallContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>binaryExpr</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBinaryExpr([NotNull] NovaParser.BinaryExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>binaryExpr</c>
+	/// labeled alternative in <see cref="NovaParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBinaryExpr([NotNull] NovaParser.BinaryExprContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>fieldAccessor</c>

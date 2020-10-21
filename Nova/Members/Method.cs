@@ -88,7 +88,7 @@ namespace Nova.Members
         }
         public bool IsMainPointEntry()
         {
-            return Modifiers == ModifiersEnum.@public && Name == Constants.MAIN_METHOD_NAME && Parameters.Count == 0;
+            return Modifiers == ModifiersEnum.@public && Name == Constants.MainPointEntryMethodName && Parameters.Count == 0;
         }
         public Method(Class parentClass)
         {

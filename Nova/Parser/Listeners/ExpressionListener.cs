@@ -1,9 +1,11 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
+using Nova.ByteCode.Codes;
 using Nova.Expressions;
 using Nova.Lexer;
 using Nova.Members;
+using Nova.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -138,19 +140,20 @@ namespace Nova.Parser.Listeners
             return results;
         }
 
-
-        public override void EnterOpExpr([NotNull] OpExprContext context)
+        public override void EnterUnaryExpr([NotNull] UnaryExprContext context)
         {
-            if (context.prefix != null)
-            {
-                throw new NotImplementedException("Unary operator not handled yet.");
-            }
-            else
-            {
-                this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
-                context.right.EnterRule(this);
-                context.left.EnterRule(this);
-            }
+            Logger.Write("Unary operators are not handled properly.", LogType.Warning);
+
+            this.Result.Add(new OperatorExpression(Result, context.prefix.Text, context));
+            context.expression().EnterRule(this);
+            this.Result.Add(new ConstIntExpression(Parent, context, 0));
+
+        }
+        public override void EnterBinaryExpr([NotNull] BinaryExprContext context)
+        {
+            this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
+            context.right.EnterRule(this);
+            context.left.EnterRule(this);
         }
         public override void EnterNtvCall([NotNull] NtvCallContext context)
         {

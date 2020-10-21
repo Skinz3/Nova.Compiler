@@ -48,8 +48,8 @@ namespace Nova.Compiler
             }
             else
             {
-                Logger.Write("Using default ouput path : " + Constants.DEFAULT_OUTPUT_PATH, LogType.Debug);
-                outputPath = Constants.DEFAULT_OUTPUT_PATH;
+                Logger.Write("Using default ouput path : " + Constants.DefaultOuputPath, LogType.Debug);
+                outputPath = Constants.DefaultOuputPath;
             }
 
             Stopwatch st = Stopwatch.StartNew();

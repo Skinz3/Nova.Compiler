@@ -158,7 +158,7 @@ namespace Nova.IO
                     }
                     else if (@using.Type == UsingType.Std)
                     {
-                        path = Path.Combine(STANDARD_LIBRARY_PATH, @using.Value + Constants.SOURCE_CODE_FILE_EXTENSION);
+                        path = Path.Combine(STANDARD_LIBRARY_PATH, @using.Value + Constants.NovaSourceFileExtension);
                     }
                     else
                     {

@@ -85,14 +85,14 @@ expression
     | nativeCall #ntvCall
     | constructorCall #ctorCall
     | primary  #primaryValue 
-    | prefix=('+'|'-') expression #opExpr
-    | left=expression bop=('*'|'/') right=expression #opExpr
-    | left=expression bop=('+'|'-') right=expression #opExpr
-    | left=expression ('<' '<' | '>' '>' '>' | '>' '>') right=expression #opExpr
-    | left=expression bop=('<=' | '>=' | '>' | '<') right=expression #opExpr
-    | left=expression bop=('==' | '!=') right=expression #opExpr
-    | left=expression bop='&&' right=expression #opExpr
-    | left=expression bop='||' right=expression #opExpr
+    | prefix=('+'|'-') expression #unaryExpr
+    | left=expression bop=('*'|'/') right=expression #binaryExpr
+    | left=expression bop=('+'|'-') right=expression #binaryExpr
+    | left=expression ('<' '<' | '>' '>' '>' | '>' '>') right=expression #binaryExpr
+    | left=expression bop=('<=' | '>=' | '>' | '<') right=expression #binaryExpr
+    | left=expression bop=('==' | '!=') right=expression #binaryExpr
+    | left=expression bop='&&' right=expression #binaryExpr
+    | left=expression bop='||' right=expression #binaryExpr
 
     ;
 

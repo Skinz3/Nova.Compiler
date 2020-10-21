@@ -123,9 +123,6 @@
     <Compile Include="Types\TypeManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Todolist.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Nova.Bytecode\Nova.Bytecode.csproj">
       <Project>{938E11E6-2ACE-445A-BDF0-14715E209E6D}</Project>
       <Name>Nova.Bytecode</Name>

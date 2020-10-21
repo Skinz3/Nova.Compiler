@@ -9,24 +9,17 @@ namespace Nova
 {
     public class Constants
     {
-        public const string BYTECODE_FILE_EXTENSION = ".nov";
+        public const string BytecodeFileExtension = ".nov";
 
-        public const string SOURCE_CODE_FILE_EXTENSION = ".nv";
+        public const string NovaSourceFileExtension = ".nv";
 
-        public const string DEFAULT_OUTPUT_PATH = "output.nov";
+        public const string DefaultOuputPath = "output.nov";
 
-        public const string NOV_FILE_HEADER = "NEXEC";
+        public const string NovFileHeader = "NEXEC";
 
-        public const char BRACKET_START_DELIMITER = '{';
+        public const string MainPointEntryMethodName = "Main";
 
-        public const char BRACKET_END_DELIMITER = '}';
+        public const string STD_VECTOR_CLASSNAME = "Vector"; // weird stuff here
 
-        public const string MAIN_METHOD_NAME = "Main";
-
-        public const string COMMENT_SINGLE = "//";
-
-        public const string STD_VECTOR_CLASSNAME = "Vector";
-
-        public static Assembly ASSEMBLY = Assembly.GetExecutingAssembly();
     }
 }
