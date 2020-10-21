@@ -73,7 +73,6 @@
     <Compile Include="Expressions\NativeCallExpression.cs" />
     <Compile Include="Expressions\OperatorExpression.cs" />
     <Compile Include="Expressions\VariableNameExpression.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="IO\NovBuilder.cs" />
     <Compile Include="IO\Using.cs" />
     <Compile Include="Members\IChild.cs" />
