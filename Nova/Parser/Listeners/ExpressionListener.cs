@@ -145,7 +145,7 @@ namespace Nova.Parser.Listeners
             Logger.Write("Unary operators are not handled properly.", LogType.Warning);
 
             this.Result.Add(new OperatorExpression(Result, context.prefix.Text, context));
-            context.expression().EnterRule(this);
+            context.expression().EnterRule(this); 
             this.Result.Add(new ConstIntExpression(Parent, context, 0));
 
         }

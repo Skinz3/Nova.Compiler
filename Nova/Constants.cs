@@ -19,7 +19,7 @@ namespace Nova
 
         public const string MainPointEntryMethodName = "Main";
 
-        public const string STD_VECTOR_CLASSNAME = "Vector"; // weird stuff here
+        public const string STDVectorClassName = "Vector"; // weird stuff here
 
     }
 }

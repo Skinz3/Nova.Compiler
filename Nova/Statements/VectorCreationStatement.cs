@@ -29,9 +29,9 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            Class targetClass = container.TryGetClass(Constants.STD_VECTOR_CLASSNAME);
+            Class targetClass = container.TryGetClass(Constants.STDVectorClassName);
 
-            context.Instructions.Add(new StructCreateCode(container.GetClassId(Constants.STD_VECTOR_CLASSNAME)));
+            context.Instructions.Add(new StructCreateCode(container.GetClassId(Constants.STDVectorClassName)));
 
             foreach (var element in Elements)
             {
