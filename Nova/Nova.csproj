@@ -64,12 +64,15 @@
     <Compile Include="Antlr\NovaParser.cs" />
     <Compile Include="Antlr\NovaParserBaseListener.cs" />
     <Compile Include="Antlr\NovaParserListener.cs" />
+    <Compile Include="Expressions\Accessors\AccessorTree.cs" />
+    <Compile Include="Expressions\Accessors\AccessorType.cs" />
+    <Compile Include="Expressions\Accessors\IAccessorExpression.cs" />
     <Compile Include="Expressions\ConstIntExpression.cs" />
     <Compile Include="Expressions\ConstBoolExpression.cs" />
     <Compile Include="Expressions\ConstStringExpression.cs" />
     <Compile Include="Expressions\EmptyExpression.cs" />
     <Compile Include="Expressions\Expression.cs" />
-    <Compile Include="Expressions\Accessor.cs" />
+    <Compile Include="Expressions\Accessors\Accessor.cs" />
     <Compile Include="Expressions\MethodCallExpression.cs" />
     <Compile Include="Expressions\NativeCallExpression.cs" />
     <Compile Include="Expressions\OperatorExpression.cs" />

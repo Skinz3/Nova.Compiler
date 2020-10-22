@@ -17,7 +17,7 @@ using Antlr4.Runtime;
 
 namespace Nova.Members
 {
-    public class Method : IByteData, IChild
+    public class Method : IByteData, IChild, IAccessible
     {
         public Class ParentClass
         {
@@ -149,6 +149,11 @@ namespace Nova.Members
             }
 
             return validator.GetErrors();
+        }
+
+        public Class GetContextualClass(SemanticsValidator validator)
+        {
+            return validator.Container.TryGetClass(ReturnType);
         }
     }
 }

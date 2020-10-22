@@ -13,53 +13,46 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.Lexer;
 using Nova.Bytecode.Enums;
+using Nova.Expressions.Accessors;
 
 namespace Nova.Expressions
 {
-    public class VariableNameExpression : Expression
+    public class VariableNameExpression : AccessorExpression
     {
-        public Expression AccessorExpression
-        {
-            get;
-            set;
-        }
-        public List<Accessor> Tree
+        public override AccessorType AccessorType => AccessorType.Field;
+
+        public AccessorTree Tree
         {
             get;
             private set;
         }
-        public string Name
+        public bool Store
         {
             get;
             set;
         }
+
+
         public VariableNameExpression(IChild parent, ParserRuleContext context) : base(parent, context)
         {
-            this.Tree = new List<Accessor>();
+
         }
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            foreach (var element in Tree)
-            {
-                element.GenerateBytecode(container, context);
-            }
+            Tree.GenerateBytecode(container, context);
         }
 
-        public Accessor CreateAccessor()
-        {
-            return new Accessor(this);
-        }
+      
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            this.Tree = Accessor.BuildAccessorTree(this);
-
-            Accessor.ValidateAccessorTree(this, validator);
-
+            this.Tree = new AccessorTree(this, Store);
+            this.Tree.ValidateSemantics(validator);
         }
         public override string ToString()
         {
-            return "Identifier :" + Name;
+            return base.ToString() + " {" + Name + "}";
         }
+
 
     }
 }

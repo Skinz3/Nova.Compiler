@@ -86,9 +86,9 @@ namespace Nova.Lexer
 
             return true;
         }
-        public Expression Get(int index)
+        public T Get<T>(int index) where T : Expression
         {
-            return Tree[index];
+            return (T)Tree[index];
         }
         public IEnumerable<Expression> GetTree()
         {

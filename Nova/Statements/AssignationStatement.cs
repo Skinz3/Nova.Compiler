@@ -21,7 +21,7 @@ namespace Nova.Statements
 {
     public class AssignationStatement : Statement
     {
-        public Expression Target
+        public VariableNameExpression Target
         {
             get;
             set;
@@ -45,15 +45,19 @@ namespace Nova.Statements
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            Target.GenerateBytecode(container, context);
-
             Value.GenerateBytecode(container, context);
+
+            Target.GenerateBytecode(container, context);
+           
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            Target.ValidateSemantics(validator);
             Value.ValidateSemantics(validator);
+
+            Target.Store = true;
+            Target.ValidateSemantics(validator);
+            
         }
     }
 }

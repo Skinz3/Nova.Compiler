@@ -3,6 +3,7 @@ using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using Nova.ByteCode.Codes;
 using Nova.Expressions;
+using Nova.Expressions.Accessors;
 using Nova.Lexer;
 using Nova.Members;
 using Nova.Utils;
@@ -103,7 +104,8 @@ namespace Nova.Parser.Listeners
 
             ExpressionListener expressionListener = new ExpressionListener(expr);
             context.expression().EnterRule(expressionListener);
-            expr.Accessor = expressionListener.Result;
+
+            expr.ParentAccessor = expressionListener.Result.Get<AccessorExpression>(0);
 
             expr.Parameters = GetMethodCallParameters(expr, context, context.methodCall().expressionList());
 
@@ -114,7 +116,7 @@ namespace Nova.Parser.Listeners
             MethodCallExpression expr = new MethodCallExpression(Result, context);
 
             expr.Name = context.IDENTIFIER().GetText();
-            expr.Accessor = new ExpressionNode(expr);
+            expr.ParentAccessor = null;
             expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
             this.Result.Insert(expr);
         }
@@ -126,7 +128,7 @@ namespace Nova.Parser.Listeners
 
             ExpressionListener expressionListener = new ExpressionListener(expr);
             context.expression().EnterRule(expressionListener);
-            expr.AccessorExpression = expressionListener.Result.Get(0);
+            expr.ParentAccessor = expressionListener.Result.Get<AccessorExpression>(0);
 
             this.Result.Insert(expr);
 
@@ -135,7 +137,7 @@ namespace Nova.Parser.Listeners
         {
             VariableNameExpression expression = new VariableNameExpression(Result, context);
             expression.Name = context.GetText();
-            expression.AccessorExpression = null;
+            expression.ParentAccessor = null;
             Result.Insert(expression);
         }
 

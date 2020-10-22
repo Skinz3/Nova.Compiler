@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nova.Semantics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Nova.Members
 {
     public interface IAccessible
     {
+        public Class GetContextualClass(SemanticsValidator validator);
     }
 }

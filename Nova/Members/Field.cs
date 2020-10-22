@@ -90,5 +90,10 @@ namespace Nova.Members
             Value.ValidateSemantics(validator);
             return validator.GetErrors();
         }
+
+        public Class GetContextualClass(SemanticsValidator validator)
+        {
+            return validator.Container.TryGetClass(Type);
+        }
     }
 }

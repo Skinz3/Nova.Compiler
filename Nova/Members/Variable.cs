@@ -1,4 +1,5 @@
 ﻿using Nova.IO;
+using Nova.Semantics;
 using Nova.Types;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,11 @@ namespace Nova.Members
         public override string ToString()
         {
             return Type + " " + Name;
+        }
+
+        public Class GetContextualClass(SemanticsValidator validator)
+        {
+            return validator.Container.TryGetClass(validator.GetLocal(Name).Type);
         }
     }
 }

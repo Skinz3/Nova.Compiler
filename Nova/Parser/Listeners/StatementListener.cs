@@ -2,6 +2,7 @@
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using Nova.Expressions;
+using Nova.Expressions.Accessors;
 using Nova.Lexer;
 using Nova.Members;
 using Nova.Statements;
@@ -46,8 +47,8 @@ namespace Nova.Parser.Listeners
 
             listener = new ExpressionListener(statement);
             context.left.EnterRule(listener);
-            Expression target = listener.GetResult().Get(0);
-            statement.Target = target;
+
+            statement.Target = listener.GetResult().Get<VariableNameExpression>(0);
 
             statement.Operator = '=';
 

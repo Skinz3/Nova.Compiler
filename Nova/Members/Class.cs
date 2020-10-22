@@ -123,5 +123,10 @@ namespace Nova.Members
 
             return errors;
         }
+
+        public Class GetContextualClass(SemanticsValidator validator)
+        {
+            return this;
+        }
     }
 }
