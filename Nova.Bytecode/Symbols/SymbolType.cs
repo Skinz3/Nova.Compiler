@@ -8,10 +8,10 @@ namespace Nova.Bytecode.Symbols
 {
     public enum SymbolType
     {
+        Unknown = 0,
         Local, // human (where human is a local variable)
         ClassMember, // human where human is a class field.
         StructMember, // human where human is a struct field
-        StaticExternal, // Class.Field (public static)
-        NoSymbol,
+        Static, // Class.Field (public static)
     }
 }

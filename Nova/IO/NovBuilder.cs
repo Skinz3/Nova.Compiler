@@ -87,6 +87,8 @@ namespace Nova.IO
         public void PrintMainByteCode()
         {
             Result.GetMainMethod().Print();
+
+            Result.ByteClasses[1].Methods[0].Print();
         }
 
 

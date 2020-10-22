@@ -40,6 +40,10 @@ namespace Nova.IO
             this.Relator = new Dictionary<string, int>();
             this.RelatorId = 0;
         }
+        public int GetClassId(Class @class)
+        {
+            return GetClassId(@class.ClassName);
+        }
         public int GetClassId(string className)
         {
             return Relator[className];

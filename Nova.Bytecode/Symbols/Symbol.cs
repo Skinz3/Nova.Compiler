@@ -12,7 +12,7 @@ namespace Nova.Bytecode.Symbols
     public class Symbol : IByteElement 
     {
         public int Id;
-        public string Type;
+        public string Type; // useless ?
 
         public Symbol(int id,string type)
         {

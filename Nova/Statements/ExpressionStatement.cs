@@ -8,6 +8,7 @@ using Nova.Semantics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,18 +35,14 @@ namespace Nova.Statements
         {
             var tree = Expression.GetTree();
 
-            if (tree.Count() > 1)
+            foreach (var expr in tree)
             {
-                validator.AddError("Invalid expression", base.ParsingContext);
+                if (expr is not MethodCallExpression && expr is not NativeCallExpression && expr is not VariableNameExpression)
+                {
+                    validator.AddError("Forbidenn expression statement (" + expr.GetType().Name + ")", base.ParsingContext);
+                    return;
+                }
             }
-
-            var expr = tree.ElementAt(0);
-
-            if (expr is not MethodCallExpression && expr is not NativeCallExpression)
-            {
-                validator.AddError("Forbidenn expression statement (" + expr.GetType().Name + ")", base.ParsingContext);
-            }
-
 
 
             Expression.ValidateSemantics(validator);

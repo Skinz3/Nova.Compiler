@@ -1327,23 +1327,23 @@ public partial class NovaParser : Parser {
 
 					case 8:
 						{
-						_localctx = new FieldAccessorContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new MethodAccessorContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 206;
 						if (!(Precpred(_ctx, 13))) throw new FailedPredicateException(this, "Precpred(_ctx, 13)");
-						State = 207; ((FieldAccessorContext)_localctx).bop = Match(DOT);
-						State = 208; Match(IDENTIFIER);
+						State = 207; ((MethodAccessorContext)_localctx).bop = Match(DOT);
+						State = 208; methodCall();
 						}
 						break;
 
 					case 9:
 						{
-						_localctx = new MethodAccessorContext(new ExpressionContext(_parentctx, _parentState));
+						_localctx = new FieldAccessorContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
 						State = 209;
 						if (!(Precpred(_ctx, 12))) throw new FailedPredicateException(this, "Precpred(_ctx, 12)");
-						State = 210; ((MethodAccessorContext)_localctx).bop = Match(DOT);
-						State = 211; methodCall();
+						State = 210; ((FieldAccessorContext)_localctx).bop = Match(DOT);
+						State = 211; Match(IDENTIFIER);
 						}
 						break;
 					}
@@ -3294,8 +3294,8 @@ public partial class NovaParser : Parser {
 		"\x5 \x11\a\xC7\xC8\f\x5\x2\x2\xC8\xC9\t\a\x2\x2\xC9\xD7\x5 \x11\x6\xCA"+
 		"\xCB\f\x4\x2\x2\xCB\xCC\a$\x2\x2\xCC\xD7\x5 \x11\x5\xCD\xCE\f\x3\x2\x2"+
 		"\xCE\xCF\a%\x2\x2\xCF\xD7\x5 \x11\x4\xD0\xD1\f\xF\x2\x2\xD1\xD2\a-\x2"+
-		"\x2\xD2\xD7\a\x31\x2\x2\xD3\xD4\f\xE\x2\x2\xD4\xD5\a-\x2\x2\xD5\xD7\x5"+
-		"R*\x2\xD6\xB3\x3\x2\x2\x2\xD6\xB6\x3\x2\x2\x2\xD6\xB9\x3\x2\x2\x2\xD6"+
+		"\x2\xD2\xD7\x5R*\x2\xD3\xD4\f\xE\x2\x2\xD4\xD5\a-\x2\x2\xD5\xD7\a\x31"+
+		"\x2\x2\xD6\xB3\x3\x2\x2\x2\xD6\xB6\x3\x2\x2\x2\xD6\xB9\x3\x2\x2\x2\xD6"+
 		"\xC4\x3\x2\x2\x2\xD6\xC7\x3\x2\x2\x2\xD6\xCA\x3\x2\x2\x2\xD6\xCD\x3\x2"+
 		"\x2\x2\xD6\xD0\x3\x2\x2\x2\xD6\xD3\x3\x2\x2\x2\xD7\xDA\x3\x2\x2\x2\xD8"+
 		"\xD6\x3\x2\x2\x2\xD8\xD9\x3\x2\x2\x2\xD9!\x3\x2\x2\x2\xDA\xD8\x3\x2\x2"+

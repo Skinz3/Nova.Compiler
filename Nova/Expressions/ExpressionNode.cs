@@ -68,7 +68,7 @@ namespace Nova.Lexer
 
             }
         }
-        public void Add(Expression expression)
+        public void Insert(Expression expression)
         {
             this.Tree.Insert(0, expression); // postfix order
         }
@@ -86,10 +86,17 @@ namespace Nova.Lexer
 
             return true;
         }
-
+        public Expression Get(int index)
+        {
+            return Tree[index];
+        }
         public IEnumerable<Expression> GetTree()
         {
             return this.Tree;
+        }
+        public override string ToString()
+        {
+            return "{ Size : " + Tree.Count + " }";
         }
     }
 

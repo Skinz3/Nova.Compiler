@@ -1,9 +1,9 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
+using Nova.Expressions;
 using Nova.Lexer;
 using Nova.Members;
-using Nova.Parser.Accessors;
 using Nova.Statements;
 using System;
 using System.Collections.Generic;
@@ -37,22 +37,26 @@ namespace Nova.Parser.Listeners
          */
         public override void EnterAssignationStatement([NotNull] AssignationStatementContext context)
         {
-            AssignationStatement statement = new AssignationStatement(Parent, context.left.GetText(), '=', context);
+            AssignationStatement statement = new AssignationStatement(Parent, context);
 
             ExpressionListener listener = new ExpressionListener(statement);
-
             context.right.EnterRule(listener);
-
             ExpressionNode value = listener.GetResult();
-
             statement.Value = value;
+
+            listener = new ExpressionListener(statement);
+            context.left.EnterRule(listener);
+            Expression target = listener.GetResult().Get(0);
+            statement.Target = target;
+
+            statement.Operator = '=';
 
             Result.Add(statement);
         }
 
         public override void EnterWhileStatement([NotNull] WhileStatementContext context)
         {
-            WhileStatement whileStatement = new WhileStatement(Parent,context);
+            WhileStatement whileStatement = new WhileStatement(Parent, context);
 
             ExpressionListener expressionListener = new ExpressionListener(whileStatement);
             context.parExpression().expression().EnterRule(expressionListener);

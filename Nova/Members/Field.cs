@@ -11,15 +11,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
-using Nova.Parser.Accessors;
 using Antlr4.Runtime;
 
 namespace Nova.Members
 {
-    public class Field : IChild, IByteData, IAccessible
+    public class Field : IChild, IByteData , IAccessible
     {
-        public const string FIELD_PATTERN = @"^(public|private)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s+([a-zA-Z_$][a-zA-Z_$0-9]*)\s*(=\s*(.*))?$";
-
         public Class ParentClass
         {
             get;

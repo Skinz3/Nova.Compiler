@@ -25,7 +25,7 @@ namespace Nova.Statements
             private set;
         }
 
-        protected ParserRuleContext ParsingContext
+        public ParserRuleContext ParsingContext
         {
             get;
             private set;

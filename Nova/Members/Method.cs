@@ -12,13 +12,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nova.ByteCode.Enums;
-using Nova.Parser.Accessors;
 using Nova.Bytecode.Enums;
 using Antlr4.Runtime;
 
 namespace Nova.Members
 {
-    public class Method : IByteData, IAccessible, IChild
+    public class Method : IByteData, IChild
     {
         public Class ParentClass
         {

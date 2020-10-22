@@ -11,15 +11,12 @@ using Nova.ByteCode.IO;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
 using Nova.Bytecode.Enums;
-using Nova.Parser.Accessors;
 using Nova.Utils;
 
 namespace Nova.Members
 {
     public class Class : IAccessible
     {
-        public const string CLASS_PATTERN = @"^\s*(class|struct)\s+(\w+)$";
-
         public string ClassName
         {
             get;

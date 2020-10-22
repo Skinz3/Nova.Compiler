@@ -19,12 +19,12 @@ namespace Nova.Expressions
         }
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
-            throw new NotImplementedException();
+           
         }
 
         public override void ValidateSemantics(SemanticsValidator validator)
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

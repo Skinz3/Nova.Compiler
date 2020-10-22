@@ -57,11 +57,7 @@ namespace Nova.Parser.Listeners
             }
 
         }
-        public override void EnterLitIdent([NotNull] LitIdentContext context)
-        {
-            string value = context.GetText();
-            Result.Add(new VariableNameExpression(Result, context, value));
-        }
+
 
         public override void EnterChar([NotNull] CharContext context)
         {
@@ -70,7 +66,7 @@ namespace Nova.Parser.Listeners
         public override void EnterBool([NotNull] BoolContext context)
         {
             bool value = bool.Parse(context.BOOL_LITERAL().GetText());
-            this.Result.Add(new ConstBoolExpression(Result, context, value));
+            this.Result.Insert(new ConstBoolExpression(Result, context, value));
         }
         public override void EnterNull([NotNull] NullContext context)
         {
@@ -79,44 +75,70 @@ namespace Nova.Parser.Listeners
         public override void EnterString([NotNull] StringContext context)
         {
             string value = context.STRING_LITERAL().GetText().Replace("\"", "");
-            this.Result.Add(new ConstStringExpression(Result, context, value));
+            this.Result.Insert(new ConstStringExpression(Result, context, value));
         }
         public override void EnterInt([NotNull] IntContext context)
         {
-            this.Result.Add(new ConstIntExpression(Result, context, int.Parse(context.GetText())));
+            this.Result.Insert(new ConstIntExpression(Result, context, int.Parse(context.GetText())));
         }
 
         public override void EnterNativeCall([NotNull] NativeCallContext context)
         {
             NativeCallExpression expr = new NativeCallExpression(Result, context.IDENTIFIER().GetText(), context);
             expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
-            this.Result.Add(expr);
+            this.Result.Insert(expr);
         }
         public override void EnterCtorCall([NotNull] CtorCallContext context)
         {
             StructCallCtorExpression expr = new StructCallCtorExpression(Result, context.constructorCall().creator().createdName().GetText(), context);
             expr.Parameters = GetMethodCallParameters(expr, context, context.constructorCall().creator().classCreatorRest().arguments().expressionList());
-            this.Result.Add(expr);
+            this.Result.Insert(expr);
         }
 
         public override void EnterMethodAccessor([NotNull] MethodAccessorContext context)
         {
-            string name = context.expression().GetText() + "." + context.methodCall().IDENTIFIER().GetText();
-            MethodCallExpression expr = new MethodCallExpression(Result, context, name);
+            MethodCallExpression expr = new MethodCallExpression(Result, context);
+
+            expr.Name = context.methodCall().IDENTIFIER().GetText();
+
+            ExpressionListener expressionListener = new ExpressionListener(expr);
+            context.expression().EnterRule(expressionListener);
+            expr.Accessor = expressionListener.Result;
+
             expr.Parameters = GetMethodCallParameters(expr, context, context.methodCall().expressionList());
-            this.Result.Add(expr);
-        }
-        public override void EnterFieldAccessor([NotNull] FieldAccessorContext context)
-        {
-            string name = context.GetText();
-            Result.Add(new VariableNameExpression(Result, context, name));
+
+            this.Result.Insert(expr);
         }
         public override void EnterMethodCall([NotNull] MethodCallContext context)
         {
-            MethodCallExpression expr = new MethodCallExpression(Result, context, context.IDENTIFIER().GetText());
+            MethodCallExpression expr = new MethodCallExpression(Result, context);
+
+            expr.Name = context.IDENTIFIER().GetText();
+            expr.Accessor = new ExpressionNode(expr);
             expr.Parameters = GetMethodCallParameters(expr, context, context.expressionList());
-            this.Result.Add(expr);
+            this.Result.Insert(expr);
         }
+        public override void EnterFieldAccessor([NotNull] FieldAccessorContext context)
+        {
+            VariableNameExpression expr = new VariableNameExpression(Result, context);
+
+            expr.Name = context.IDENTIFIER().GetText();
+
+            ExpressionListener expressionListener = new ExpressionListener(expr);
+            context.expression().EnterRule(expressionListener);
+            expr.AccessorExpression = expressionListener.Result.Get(0);
+
+            this.Result.Insert(expr);
+
+        }
+        public override void EnterLitIdent([NotNull] LitIdentContext context)
+        {
+            VariableNameExpression expression = new VariableNameExpression(Result, context);
+            expression.Name = context.GetText();
+            expression.AccessorExpression = null;
+            Result.Insert(expression);
+        }
+
         private List<ExpressionNode> GetMethodCallParameters(IChild parent, ParserRuleContext context, ExpressionListContext expressionListContext)
         {
             List<ExpressionNode> results = new List<ExpressionNode>();
@@ -144,14 +166,14 @@ namespace Nova.Parser.Listeners
         {
             Logger.Write("Unary operators are not handled properly.", LogType.Warning);
 
-            this.Result.Add(new OperatorExpression(Result, context.prefix.Text, context));
-            context.expression().EnterRule(this); 
-            this.Result.Add(new ConstIntExpression(Parent, context, 0));
+            this.Result.Insert(new OperatorExpression(Result, context.prefix.Text, context));
+            context.expression().EnterRule(this);
+            this.Result.Insert(new ConstIntExpression(Parent, context, 0));
 
         }
         public override void EnterBinaryExpr([NotNull] BinaryExprContext context)
         {
-            this.Result.Add(new OperatorExpression(Result, context.bop.Text, context));
+            this.Result.Insert(new OperatorExpression(Result, context.bop.Text, context));
             context.right.EnterRule(this);
             context.left.EnterRule(this);
         }

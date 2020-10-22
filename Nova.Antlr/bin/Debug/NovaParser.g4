@@ -80,8 +80,8 @@ primitiveType
 
 expression
     : methodCall #metCall
-    | expression bop='.' IDENTIFIER #fieldAccessor
     | expression bop='.' methodCall #methodAccessor
+    | expression bop='.' IDENTIFIER #fieldAccessor
     | nativeCall #ntvCall
     | constructorCall #ctorCall
     | primary  #primaryValue 

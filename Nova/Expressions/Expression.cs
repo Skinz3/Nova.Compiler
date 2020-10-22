@@ -20,7 +20,7 @@ namespace Nova.Expressions
             get;
             private set;
         }
-        protected ParserRuleContext ParsingContext
+        public ParserRuleContext ParsingContext
         {
             get;
             private set;
