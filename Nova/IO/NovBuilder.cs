@@ -1,5 +1,6 @@
 ﻿using Nova.Bytecode.IO;
 using Nova.ByteCode.IO;
+using Nova.Members;
 using Nova.Semantics;
 using Nova.Types;
 using Nova.Utils;
@@ -17,6 +18,11 @@ namespace Nova.IO
     {
         public static string STANDARD_LIBRARY_PATH = Path.Combine(Environment.CurrentDirectory, "STD/");
 
+        public CompilationState State
+        {
+            get;
+            private set;
+        }
         private ClassesContainer Container
         {
             get;
@@ -45,6 +51,8 @@ namespace Nova.IO
 
         public bool Build()
         {
+            State = CompilationState.Parsing;
+
             NvFile file = OpenNvFile(InputFilePath);
 
             if (file == null)
@@ -57,12 +65,26 @@ namespace Nova.IO
                 return false;
             }
 
+            State = CompilationState.TypeLink;
+
             List<SemanticalError> errors = new List<SemanticalError>();
+
+            foreach (var @class in Container.GetClasses())
+            {
+                Container.TypeManager.Register(@class, false);
+            }
+
+            foreach (var @class in Container.GetClasses())
+            {
+                errors.AddRange(@class.ValidateTypes(Container));
+            }
 
             foreach (var @class in Container.GetClasses())
             {
                 errors.AddRange(@class.ValidateSemantics(Container));
             }
+
+            State = CompilationState.SemanticalValidation;
 
             if (errors.Count > 0)
             {
@@ -73,7 +95,12 @@ namespace Nova.IO
                 return false;
             }
 
+
+            State = CompilationState.BytecodeGeneration;
+
             BuildNovFile();
+
+            State = CompilationState.End;
 
             if (Result == null)
             {
@@ -101,32 +128,6 @@ namespace Nova.IO
             }
 
             return result;
-        }
-        public bool ComputeEntryPoint() // rien a faire ici?
-        {
-            int i = 0;
-            foreach (var @class in Result.ByteClasses)
-            {
-                int j = 0;
-                foreach (var @method in @class.Methods)
-                {
-                    if (method.IsMainPointEntry())
-                    {
-                        if (Result.MainPointEntry == null)
-                        {
-                            Result.MainPointEntry = new MainPointEntry(i, j);
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    j++;
-                }
-                i++;
-            }
-
-            return true;
         }
         private bool CreateContainer(NvFile mainFile)
         {
@@ -196,17 +197,24 @@ namespace Nova.IO
 
         private void BuildNovFile()
         {
-            this.Result = new NovFile();
 
-            foreach (var @class in Container)
+            Method mainEntryPoint = Container.ComputeEntryPoint();
+
+            if (mainEntryPoint != null)
             {
-                ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(Result, Container, null);
-                Result.ByteClasses.Add(byteClass);
+                this.Result = new NovFile();
+
+                this.Result.MainPointEntry = new MainPointEntry(Container.GetClassId(mainEntryPoint.ParentClass), mainEntryPoint.Id);
+
+                foreach (var @class in Container)
+                {
+                    ByteClass byteClass = (ByteClass)@class.Value.GetByteElement(Result, Container, null);
+                    Result.ByteClasses.Add(byteClass);
+                }
             }
-
-            if (!ComputeEntryPoint())
+            else
             {
-                Result = null;
+                Logger.Write("Invalid or multiple program entry point.", LogType.Error);
             }
 
         }

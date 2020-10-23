@@ -1,4 +1,5 @@
-﻿using Nova.IO;
+﻿using Antlr4.Runtime;
+using Nova.IO;
 using Nova.Semantics;
 using Nova.Types;
 using System;
@@ -17,30 +18,47 @@ namespace Nova.Members
             get;
             set;
         }
-        public string Type
+        public string RawType
         {
             get;
             set;
         }
-        public Variable(string name, string type)
+        public NovaType Type
+        {
+            get;
+            set;
+        }
+        private ParserRuleContext Context
+        {
+            get;
+            set;
+        }
+        public Variable(string name, string type, ParserRuleContext context)
         {
             this.Name = name;
-            this.Type = type;
+            this.RawType = type;
+            this.Context = context;
         }
-        
-        public Variable()
+
+        public void ValidateTypes(SemanticsValidator validator)
         {
+            this.Type = validator.Container.TypeManager.GetTypeInstance(RawType);
+
+            if (this.Type == null)
+            {
+               // validator.AddError("Unknown variable type " + RawType, Context);
+            }
 
         }
 
         public override string ToString()
         {
-            return Type + " " + Name;
+            return RawType + " " + Name;
         }
 
         public Class GetContextualClass(SemanticsValidator validator)
         {
-            return validator.Container.TryGetClass(validator.GetLocal(Name).Type);
+            return validator.Container.TryGetClass(validator.GetLocal(Name).RawType);
         }
     }
 }

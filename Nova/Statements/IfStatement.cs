@@ -88,6 +88,11 @@ namespace Nova.Statements
                 }
             }
         }
+
+        public override void ValidateTypes(SemanticsValidator validator)
+        {
+          
+        }
     }
 }
 

@@ -64,6 +64,7 @@
     <Compile Include="Antlr\NovaParser.cs" />
     <Compile Include="Antlr\NovaParserBaseListener.cs" />
     <Compile Include="Antlr\NovaParserListener.cs" />
+    <Compile Include="CompilationState.cs" />
     <Compile Include="Expressions\Accessors\AccessorTree.cs" />
     <Compile Include="Expressions\Accessors\AccessorType.cs" />
     <Compile Include="Expressions\Accessors\IAccessorExpression.cs" />
@@ -111,14 +112,9 @@
     <Compile Include="Statements\ReturnStatement.cs" />
     <Compile Include="Statements\Statement.cs" />
     <Compile Include="Expressions\StructCallCtorStatement.cs" />
-    <Compile Include="Statements\UnknownStatement.cs" />
     <Compile Include="Statements\VectorCreationStatement.cs" />
     <Compile Include="Statements\WhileStatement.cs" />
-    <Compile Include="Types\BaseType.cs" />
-    <Compile Include="Types\Integers\Int32.cs" />
-    <Compile Include="Types\Integers\Int64.cs" />
-    <Compile Include="Types\IType.cs" />
-    <Compile Include="Types\PrimitiveType.cs" />
+    <Compile Include="Types\NovaType.cs" />
     <Compile Include="Types\TypeManager.cs" />
   </ItemGroup>
   <ItemGroup>

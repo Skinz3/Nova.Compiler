@@ -82,7 +82,7 @@ namespace Nova.Expressions.Accessors
 
                     context.Instructions.Add(new StructStoreMemberCode(target.Id));
                     break;
-                case SymbolType.StaticClass:
+                case SymbolType.ExternalMember:
                     throw new NotImplementedException();
                 default:
                     break;
@@ -113,10 +113,10 @@ namespace Nova.Expressions.Accessors
 
                         context.Instructions.Add(new StructLoadMemberCode(target.Id));
                         break;
-                    case SymbolType.StaticClass:
-                        throw new NotImplementedException();
-                    //    target = this.Name.GetElement<Field>(1);
-                    //   context.Instructions.Add(new LoadGlobalCode(container.GetClassId(Name.GetRoot<Class>().ClassName), target.Id));
+                    case SymbolType.ExternalMember:
+                        target = GetTarget<Field>();
+                        context.Instructions.Add(new LoadGlobalCode(container.GetClassId(target.ParentClass.ClassName), target.Id));
+                        break;
                     default:
                         break;
                 }
@@ -139,7 +139,8 @@ namespace Nova.Expressions.Accessors
 
                         context.Instructions.Add(new StructCallMethodCode(target.Id));
                         break;
-                    case SymbolType.StaticClass:
+                    case SymbolType.ExternalMember:
+                        context.Instructions.Add(new MethodCallCode(container.GetClassId(target.ParentClass), target.Id));
                         break;
                     default:
                         throw new Exception();

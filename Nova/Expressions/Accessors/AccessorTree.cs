@@ -88,8 +88,28 @@ namespace Nova.Expressions.Accessors
                         }
                         else if (validator.Container.ContainsClass(current.Identifier))
                         {
-                            current.InferredSymbolType = SymbolType.StaticClass;
-                            current.SetTarget(validator.Container[current.Identifier]);
+
+                            var next = Tree[i + 1];
+
+                            IAccessible target = null;
+
+                            if (next.Type == AccessorType.Field)
+                            {
+                                target = validator.Container[current.Identifier].Fields[next.Identifier];
+                            }
+                            else if (next.Type == AccessorType.Method)
+                            {
+                                target = validator.Container[current.Identifier].Methods[next.Identifier];
+                            }
+                        
+                          
+
+                            next.InferredSymbolType = SymbolType.ExternalMember;
+                            next.SetTarget(target);
+                        
+                            Tree.Remove(current);
+                            current = next;
+
                         }
                         else
                         {

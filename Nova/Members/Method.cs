@@ -14,22 +14,13 @@ using System.Threading.Tasks;
 using Nova.ByteCode.Enums;
 using Nova.Bytecode.Enums;
 using Antlr4.Runtime;
+using Nova.Types;
 
 namespace Nova.Members
 {
     public class Method : IByteData, IChild, IAccessible
     {
         public Class ParentClass
-        {
-            get;
-            private set;
-        }
-        private int StartIndex
-        {
-            get;
-            set;
-        }
-        public int EndIndex
         {
             get;
             private set;
@@ -72,7 +63,7 @@ namespace Nova.Members
         public IChild Parent => null;
 
         public Method(Class parentClass, int methodId, string methodName, ModifiersEnum modifiers, string returnType,
-            List<Variable> parameters, int startIndex, int endIndex, ParserRuleContext context)
+            List<Variable> parameters, ParserRuleContext context)
         {
             this.Id = methodId;
             this.ParentClass = parentClass;
@@ -80,8 +71,6 @@ namespace Nova.Members
             this.Modifiers = modifiers;
             this.ReturnType = returnType;
             this.Parameters = parameters;
-            this.StartIndex = startIndex;
-            this.EndIndex = endIndex;
             this.Context = context;
             this.Statements = new List<Statement>();
         }
@@ -113,7 +102,7 @@ namespace Nova.Members
 
             foreach (var parameter in Parameters)
             {
-                result.ByteBlock.SymbolTable.Bind(parameter.Name, parameter.Type);
+                result.ByteBlock.SymbolTable.Bind(parameter.Name, parameter.RawType);
             }
             foreach (var statement in Statements)
             {
@@ -130,25 +119,34 @@ namespace Nova.Members
 
         }
 
-        public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
+        public void ValidateSemantics(SemanticsValidator validator)
         {
-            SemanticsValidator validator = new SemanticsValidator(ParentClass, container);
-
             if (ParentClass.Type == ContainerType.@struct && IsMainPointEntry())
             {
                 validator.AddError("Main point entry cannot be member of struct \"" + ParentClass.ClassName + "\"", Context);
             }
             foreach (var param in Parameters)
             {
-                validator.DeclareVariable(param.Name, param.Type);
+                validator.DeclareVariable(param);
             }
 
             foreach (var statement in this.Statements)
             {
                 statement.ValidateSemantics(validator);
             }
+        }
 
-            return validator.GetErrors();
+        public void ValidateTypes(SemanticsValidator validator)
+        {
+            foreach (var parameter in Parameters)
+            {
+                parameter.ValidateTypes(validator);
+            }
+
+            foreach (var statement in Statements)
+            {
+                statement.ValidateTypes(validator);
+            }
         }
 
         public Class GetContextualClass(SemanticsValidator validator)

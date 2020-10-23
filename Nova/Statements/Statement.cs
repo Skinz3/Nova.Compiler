@@ -48,7 +48,7 @@ namespace Nova.Statements
 
         public abstract void ValidateSemantics(SemanticsValidator validator);
 
-
+        public abstract void ValidateTypes(SemanticsValidator validator);
 
     }
 }

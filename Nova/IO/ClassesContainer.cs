@@ -1,5 +1,7 @@
-﻿using Nova.Members;
+﻿using Nova.Bytecode.IO;
+using Nova.Members;
 using Nova.Types;
+using Nova.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,11 +36,17 @@ namespace Nova.IO
             get;
             set;
         }
+        public TypeManager TypeManager
+        {
+            get;
+            set;
+        }
         public ClassesContainer()
         {
             this.Elements = new Dictionary<string, Class>();
             this.Relator = new Dictionary<string, int>();
             this.RelatorId = 0;
+            this.TypeManager = new TypeManager();
         }
         public int GetClassId(Class @class)
         {
@@ -76,6 +84,30 @@ namespace Nova.IO
         {
             AddRange(container.Elements);
         }
+
+        public Method ComputeEntryPoint()
+        {
+            Method result = null;
+
+            foreach (var @class in GetClasses())
+            {
+                foreach (var method in @class.Methods)
+                {
+                    if (method.Value.IsMainPointEntry())
+                    {
+                        if (result != null)
+                        {
+                            return null;
+                        }
+
+                        result = method.Value;
+                    }
+                }
+            }
+          
+            return result;
+        }
+
         public IEnumerable<Class> GetClasses()
         {
             return Elements.Values;

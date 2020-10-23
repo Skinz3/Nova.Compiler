@@ -42,11 +42,20 @@ namespace Nova.Expressions
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
+            foreach (var parameter in Parameters)
+            {
+                parameter.GenerateBytecode(container, context);
+            }
             AccessorTree.GenerateBytecode(container, context);
         }
 
         public override void ValidateSemantics(SemanticsValidator validator) // methode accessible, nombre de parametres corrects.
         {
+            foreach (var parameter in Parameters)
+            {
+                parameter.ValidateSemantics(validator);
+            }
+
             AccessorTree = new AccessorTree(this, false);
             AccessorTree.ValidateSemantics(validator);
         }

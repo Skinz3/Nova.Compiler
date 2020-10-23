@@ -57,7 +57,6 @@ namespace Nova.IO
             parser.RemoveErrorListener(ConsoleErrorListener<IToken>.Instance);
             parser.AddErrorListener(parsingErrorHandler);
 
-
             NovaParser.CompilationUnitContext ectx = parser.compilationUnit();
 
             ClassListener classListener = new ClassListener(this);
@@ -67,7 +66,7 @@ namespace Nova.IO
                 typeDeclaration.EnterRule(classListener);
             }
 
-            Console.WriteLine(ectx.ToStringTree(parser));
+            //Console.WriteLine(ectx.ToStringTree(parser));
 
             return parsingErrorHandler.ErrorsCount == 0;
         }

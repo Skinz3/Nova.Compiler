@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 using Nova.Semantics;
 using Nova.ByteCode.Enums;
 using Antlr4.Runtime;
+using Nova.Types;
 
 namespace Nova.Members
 {
-    public class Field : IChild, IByteData , IAccessible
+    public class Field : IChild, IByteData, IAccessible
     {
         public Class ParentClass
         {
@@ -38,7 +39,7 @@ namespace Nova.Members
         {
             get
             {
-                return Variable.Type;
+                return Variable.RawType;
             }
         }
         public ModifiersEnum Modifiers
@@ -73,7 +74,7 @@ namespace Nova.Members
 
         public override string ToString()
         {
-            return Modifiers + " " + Variable.Type + " " + Variable.Name;
+            return Modifiers + " " + Variable.RawType + " " + Variable.Name;
         }
 
         public IByteElement GetByteElement(ClassesContainer container, IByteElement parent)
@@ -84,16 +85,19 @@ namespace Nova.Members
             return field;
         }
 
-        public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
+        public void ValidateSemantics(SemanticsValidator validator)
         {
-            SemanticsValidator validator = new SemanticsValidator(ParentClass, container);
             Value.ValidateSemantics(validator);
-            return validator.GetErrors();
         }
 
         public Class GetContextualClass(SemanticsValidator validator)
         {
             return validator.Container.TryGetClass(Type);
+        }
+
+        public void ValidateTypes(SemanticsValidator validator)
+        {
+            Variable.ValidateTypes(validator);
         }
     }
 }

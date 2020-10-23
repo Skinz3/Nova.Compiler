@@ -94,7 +94,7 @@ namespace Nova.Parser.Listeners
 
             DeclarationStatement statement = new DeclarationStatement(Parent, context);
 
-            Variable variable = new Variable(name, type);
+            Variable variable = new Variable(name, type,context.variableDeclarator());
 
             ExpressionNode value = new ExpressionNode(statement);
 

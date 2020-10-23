@@ -84,5 +84,9 @@ namespace Nova.Statements
             validator.BlockEnd();
         }
 
+        public override void ValidateTypes(SemanticsValidator validator)
+        {
+           
+        }
     }
 }

@@ -50,5 +50,10 @@ namespace Nova.Statements
                 element.ValidateSemantics(validator);
             }
         }
+
+        public override void ValidateTypes(SemanticsValidator validator)
+        {
+                
+        }
     }
 }

@@ -33,16 +33,16 @@ namespace Nova.Parser.Listeners
         }
         public override void EnterClassDeclaration(NovaParser.ClassDeclarationContext context)
         {
-            AddMember(context.IDENTIFIER().GetText(), ContainerType.@class, context.start.Line, context.stop.Line, context);
+            AddMember(context.IDENTIFIER().GetText(), ContainerType.@class, context);
         }
         public override void EnterStructDeclaration([NotNull] NovaParser.StructDeclarationContext context)
         {
-            AddMember(context.IDENTIFIER().GetText(), ContainerType.@struct, context.start.Line, context.stop.Line, context);
+            AddMember(context.IDENTIFIER().GetText(), ContainerType.@struct, context);
         }
 
-        private void AddMember(string className, ContainerType type, int startLine, int endLine, ParserRuleContext context)
+        private void AddMember(string className, ContainerType type, ParserRuleContext context)
         {
-            Class @class = new Class(File, className, type, startLine, endLine);
+            Class @class = new Class(File, className, type, context);
             ClassMemberListener listener = new ClassMemberListener(@class);
 
             foreach (var memberDeclaration in context.GetRuleContext<ClassBodyContext>(0).GetRuleContexts<ParserRuleContext>())

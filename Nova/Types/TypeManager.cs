@@ -9,18 +9,19 @@ namespace Nova.Types
 {
     public class TypeManager
     {
-        private Dictionary<string, IType> Types = new Dictionary<string, IType>();
+        private Dictionary<string, NovaType> Types = new Dictionary<string, NovaType>();
 
-        public IType GetTypeInstance(string type)
+        public NovaType GetTypeInstance(string type)
         {
-            throw new NotImplementedException();
+            NovaType result = null;
+            Types.TryGetValue(type, out result);
+            return result;
         }
 
-        public void Register(Class @class)
+        public void Register(Class @class, bool primitive)
         {
-
+            NovaType type = new NovaType(@class, primitive);
+            Types.Add(type.Name, type);
         }
-
-
     }
 }

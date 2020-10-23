@@ -37,7 +37,7 @@ namespace Nova.Statements
         {
             List<ICode> results = new List<ICode>();
 
-            int variableId = context.SymbolTable.Bind(Variable.Name, Variable.Type);
+            int variableId = context.SymbolTable.Bind(Variable.Name, Variable.RawType);
 
             Value.GenerateBytecode(container, context);
             context.Instructions.Add(new StoreCode(variableId));
@@ -46,8 +46,13 @@ namespace Nova.Statements
         public override void ValidateSemantics(SemanticsValidator validator)
         {
             Value.ValidateSemantics(validator);
-            validator.DeclareVariable(Variable.Name, Variable.Type);
+            validator.DeclareVariable(Variable);
 
+        }
+
+        public override void ValidateTypes(SemanticsValidator validator)
+        {
+            Variable.ValidateTypes(validator);
         }
     }
 }

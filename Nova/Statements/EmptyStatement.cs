@@ -30,5 +30,10 @@ namespace Nova.Statements
         {
             throw new NotImplementedException();
         }
+
+        public override void ValidateTypes(SemanticsValidator validator)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -64,12 +64,5 @@ namespace Nova.ByteCode.IO
             writer.Write(ParametersCount);
             ByteBlock.Serialize(writer);
         }
-
-        public bool IsMainPointEntry()
-        {
-            return Modifiers == ModifiersEnum.@public && Name == Constants.MAIN_METHOD_NAME && ParametersCount == 0;
-        }
-
-        
     }
 }

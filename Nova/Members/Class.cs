@@ -12,6 +12,8 @@ using Nova.Semantics;
 using Nova.ByteCode.Enums;
 using Nova.Bytecode.Enums;
 using Nova.Utils;
+using Nova.Types;
+using Antlr4.Runtime;
 
 namespace Nova.Members
 {
@@ -26,16 +28,6 @@ namespace Nova.Members
         {
             get;
             private set;
-        }
-        private int StartIndex
-        {
-            get;
-            set;
-        }
-        private int EndIndex
-        {
-            get;
-            set;
         }
         public ContainerType Type
         {
@@ -52,19 +44,21 @@ namespace Nova.Members
             get;
             private set;
         }
+        private ParserRuleContext Context
+        {
+            get;
+            set;
+        }
 
-        public Class(NvFile file, string className, ContainerType type, int startIndex, int endIndex)
+        public Class(NvFile file, string className, ContainerType type, ParserRuleContext context)
         {
             this.File = file;
             this.ClassName = className;
-            this.StartIndex = startIndex;
-            this.EndIndex = endIndex;
             this.Methods = new Dictionary<string, Method>();
             this.Fields = new Dictionary<string, Field>();
             this.Type = type;
+            this.Context = context;
         }
-
-      
 
         public Class()
         {
@@ -72,7 +66,7 @@ namespace Nova.Members
             this.Fields = new Dictionary<string, Field>();
         }
 
-      
+
         public override string ToString()
         {
             return ClassName;
@@ -110,23 +104,44 @@ namespace Nova.Members
 
         public IEnumerable<SemanticalError> ValidateSemantics(ClassesContainer container)
         {
-            List<SemanticalError> errors = new List<SemanticalError>();
+            SemanticsValidator validator = new SemanticsValidator(this, container);
 
             foreach (var field in this.Fields)
             {
-                errors.AddRange(field.Value.ValidateSemantics(container));
+                field.Value.ValidateSemantics(validator);
+                validator.Flush();
             }
             foreach (var method in this.Methods)
             {
-                errors.AddRange(method.Value.ValidateSemantics(container));
+                method.Value.ValidateSemantics(validator);
+                validator.Flush();
             }
 
-            return errors;
+            return validator.GetErrors();
         }
 
         public Class GetContextualClass(SemanticsValidator validator)
         {
             return this;
+        }
+
+        public IEnumerable<SemanticalError> ValidateTypes(ClassesContainer container)
+        {
+            SemanticsValidator validator = new SemanticsValidator(this, container);
+
+            foreach (var field in this.Fields)
+            {
+                field.Value.ValidateTypes(validator);
+                validator.Flush();
+            }
+
+            foreach (var method in this.Methods)
+            {
+                method.Value.ValidateTypes(validator);
+                validator.Flush();
+            }
+
+            return validator.GetErrors();
         }
     }
 }

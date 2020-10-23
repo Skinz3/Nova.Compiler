@@ -85,6 +85,6 @@ namespace Nova.ByteCode.IO
         {
             return ByteClasses[MainPointEntry.ClassIndex].Methods[MainPointEntry.MethodIndex];
         }
-       
+
     }
 }

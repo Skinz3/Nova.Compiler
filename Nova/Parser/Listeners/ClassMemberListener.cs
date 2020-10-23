@@ -54,7 +54,7 @@ namespace Nova.Parser.Listeners
             string type = context.typeType().GetText();
             string name = declarator.variableDeclaratorId().GetText();
 
-            Field field = new Field(Class, Class.PopFieldId(), modifiers, new Variable(name, type));
+            Field field = new Field(Class, Class.PopFieldId(), modifiers, new Variable(name, type, context.variableDeclarator()));
 
             ExpressionNode value = new ExpressionNode(field);
 
@@ -99,14 +99,12 @@ namespace Nova.Parser.Listeners
             {
                 foreach (var parameter in parameterListContext.formalParameter())
                 {
-                    parameters.Add(new Variable(parameter.variableDeclaratorId().GetText(), parameter.typeType().GetText()));
+                    parameters.Add(new Variable(parameter.variableDeclaratorId().GetText(), parameter.typeType().GetText(), parameter.variableDeclaratorId()));
                 }
             }
 
             Method method = new Method(Class, Class.PopMethodId(), methodName, modifiers, returnType,
-               parameters,
-                context.start.Line,
-                context.stop.Line, context);
+               parameters, context);
 
 
             StatementListener listener = new StatementListener(method);
