@@ -15,5 +15,7 @@ namespace Nova.Bytecode.Enums
         AddVect = 4,
         AtVect = 5,
         SetVect = 6,
+        StrGet = 7,
+        NewLine = 8,
     }
 }

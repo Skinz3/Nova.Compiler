@@ -22,7 +22,7 @@ namespace Nova.Members
         public string ClassName
         {
             get;
-            private set;
+            set;
         }
         public NvFile File
         {
@@ -73,7 +73,7 @@ namespace Nova.Members
         }
         public Method GetCtor()
         {
-            return Methods.Values.FirstOrDefault(x => x.Modifiers == ModifiersEnum.ctor);
+            return Methods.Values.FirstOrDefault(x => x.Type == MethodType.Ctor);
         }
         public int PopMethodId()
         {

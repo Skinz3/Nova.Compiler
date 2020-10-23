@@ -44,6 +44,11 @@ namespace Nova.IO
 
         public bool Read()
         {
+            if (!File.Exists(Filepath))
+            {
+                Logger.Write("File not found : " + Filepath, LogType.Error);
+                return false;
+            }
             string text = File.ReadAllText(Filepath);
 
             NovaParsingErrorHandler parsingErrorHandler = new NovaParsingErrorHandler();
@@ -59,6 +64,10 @@ namespace Nova.IO
 
             NovaParser.CompilationUnitContext ectx = parser.compilationUnit();
 
+            foreach (var importDeclaration in ectx.importDeclaration())
+            {
+                Usings.Add(new Using(UsingType.Ref, importDeclaration.fileName().GetText()));
+            }
             ClassListener classListener = new ClassListener(this);
 
             foreach (var typeDeclaration in ectx.typeDeclaration())

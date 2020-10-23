@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Nova.Bytecode.Codes;
+using Nova.Bytecode.Enums;
 using Nova.Bytecode.Symbols;
 using Nova.ByteCode.Codes;
 using Nova.ByteCode.Generation;
@@ -58,6 +59,20 @@ namespace Nova.Expressions
 
             AccessorTree = new AccessorTree(this, false);
             AccessorTree.ValidateSemantics(validator);
+
+            Method target = AccessorTree.Last().GetTarget<Method>();
+
+            int requiredParameters = target.Parameters.Count;
+
+            if (target.ParentClass.Type == ContainerType.primitive)
+            {
+                requiredParameters = requiredParameters - 1;
+            }
+
+            if (requiredParameters != Parameters.Count)
+            {
+                validator.AddError(Name + "() require " + requiredParameters + " parameters, but " + Parameters.Count + " was given", base.ParsingContext);
+            }
         }
 
         public override string ToString()

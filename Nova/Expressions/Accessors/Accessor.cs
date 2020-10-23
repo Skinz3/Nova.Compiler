@@ -21,10 +21,10 @@ namespace Nova.Expressions.Accessors
             get;
             set;
         }
-        private AccessorExpression Expression
+        public AccessorExpression Expression
         {
             get;
-            set;
+            private set;
         }
         private IAccessible Target
         {
@@ -66,7 +66,7 @@ namespace Nova.Expressions.Accessors
                 case SymbolType.Local:
                     Variable variable = GetTarget<Variable>();
                     Symbol symbol = context.SymbolTable.GetSymbol(variable.Name);
-                    context.Instructions.Add(new LoadCode(symbol.Id));
+                    context.Instructions.Add(new StoreCode(symbol.Id));
                     break;
                 case SymbolType.ClassMember:
                     Field target = GetTarget<Field>();

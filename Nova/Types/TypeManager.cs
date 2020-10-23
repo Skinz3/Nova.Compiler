@@ -1,4 +1,5 @@
-﻿using Nova.Members;
+﻿using Nova.IO;
+using Nova.Members;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace Nova.Types
     public class TypeManager
     {
         private Dictionary<string, NovaType> Types = new Dictionary<string, NovaType>();
+
+        public TypeManager()
+        {
+        }
+
 
         public NovaType GetTypeInstance(string type)
         {

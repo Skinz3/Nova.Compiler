@@ -9,6 +9,8 @@ STRUCT : 'struct';
 PUBLIC : 'public';
 PRIVATE : 'private';
 
+PRIMITIVE : 'primitive';
+
 UNIT:               'unit';
 DOUBLE:             'double';
 FLOAT:              'float';

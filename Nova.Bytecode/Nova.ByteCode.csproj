@@ -67,6 +67,7 @@
     <Compile Include="Codes\StoreGlobalCode.cs" />
     <Compile Include="Codes\VectCreateCode.cs" />
     <Compile Include="Enums\ContainerType.cs" />
+    <Compile Include="Enums\MethodType.cs" />
     <Compile Include="Enums\ModifiersEnum.cs" />
     <Compile Include="Enums\NativesEnum.cs" />
     <Compile Include="Enums\OperatorsEnum.cs" />

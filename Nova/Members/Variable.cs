@@ -46,7 +46,7 @@ namespace Nova.Members
 
             if (this.Type == null)
             {
-               // validator.AddError("Unknown variable type " + RawType, Context);
+                validator.AddError("Unknown variable type " + RawType, Context);
             }
 
         }
@@ -58,7 +58,7 @@ namespace Nova.Members
 
         public Class GetContextualClass(SemanticsValidator validator)
         {
-            return validator.Container.TryGetClass(validator.GetLocal(Name).RawType);
+            return Type != null ? Type.Class : null;
         }
     }
 }

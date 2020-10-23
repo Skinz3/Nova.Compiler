@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nova.ByteCode.Enums
+namespace Nova.Bytecode.Enums
 {
-    public enum ModifiersEnum
+    public enum MethodType
     {
-        @public = 0x1,
-        @private = 0x2,
+        Method,
+        Ctor,
     }
 }

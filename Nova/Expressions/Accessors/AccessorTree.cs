@@ -74,6 +74,7 @@ namespace Nova.Expressions.Accessors
                         {
                             switch (Root.ParentClass.Type)
                             {
+                                case ContainerType.primitive:
                                 case ContainerType.@class:
                                     current.InferredSymbolType = SymbolType.ClassMember;
                                     current.SetTarget(Root.ParentClass.Fields[current.Identifier]);
@@ -95,18 +96,35 @@ namespace Nova.Expressions.Accessors
 
                             if (next.Type == AccessorType.Field)
                             {
-                                target = validator.Container[current.Identifier].Fields[next.Identifier];
+                                if (validator.Container[current.Identifier].Fields.ContainsKey(next.Identifier))
+                                {
+                                    target = validator.Container[current.Identifier].Fields[next.Identifier];
+                                }
+                                else
+                                {
+                                    validator.AddError("Unknown member : " + next.Identifier + " in class " + current.Identifier, next.Expression.ParsingContext);
+                                    return;
+                                }
                             }
                             else if (next.Type == AccessorType.Method)
                             {
-                                target = validator.Container[current.Identifier].Methods[next.Identifier];
+                                if (validator.Container[current.Identifier].Methods.ContainsKey(next.Identifier))
+                                {
+                                    target = validator.Container[current.Identifier].Methods[next.Identifier];
+                                }
+                                else
+                                {
+                                    validator.AddError("Unknown member : " + next.Identifier + "() in class " + current.Identifier, next.Expression.ParsingContext);
+                                    return;
+                                }
+                              
                             }
-                        
-                          
+
+
 
                             next.InferredSymbolType = SymbolType.ExternalMember;
                             next.SetTarget(target);
-                        
+
                             Tree.Remove(current);
                             current = next;
 
@@ -123,6 +141,7 @@ namespace Nova.Expressions.Accessors
                         {
                             switch (Root.ParentClass.Type)
                             {
+                                case ContainerType.primitive:
                                 case ContainerType.@class:
                                     current.InferredSymbolType = SymbolType.ClassMember;
                                     current.SetTarget(Root.ParentClass.Methods[current.Identifier]);
@@ -160,7 +179,7 @@ namespace Nova.Expressions.Accessors
                     {
                         if (targetClass.Fields.ContainsKey(current.Identifier))
                         {
-                            if (targetClass.Type == ContainerType.@class)
+                            if (targetClass.Type == ContainerType.@class || targetClass.Type == ContainerType.primitive)
                             {
                                 current.InferredSymbolType = SymbolType.ClassMember;
                             }
@@ -185,17 +204,13 @@ namespace Nova.Expressions.Accessors
                     {
                         if (targetClass.Methods.ContainsKey(current.Identifier))
                         {
-                            if (targetClass.Type == ContainerType.@class)
+                            if (targetClass.Type == ContainerType.@class || targetClass.Type == ContainerType.primitive)
                             {
                                 current.InferredSymbolType = SymbolType.ClassMember;
                             }
                             else if (targetClass.Type == ContainerType.@struct)
                             {
                                 current.InferredSymbolType = SymbolType.StructMember;
-                            }
-                            else
-                            {
-                                throw new NotImplementedException(); // todo : records
                             }
 
                             current.SetTarget(targetClass.Methods[current.Identifier]);
@@ -218,7 +233,10 @@ namespace Nova.Expressions.Accessors
 
             }
         }
-
+        public Accessor Last()
+        {
+            return Tree.Last();
+        }
         public void GenerateBytecode(ClassesContainer container, ByteBlock context)
         {
             for (int i = 0; i < Tree.Count - 1; i++)

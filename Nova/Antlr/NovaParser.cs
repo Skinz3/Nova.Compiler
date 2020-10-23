@@ -30,63 +30,66 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 [System.CLSCompliant(false)]
 public partial class NovaParser : Parser {
 	public const int
-		USING=1, CLASS=2, STRUCT=3, PUBLIC=4, PRIVATE=5, UNIT=6, DOUBLE=7, FLOAT=8, 
-		INT=9, SHORT=10, STRING=11, BOOLEAN=12, CHAR=13, BYTE=14, LONG=15, FOR=16, 
-		IF=17, WHILE=18, ELSE=19, RETURN=20, NEW=21, NATIVE=22, ASSIGN=23, ADD=24, 
-		SUB=25, MUL=26, DIV=27, LE=28, GE=29, GT=30, LT=31, EQUAL=32, NOTEQUAL=33, 
-		AND=34, OR=35, LPAREN=36, RPAREN=37, LBRACE=38, RBRACE=39, LBRACK=40, 
-		RBRACK=41, COMMA=42, DOT=43, SEMI=44, NULL_LITERAL=45, BOOL_LITERAL=46, 
-		IDENTIFIER=47, WS=48, COMMENT=49, LINE_COMMENT=50, DECIMAL_LITERAL=51, 
-		HEX_LITERAL=52, OCT_LITERAL=53, BINARY_LITERAL=54, FLOAT_LITERAL=55, HEX_FLOAT_LITERAL=56, 
-		CHAR_LITERAL=57, STRING_LITERAL=58;
+		USING=1, CLASS=2, STRUCT=3, PUBLIC=4, PRIVATE=5, PRIMITIVE=6, UNIT=7, 
+		DOUBLE=8, FLOAT=9, INT=10, SHORT=11, STRING=12, BOOLEAN=13, CHAR=14, BYTE=15, 
+		LONG=16, FOR=17, IF=18, WHILE=19, ELSE=20, RETURN=21, NEW=22, NATIVE=23, 
+		ASSIGN=24, ADD=25, SUB=26, MUL=27, DIV=28, LE=29, GE=30, GT=31, LT=32, 
+		EQUAL=33, NOTEQUAL=34, AND=35, OR=36, LPAREN=37, RPAREN=38, LBRACE=39, 
+		RBRACE=40, LBRACK=41, RBRACK=42, COMMA=43, DOT=44, SEMI=45, NULL_LITERAL=46, 
+		BOOL_LITERAL=47, IDENTIFIER=48, WS=49, COMMENT=50, LINE_COMMENT=51, DECIMAL_LITERAL=52, 
+		HEX_LITERAL=53, OCT_LITERAL=54, BINARY_LITERAL=55, FLOAT_LITERAL=56, HEX_FLOAT_LITERAL=57, 
+		CHAR_LITERAL=58, STRING_LITERAL=59;
 	public const int
-		RULE_compilationUnit = 0, RULE_importDeclaration = 1, RULE_typeDeclaration = 2, 
-		RULE_classDeclaration = 3, RULE_structDeclaration = 4, RULE_classBody = 5, 
-		RULE_memberDeclaration = 6, RULE_modifier = 7, RULE_classModifier = 8, 
-		RULE_fieldDeclaration = 9, RULE_variableDeclarator = 10, RULE_variableInitializer = 11, 
-		RULE_variableDeclaratorId = 12, RULE_typeType = 13, RULE_primitiveType = 14, 
-		RULE_expression = 15, RULE_methodDeclaration = 16, RULE_typeTypeOrUnit = 17, 
-		RULE_formalParameters = 18, RULE_formalParameterList = 19, RULE_formalParameter = 20, 
-		RULE_lastFormalParameter = 21, RULE_constructorDeclaration = 22, RULE_methodBody = 23, 
-		RULE_block = 24, RULE_localVariableDeclaration = 25, RULE_statement = 26, 
-		RULE_whileStatement = 27, RULE_returnStatement = 28, RULE_assignationStatement = 29, 
-		RULE_statementExpression = 30, RULE_ifStatement = 31, RULE_forStatement = 32, 
-		RULE_parExpression = 33, RULE_forControl = 34, RULE_expressionList = 35, 
-		RULE_primary = 36, RULE_literal = 37, RULE_integerLiteral = 38, RULE_floatLiteral = 39, 
-		RULE_methodCall = 40, RULE_constructorCall = 41, RULE_nativeCall = 42, 
-		RULE_creator = 43, RULE_createdName = 44, RULE_classCreatorRest = 45, 
-		RULE_arguments = 46;
+		RULE_compilationUnit = 0, RULE_importDeclaration = 1, RULE_fileName = 2, 
+		RULE_typeDeclaration = 3, RULE_primitiveDeclaration = 4, RULE_classDeclaration = 5, 
+		RULE_structDeclaration = 6, RULE_classBody = 7, RULE_memberDeclaration = 8, 
+		RULE_modifier = 9, RULE_classModifier = 10, RULE_fieldDeclaration = 11, 
+		RULE_variableDeclarator = 12, RULE_variableInitializer = 13, RULE_variableDeclaratorId = 14, 
+		RULE_typeType = 15, RULE_primitiveTypeOrUnit = 16, RULE_primitiveType = 17, 
+		RULE_expression = 18, RULE_methodDeclaration = 19, RULE_typeTypeOrUnit = 20, 
+		RULE_formalParameters = 21, RULE_formalParameterList = 22, RULE_formalParameter = 23, 
+		RULE_lastFormalParameter = 24, RULE_constructorDeclaration = 25, RULE_methodBody = 26, 
+		RULE_block = 27, RULE_localVariableDeclaration = 28, RULE_statement = 29, 
+		RULE_whileStatement = 30, RULE_returnStatement = 31, RULE_assignationStatement = 32, 
+		RULE_statementExpression = 33, RULE_ifStatement = 34, RULE_forStatement = 35, 
+		RULE_parExpression = 36, RULE_forControl = 37, RULE_expressionList = 38, 
+		RULE_primary = 39, RULE_primaryIdentifier = 40, RULE_literal = 41, RULE_integerLiteral = 42, 
+		RULE_floatLiteral = 43, RULE_methodCall = 44, RULE_constructorCall = 45, 
+		RULE_nativeCall = 46, RULE_creator = 47, RULE_createdName = 48, RULE_classCreatorRest = 49, 
+		RULE_arguments = 50;
 	public static readonly string[] ruleNames = {
-		"compilationUnit", "importDeclaration", "typeDeclaration", "classDeclaration", 
-		"structDeclaration", "classBody", "memberDeclaration", "modifier", "classModifier", 
-		"fieldDeclaration", "variableDeclarator", "variableInitializer", "variableDeclaratorId", 
-		"typeType", "primitiveType", "expression", "methodDeclaration", "typeTypeOrUnit", 
-		"formalParameters", "formalParameterList", "formalParameter", "lastFormalParameter", 
-		"constructorDeclaration", "methodBody", "block", "localVariableDeclaration", 
-		"statement", "whileStatement", "returnStatement", "assignationStatement", 
-		"statementExpression", "ifStatement", "forStatement", "parExpression", 
-		"forControl", "expressionList", "primary", "literal", "integerLiteral", 
-		"floatLiteral", "methodCall", "constructorCall", "nativeCall", "creator", 
-		"createdName", "classCreatorRest", "arguments"
+		"compilationUnit", "importDeclaration", "fileName", "typeDeclaration", 
+		"primitiveDeclaration", "classDeclaration", "structDeclaration", "classBody", 
+		"memberDeclaration", "modifier", "classModifier", "fieldDeclaration", 
+		"variableDeclarator", "variableInitializer", "variableDeclaratorId", "typeType", 
+		"primitiveTypeOrUnit", "primitiveType", "expression", "methodDeclaration", 
+		"typeTypeOrUnit", "formalParameters", "formalParameterList", "formalParameter", 
+		"lastFormalParameter", "constructorDeclaration", "methodBody", "block", 
+		"localVariableDeclaration", "statement", "whileStatement", "returnStatement", 
+		"assignationStatement", "statementExpression", "ifStatement", "forStatement", 
+		"parExpression", "forControl", "expressionList", "primary", "primaryIdentifier", 
+		"literal", "integerLiteral", "floatLiteral", "methodCall", "constructorCall", 
+		"nativeCall", "creator", "createdName", "classCreatorRest", "arguments"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'using'", "'class'", "'struct'", "'public'", "'private'", "'unit'", 
-		"'double'", "'float'", "'int'", "'short'", "'string'", "'bool'", "'char'", 
-		"'byte'", "'long'", "'for'", "'if'", "'while'", "'else'", "'return'", 
+		null, "'using'", "'class'", "'struct'", "'public'", "'private'", "'primitive'", 
+		"'unit'", "'double'", "'float'", "'int'", "'short'", "'string'", "'bool'", 
+		"'char'", "'byte'", "'long'", "'for'", "'if'", "'while'", "'else'", "'return'", 
 		"'->'", "'~'", "'='", "'+'", "'-'", "'*'", "'/'", "'<='", "'>='", "'>'", 
 		"'<'", "'=='", "'!='", "'&&'", "'||'", "'('", "')'", "'{'", "'}'", "'['", 
 		"']'", "','", "'.'", "';'", "'null'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, "USING", "CLASS", "STRUCT", "PUBLIC", "PRIVATE", "UNIT", "DOUBLE", 
-		"FLOAT", "INT", "SHORT", "STRING", "BOOLEAN", "CHAR", "BYTE", "LONG", 
-		"FOR", "IF", "WHILE", "ELSE", "RETURN", "NEW", "NATIVE", "ASSIGN", "ADD", 
-		"SUB", "MUL", "DIV", "LE", "GE", "GT", "LT", "EQUAL", "NOTEQUAL", "AND", 
-		"OR", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", "RBRACK", "COMMA", 
-		"DOT", "SEMI", "NULL_LITERAL", "BOOL_LITERAL", "IDENTIFIER", "WS", "COMMENT", 
-		"LINE_COMMENT", "DECIMAL_LITERAL", "HEX_LITERAL", "OCT_LITERAL", "BINARY_LITERAL", 
-		"FLOAT_LITERAL", "HEX_FLOAT_LITERAL", "CHAR_LITERAL", "STRING_LITERAL"
+		null, "USING", "CLASS", "STRUCT", "PUBLIC", "PRIVATE", "PRIMITIVE", "UNIT", 
+		"DOUBLE", "FLOAT", "INT", "SHORT", "STRING", "BOOLEAN", "CHAR", "BYTE", 
+		"LONG", "FOR", "IF", "WHILE", "ELSE", "RETURN", "NEW", "NATIVE", "ASSIGN", 
+		"ADD", "SUB", "MUL", "DIV", "LE", "GE", "GT", "LT", "EQUAL", "NOTEQUAL", 
+		"AND", "OR", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", "RBRACK", 
+		"COMMA", "DOT", "SEMI", "NULL_LITERAL", "BOOL_LITERAL", "IDENTIFIER", 
+		"WS", "COMMENT", "LINE_COMMENT", "DECIMAL_LITERAL", "HEX_LITERAL", "OCT_LITERAL", 
+		"BINARY_LITERAL", "FLOAT_LITERAL", "HEX_FLOAT_LITERAL", "CHAR_LITERAL", 
+		"STRING_LITERAL"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -175,33 +178,33 @@ public partial class NovaParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 97;
+			State = 105;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==USING) {
 				{
 				{
-				State = 94; importDeclaration();
+				State = 102; importDeclaration();
 				}
 				}
-				State = 99;
+				State = 107;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 103;
+			State = 111;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CLASS) | (1L << STRUCT) | (1L << SEMI))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CLASS) | (1L << STRUCT) | (1L << PRIMITIVE))) != 0)) {
 				{
 				{
-				State = 100; typeDeclaration();
+				State = 108; typeDeclaration();
 				}
 				}
-				State = 105;
+				State = 113;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 106; Match(Eof);
+			State = 114; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -218,7 +221,9 @@ public partial class NovaParser : Parser {
 	public partial class ImportDeclarationContext : ParserRuleContext {
 		public ITerminalNode USING() { return GetToken(NovaParser.USING, 0); }
 		public ITerminalNode LT() { return GetToken(NovaParser.LT, 0); }
-		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
+		public FileNameContext fileName() {
+			return GetRuleContext<FileNameContext>(0);
+		}
 		public ITerminalNode GT() { return GetToken(NovaParser.GT, 0); }
 		public ImportDeclarationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -242,10 +247,53 @@ public partial class NovaParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 108; Match(USING);
-			State = 109; Match(LT);
-			State = 110; Match(IDENTIFIER);
-			State = 111; Match(GT);
+			State = 116; Match(USING);
+			State = 117; Match(LT);
+			State = 118; fileName();
+			State = 119; Match(GT);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class FileNameContext : ParserRuleContext {
+		public ITerminalNode[] IDENTIFIER() { return GetTokens(NovaParser.IDENTIFIER); }
+		public ITerminalNode IDENTIFIER(int i) {
+			return GetToken(NovaParser.IDENTIFIER, i);
+		}
+		public FileNameContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_fileName; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterFileName(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitFileName(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public FileNameContext fileName() {
+		FileNameContext _localctx = new FileNameContext(_ctx, State);
+		EnterRule(_localctx, 4, RULE_fileName);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 121; Match(IDENTIFIER);
+			State = 122; Match(DOT);
+			State = 123; Match(IDENTIFIER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -266,7 +314,9 @@ public partial class NovaParser : Parser {
 		public StructDeclarationContext structDeclaration() {
 			return GetRuleContext<StructDeclarationContext>(0);
 		}
-		public ITerminalNode SEMI() { return GetToken(NovaParser.SEMI, 0); }
+		public PrimitiveDeclarationContext primitiveDeclaration() {
+			return GetRuleContext<PrimitiveDeclarationContext>(0);
+		}
 		public TypeDeclarationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -285,41 +335,77 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public TypeDeclarationContext typeDeclaration() {
 		TypeDeclarationContext _localctx = new TypeDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 4, RULE_typeDeclaration);
+		EnterRule(_localctx, 6, RULE_typeDeclaration);
 		try {
-			State = 118;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 128;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case CLASS:
-			case STRUCT:
-				EnterOuterAlt(_localctx, 1);
 				{
-				State = 115;
-				_errHandler.Sync(this);
-				switch (_input.La(1)) {
-				case CLASS:
-					{
-					State = 113; classDeclaration();
-					}
-					break;
-				case STRUCT:
-					{
-					State = 114; structDeclaration();
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
-				}
+				State = 125; classDeclaration();
 				}
 				break;
-			case SEMI:
-				EnterOuterAlt(_localctx, 2);
+			case STRUCT:
 				{
-				State = 117; Match(SEMI);
+				State = 126; structDeclaration();
+				}
+				break;
+			case PRIMITIVE:
+				{
+				State = 127; primitiveDeclaration();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class PrimitiveDeclarationContext : ParserRuleContext {
+		public ITerminalNode PRIMITIVE() { return GetToken(NovaParser.PRIMITIVE, 0); }
+		public PrimitiveTypeOrUnitContext primitiveTypeOrUnit() {
+			return GetRuleContext<PrimitiveTypeOrUnitContext>(0);
+		}
+		public ClassBodyContext classBody() {
+			return GetRuleContext<ClassBodyContext>(0);
+		}
+		public PrimitiveDeclarationContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_primitiveDeclaration; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterPrimitiveDeclaration(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitPrimitiveDeclaration(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public PrimitiveDeclarationContext primitiveDeclaration() {
+		PrimitiveDeclarationContext _localctx = new PrimitiveDeclarationContext(_ctx, State);
+		EnterRule(_localctx, 8, RULE_primitiveDeclaration);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 130; Match(PRIMITIVE);
+			State = 131; primitiveTypeOrUnit();
+			State = 132; classBody();
 			}
 		}
 		catch (RecognitionException re) {
@@ -357,13 +443,13 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ClassDeclarationContext classDeclaration() {
 		ClassDeclarationContext _localctx = new ClassDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 6, RULE_classDeclaration);
+		EnterRule(_localctx, 10, RULE_classDeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 120; Match(CLASS);
-			State = 121; Match(IDENTIFIER);
-			State = 122; classBody();
+			State = 134; Match(CLASS);
+			State = 135; Match(IDENTIFIER);
+			State = 136; classBody();
 			}
 		}
 		catch (RecognitionException re) {
@@ -401,13 +487,13 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public StructDeclarationContext structDeclaration() {
 		StructDeclarationContext _localctx = new StructDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 8, RULE_structDeclaration);
+		EnterRule(_localctx, 12, RULE_structDeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 124; Match(STRUCT);
-			State = 125; Match(IDENTIFIER);
-			State = 126; classBody();
+			State = 138; Match(STRUCT);
+			State = 139; Match(IDENTIFIER);
+			State = 140; classBody();
 			}
 		}
 		catch (RecognitionException re) {
@@ -446,26 +532,26 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ClassBodyContext classBody() {
 		ClassBodyContext _localctx = new ClassBodyContext(_ctx, State);
-		EnterRule(_localctx, 10, RULE_classBody);
+		EnterRule(_localctx, 14, RULE_classBody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 128; Match(LBRACE);
-			State = 132;
+			State = 142; Match(LBRACE);
+			State = 146;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PUBLIC) | (1L << PRIVATE) | (1L << NEW))) != 0)) {
 				{
 				{
-				State = 129; memberDeclaration();
+				State = 143; memberDeclaration();
 				}
 				}
-				State = 134;
+				State = 148;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 135; Match(RBRACE);
+			State = 149; Match(RBRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -510,31 +596,31 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public MemberDeclarationContext memberDeclaration() {
 		MemberDeclarationContext _localctx = new MemberDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 12, RULE_memberDeclaration);
+		EnterRule(_localctx, 16, RULE_memberDeclaration);
 		try {
-			State = 144;
+			State = 158;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,5,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 137; modifier();
-				State = 138; methodDeclaration();
+				State = 151; modifier();
+				State = 152; methodDeclaration();
 				}
 				break;
 
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 140; modifier();
-				State = 141; fieldDeclaration();
+				State = 154; modifier();
+				State = 155; fieldDeclaration();
 				}
 				break;
 
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 143; constructorDeclaration();
+				State = 157; constructorDeclaration();
 				}
 				break;
 			}
@@ -572,11 +658,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ModifierContext modifier() {
 		ModifierContext _localctx = new ModifierContext(_ctx, State);
-		EnterRule(_localctx, 14, RULE_modifier);
+		EnterRule(_localctx, 18, RULE_modifier);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 146; classModifier();
+			State = 160; classModifier();
 			}
 		}
 		catch (RecognitionException re) {
@@ -611,12 +697,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ClassModifierContext classModifier() {
 		ClassModifierContext _localctx = new ClassModifierContext(_ctx, State);
-		EnterRule(_localctx, 16, RULE_classModifier);
+		EnterRule(_localctx, 20, RULE_classModifier);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 148;
+			State = 162;
 			_la = _input.La(1);
 			if ( !(_la==PUBLIC || _la==PRIVATE) ) {
 			_errHandler.RecoverInline(this);
@@ -666,12 +752,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public FieldDeclarationContext fieldDeclaration() {
 		FieldDeclarationContext _localctx = new FieldDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 18, RULE_fieldDeclaration);
+		EnterRule(_localctx, 22, RULE_fieldDeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 150; typeType();
-			State = 151; variableDeclarator();
+			State = 164; typeType();
+			State = 165; variableDeclarator();
 			}
 		}
 		catch (RecognitionException re) {
@@ -711,19 +797,19 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public VariableDeclaratorContext variableDeclarator() {
 		VariableDeclaratorContext _localctx = new VariableDeclaratorContext(_ctx, State);
-		EnterRule(_localctx, 20, RULE_variableDeclarator);
+		EnterRule(_localctx, 24, RULE_variableDeclarator);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 153; variableDeclaratorId();
-			State = 156;
+			State = 167; variableDeclaratorId();
+			State = 170;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==ASSIGN) {
 				{
-				State = 154; Match(ASSIGN);
-				State = 155; variableInitializer();
+				State = 168; Match(ASSIGN);
+				State = 169; variableInitializer();
 				}
 			}
 
@@ -762,11 +848,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public VariableInitializerContext variableInitializer() {
 		VariableInitializerContext _localctx = new VariableInitializerContext(_ctx, State);
-		EnterRule(_localctx, 22, RULE_variableInitializer);
+		EnterRule(_localctx, 26, RULE_variableInitializer);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 158; expression(0);
+			State = 172; expression(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -800,11 +886,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public VariableDeclaratorIdContext variableDeclaratorId() {
 		VariableDeclaratorIdContext _localctx = new VariableDeclaratorIdContext(_ctx, State);
-		EnterRule(_localctx, 24, RULE_variableDeclaratorId);
+		EnterRule(_localctx, 28, RULE_variableDeclaratorId);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 160; Match(IDENTIFIER);
+			State = 174; Match(IDENTIFIER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -841,16 +927,16 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public TypeTypeContext typeType() {
 		TypeTypeContext _localctx = new TypeTypeContext(_ctx, State);
-		EnterRule(_localctx, 26, RULE_typeType);
+		EnterRule(_localctx, 30, RULE_typeType);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 164;
+			State = 178;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case IDENTIFIER:
 				{
-				State = 162; Match(IDENTIFIER);
+				State = 176; Match(IDENTIFIER);
 				}
 				break;
 			case DOUBLE:
@@ -863,7 +949,71 @@ public partial class NovaParser : Parser {
 			case BYTE:
 			case LONG:
 				{
-				State = 163; primitiveType();
+				State = 177; primitiveType();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class PrimitiveTypeOrUnitContext : ParserRuleContext {
+		public PrimitiveTypeContext primitiveType() {
+			return GetRuleContext<PrimitiveTypeContext>(0);
+		}
+		public ITerminalNode UNIT() { return GetToken(NovaParser.UNIT, 0); }
+		public PrimitiveTypeOrUnitContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_primitiveTypeOrUnit; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterPrimitiveTypeOrUnit(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitPrimitiveTypeOrUnit(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public PrimitiveTypeOrUnitContext primitiveTypeOrUnit() {
+		PrimitiveTypeOrUnitContext _localctx = new PrimitiveTypeOrUnitContext(_ctx, State);
+		EnterRule(_localctx, 32, RULE_primitiveTypeOrUnit);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 182;
+			_errHandler.Sync(this);
+			switch (_input.La(1)) {
+			case DOUBLE:
+			case FLOAT:
+			case INT:
+			case SHORT:
+			case STRING:
+			case BOOLEAN:
+			case CHAR:
+			case BYTE:
+			case LONG:
+				{
+				State = 180; primitiveType();
+				}
+				break;
+			case UNIT:
+				{
+				State = 181; Match(UNIT);
 				}
 				break;
 			default:
@@ -910,12 +1060,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public PrimitiveTypeContext primitiveType() {
 		PrimitiveTypeContext _localctx = new PrimitiveTypeContext(_ctx, State);
-		EnterRule(_localctx, 28, RULE_primitiveType);
+		EnterRule(_localctx, 34, RULE_primitiveType);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 166;
+			State = 184;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -1088,14 +1238,14 @@ public partial class NovaParser : Parser {
 		int _parentState = State;
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 30;
-		EnterRecursionRule(_localctx, 30, RULE_expression, _p);
+		int _startState = 36;
+		EnterRecursionRule(_localctx, 36, RULE_expression, _p);
 		int _la;
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 175;
+			State = 193;
 			_errHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(_input,8,_ctx) ) {
 			case 1:
@@ -1104,7 +1254,7 @@ public partial class NovaParser : Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 169; methodCall();
+				State = 187; methodCall();
 				}
 				break;
 
@@ -1113,7 +1263,7 @@ public partial class NovaParser : Parser {
 				_localctx = new NtvCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 170; nativeCall();
+				State = 188; nativeCall();
 				}
 				break;
 
@@ -1122,7 +1272,7 @@ public partial class NovaParser : Parser {
 				_localctx = new CtorCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 171; constructorCall();
+				State = 189; constructorCall();
 				}
 				break;
 
@@ -1131,7 +1281,7 @@ public partial class NovaParser : Parser {
 				_localctx = new PrimaryValueContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 172; primary();
+				State = 190; primary();
 				}
 				break;
 
@@ -1140,7 +1290,7 @@ public partial class NovaParser : Parser {
 				_localctx = new UnaryExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 173;
+				State = 191;
 				((UnaryExprContext)_localctx).prefix = _input.Lt(1);
 				_la = _input.La(1);
 				if ( !(_la==ADD || _la==SUB) ) {
@@ -1153,12 +1303,12 @@ public partial class NovaParser : Parser {
 					_errHandler.ReportMatch(this);
 					Consume();
 				}
-				State = 174; expression(8);
+				State = 192; expression(8);
 				}
 				break;
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 214;
+			State = 232;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,11,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
@@ -1166,7 +1316,7 @@ public partial class NovaParser : Parser {
 					if ( _parseListeners!=null ) TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 212;
+					State = 230;
 					_errHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(_input,10,_ctx) ) {
 					case 1:
@@ -1174,9 +1324,9 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 177;
+						State = 195;
 						if (!(Precpred(_ctx, 7))) throw new FailedPredicateException(this, "Precpred(_ctx, 7)");
-						State = 178;
+						State = 196;
 						((BinaryExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==MUL || _la==DIV) ) {
@@ -1189,7 +1339,7 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 179; ((BinaryExprContext)_localctx).right = expression(8);
+						State = 197; ((BinaryExprContext)_localctx).right = expression(8);
 						}
 						break;
 
@@ -1198,9 +1348,9 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 180;
+						State = 198;
 						if (!(Precpred(_ctx, 6))) throw new FailedPredicateException(this, "Precpred(_ctx, 6)");
-						State = 181;
+						State = 199;
 						((BinaryExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==ADD || _la==SUB) ) {
@@ -1213,7 +1363,7 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 182; ((BinaryExprContext)_localctx).right = expression(7);
+						State = 200; ((BinaryExprContext)_localctx).right = expression(7);
 						}
 						break;
 
@@ -1222,34 +1372,34 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 183;
+						State = 201;
 						if (!(Precpred(_ctx, 5))) throw new FailedPredicateException(this, "Precpred(_ctx, 5)");
-						State = 191;
+						State = 209;
 						_errHandler.Sync(this);
 						switch ( Interpreter.AdaptivePredict(_input,9,_ctx) ) {
 						case 1:
 							{
-							State = 184; Match(LT);
-							State = 185; Match(LT);
+							State = 202; Match(LT);
+							State = 203; Match(LT);
 							}
 							break;
 
 						case 2:
 							{
-							State = 186; Match(GT);
-							State = 187; Match(GT);
-							State = 188; Match(GT);
+							State = 204; Match(GT);
+							State = 205; Match(GT);
+							State = 206; Match(GT);
 							}
 							break;
 
 						case 3:
 							{
-							State = 189; Match(GT);
-							State = 190; Match(GT);
+							State = 207; Match(GT);
+							State = 208; Match(GT);
 							}
 							break;
 						}
-						State = 193; ((BinaryExprContext)_localctx).right = expression(6);
+						State = 211; ((BinaryExprContext)_localctx).right = expression(6);
 						}
 						break;
 
@@ -1258,9 +1408,9 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 194;
+						State = 212;
 						if (!(Precpred(_ctx, 4))) throw new FailedPredicateException(this, "Precpred(_ctx, 4)");
-						State = 195;
+						State = 213;
 						((BinaryExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LE) | (1L << GE) | (1L << GT) | (1L << LT))) != 0)) ) {
@@ -1273,7 +1423,7 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 196; ((BinaryExprContext)_localctx).right = expression(5);
+						State = 214; ((BinaryExprContext)_localctx).right = expression(5);
 						}
 						break;
 
@@ -1282,9 +1432,9 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 197;
+						State = 215;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 198;
+						State = 216;
 						((BinaryExprContext)_localctx).bop = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==EQUAL || _la==NOTEQUAL) ) {
@@ -1297,7 +1447,7 @@ public partial class NovaParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 199; ((BinaryExprContext)_localctx).right = expression(4);
+						State = 217; ((BinaryExprContext)_localctx).right = expression(4);
 						}
 						break;
 
@@ -1306,10 +1456,10 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 200;
+						State = 218;
 						if (!(Precpred(_ctx, 2))) throw new FailedPredicateException(this, "Precpred(_ctx, 2)");
-						State = 201; ((BinaryExprContext)_localctx).bop = Match(AND);
-						State = 202; ((BinaryExprContext)_localctx).right = expression(3);
+						State = 219; ((BinaryExprContext)_localctx).bop = Match(AND);
+						State = 220; ((BinaryExprContext)_localctx).right = expression(3);
 						}
 						break;
 
@@ -1318,10 +1468,10 @@ public partial class NovaParser : Parser {
 						_localctx = new BinaryExprContext(new ExpressionContext(_parentctx, _parentState));
 						((BinaryExprContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 203;
+						State = 221;
 						if (!(Precpred(_ctx, 1))) throw new FailedPredicateException(this, "Precpred(_ctx, 1)");
-						State = 204; ((BinaryExprContext)_localctx).bop = Match(OR);
-						State = 205; ((BinaryExprContext)_localctx).right = expression(2);
+						State = 222; ((BinaryExprContext)_localctx).bop = Match(OR);
+						State = 223; ((BinaryExprContext)_localctx).right = expression(2);
 						}
 						break;
 
@@ -1329,10 +1479,10 @@ public partial class NovaParser : Parser {
 						{
 						_localctx = new MethodAccessorContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 206;
+						State = 224;
 						if (!(Precpred(_ctx, 13))) throw new FailedPredicateException(this, "Precpred(_ctx, 13)");
-						State = 207; ((MethodAccessorContext)_localctx).bop = Match(DOT);
-						State = 208; methodCall();
+						State = 225; ((MethodAccessorContext)_localctx).bop = Match(DOT);
+						State = 226; methodCall();
 						}
 						break;
 
@@ -1340,16 +1490,16 @@ public partial class NovaParser : Parser {
 						{
 						_localctx = new FieldAccessorContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 209;
+						State = 227;
 						if (!(Precpred(_ctx, 12))) throw new FailedPredicateException(this, "Precpred(_ctx, 12)");
-						State = 210; ((FieldAccessorContext)_localctx).bop = Match(DOT);
-						State = 211; Match(IDENTIFIER);
+						State = 228; ((FieldAccessorContext)_localctx).bop = Match(DOT);
+						State = 229; Match(IDENTIFIER);
 						}
 						break;
 					}
 					} 
 				}
-				State = 216;
+				State = 234;
 				_errHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(_input,11,_ctx);
 			}
@@ -1377,14 +1527,6 @@ public partial class NovaParser : Parser {
 		public MethodBodyContext methodBody() {
 			return GetRuleContext<MethodBodyContext>(0);
 		}
-		public ITerminalNode[] LBRACK() { return GetTokens(NovaParser.LBRACK); }
-		public ITerminalNode LBRACK(int i) {
-			return GetToken(NovaParser.LBRACK, i);
-		}
-		public ITerminalNode[] RBRACK() { return GetTokens(NovaParser.RBRACK); }
-		public ITerminalNode RBRACK(int i) {
-			return GetToken(NovaParser.RBRACK, i);
-		}
 		public MethodDeclarationContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1403,29 +1545,14 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public MethodDeclarationContext methodDeclaration() {
 		MethodDeclarationContext _localctx = new MethodDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 32, RULE_methodDeclaration);
-		int _la;
+		EnterRule(_localctx, 38, RULE_methodDeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 217; typeTypeOrUnit();
-			State = 218; Match(IDENTIFIER);
-			State = 219; formalParameters();
-			State = 224;
-			_errHandler.Sync(this);
-			_la = _input.La(1);
-			while (_la==LBRACK) {
-				{
-				{
-				State = 220; Match(LBRACK);
-				State = 221; Match(RBRACK);
-				}
-				}
-				State = 226;
-				_errHandler.Sync(this);
-				_la = _input.La(1);
-			}
-			State = 227; methodBody();
+			State = 235; typeTypeOrUnit();
+			State = 236; Match(IDENTIFIER);
+			State = 237; formalParameters();
+			State = 238; methodBody();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1462,9 +1589,9 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public TypeTypeOrUnitContext typeTypeOrUnit() {
 		TypeTypeOrUnitContext _localctx = new TypeTypeOrUnitContext(_ctx, State);
-		EnterRule(_localctx, 34, RULE_typeTypeOrUnit);
+		EnterRule(_localctx, 40, RULE_typeTypeOrUnit);
 		try {
-			State = 231;
+			State = 242;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case DOUBLE:
@@ -1479,13 +1606,13 @@ public partial class NovaParser : Parser {
 			case IDENTIFIER:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 229; typeType();
+				State = 240; typeType();
 				}
 				break;
 			case UNIT:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 230; Match(UNIT);
+				State = 241; Match(UNIT);
 				}
 				break;
 			default:
@@ -1525,22 +1652,22 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public FormalParametersContext formalParameters() {
 		FormalParametersContext _localctx = new FormalParametersContext(_ctx, State);
-		EnterRule(_localctx, 36, RULE_formalParameters);
+		EnterRule(_localctx, 42, RULE_formalParameters);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 233; Match(LPAREN);
-			State = 235;
+			State = 244; Match(LPAREN);
+			State = 246;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG) | (1L << IDENTIFIER))) != 0)) {
 				{
-				State = 234; formalParameterList();
+				State = 245; formalParameterList();
 				}
 			}
 
-			State = 237; Match(RPAREN);
+			State = 248; Match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1582,40 +1709,40 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public FormalParameterListContext formalParameterList() {
 		FormalParameterListContext _localctx = new FormalParameterListContext(_ctx, State);
-		EnterRule(_localctx, 38, RULE_formalParameterList);
+		EnterRule(_localctx, 44, RULE_formalParameterList);
 		int _la;
 		try {
 			int _alt;
-			State = 252;
+			State = 263;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,17,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,16,_ctx) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 239; formalParameter();
-				State = 244;
+				State = 250; formalParameter();
+				State = 255;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,15,_ctx);
+				_alt = Interpreter.AdaptivePredict(_input,14,_ctx);
 				while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
 					if ( _alt==1 ) {
 						{
 						{
-						State = 240; Match(COMMA);
-						State = 241; formalParameter();
+						State = 251; Match(COMMA);
+						State = 252; formalParameter();
 						}
 						} 
 					}
-					State = 246;
+					State = 257;
 					_errHandler.Sync(this);
-					_alt = Interpreter.AdaptivePredict(_input,15,_ctx);
+					_alt = Interpreter.AdaptivePredict(_input,14,_ctx);
 				}
-				State = 249;
+				State = 260;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 				if (_la==COMMA) {
 					{
-					State = 247; Match(COMMA);
-					State = 248; lastFormalParameter();
+					State = 258; Match(COMMA);
+					State = 259; lastFormalParameter();
 					}
 				}
 
@@ -1625,7 +1752,7 @@ public partial class NovaParser : Parser {
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 251; lastFormalParameter();
+				State = 262; lastFormalParameter();
 				}
 				break;
 			}
@@ -1666,12 +1793,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public FormalParameterContext formalParameter() {
 		FormalParameterContext _localctx = new FormalParameterContext(_ctx, State);
-		EnterRule(_localctx, 40, RULE_formalParameter);
+		EnterRule(_localctx, 46, RULE_formalParameter);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 254; typeType();
-			State = 255; variableDeclaratorId();
+			State = 265; typeType();
+			State = 266; variableDeclaratorId();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1710,12 +1837,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public LastFormalParameterContext lastFormalParameter() {
 		LastFormalParameterContext _localctx = new LastFormalParameterContext(_ctx, State);
-		EnterRule(_localctx, 42, RULE_lastFormalParameter);
+		EnterRule(_localctx, 48, RULE_lastFormalParameter);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 257; typeType();
-			State = 258; variableDeclaratorId();
+			State = 268; typeType();
+			State = 269; variableDeclaratorId();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1756,14 +1883,14 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ConstructorDeclarationContext constructorDeclaration() {
 		ConstructorDeclarationContext _localctx = new ConstructorDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 44, RULE_constructorDeclaration);
+		EnterRule(_localctx, 50, RULE_constructorDeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 260; Match(NEW);
-			State = 261; Match(IDENTIFIER);
-			State = 262; formalParameters();
-			State = 263; _localctx.constructorBody = block();
+			State = 271; Match(NEW);
+			State = 272; Match(IDENTIFIER);
+			State = 273; formalParameters();
+			State = 274; _localctx.constructorBody = block();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1799,11 +1926,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public MethodBodyContext methodBody() {
 		MethodBodyContext _localctx = new MethodBodyContext(_ctx, State);
-		EnterRule(_localctx, 46, RULE_methodBody);
+		EnterRule(_localctx, 52, RULE_methodBody);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 265; block();
+			State = 276; block();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1842,26 +1969,26 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public BlockContext block() {
 		BlockContext _localctx = new BlockContext(_ctx, State);
-		EnterRule(_localctx, 48, RULE_block);
+		EnterRule(_localctx, 54, RULE_block);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 267; Match(LBRACE);
-			State = 271;
+			State = 278; Match(LBRACE);
+			State = 282;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG) | (1L << FOR) | (1L << IF) | (1L << WHILE) | (1L << RETURN) | (1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << LBRACE) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNIT) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG) | (1L << FOR) | (1L << IF) | (1L << WHILE) | (1L << RETURN) | (1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << LBRACE) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
 				{
 				{
-				State = 268; statement();
+				State = 279; statement();
 				}
 				}
-				State = 273;
+				State = 284;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 274; Match(RBRACE);
+			State = 285; Match(RBRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1900,12 +2027,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public LocalVariableDeclarationContext localVariableDeclaration() {
 		LocalVariableDeclarationContext _localctx = new LocalVariableDeclarationContext(_ctx, State);
-		EnterRule(_localctx, 50, RULE_localVariableDeclaration);
+		EnterRule(_localctx, 56, RULE_localVariableDeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 276; typeType();
-			State = 277; variableDeclarator();
+			State = 287; typeType();
+			State = 288; variableDeclarator();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1963,64 +2090,64 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public StatementContext statement() {
 		StatementContext _localctx = new StatementContext(_ctx, State);
-		EnterRule(_localctx, 52, RULE_statement);
+		EnterRule(_localctx, 58, RULE_statement);
 		try {
-			State = 287;
+			State = 298;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,19,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,18,_ctx) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 279; _localctx.blockLabel = block();
+				State = 290; _localctx.blockLabel = block();
 				}
 				break;
 
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 280; localVariableDeclaration();
+				State = 291; localVariableDeclaration();
 				}
 				break;
 
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 281; ifStatement();
+				State = 292; ifStatement();
 				}
 				break;
 
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 282; forStatement();
+				State = 293; forStatement();
 				}
 				break;
 
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 283; whileStatement();
+				State = 294; whileStatement();
 				}
 				break;
 
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 284; returnStatement();
+				State = 295; returnStatement();
 				}
 				break;
 
 			case 7:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 285; assignationStatement();
+				State = 296; assignationStatement();
 				}
 				break;
 
 			case 8:
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 286; statementExpression();
+				State = 297; statementExpression();
 				}
 				break;
 			}
@@ -2062,13 +2189,13 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public WhileStatementContext whileStatement() {
 		WhileStatementContext _localctx = new WhileStatementContext(_ctx, State);
-		EnterRule(_localctx, 54, RULE_whileStatement);
+		EnterRule(_localctx, 60, RULE_whileStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 289; Match(WHILE);
-			State = 290; parExpression();
-			State = 291; statement();
+			State = 300; Match(WHILE);
+			State = 301; parExpression();
+			State = 302; statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2105,17 +2232,17 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ReturnStatementContext returnStatement() {
 		ReturnStatementContext _localctx = new ReturnStatementContext(_ctx, State);
-		EnterRule(_localctx, 56, RULE_returnStatement);
+		EnterRule(_localctx, 62, RULE_returnStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 293; Match(RETURN);
-			State = 295;
+			State = 304; Match(RETURN);
+			State = 306;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,20,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,19,_ctx) ) {
 			case 1:
 				{
-				State = 294; expression(0);
+				State = 305; expression(0);
 				}
 				break;
 			}
@@ -2159,13 +2286,13 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public AssignationStatementContext assignationStatement() {
 		AssignationStatementContext _localctx = new AssignationStatementContext(_ctx, State);
-		EnterRule(_localctx, 58, RULE_assignationStatement);
+		EnterRule(_localctx, 64, RULE_assignationStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 297; _localctx.left = expression(0);
-			State = 298; Match(ASSIGN);
-			State = 299; _localctx.right = expression(0);
+			State = 308; _localctx.left = expression(0);
+			State = 309; Match(ASSIGN);
+			State = 310; _localctx.right = expression(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2201,11 +2328,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public StatementExpressionContext statementExpression() {
 		StatementExpressionContext _localctx = new StatementExpressionContext(_ctx, State);
-		EnterRule(_localctx, 60, RULE_statementExpression);
+		EnterRule(_localctx, 66, RULE_statementExpression);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 301; expression(0);
+			State = 312; expression(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2251,20 +2378,20 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public IfStatementContext ifStatement() {
 		IfStatementContext _localctx = new IfStatementContext(_ctx, State);
-		EnterRule(_localctx, 62, RULE_ifStatement);
+		EnterRule(_localctx, 68, RULE_ifStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 303; Match(IF);
-			State = 304; parExpression();
-			State = 305; _localctx.ifSt = statement();
-			State = 308;
+			State = 314; Match(IF);
+			State = 315; parExpression();
+			State = 316; _localctx.ifSt = statement();
+			State = 319;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,21,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				{
-				State = 306; Match(ELSE);
-				State = 307; _localctx.elseSt = statement();
+				State = 317; Match(ELSE);
+				State = 318; _localctx.elseSt = statement();
 				}
 				break;
 			}
@@ -2307,15 +2434,15 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ForStatementContext forStatement() {
 		ForStatementContext _localctx = new ForStatementContext(_ctx, State);
-		EnterRule(_localctx, 64, RULE_forStatement);
+		EnterRule(_localctx, 70, RULE_forStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 310; Match(FOR);
-			State = 311; Match(LPAREN);
-			State = 312; forControl();
-			State = 313; Match(RPAREN);
-			State = 314; statement();
+			State = 321; Match(FOR);
+			State = 322; Match(LPAREN);
+			State = 323; forControl();
+			State = 324; Match(RPAREN);
+			State = 325; statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2351,13 +2478,13 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ParExpressionContext parExpression() {
 		ParExpressionContext _localctx = new ParExpressionContext(_ctx, State);
-		EnterRule(_localctx, 66, RULE_parExpression);
+		EnterRule(_localctx, 72, RULE_parExpression);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 316; Match(LPAREN);
-			State = 317; expression(0);
-			State = 318; Match(RPAREN);
+			State = 327; Match(LPAREN);
+			State = 328; expression(0);
+			State = 329; Match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2402,15 +2529,15 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ForControlContext forControl() {
 		ForControlContext _localctx = new ForControlContext(_ctx, State);
-		EnterRule(_localctx, 68, RULE_forControl);
+		EnterRule(_localctx, 74, RULE_forControl);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 320; _localctx.forInit = statement();
-			State = 321; Match(SEMI);
-			State = 322; _localctx.forCond = expression(0);
-			State = 323; Match(SEMI);
-			State = 324; _localctx.forUpdate = assignationStatement();
+			State = 331; _localctx.forInit = statement();
+			State = 332; Match(SEMI);
+			State = 333; _localctx.forCond = expression(0);
+			State = 334; Match(SEMI);
+			State = 335; _localctx.forUpdate = assignationStatement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2453,23 +2580,23 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ExpressionListContext expressionList() {
 		ExpressionListContext _localctx = new ExpressionListContext(_ctx, State);
-		EnterRule(_localctx, 70, RULE_expressionList);
+		EnterRule(_localctx, 76, RULE_expressionList);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 326; expression(0);
-			State = 331;
+			State = 337; expression(0);
+			State = 342;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 327; Match(COMMA);
-				State = 328; expression(0);
+				State = 338; Match(COMMA);
+				State = 339; expression(0);
 				}
 				}
-				State = 333;
+				State = 344;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
@@ -2527,7 +2654,9 @@ public partial class NovaParser : Parser {
 		}
 	}
 	public partial class LitIdentContext : PrimaryContext {
-		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
+		public PrimaryIdentifierContext primaryIdentifier() {
+			return GetRuleContext<PrimaryIdentifierContext>(0);
+		}
 		public LitIdentContext(PrimaryContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			INovaParserListener typedListener = listener as INovaParserListener;
@@ -2542,18 +2671,18 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public PrimaryContext primary() {
 		PrimaryContext _localctx = new PrimaryContext(_ctx, State);
-		EnterRule(_localctx, 72, RULE_primary);
+		EnterRule(_localctx, 78, RULE_primary);
 		try {
-			State = 340;
+			State = 351;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case LPAREN:
 				_localctx = new PrimaryExprContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 334; Match(LPAREN);
-				State = 335; expression(0);
-				State = 336; Match(RPAREN);
+				State = 345; Match(LPAREN);
+				State = 346; expression(0);
+				State = 347; Match(RPAREN);
 				}
 				break;
 			case NULL_LITERAL:
@@ -2569,18 +2698,93 @@ public partial class NovaParser : Parser {
 				_localctx = new PrimarylitContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 338; literal();
+				State = 349; literal();
 				}
 				break;
+			case UNIT:
+			case DOUBLE:
+			case FLOAT:
+			case INT:
+			case SHORT:
+			case STRING:
+			case BOOLEAN:
+			case CHAR:
+			case BYTE:
+			case LONG:
 			case IDENTIFIER:
 				_localctx = new LitIdentContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 339; Match(IDENTIFIER);
+				State = 350; primaryIdentifier();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class PrimaryIdentifierContext : ParserRuleContext {
+		public ITerminalNode IDENTIFIER() { return GetToken(NovaParser.IDENTIFIER, 0); }
+		public PrimitiveTypeOrUnitContext primitiveTypeOrUnit() {
+			return GetRuleContext<PrimitiveTypeOrUnitContext>(0);
+		}
+		public PrimaryIdentifierContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_primaryIdentifier; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.EnterPrimaryIdentifier(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			INovaParserListener typedListener = listener as INovaParserListener;
+			if (typedListener != null) typedListener.ExitPrimaryIdentifier(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public PrimaryIdentifierContext primaryIdentifier() {
+		PrimaryIdentifierContext _localctx = new PrimaryIdentifierContext(_ctx, State);
+		EnterRule(_localctx, 80, RULE_primaryIdentifier);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 355;
+			_errHandler.Sync(this);
+			switch (_input.La(1)) {
+			case IDENTIFIER:
+				{
+				State = 353; Match(IDENTIFIER);
+				}
+				break;
+			case UNIT:
+			case DOUBLE:
+			case FLOAT:
+			case INT:
+			case SHORT:
+			case STRING:
+			case BOOLEAN:
+			case CHAR:
+			case BYTE:
+			case LONG:
+				{
+				State = 354; primitiveTypeOrUnit();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -2686,9 +2890,9 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public LiteralContext literal() {
 		LiteralContext _localctx = new LiteralContext(_ctx, State);
-		EnterRule(_localctx, 74, RULE_literal);
+		EnterRule(_localctx, 82, RULE_literal);
 		try {
-			State = 348;
+			State = 363;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case DECIMAL_LITERAL:
@@ -2698,7 +2902,7 @@ public partial class NovaParser : Parser {
 				_localctx = new IntContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 342; integerLiteral();
+				State = 357; integerLiteral();
 				}
 				break;
 			case FLOAT_LITERAL:
@@ -2706,35 +2910,35 @@ public partial class NovaParser : Parser {
 				_localctx = new FloatContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 343; floatLiteral();
+				State = 358; floatLiteral();
 				}
 				break;
 			case CHAR_LITERAL:
 				_localctx = new CharContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 344; Match(CHAR_LITERAL);
+				State = 359; Match(CHAR_LITERAL);
 				}
 				break;
 			case STRING_LITERAL:
 				_localctx = new StringContext(_localctx);
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 345; Match(STRING_LITERAL);
+				State = 360; Match(STRING_LITERAL);
 				}
 				break;
 			case BOOL_LITERAL:
 				_localctx = new BoolContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 346; Match(BOOL_LITERAL);
+				State = 361; Match(BOOL_LITERAL);
 				}
 				break;
 			case NULL_LITERAL:
 				_localctx = new NullContext(_localctx);
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 347; Match(NULL_LITERAL);
+				State = 362; Match(NULL_LITERAL);
 				}
 				break;
 			default:
@@ -2775,12 +2979,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public IntegerLiteralContext integerLiteral() {
 		IntegerLiteralContext _localctx = new IntegerLiteralContext(_ctx, State);
-		EnterRule(_localctx, 76, RULE_integerLiteral);
+		EnterRule(_localctx, 84, RULE_integerLiteral);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 350;
+			State = 365;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -2826,12 +3030,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public FloatLiteralContext floatLiteral() {
 		FloatLiteralContext _localctx = new FloatLiteralContext(_ctx, State);
-		EnterRule(_localctx, 78, RULE_floatLiteral);
+		EnterRule(_localctx, 86, RULE_floatLiteral);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 352;
+			State = 367;
 			_la = _input.La(1);
 			if ( !(_la==FLOAT_LITERAL || _la==HEX_FLOAT_LITERAL) ) {
 			_errHandler.RecoverInline(this);
@@ -2879,23 +3083,23 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public MethodCallContext methodCall() {
 		MethodCallContext _localctx = new MethodCallContext(_ctx, State);
-		EnterRule(_localctx, 80, RULE_methodCall);
+		EnterRule(_localctx, 88, RULE_methodCall);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 354; Match(IDENTIFIER);
-			State = 355; Match(LPAREN);
-			State = 357;
+			State = 369; Match(IDENTIFIER);
+			State = 370; Match(LPAREN);
+			State = 372;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNIT) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG) | (1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
 				{
-				State = 356; expressionList();
+				State = 371; expressionList();
 				}
 			}
 
-			State = 359; Match(RPAREN);
+			State = 374; Match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2932,12 +3136,12 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ConstructorCallContext constructorCall() {
 		ConstructorCallContext _localctx = new ConstructorCallContext(_ctx, State);
-		EnterRule(_localctx, 82, RULE_constructorCall);
+		EnterRule(_localctx, 90, RULE_constructorCall);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 361; Match(NEW);
-			State = 362; creator();
+			State = 376; Match(NEW);
+			State = 377; creator();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2974,24 +3178,24 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public NativeCallContext nativeCall() {
 		NativeCallContext _localctx = new NativeCallContext(_ctx, State);
-		EnterRule(_localctx, 84, RULE_nativeCall);
+		EnterRule(_localctx, 92, RULE_nativeCall);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 364; Match(NATIVE);
-			State = 365; Match(IDENTIFIER);
-			State = 366; Match(LPAREN);
-			State = 368;
+			State = 379; Match(NATIVE);
+			State = 380; Match(IDENTIFIER);
+			State = 381; Match(LPAREN);
+			State = 383;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNIT) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG) | (1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
 				{
-				State = 367; expressionList();
+				State = 382; expressionList();
 				}
 			}
 
-			State = 370; Match(RPAREN);
+			State = 385; Match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -3030,13 +3234,13 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public CreatorContext creator() {
 		CreatorContext _localctx = new CreatorContext(_ctx, State);
-		EnterRule(_localctx, 86, RULE_creator);
+		EnterRule(_localctx, 94, RULE_creator);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 372; createdName();
+			State = 387; createdName();
 			{
-			State = 373; classCreatorRest();
+			State = 388; classCreatorRest();
 			}
 			}
 		}
@@ -3071,11 +3275,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public CreatedNameContext createdName() {
 		CreatedNameContext _localctx = new CreatedNameContext(_ctx, State);
-		EnterRule(_localctx, 88, RULE_createdName);
+		EnterRule(_localctx, 96, RULE_createdName);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 375; Match(IDENTIFIER);
+			State = 390; Match(IDENTIFIER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -3111,11 +3315,11 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ClassCreatorRestContext classCreatorRest() {
 		ClassCreatorRestContext _localctx = new ClassCreatorRestContext(_ctx, State);
-		EnterRule(_localctx, 90, RULE_classCreatorRest);
+		EnterRule(_localctx, 98, RULE_classCreatorRest);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 377; arguments();
+			State = 392; arguments();
 			}
 		}
 		catch (RecognitionException re) {
@@ -3151,22 +3355,22 @@ public partial class NovaParser : Parser {
 	[RuleVersion(0)]
 	public ArgumentsContext arguments() {
 		ArgumentsContext _localctx = new ArgumentsContext(_ctx, State);
-		EnterRule(_localctx, 92, RULE_arguments);
+		EnterRule(_localctx, 100, RULE_arguments);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 379; Match(LPAREN);
-			State = 381;
+			State = 394; Match(LPAREN);
+			State = 396;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UNIT) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << SHORT) | (1L << STRING) | (1L << BOOLEAN) | (1L << CHAR) | (1L << BYTE) | (1L << LONG) | (1L << NEW) | (1L << NATIVE) | (1L << ADD) | (1L << SUB) | (1L << LPAREN) | (1L << NULL_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIFIER) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL))) != 0)) {
 				{
-				State = 380; expressionList();
+				State = 395; expressionList();
 				}
 			}
 
-			State = 383; Match(RPAREN);
+			State = 398; Match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -3182,7 +3386,7 @@ public partial class NovaParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 15: return expression_sempred((ExpressionContext)_localctx, predIndex);
+		case 18: return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -3210,154 +3414,160 @@ public partial class NovaParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3<\x184\x4\x2\t\x2"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3=\x193\x4\x2\t\x2"+
 		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4\t\t"+
 		"\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4\xE\t\xE\x4\xF\t\xF\x4\x10\t"+
 		"\x10\x4\x11\t\x11\x4\x12\t\x12\x4\x13\t\x13\x4\x14\t\x14\x4\x15\t\x15"+
 		"\x4\x16\t\x16\x4\x17\t\x17\x4\x18\t\x18\x4\x19\t\x19\x4\x1A\t\x1A\x4\x1B"+
 		"\t\x1B\x4\x1C\t\x1C\x4\x1D\t\x1D\x4\x1E\t\x1E\x4\x1F\t\x1F\x4 \t \x4!"+
 		"\t!\x4\"\t\"\x4#\t#\x4$\t$\x4%\t%\x4&\t&\x4\'\t\'\x4(\t(\x4)\t)\x4*\t"+
-		"*\x4+\t+\x4,\t,\x4-\t-\x4.\t.\x4/\t/\x4\x30\t\x30\x3\x2\a\x2\x62\n\x2"+
-		"\f\x2\xE\x2\x65\v\x2\x3\x2\a\x2h\n\x2\f\x2\xE\x2k\v\x2\x3\x2\x3\x2\x3"+
-		"\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x4\x3\x4\x5\x4v\n\x4\x3\x4\x5\x4y\n\x4"+
-		"\x3\x5\x3\x5\x3\x5\x3\x5\x3\x6\x3\x6\x3\x6\x3\x6\x3\a\x3\a\a\a\x85\n\a"+
-		"\f\a\xE\a\x88\v\a\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x5\b\x93"+
-		"\n\b\x3\t\x3\t\x3\n\x3\n\x3\v\x3\v\x3\v\x3\f\x3\f\x3\f\x5\f\x9F\n\f\x3"+
-		"\r\x3\r\x3\xE\x3\xE\x3\xF\x3\xF\x5\xF\xA7\n\xF\x3\x10\x3\x10\x3\x11\x3"+
-		"\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x5\x11\xB2\n\x11\x3\x11\x3\x11"+
-		"\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11"+
-		"\x3\x11\x3\x11\x5\x11\xC2\n\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3"+
-		"\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3"+
-		"\x11\x3\x11\x3\x11\x3\x11\a\x11\xD7\n\x11\f\x11\xE\x11\xDA\v\x11\x3\x12"+
-		"\x3\x12\x3\x12\x3\x12\x3\x12\a\x12\xE1\n\x12\f\x12\xE\x12\xE4\v\x12\x3"+
-		"\x12\x3\x12\x3\x13\x3\x13\x5\x13\xEA\n\x13\x3\x14\x3\x14\x5\x14\xEE\n"+
-		"\x14\x3\x14\x3\x14\x3\x15\x3\x15\x3\x15\a\x15\xF5\n\x15\f\x15\xE\x15\xF8"+
-		"\v\x15\x3\x15\x3\x15\x5\x15\xFC\n\x15\x3\x15\x5\x15\xFF\n\x15\x3\x16\x3"+
-		"\x16\x3\x16\x3\x17\x3\x17\x3\x17\x3\x18\x3\x18\x3\x18\x3\x18\x3\x18\x3"+
-		"\x19\x3\x19\x3\x1A\x3\x1A\a\x1A\x110\n\x1A\f\x1A\xE\x1A\x113\v\x1A\x3"+
-		"\x1A\x3\x1A\x3\x1B\x3\x1B\x3\x1B\x3\x1C\x3\x1C\x3\x1C\x3\x1C\x3\x1C\x3"+
-		"\x1C\x3\x1C\x3\x1C\x5\x1C\x122\n\x1C\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x3\x1E"+
-		"\x3\x1E\x5\x1E\x12A\n\x1E\x3\x1F\x3\x1F\x3\x1F\x3\x1F\x3 \x3 \x3!\x3!"+
-		"\x3!\x3!\x3!\x5!\x137\n!\x3\"\x3\"\x3\"\x3\"\x3\"\x3\"\x3#\x3#\x3#\x3"+
-		"#\x3$\x3$\x3$\x3$\x3$\x3$\x3%\x3%\x3%\a%\x14C\n%\f%\xE%\x14F\v%\x3&\x3"+
-		"&\x3&\x3&\x3&\x3&\x5&\x157\n&\x3\'\x3\'\x3\'\x3\'\x3\'\x3\'\x5\'\x15F"+
-		"\n\'\x3(\x3(\x3)\x3)\x3*\x3*\x3*\x5*\x168\n*\x3*\x3*\x3+\x3+\x3+\x3,\x3"+
-		",\x3,\x3,\x5,\x173\n,\x3,\x3,\x3-\x3-\x3-\x3.\x3.\x3/\x3/\x3\x30\x3\x30"+
-		"\x5\x30\x180\n\x30\x3\x30\x3\x30\x3\x30\x2\x2\x3 \x31\x2\x2\x4\x2\x6\x2"+
-		"\b\x2\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2\x1A\x2\x1C\x2"+
-		"\x1E\x2 \x2\"\x2$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2\x34\x2\x36\x2\x38"+
-		"\x2:\x2<\x2>\x2@\x2\x42\x2\x44\x2\x46\x2H\x2J\x2L\x2N\x2P\x2R\x2T\x2V"+
-		"\x2X\x2Z\x2\\\x2^\x2\x2\n\x3\x2\x6\a\x3\x2\t\x11\x3\x2\x1A\x1B\x3\x2\x1C"+
-		"\x1D\x3\x2\x1E!\x3\x2\"#\x3\x2\x35\x38\x3\x2\x39:\x187\x2\x63\x3\x2\x2"+
-		"\x2\x4n\x3\x2\x2\x2\x6x\x3\x2\x2\x2\bz\x3\x2\x2\x2\n~\x3\x2\x2\x2\f\x82"+
-		"\x3\x2\x2\x2\xE\x92\x3\x2\x2\x2\x10\x94\x3\x2\x2\x2\x12\x96\x3\x2\x2\x2"+
-		"\x14\x98\x3\x2\x2\x2\x16\x9B\x3\x2\x2\x2\x18\xA0\x3\x2\x2\x2\x1A\xA2\x3"+
-		"\x2\x2\x2\x1C\xA6\x3\x2\x2\x2\x1E\xA8\x3\x2\x2\x2 \xB1\x3\x2\x2\x2\"\xDB"+
-		"\x3\x2\x2\x2$\xE9\x3\x2\x2\x2&\xEB\x3\x2\x2\x2(\xFE\x3\x2\x2\x2*\x100"+
-		"\x3\x2\x2\x2,\x103\x3\x2\x2\x2.\x106\x3\x2\x2\x2\x30\x10B\x3\x2\x2\x2"+
-		"\x32\x10D\x3\x2\x2\x2\x34\x116\x3\x2\x2\x2\x36\x121\x3\x2\x2\x2\x38\x123"+
-		"\x3\x2\x2\x2:\x127\x3\x2\x2\x2<\x12B\x3\x2\x2\x2>\x12F\x3\x2\x2\x2@\x131"+
-		"\x3\x2\x2\x2\x42\x138\x3\x2\x2\x2\x44\x13E\x3\x2\x2\x2\x46\x142\x3\x2"+
-		"\x2\x2H\x148\x3\x2\x2\x2J\x156\x3\x2\x2\x2L\x15E\x3\x2\x2\x2N\x160\x3"+
-		"\x2\x2\x2P\x162\x3\x2\x2\x2R\x164\x3\x2\x2\x2T\x16B\x3\x2\x2\x2V\x16E"+
-		"\x3\x2\x2\x2X\x176\x3\x2\x2\x2Z\x179\x3\x2\x2\x2\\\x17B\x3\x2\x2\x2^\x17D"+
-		"\x3\x2\x2\x2`\x62\x5\x4\x3\x2\x61`\x3\x2\x2\x2\x62\x65\x3\x2\x2\x2\x63"+
-		"\x61\x3\x2\x2\x2\x63\x64\x3\x2\x2\x2\x64i\x3\x2\x2\x2\x65\x63\x3\x2\x2"+
-		"\x2\x66h\x5\x6\x4\x2g\x66\x3\x2\x2\x2hk\x3\x2\x2\x2ig\x3\x2\x2\x2ij\x3"+
-		"\x2\x2\x2jl\x3\x2\x2\x2ki\x3\x2\x2\x2lm\a\x2\x2\x3m\x3\x3\x2\x2\x2no\a"+
-		"\x3\x2\x2op\a!\x2\x2pq\a\x31\x2\x2qr\a \x2\x2r\x5\x3\x2\x2\x2sv\x5\b\x5"+
-		"\x2tv\x5\n\x6\x2us\x3\x2\x2\x2ut\x3\x2\x2\x2vy\x3\x2\x2\x2wy\a.\x2\x2"+
-		"xu\x3\x2\x2\x2xw\x3\x2\x2\x2y\a\x3\x2\x2\x2z{\a\x4\x2\x2{|\a\x31\x2\x2"+
-		"|}\x5\f\a\x2}\t\x3\x2\x2\x2~\x7F\a\x5\x2\x2\x7F\x80\a\x31\x2\x2\x80\x81"+
-		"\x5\f\a\x2\x81\v\x3\x2\x2\x2\x82\x86\a(\x2\x2\x83\x85\x5\xE\b\x2\x84\x83"+
-		"\x3\x2\x2\x2\x85\x88\x3\x2\x2\x2\x86\x84\x3\x2\x2\x2\x86\x87\x3\x2\x2"+
-		"\x2\x87\x89\x3\x2\x2\x2\x88\x86\x3\x2\x2\x2\x89\x8A\a)\x2\x2\x8A\r\x3"+
-		"\x2\x2\x2\x8B\x8C\x5\x10\t\x2\x8C\x8D\x5\"\x12\x2\x8D\x93\x3\x2\x2\x2"+
-		"\x8E\x8F\x5\x10\t\x2\x8F\x90\x5\x14\v\x2\x90\x93\x3\x2\x2\x2\x91\x93\x5"+
-		".\x18\x2\x92\x8B\x3\x2\x2\x2\x92\x8E\x3\x2\x2\x2\x92\x91\x3\x2\x2\x2\x93"+
-		"\xF\x3\x2\x2\x2\x94\x95\x5\x12\n\x2\x95\x11\x3\x2\x2\x2\x96\x97\t\x2\x2"+
-		"\x2\x97\x13\x3\x2\x2\x2\x98\x99\x5\x1C\xF\x2\x99\x9A\x5\x16\f\x2\x9A\x15"+
-		"\x3\x2\x2\x2\x9B\x9E\x5\x1A\xE\x2\x9C\x9D\a\x19\x2\x2\x9D\x9F\x5\x18\r"+
-		"\x2\x9E\x9C\x3\x2\x2\x2\x9E\x9F\x3\x2\x2\x2\x9F\x17\x3\x2\x2\x2\xA0\xA1"+
-		"\x5 \x11\x2\xA1\x19\x3\x2\x2\x2\xA2\xA3\a\x31\x2\x2\xA3\x1B\x3\x2\x2\x2"+
-		"\xA4\xA7\a\x31\x2\x2\xA5\xA7\x5\x1E\x10\x2\xA6\xA4\x3\x2\x2\x2\xA6\xA5"+
-		"\x3\x2\x2\x2\xA7\x1D\x3\x2\x2\x2\xA8\xA9\t\x3\x2\x2\xA9\x1F\x3\x2\x2\x2"+
-		"\xAA\xAB\b\x11\x1\x2\xAB\xB2\x5R*\x2\xAC\xB2\x5V,\x2\xAD\xB2\x5T+\x2\xAE"+
-		"\xB2\x5J&\x2\xAF\xB0\t\x4\x2\x2\xB0\xB2\x5 \x11\n\xB1\xAA\x3\x2\x2\x2"+
-		"\xB1\xAC\x3\x2\x2\x2\xB1\xAD\x3\x2\x2\x2\xB1\xAE\x3\x2\x2\x2\xB1\xAF\x3"+
-		"\x2\x2\x2\xB2\xD8\x3\x2\x2\x2\xB3\xB4\f\t\x2\x2\xB4\xB5\t\x5\x2\x2\xB5"+
-		"\xD7\x5 \x11\n\xB6\xB7\f\b\x2\x2\xB7\xB8\t\x4\x2\x2\xB8\xD7\x5 \x11\t"+
-		"\xB9\xC1\f\a\x2\x2\xBA\xBB\a!\x2\x2\xBB\xC2\a!\x2\x2\xBC\xBD\a \x2\x2"+
-		"\xBD\xBE\a \x2\x2\xBE\xC2\a \x2\x2\xBF\xC0\a \x2\x2\xC0\xC2\a \x2\x2\xC1"+
-		"\xBA\x3\x2\x2\x2\xC1\xBC\x3\x2\x2\x2\xC1\xBF\x3\x2\x2\x2\xC2\xC3\x3\x2"+
-		"\x2\x2\xC3\xD7\x5 \x11\b\xC4\xC5\f\x6\x2\x2\xC5\xC6\t\x6\x2\x2\xC6\xD7"+
-		"\x5 \x11\a\xC7\xC8\f\x5\x2\x2\xC8\xC9\t\a\x2\x2\xC9\xD7\x5 \x11\x6\xCA"+
-		"\xCB\f\x4\x2\x2\xCB\xCC\a$\x2\x2\xCC\xD7\x5 \x11\x5\xCD\xCE\f\x3\x2\x2"+
-		"\xCE\xCF\a%\x2\x2\xCF\xD7\x5 \x11\x4\xD0\xD1\f\xF\x2\x2\xD1\xD2\a-\x2"+
-		"\x2\xD2\xD7\x5R*\x2\xD3\xD4\f\xE\x2\x2\xD4\xD5\a-\x2\x2\xD5\xD7\a\x31"+
-		"\x2\x2\xD6\xB3\x3\x2\x2\x2\xD6\xB6\x3\x2\x2\x2\xD6\xB9\x3\x2\x2\x2\xD6"+
-		"\xC4\x3\x2\x2\x2\xD6\xC7\x3\x2\x2\x2\xD6\xCA\x3\x2\x2\x2\xD6\xCD\x3\x2"+
-		"\x2\x2\xD6\xD0\x3\x2\x2\x2\xD6\xD3\x3\x2\x2\x2\xD7\xDA\x3\x2\x2\x2\xD8"+
-		"\xD6\x3\x2\x2\x2\xD8\xD9\x3\x2\x2\x2\xD9!\x3\x2\x2\x2\xDA\xD8\x3\x2\x2"+
-		"\x2\xDB\xDC\x5$\x13\x2\xDC\xDD\a\x31\x2\x2\xDD\xE2\x5&\x14\x2\xDE\xDF"+
-		"\a*\x2\x2\xDF\xE1\a+\x2\x2\xE0\xDE\x3\x2\x2\x2\xE1\xE4\x3\x2\x2\x2\xE2"+
-		"\xE0\x3\x2\x2\x2\xE2\xE3\x3\x2\x2\x2\xE3\xE5\x3\x2\x2\x2\xE4\xE2\x3\x2"+
-		"\x2\x2\xE5\xE6\x5\x30\x19\x2\xE6#\x3\x2\x2\x2\xE7\xEA\x5\x1C\xF\x2\xE8"+
-		"\xEA\a\b\x2\x2\xE9\xE7\x3\x2\x2\x2\xE9\xE8\x3\x2\x2\x2\xEA%\x3\x2\x2\x2"+
-		"\xEB\xED\a&\x2\x2\xEC\xEE\x5(\x15\x2\xED\xEC\x3\x2\x2\x2\xED\xEE\x3\x2"+
-		"\x2\x2\xEE\xEF\x3\x2\x2\x2\xEF\xF0\a\'\x2\x2\xF0\'\x3\x2\x2\x2\xF1\xF6"+
-		"\x5*\x16\x2\xF2\xF3\a,\x2\x2\xF3\xF5\x5*\x16\x2\xF4\xF2\x3\x2\x2\x2\xF5"+
-		"\xF8\x3\x2\x2\x2\xF6\xF4\x3\x2\x2\x2\xF6\xF7\x3\x2\x2\x2\xF7\xFB\x3\x2"+
-		"\x2\x2\xF8\xF6\x3\x2\x2\x2\xF9\xFA\a,\x2\x2\xFA\xFC\x5,\x17\x2\xFB\xF9"+
-		"\x3\x2\x2\x2\xFB\xFC\x3\x2\x2\x2\xFC\xFF\x3\x2\x2\x2\xFD\xFF\x5,\x17\x2"+
-		"\xFE\xF1\x3\x2\x2\x2\xFE\xFD\x3\x2\x2\x2\xFF)\x3\x2\x2\x2\x100\x101\x5"+
-		"\x1C\xF\x2\x101\x102\x5\x1A\xE\x2\x102+\x3\x2\x2\x2\x103\x104\x5\x1C\xF"+
-		"\x2\x104\x105\x5\x1A\xE\x2\x105-\x3\x2\x2\x2\x106\x107\a\x17\x2\x2\x107"+
-		"\x108\a\x31\x2\x2\x108\x109\x5&\x14\x2\x109\x10A\x5\x32\x1A\x2\x10A/\x3"+
-		"\x2\x2\x2\x10B\x10C\x5\x32\x1A\x2\x10C\x31\x3\x2\x2\x2\x10D\x111\a(\x2"+
-		"\x2\x10E\x110\x5\x36\x1C\x2\x10F\x10E\x3\x2\x2\x2\x110\x113\x3\x2\x2\x2"+
-		"\x111\x10F\x3\x2\x2\x2\x111\x112\x3\x2\x2\x2\x112\x114\x3\x2\x2\x2\x113"+
-		"\x111\x3\x2\x2\x2\x114\x115\a)\x2\x2\x115\x33\x3\x2\x2\x2\x116\x117\x5"+
-		"\x1C\xF\x2\x117\x118\x5\x16\f\x2\x118\x35\x3\x2\x2\x2\x119\x122\x5\x32"+
-		"\x1A\x2\x11A\x122\x5\x34\x1B\x2\x11B\x122\x5@!\x2\x11C\x122\x5\x42\"\x2"+
-		"\x11D\x122\x5\x38\x1D\x2\x11E\x122\x5:\x1E\x2\x11F\x122\x5<\x1F\x2\x120"+
-		"\x122\x5> \x2\x121\x119\x3\x2\x2\x2\x121\x11A\x3\x2\x2\x2\x121\x11B\x3"+
-		"\x2\x2\x2\x121\x11C\x3\x2\x2\x2\x121\x11D\x3\x2\x2\x2\x121\x11E\x3\x2"+
-		"\x2\x2\x121\x11F\x3\x2\x2\x2\x121\x120\x3\x2\x2\x2\x122\x37\x3\x2\x2\x2"+
-		"\x123\x124\a\x14\x2\x2\x124\x125\x5\x44#\x2\x125\x126\x5\x36\x1C\x2\x126"+
-		"\x39\x3\x2\x2\x2\x127\x129\a\x16\x2\x2\x128\x12A\x5 \x11\x2\x129\x128"+
-		"\x3\x2\x2\x2\x129\x12A\x3\x2\x2\x2\x12A;\x3\x2\x2\x2\x12B\x12C\x5 \x11"+
-		"\x2\x12C\x12D\a\x19\x2\x2\x12D\x12E\x5 \x11\x2\x12E=\x3\x2\x2\x2\x12F"+
-		"\x130\x5 \x11\x2\x130?\x3\x2\x2\x2\x131\x132\a\x13\x2\x2\x132\x133\x5"+
-		"\x44#\x2\x133\x136\x5\x36\x1C\x2\x134\x135\a\x15\x2\x2\x135\x137\x5\x36"+
-		"\x1C\x2\x136\x134\x3\x2\x2\x2\x136\x137\x3\x2\x2\x2\x137\x41\x3\x2\x2"+
-		"\x2\x138\x139\a\x12\x2\x2\x139\x13A\a&\x2\x2\x13A\x13B\x5\x46$\x2\x13B"+
-		"\x13C\a\'\x2\x2\x13C\x13D\x5\x36\x1C\x2\x13D\x43\x3\x2\x2\x2\x13E\x13F"+
-		"\a&\x2\x2\x13F\x140\x5 \x11\x2\x140\x141\a\'\x2\x2\x141\x45\x3\x2\x2\x2"+
-		"\x142\x143\x5\x36\x1C\x2\x143\x144\a.\x2\x2\x144\x145\x5 \x11\x2\x145"+
-		"\x146\a.\x2\x2\x146\x147\x5<\x1F\x2\x147G\x3\x2\x2\x2\x148\x14D\x5 \x11"+
-		"\x2\x149\x14A\a,\x2\x2\x14A\x14C\x5 \x11\x2\x14B\x149\x3\x2\x2\x2\x14C"+
-		"\x14F\x3\x2\x2\x2\x14D\x14B\x3\x2\x2\x2\x14D\x14E\x3\x2\x2\x2\x14EI\x3"+
-		"\x2\x2\x2\x14F\x14D\x3\x2\x2\x2\x150\x151\a&\x2\x2\x151\x152\x5 \x11\x2"+
-		"\x152\x153\a\'\x2\x2\x153\x157\x3\x2\x2\x2\x154\x157\x5L\'\x2\x155\x157"+
-		"\a\x31\x2\x2\x156\x150\x3\x2\x2\x2\x156\x154\x3\x2\x2\x2\x156\x155\x3"+
-		"\x2\x2\x2\x157K\x3\x2\x2\x2\x158\x15F\x5N(\x2\x159\x15F\x5P)\x2\x15A\x15F"+
-		"\a;\x2\x2\x15B\x15F\a<\x2\x2\x15C\x15F\a\x30\x2\x2\x15D\x15F\a/\x2\x2"+
-		"\x15E\x158\x3\x2\x2\x2\x15E\x159\x3\x2\x2\x2\x15E\x15A\x3\x2\x2\x2\x15E"+
-		"\x15B\x3\x2\x2\x2\x15E\x15C\x3\x2\x2\x2\x15E\x15D\x3\x2\x2\x2\x15FM\x3"+
-		"\x2\x2\x2\x160\x161\t\b\x2\x2\x161O\x3\x2\x2\x2\x162\x163\t\t\x2\x2\x163"+
-		"Q\x3\x2\x2\x2\x164\x165\a\x31\x2\x2\x165\x167\a&\x2\x2\x166\x168\x5H%"+
-		"\x2\x167\x166\x3\x2\x2\x2\x167\x168\x3\x2\x2\x2\x168\x169\x3\x2\x2\x2"+
-		"\x169\x16A\a\'\x2\x2\x16AS\x3\x2\x2\x2\x16B\x16C\a\x17\x2\x2\x16C\x16D"+
-		"\x5X-\x2\x16DU\x3\x2\x2\x2\x16E\x16F\a\x18\x2\x2\x16F\x170\a\x31\x2\x2"+
-		"\x170\x172\a&\x2\x2\x171\x173\x5H%\x2\x172\x171\x3\x2\x2\x2\x172\x173"+
-		"\x3\x2\x2\x2\x173\x174\x3\x2\x2\x2\x174\x175\a\'\x2\x2\x175W\x3\x2\x2"+
-		"\x2\x176\x177\x5Z.\x2\x177\x178\x5\\/\x2\x178Y\x3\x2\x2\x2\x179\x17A\a"+
-		"\x31\x2\x2\x17A[\x3\x2\x2\x2\x17B\x17C\x5^\x30\x2\x17C]\x3\x2\x2\x2\x17D"+
-		"\x17F\a&\x2\x2\x17E\x180\x5H%\x2\x17F\x17E\x3\x2\x2\x2\x17F\x180\x3\x2"+
-		"\x2\x2\x180\x181\x3\x2\x2\x2\x181\x182\a\'\x2\x2\x182_\x3\x2\x2\x2\x1E"+
-		"\x63iux\x86\x92\x9E\xA6\xB1\xC1\xD6\xD8\xE2\xE9\xED\xF6\xFB\xFE\x111\x121"+
-		"\x129\x136\x14D\x156\x15E\x167\x172\x17F";
+		"*\x4+\t+\x4,\t,\x4-\t-\x4.\t.\x4/\t/\x4\x30\t\x30\x4\x31\t\x31\x4\x32"+
+		"\t\x32\x4\x33\t\x33\x4\x34\t\x34\x3\x2\a\x2j\n\x2\f\x2\xE\x2m\v\x2\x3"+
+		"\x2\a\x2p\n\x2\f\x2\xE\x2s\v\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3\x3\x3\x3"+
+		"\x3\x3\x4\x3\x4\x3\x4\x3\x4\x3\x5\x3\x5\x3\x5\x5\x5\x83\n\x5\x3\x6\x3"+
+		"\x6\x3\x6\x3\x6\x3\a\x3\a\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b\x3\t\x3\t\a\t"+
+		"\x93\n\t\f\t\xE\t\x96\v\t\x3\t\x3\t\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n\x3\n"+
+		"\x5\n\xA1\n\n\x3\v\x3\v\x3\f\x3\f\x3\r\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x5"+
+		"\xE\xAD\n\xE\x3\xF\x3\xF\x3\x10\x3\x10\x3\x11\x3\x11\x5\x11\xB5\n\x11"+
+		"\x3\x12\x3\x12\x5\x12\xB9\n\x12\x3\x13\x3\x13\x3\x14\x3\x14\x3\x14\x3"+
+		"\x14\x3\x14\x3\x14\x3\x14\x5\x14\xC4\n\x14\x3\x14\x3\x14\x3\x14\x3\x14"+
+		"\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14"+
+		"\x5\x14\xD4\n\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3"+
+		"\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3"+
+		"\x14\x3\x14\a\x14\xE9\n\x14\f\x14\xE\x14\xEC\v\x14\x3\x15\x3\x15\x3\x15"+
+		"\x3\x15\x3\x15\x3\x16\x3\x16\x5\x16\xF5\n\x16\x3\x17\x3\x17\x5\x17\xF9"+
+		"\n\x17\x3\x17\x3\x17\x3\x18\x3\x18\x3\x18\a\x18\x100\n\x18\f\x18\xE\x18"+
+		"\x103\v\x18\x3\x18\x3\x18\x5\x18\x107\n\x18\x3\x18\x5\x18\x10A\n\x18\x3"+
+		"\x19\x3\x19\x3\x19\x3\x1A\x3\x1A\x3\x1A\x3\x1B\x3\x1B\x3\x1B\x3\x1B\x3"+
+		"\x1B\x3\x1C\x3\x1C\x3\x1D\x3\x1D\a\x1D\x11B\n\x1D\f\x1D\xE\x1D\x11E\v"+
+		"\x1D\x3\x1D\x3\x1D\x3\x1E\x3\x1E\x3\x1E\x3\x1F\x3\x1F\x3\x1F\x3\x1F\x3"+
+		"\x1F\x3\x1F\x3\x1F\x3\x1F\x5\x1F\x12D\n\x1F\x3 \x3 \x3 \x3 \x3!\x3!\x5"+
+		"!\x135\n!\x3\"\x3\"\x3\"\x3\"\x3#\x3#\x3$\x3$\x3$\x3$\x3$\x5$\x142\n$"+
+		"\x3%\x3%\x3%\x3%\x3%\x3%\x3&\x3&\x3&\x3&\x3\'\x3\'\x3\'\x3\'\x3\'\x3\'"+
+		"\x3(\x3(\x3(\a(\x157\n(\f(\xE(\x15A\v(\x3)\x3)\x3)\x3)\x3)\x3)\x5)\x162"+
+		"\n)\x3*\x3*\x5*\x166\n*\x3+\x3+\x3+\x3+\x3+\x3+\x5+\x16E\n+\x3,\x3,\x3"+
+		"-\x3-\x3.\x3.\x3.\x5.\x177\n.\x3.\x3.\x3/\x3/\x3/\x3\x30\x3\x30\x3\x30"+
+		"\x3\x30\x5\x30\x182\n\x30\x3\x30\x3\x30\x3\x31\x3\x31\x3\x31\x3\x32\x3"+
+		"\x32\x3\x33\x3\x33\x3\x34\x3\x34\x5\x34\x18F\n\x34\x3\x34\x3\x34\x3\x34"+
+		"\x2\x2\x3&\x35\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14"+
+		"\x2\x16\x2\x18\x2\x1A\x2\x1C\x2\x1E\x2 \x2\"\x2$\x2&\x2(\x2*\x2,\x2.\x2"+
+		"\x30\x2\x32\x2\x34\x2\x36\x2\x38\x2:\x2<\x2>\x2@\x2\x42\x2\x44\x2\x46"+
+		"\x2H\x2J\x2L\x2N\x2P\x2R\x2T\x2V\x2X\x2Z\x2\\\x2^\x2`\x2\x62\x2\x64\x2"+
+		"\x66\x2\x2\n\x3\x2\x6\a\x3\x2\n\x12\x3\x2\x1B\x1C\x3\x2\x1D\x1E\x3\x2"+
+		"\x1F\"\x3\x2#$\x3\x2\x36\x39\x3\x2:;\x193\x2k\x3\x2\x2\x2\x4v\x3\x2\x2"+
+		"\x2\x6{\x3\x2\x2\x2\b\x82\x3\x2\x2\x2\n\x84\x3\x2\x2\x2\f\x88\x3\x2\x2"+
+		"\x2\xE\x8C\x3\x2\x2\x2\x10\x90\x3\x2\x2\x2\x12\xA0\x3\x2\x2\x2\x14\xA2"+
+		"\x3\x2\x2\x2\x16\xA4\x3\x2\x2\x2\x18\xA6\x3\x2\x2\x2\x1A\xA9\x3\x2\x2"+
+		"\x2\x1C\xAE\x3\x2\x2\x2\x1E\xB0\x3\x2\x2\x2 \xB4\x3\x2\x2\x2\"\xB8\x3"+
+		"\x2\x2\x2$\xBA\x3\x2\x2\x2&\xC3\x3\x2\x2\x2(\xED\x3\x2\x2\x2*\xF4\x3\x2"+
+		"\x2\x2,\xF6\x3\x2\x2\x2.\x109\x3\x2\x2\x2\x30\x10B\x3\x2\x2\x2\x32\x10E"+
+		"\x3\x2\x2\x2\x34\x111\x3\x2\x2\x2\x36\x116\x3\x2\x2\x2\x38\x118\x3\x2"+
+		"\x2\x2:\x121\x3\x2\x2\x2<\x12C\x3\x2\x2\x2>\x12E\x3\x2\x2\x2@\x132\x3"+
+		"\x2\x2\x2\x42\x136\x3\x2\x2\x2\x44\x13A\x3\x2\x2\x2\x46\x13C\x3\x2\x2"+
+		"\x2H\x143\x3\x2\x2\x2J\x149\x3\x2\x2\x2L\x14D\x3\x2\x2\x2N\x153\x3\x2"+
+		"\x2\x2P\x161\x3\x2\x2\x2R\x165\x3\x2\x2\x2T\x16D\x3\x2\x2\x2V\x16F\x3"+
+		"\x2\x2\x2X\x171\x3\x2\x2\x2Z\x173\x3\x2\x2\x2\\\x17A\x3\x2\x2\x2^\x17D"+
+		"\x3\x2\x2\x2`\x185\x3\x2\x2\x2\x62\x188\x3\x2\x2\x2\x64\x18A\x3\x2\x2"+
+		"\x2\x66\x18C\x3\x2\x2\x2hj\x5\x4\x3\x2ih\x3\x2\x2\x2jm\x3\x2\x2\x2ki\x3"+
+		"\x2\x2\x2kl\x3\x2\x2\x2lq\x3\x2\x2\x2mk\x3\x2\x2\x2np\x5\b\x5\x2on\x3"+
+		"\x2\x2\x2ps\x3\x2\x2\x2qo\x3\x2\x2\x2qr\x3\x2\x2\x2rt\x3\x2\x2\x2sq\x3"+
+		"\x2\x2\x2tu\a\x2\x2\x3u\x3\x3\x2\x2\x2vw\a\x3\x2\x2wx\a\"\x2\x2xy\x5\x6"+
+		"\x4\x2yz\a!\x2\x2z\x5\x3\x2\x2\x2{|\a\x32\x2\x2|}\a.\x2\x2}~\a\x32\x2"+
+		"\x2~\a\x3\x2\x2\x2\x7F\x83\x5\f\a\x2\x80\x83\x5\xE\b\x2\x81\x83\x5\n\x6"+
+		"\x2\x82\x7F\x3\x2\x2\x2\x82\x80\x3\x2\x2\x2\x82\x81\x3\x2\x2\x2\x83\t"+
+		"\x3\x2\x2\x2\x84\x85\a\b\x2\x2\x85\x86\x5\"\x12\x2\x86\x87\x5\x10\t\x2"+
+		"\x87\v\x3\x2\x2\x2\x88\x89\a\x4\x2\x2\x89\x8A\a\x32\x2\x2\x8A\x8B\x5\x10"+
+		"\t\x2\x8B\r\x3\x2\x2\x2\x8C\x8D\a\x5\x2\x2\x8D\x8E\a\x32\x2\x2\x8E\x8F"+
+		"\x5\x10\t\x2\x8F\xF\x3\x2\x2\x2\x90\x94\a)\x2\x2\x91\x93\x5\x12\n\x2\x92"+
+		"\x91\x3\x2\x2\x2\x93\x96\x3\x2\x2\x2\x94\x92\x3\x2\x2\x2\x94\x95\x3\x2"+
+		"\x2\x2\x95\x97\x3\x2\x2\x2\x96\x94\x3\x2\x2\x2\x97\x98\a*\x2\x2\x98\x11"+
+		"\x3\x2\x2\x2\x99\x9A\x5\x14\v\x2\x9A\x9B\x5(\x15\x2\x9B\xA1\x3\x2\x2\x2"+
+		"\x9C\x9D\x5\x14\v\x2\x9D\x9E\x5\x18\r\x2\x9E\xA1\x3\x2\x2\x2\x9F\xA1\x5"+
+		"\x34\x1B\x2\xA0\x99\x3\x2\x2\x2\xA0\x9C\x3\x2\x2\x2\xA0\x9F\x3\x2\x2\x2"+
+		"\xA1\x13\x3\x2\x2\x2\xA2\xA3\x5\x16\f\x2\xA3\x15\x3\x2\x2\x2\xA4\xA5\t"+
+		"\x2\x2\x2\xA5\x17\x3\x2\x2\x2\xA6\xA7\x5 \x11\x2\xA7\xA8\x5\x1A\xE\x2"+
+		"\xA8\x19\x3\x2\x2\x2\xA9\xAC\x5\x1E\x10\x2\xAA\xAB\a\x1A\x2\x2\xAB\xAD"+
+		"\x5\x1C\xF\x2\xAC\xAA\x3\x2\x2\x2\xAC\xAD\x3\x2\x2\x2\xAD\x1B\x3\x2\x2"+
+		"\x2\xAE\xAF\x5&\x14\x2\xAF\x1D\x3\x2\x2\x2\xB0\xB1\a\x32\x2\x2\xB1\x1F"+
+		"\x3\x2\x2\x2\xB2\xB5\a\x32\x2\x2\xB3\xB5\x5$\x13\x2\xB4\xB2\x3\x2\x2\x2"+
+		"\xB4\xB3\x3\x2\x2\x2\xB5!\x3\x2\x2\x2\xB6\xB9\x5$\x13\x2\xB7\xB9\a\t\x2"+
+		"\x2\xB8\xB6\x3\x2\x2\x2\xB8\xB7\x3\x2\x2\x2\xB9#\x3\x2\x2\x2\xBA\xBB\t"+
+		"\x3\x2\x2\xBB%\x3\x2\x2\x2\xBC\xBD\b\x14\x1\x2\xBD\xC4\x5Z.\x2\xBE\xC4"+
+		"\x5^\x30\x2\xBF\xC4\x5\\/\x2\xC0\xC4\x5P)\x2\xC1\xC2\t\x4\x2\x2\xC2\xC4"+
+		"\x5&\x14\n\xC3\xBC\x3\x2\x2\x2\xC3\xBE\x3\x2\x2\x2\xC3\xBF\x3\x2\x2\x2"+
+		"\xC3\xC0\x3\x2\x2\x2\xC3\xC1\x3\x2\x2\x2\xC4\xEA\x3\x2\x2\x2\xC5\xC6\f"+
+		"\t\x2\x2\xC6\xC7\t\x5\x2\x2\xC7\xE9\x5&\x14\n\xC8\xC9\f\b\x2\x2\xC9\xCA"+
+		"\t\x4\x2\x2\xCA\xE9\x5&\x14\t\xCB\xD3\f\a\x2\x2\xCC\xCD\a\"\x2\x2\xCD"+
+		"\xD4\a\"\x2\x2\xCE\xCF\a!\x2\x2\xCF\xD0\a!\x2\x2\xD0\xD4\a!\x2\x2\xD1"+
+		"\xD2\a!\x2\x2\xD2\xD4\a!\x2\x2\xD3\xCC\x3\x2\x2\x2\xD3\xCE\x3\x2\x2\x2"+
+		"\xD3\xD1\x3\x2\x2\x2\xD4\xD5\x3\x2\x2\x2\xD5\xE9\x5&\x14\b\xD6\xD7\f\x6"+
+		"\x2\x2\xD7\xD8\t\x6\x2\x2\xD8\xE9\x5&\x14\a\xD9\xDA\f\x5\x2\x2\xDA\xDB"+
+		"\t\a\x2\x2\xDB\xE9\x5&\x14\x6\xDC\xDD\f\x4\x2\x2\xDD\xDE\a%\x2\x2\xDE"+
+		"\xE9\x5&\x14\x5\xDF\xE0\f\x3\x2\x2\xE0\xE1\a&\x2\x2\xE1\xE9\x5&\x14\x4"+
+		"\xE2\xE3\f\xF\x2\x2\xE3\xE4\a.\x2\x2\xE4\xE9\x5Z.\x2\xE5\xE6\f\xE\x2\x2"+
+		"\xE6\xE7\a.\x2\x2\xE7\xE9\a\x32\x2\x2\xE8\xC5\x3\x2\x2\x2\xE8\xC8\x3\x2"+
+		"\x2\x2\xE8\xCB\x3\x2\x2\x2\xE8\xD6\x3\x2\x2\x2\xE8\xD9\x3\x2\x2\x2\xE8"+
+		"\xDC\x3\x2\x2\x2\xE8\xDF\x3\x2\x2\x2\xE8\xE2\x3\x2\x2\x2\xE8\xE5\x3\x2"+
+		"\x2\x2\xE9\xEC\x3\x2\x2\x2\xEA\xE8\x3\x2\x2\x2\xEA\xEB\x3\x2\x2\x2\xEB"+
+		"\'\x3\x2\x2\x2\xEC\xEA\x3\x2\x2\x2\xED\xEE\x5*\x16\x2\xEE\xEF\a\x32\x2"+
+		"\x2\xEF\xF0\x5,\x17\x2\xF0\xF1\x5\x36\x1C\x2\xF1)\x3\x2\x2\x2\xF2\xF5"+
+		"\x5 \x11\x2\xF3\xF5\a\t\x2\x2\xF4\xF2\x3\x2\x2\x2\xF4\xF3\x3\x2\x2\x2"+
+		"\xF5+\x3\x2\x2\x2\xF6\xF8\a\'\x2\x2\xF7\xF9\x5.\x18\x2\xF8\xF7\x3\x2\x2"+
+		"\x2\xF8\xF9\x3\x2\x2\x2\xF9\xFA\x3\x2\x2\x2\xFA\xFB\a(\x2\x2\xFB-\x3\x2"+
+		"\x2\x2\xFC\x101\x5\x30\x19\x2\xFD\xFE\a-\x2\x2\xFE\x100\x5\x30\x19\x2"+
+		"\xFF\xFD\x3\x2\x2\x2\x100\x103\x3\x2\x2\x2\x101\xFF\x3\x2\x2\x2\x101\x102"+
+		"\x3\x2\x2\x2\x102\x106\x3\x2\x2\x2\x103\x101\x3\x2\x2\x2\x104\x105\a-"+
+		"\x2\x2\x105\x107\x5\x32\x1A\x2\x106\x104\x3\x2\x2\x2\x106\x107\x3\x2\x2"+
+		"\x2\x107\x10A\x3\x2\x2\x2\x108\x10A\x5\x32\x1A\x2\x109\xFC\x3\x2\x2\x2"+
+		"\x109\x108\x3\x2\x2\x2\x10A/\x3\x2\x2\x2\x10B\x10C\x5 \x11\x2\x10C\x10D"+
+		"\x5\x1E\x10\x2\x10D\x31\x3\x2\x2\x2\x10E\x10F\x5 \x11\x2\x10F\x110\x5"+
+		"\x1E\x10\x2\x110\x33\x3\x2\x2\x2\x111\x112\a\x18\x2\x2\x112\x113\a\x32"+
+		"\x2\x2\x113\x114\x5,\x17\x2\x114\x115\x5\x38\x1D\x2\x115\x35\x3\x2\x2"+
+		"\x2\x116\x117\x5\x38\x1D\x2\x117\x37\x3\x2\x2\x2\x118\x11C\a)\x2\x2\x119"+
+		"\x11B\x5<\x1F\x2\x11A\x119\x3\x2\x2\x2\x11B\x11E\x3\x2\x2\x2\x11C\x11A"+
+		"\x3\x2\x2\x2\x11C\x11D\x3\x2\x2\x2\x11D\x11F\x3\x2\x2\x2\x11E\x11C\x3"+
+		"\x2\x2\x2\x11F\x120\a*\x2\x2\x120\x39\x3\x2\x2\x2\x121\x122\x5 \x11\x2"+
+		"\x122\x123\x5\x1A\xE\x2\x123;\x3\x2\x2\x2\x124\x12D\x5\x38\x1D\x2\x125"+
+		"\x12D\x5:\x1E\x2\x126\x12D\x5\x46$\x2\x127\x12D\x5H%\x2\x128\x12D\x5>"+
+		" \x2\x129\x12D\x5@!\x2\x12A\x12D\x5\x42\"\x2\x12B\x12D\x5\x44#\x2\x12C"+
+		"\x124\x3\x2\x2\x2\x12C\x125\x3\x2\x2\x2\x12C\x126\x3\x2\x2\x2\x12C\x127"+
+		"\x3\x2\x2\x2\x12C\x128\x3\x2\x2\x2\x12C\x129\x3\x2\x2\x2\x12C\x12A\x3"+
+		"\x2\x2\x2\x12C\x12B\x3\x2\x2\x2\x12D=\x3\x2\x2\x2\x12E\x12F\a\x15\x2\x2"+
+		"\x12F\x130\x5J&\x2\x130\x131\x5<\x1F\x2\x131?\x3\x2\x2\x2\x132\x134\a"+
+		"\x17\x2\x2\x133\x135\x5&\x14\x2\x134\x133\x3\x2\x2\x2\x134\x135\x3\x2"+
+		"\x2\x2\x135\x41\x3\x2\x2\x2\x136\x137\x5&\x14\x2\x137\x138\a\x1A\x2\x2"+
+		"\x138\x139\x5&\x14\x2\x139\x43\x3\x2\x2\x2\x13A\x13B\x5&\x14\x2\x13B\x45"+
+		"\x3\x2\x2\x2\x13C\x13D\a\x14\x2\x2\x13D\x13E\x5J&\x2\x13E\x141\x5<\x1F"+
+		"\x2\x13F\x140\a\x16\x2\x2\x140\x142\x5<\x1F\x2\x141\x13F\x3\x2\x2\x2\x141"+
+		"\x142\x3\x2\x2\x2\x142G\x3\x2\x2\x2\x143\x144\a\x13\x2\x2\x144\x145\a"+
+		"\'\x2\x2\x145\x146\x5L\'\x2\x146\x147\a(\x2\x2\x147\x148\x5<\x1F\x2\x148"+
+		"I\x3\x2\x2\x2\x149\x14A\a\'\x2\x2\x14A\x14B\x5&\x14\x2\x14B\x14C\a(\x2"+
+		"\x2\x14CK\x3\x2\x2\x2\x14D\x14E\x5<\x1F\x2\x14E\x14F\a/\x2\x2\x14F\x150"+
+		"\x5&\x14\x2\x150\x151\a/\x2\x2\x151\x152\x5\x42\"\x2\x152M\x3\x2\x2\x2"+
+		"\x153\x158\x5&\x14\x2\x154\x155\a-\x2\x2\x155\x157\x5&\x14\x2\x156\x154"+
+		"\x3\x2\x2\x2\x157\x15A\x3\x2\x2\x2\x158\x156\x3\x2\x2\x2\x158\x159\x3"+
+		"\x2\x2\x2\x159O\x3\x2\x2\x2\x15A\x158\x3\x2\x2\x2\x15B\x15C\a\'\x2\x2"+
+		"\x15C\x15D\x5&\x14\x2\x15D\x15E\a(\x2\x2\x15E\x162\x3\x2\x2\x2\x15F\x162"+
+		"\x5T+\x2\x160\x162\x5R*\x2\x161\x15B\x3\x2\x2\x2\x161\x15F\x3\x2\x2\x2"+
+		"\x161\x160\x3\x2\x2\x2\x162Q\x3\x2\x2\x2\x163\x166\a\x32\x2\x2\x164\x166"+
+		"\x5\"\x12\x2\x165\x163\x3\x2\x2\x2\x165\x164\x3\x2\x2\x2\x166S\x3\x2\x2"+
+		"\x2\x167\x16E\x5V,\x2\x168\x16E\x5X-\x2\x169\x16E\a<\x2\x2\x16A\x16E\a"+
+		"=\x2\x2\x16B\x16E\a\x31\x2\x2\x16C\x16E\a\x30\x2\x2\x16D\x167\x3\x2\x2"+
+		"\x2\x16D\x168\x3\x2\x2\x2\x16D\x169\x3\x2\x2\x2\x16D\x16A\x3\x2\x2\x2"+
+		"\x16D\x16B\x3\x2\x2\x2\x16D\x16C\x3\x2\x2\x2\x16EU\x3\x2\x2\x2\x16F\x170"+
+		"\t\b\x2\x2\x170W\x3\x2\x2\x2\x171\x172\t\t\x2\x2\x172Y\x3\x2\x2\x2\x173"+
+		"\x174\a\x32\x2\x2\x174\x176\a\'\x2\x2\x175\x177\x5N(\x2\x176\x175\x3\x2"+
+		"\x2\x2\x176\x177\x3\x2\x2\x2\x177\x178\x3\x2\x2\x2\x178\x179\a(\x2\x2"+
+		"\x179[\x3\x2\x2\x2\x17A\x17B\a\x18\x2\x2\x17B\x17C\x5`\x31\x2\x17C]\x3"+
+		"\x2\x2\x2\x17D\x17E\a\x19\x2\x2\x17E\x17F\a\x32\x2\x2\x17F\x181\a\'\x2"+
+		"\x2\x180\x182\x5N(\x2\x181\x180\x3\x2\x2\x2\x181\x182\x3\x2\x2\x2\x182"+
+		"\x183\x3\x2\x2\x2\x183\x184\a(\x2\x2\x184_\x3\x2\x2\x2\x185\x186\x5\x62"+
+		"\x32\x2\x186\x187\x5\x64\x33\x2\x187\x61\x3\x2\x2\x2\x188\x189\a\x32\x2"+
+		"\x2\x189\x63\x3\x2\x2\x2\x18A\x18B\x5\x66\x34\x2\x18B\x65\x3\x2\x2\x2"+
+		"\x18C\x18E\a\'\x2\x2\x18D\x18F\x5N(\x2\x18E\x18D\x3\x2\x2\x2\x18E\x18F"+
+		"\x3\x2\x2\x2\x18F\x190\x3\x2\x2\x2\x190\x191\a(\x2\x2\x191g\x3\x2\x2\x2"+
+		"\x1Ekq\x82\x94\xA0\xAC\xB4\xB8\xC3\xD3\xE8\xEA\xF4\xF8\x101\x106\x109"+
+		"\x11C\x12C\x134\x141\x158\x161\x165\x16D\x176\x181\x18E";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

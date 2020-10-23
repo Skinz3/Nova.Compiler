@@ -31,6 +31,45 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface INovaParserListener : IParseTreeListener {
 	/// <summary>
+	/// Enter a parse tree produced by the <c>primaryExpr</c>
+	/// labeled alternative in <see cref="NovaParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimaryExpr([NotNull] NovaParser.PrimaryExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>primaryExpr</c>
+	/// labeled alternative in <see cref="NovaParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimaryExpr([NotNull] NovaParser.PrimaryExprContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>primarylit</c>
+	/// labeled alternative in <see cref="NovaParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimarylit([NotNull] NovaParser.PrimarylitContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>primarylit</c>
+	/// labeled alternative in <see cref="NovaParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimarylit([NotNull] NovaParser.PrimarylitContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>litIdent</c>
+	/// labeled alternative in <see cref="NovaParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLitIdent([NotNull] NovaParser.LitIdentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>litIdent</c>
+	/// labeled alternative in <see cref="NovaParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLitIdent([NotNull] NovaParser.LitIdentContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>string</c>
 	/// labeled alternative in <see cref="NovaParser.literal"/>.
 	/// </summary>
@@ -213,45 +252,6 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitMethodAccessor([NotNull] NovaParser.MethodAccessorContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>primaryExpr</c>
-	/// labeled alternative in <see cref="NovaParser.primary"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterPrimaryExpr([NotNull] NovaParser.PrimaryExprContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>primaryExpr</c>
-	/// labeled alternative in <see cref="NovaParser.primary"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitPrimaryExpr([NotNull] NovaParser.PrimaryExprContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>primarylit</c>
-	/// labeled alternative in <see cref="NovaParser.primary"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterPrimarylit([NotNull] NovaParser.PrimarylitContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>primarylit</c>
-	/// labeled alternative in <see cref="NovaParser.primary"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitPrimarylit([NotNull] NovaParser.PrimarylitContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>litIdent</c>
-	/// labeled alternative in <see cref="NovaParser.primary"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterLitIdent([NotNull] NovaParser.LitIdentContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>litIdent</c>
-	/// labeled alternative in <see cref="NovaParser.primary"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitLitIdent([NotNull] NovaParser.LitIdentContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.compilationUnit"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -274,6 +274,17 @@ public interface INovaParserListener : IParseTreeListener {
 	void ExitImportDeclaration([NotNull] NovaParser.ImportDeclarationContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.fileName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFileName([NotNull] NovaParser.FileNameContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.fileName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFileName([NotNull] NovaParser.FileNameContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.typeDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -283,6 +294,17 @@ public interface INovaParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitTypeDeclaration([NotNull] NovaParser.TypeDeclarationContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.primitiveDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimitiveDeclaration([NotNull] NovaParser.PrimitiveDeclarationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.primitiveDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimitiveDeclaration([NotNull] NovaParser.PrimitiveDeclarationContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.classDeclaration"/>.
@@ -404,6 +426,17 @@ public interface INovaParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitTypeType([NotNull] NovaParser.TypeTypeContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.primitiveTypeOrUnit"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimitiveTypeOrUnit([NotNull] NovaParser.PrimitiveTypeOrUnitContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.primitiveTypeOrUnit"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimitiveTypeOrUnit([NotNull] NovaParser.PrimitiveTypeOrUnitContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.primitiveType"/>.
@@ -657,6 +690,17 @@ public interface INovaParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPrimary([NotNull] NovaParser.PrimaryContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="NovaParser.primaryIdentifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrimaryIdentifier([NotNull] NovaParser.PrimaryIdentifierContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NovaParser.primaryIdentifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrimaryIdentifier([NotNull] NovaParser.PrimaryIdentifierContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NovaParser.literal"/>.

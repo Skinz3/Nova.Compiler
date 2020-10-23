@@ -17,7 +17,7 @@ namespace Nova
 
         public const string NovFileHeader = "NEXEC";
 
-        public const string MainPointEntryMethodName = "Main";
+        public const string MainPointEntryMethodName = "main";
 
         public const string STDVectorClassName = "Vector"; // weird stuff here
 

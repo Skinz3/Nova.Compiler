@@ -157,10 +157,6 @@ namespace Nova.IO
                     {
                         path = Path.Combine(Path.GetDirectoryName(InputFilePath), @using.Value);
                     }
-                    else if (@using.Type == UsingType.Std)
-                    {
-                        path = Path.Combine(STANDARD_LIBRARY_PATH, @using.Value + Constants.NovaSourceFileExtension);
-                    }
                     else
                     {
                         throw new Exception();

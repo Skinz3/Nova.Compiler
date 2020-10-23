@@ -8,12 +8,20 @@ compilationUnit
     ;
 
 importDeclaration
-    : USING LT IDENTIFIER GT 
+    : USING LT fileName GT 
+    ;
+
+fileName
+    : IDENTIFIER '.' IDENTIFIER
     ;
 
 typeDeclaration
-    : (classDeclaration | structDeclaration)
-    | SEMI
+    : (classDeclaration | structDeclaration | primitiveDeclaration)
+    ;
+
+primitiveDeclaration
+    : PRIMITIVE primitiveTypeOrUnit
+      classBody
     ;
 
 classDeclaration
@@ -65,6 +73,9 @@ typeType
     : (IDENTIFIER | primitiveType) 
     ;
 
+primitiveTypeOrUnit
+    : (primitiveType | UNIT)
+    ;
 primitiveType
     : BOOLEAN
     | CHAR
@@ -97,10 +108,11 @@ expression
     ;
 
 methodDeclaration
-    : typeTypeOrUnit IDENTIFIER formalParameters (LBRACK RBRACK)*
+    : typeTypeOrUnit IDENTIFIER formalParameters 
       methodBody
     ;
 
+        
 typeTypeOrUnit
     : typeType
     | UNIT
@@ -190,9 +202,12 @@ expressionList
 primary
     : '(' expression ')' # primaryExpr
     | literal # primarylit
-    | IDENTIFIER # litIdent
+    | primaryIdentifier # litIdent
     ;
-
+primaryIdentifier
+    : (IDENTIFIER | primitiveTypeOrUnit)
+    ;
+    
 literal
     : integerLiteral # int
     | floatLiteral # float

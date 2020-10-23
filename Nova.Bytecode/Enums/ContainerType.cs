@@ -10,5 +10,6 @@ namespace Nova.Bytecode.Enums
     {
         @class = 0,
         @struct,
+        primitive,
     }
 }

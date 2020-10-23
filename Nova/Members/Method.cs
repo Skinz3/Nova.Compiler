@@ -38,17 +38,27 @@ namespace Nova.Members
         public ModifiersEnum Modifiers
         {
             get;
-            private set;
+            set;
         }
-        public string ReturnType
+        public MethodType Type
         {
             get;
-            private set;
+            set;
+        }
+        public string RawReturnType
+        {
+            get;
+            set;
+        }
+        public NovaType ReturnType
+        {
+            get;
+            set;
         }
         public List<Variable> Parameters
         {
             get;
-            private set;
+            set;
         }
         public List<Statement> Statements
         {
@@ -69,7 +79,7 @@ namespace Nova.Members
             this.ParentClass = parentClass;
             this.Name = methodName;
             this.Modifiers = modifiers;
-            this.ReturnType = returnType;
+            this.RawReturnType = returnType;
             this.Parameters = parameters;
             this.Context = context;
             this.Statements = new List<Statement>();
@@ -125,6 +135,10 @@ namespace Nova.Members
             {
                 validator.AddError("Main point entry cannot be member of struct \"" + ParentClass.ClassName + "\"", Context);
             }
+            if (ParentClass.Type == ContainerType.primitive && Parameters.Count == 0)
+            {
+                validator.AddError("Primitive method " + Name + " should have self has parameter.", Context);
+            }
             foreach (var param in Parameters)
             {
                 validator.DeclareVariable(param);
@@ -138,6 +152,12 @@ namespace Nova.Members
 
         public void ValidateTypes(SemanticsValidator validator)
         {
+            this.ReturnType = validator.Container.TypeManager.GetTypeInstance(RawReturnType);
+
+            if (ReturnType == null)
+            {
+                validator.AddError("Unknown return type for method : " + Name, Context);
+            }
             foreach (var parameter in Parameters)
             {
                 parameter.ValidateTypes(validator);
@@ -151,7 +171,7 @@ namespace Nova.Members
 
         public Class GetContextualClass(SemanticsValidator validator)
         {
-            return validator.Container.TryGetClass(ReturnType);
+            return validator.Container.TryGetClass(RawReturnType);
         }
     }
 }

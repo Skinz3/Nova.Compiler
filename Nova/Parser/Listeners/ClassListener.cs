@@ -31,9 +31,15 @@ namespace Nova.Parser.Listeners
                 rule.EnterRule(this);
             }
         }
+        public override void EnterPrimitiveDeclaration([NotNull] PrimitiveDeclarationContext context)
+        {
+            string name = context.primitiveTypeOrUnit().GetText();
+            AddMember(name, ContainerType.primitive, context);
+        }
         public override void EnterClassDeclaration(NovaParser.ClassDeclarationContext context)
         {
-            AddMember(context.IDENTIFIER().GetText(), ContainerType.@class, context);
+            string name = context.IDENTIFIER().GetText();
+            AddMember(name, ContainerType.@class, context);
         }
         public override void EnterStructDeclaration([NotNull] NovaParser.StructDeclarationContext context)
         {
