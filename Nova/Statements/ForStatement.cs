@@ -39,7 +39,7 @@ namespace Nova.Statements
 
         public ForStatement(IChild parent, ParserRuleContext context) : base(parent, context)
         {
-
+            
         }
 
         public override void GenerateBytecode(ClassesContainer container, ByteBlock context)

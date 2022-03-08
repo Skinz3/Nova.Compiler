@@ -88,7 +88,7 @@ namespace Nova.Parser.Listeners
             string methodName = context.IDENTIFIER().GetText();
             ModifiersEnum modifiers = ModifiersEnum.@private; // this is not a modifier ! 
 
-            AddMethod(methodName, returnType, MethodType.Method, modifiers, context, context.formalParameters());
+            AddMethod(methodName, returnType, MethodType.Ctor, modifiers, context, context.formalParameters());
         }
         
         private void AddMethod(string methodName, string returnType, MethodType type, ModifiersEnum modifiers, ParserRuleContext context, FormalParametersContext parameterContext)
@@ -108,6 +108,7 @@ namespace Nova.Parser.Listeners
             Method method = new Method(Class, Class.PopMethodId(), methodName, modifiers, returnType,
                parameters, context);
 
+            method.Type = type;
 
             StatementListener listener = new StatementListener(method);
 

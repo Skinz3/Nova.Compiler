@@ -152,12 +152,16 @@ namespace Nova.Members
 
         public void ValidateTypes(SemanticsValidator validator)
         {
-            this.ReturnType = validator.Container.TypeManager.GetTypeInstance(RawReturnType);
-
-            if (ReturnType == null)
+            if (this.Type != MethodType.Ctor)
             {
-                validator.AddError("Unknown return type for method : " + Name, Context);
+                this.ReturnType = validator.Container.TypeManager.GetTypeInstance(RawReturnType);
+
+                if (ReturnType == null)
+                {
+                    validator.AddError("Unknown return type for method : " + Name, Context);
+                }
             }
+
             foreach (var parameter in Parameters)
             {
                 parameter.ValidateTypes(validator);

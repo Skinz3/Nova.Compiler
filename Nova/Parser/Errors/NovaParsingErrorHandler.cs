@@ -19,7 +19,7 @@ namespace Nova.Parser.Errors
         public void SyntaxError([NotNull] IRecognizer recognizer, [Nullable] IToken offendingSymbol, int line, int charPositionInLine, [NotNull] string msg, [Nullable] RecognitionException e)
         {
             Logger.Write(line + ":" + charPositionInLine + " " + msg, LogType.SyntaxicError);
-            ErrorsCount++;
+            ErrorsCount++ ;
         }
     }
 }
